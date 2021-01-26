@@ -946,6 +946,7 @@
 		FA8925B521FAB98400246D46 /* AJRPopUpTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRPopUpTextField.m; sourceTree = "<group>"; };
 		FA8925BA21FABB6D00246D46 /* AJRStarsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJRStarsCell.swift; sourceTree = "<group>"; };
 		FA8925BD21FABB6D00246D46 /* AJRStars.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJRStars.swift; sourceTree = "<group>"; };
+		FA8E36C425C0C48400EB554F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FA8F832B0F45E7F40033815D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		FA95DE4B22B46529005EC953 /* AJRInspectorSliceGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorSliceGeometry.swift; sourceTree = "<group>"; };
 		FA95DE4D22B466CD005EC953 /* AJRInspectorSliceGeometryTwoFields.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRInspectorSliceGeometryTwoFields.xib; sourceTree = "<group>"; };
@@ -1282,6 +1283,7 @@
 		0867D691FE84028FC02AAC07 /* AJRInterface */ = {
 			isa = PBXGroup;
 			children = (
+				FA8E36C425C0C48400EB554F /* README.md */,
 				FA2F99880E93F0AA004F1A14 /* AJRInterface.h */,
 				08FB77AEFE84172EC02AAC07 /* Classes */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
