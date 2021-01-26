@@ -311,9 +311,6 @@ open class AJRInspectorViewController: NSViewController {
             if let index = activeInspectors.firstIndex(where: { return AJREqual($0, inspector) }) {
                 // We're already using this inspector, so just remove it from activeInspectors. This may seem backwards, but when we're done, the only thing left in active active inspectors will be ones we're no longer using. These can then be cleared, and we can just add everything in newInspectors to activeInspectors.
                 activeInspectors.remove(at: index)
-            } else {
-                // This inspector wasn't already in use, so we need to initialize it's controller
-                inspector.controller = arrayController
             }
         }
         // At this point, everything in in activeInspectors is no longer in use, so let's clear those out.
@@ -326,6 +323,11 @@ open class AJRInspectorViewController: NSViewController {
 
         // Finally, now that everyone is looking at our array controller, "ping" the array controller to get everyone to update their display.
         arrayController.content = content
+
+        // Now that the arrayController has the new content, we can assign the controller to the inspectors
+        for inspector in newInspectors {
+            inspector.controller = arrayController
+        }
         arrayController.setSelectedObjects(content)
 
         if let view = view {
