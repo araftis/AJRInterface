@@ -1,0 +1,132 @@
+{
+    Connections = {
+        "Connection 28" = {
+            Class = NSNibOutletConnector; 
+            Destination = 22; 
+            Outlet = pageAccessory; 
+            Source = 1; 
+        }; 
+        "Connection 30" = {
+            Action = "pageBackward:"; 
+            Class = NSNibControlConnector; 
+            Destination = 1; 
+            Source = 25; 
+        }; 
+        "Connection 31" = {
+            Action = "pageForward:"; 
+            Class = NSNibControlConnector; 
+            Destination = 1; 
+            Source = 24; 
+        }; 
+        "Connection 35" = {
+            Class = NSNibOutletConnector; 
+            Destination = 34; 
+            Outlet = pageText; 
+            Source = 1; 
+        }; 
+        "Connection 36" = {
+            Action = takePageNumberFrom; 
+            Class = NSNibControlConnector; 
+            Destination = 1; 
+            Source = 34; 
+        }; 
+    }; 
+    Hierarchy = {
+        "Object 1 <NSCustomObject> (File's Owner)" = (
+            {"Object -1 <IBFirstResponder> (First Responder)" = (); }, 
+            {
+                "Object 22 <NSCustomView> (View)" = (
+                    {"Object 32 <NSImageView>" = (); }, 
+                    {"Object 24 <NSButton> (NSButton)" = (); }, 
+                    {"Object 25 <NSButton> (NSButton1)" = (); }, 
+                    {"Object 34 <NSTextField> (NSTextField)" = (); }
+                ); 
+            }
+        ); 
+    }; 
+    Objects = {
+        "Object -1" = {Class = IBFirstResponder; Name = "First Responder"; }; 
+        "Object 1" = {Class = NSCustomObject; CustomClass = AJRScrollView; Name = "File's Owner"; }; 
+        "Object 22" = {
+            AutoresizingMask = (); 
+            Class = NSCustomView; 
+            CustomClass = NSView; 
+            Frame = "{{0.000000, 0.000000}, {155.000000, 15.000000}}"; 
+            Name = View; 
+        }; 
+        "Object 24" = {
+            Alignment = NSCenterTextAlignment; 
+            AlternateImage = "Well Right H"; 
+            AlternateTitle = ""; 
+            AutoresizingMask = (); 
+            Bordered = NO; 
+            Class = NSButton; 
+            Continuous = YES; 
+            Enabled = YES; 
+            Frame = "{{125.000000, 0.000000}, {30.000000, 15.000000}}"; 
+            HighlightsBy = (NSContentsCellMask); 
+            Image = "Well Right"; 
+            ImagePosition = NSImageOnly; 
+            Name = NSButton; 
+            PixelsInset = 2; 
+            Selected = NO; 
+            ShowsStateBy = (NSNoCellMask); 
+            Tag = 0; 
+            Title = "Well Right"; 
+            Transparent = NO; 
+        }; 
+        "Object 25" = {
+            Alignment = NSCenterTextAlignment; 
+            AlternateImage = "Well Left H"; 
+            AlternateTitle = ""; 
+            AutoresizingMask = (); 
+            Bordered = NO; 
+            Class = NSButton; 
+            Continuous = YES; 
+            Enabled = YES; 
+            Frame = "{{0.000000, 0.000000}, {30.000000, 15.000000}}"; 
+            HighlightsBy = (NSContentsCellMask); 
+            Image = "Well Left"; 
+            ImagePosition = NSImageOnly; 
+            Name = NSButton1; 
+            PixelsInset = 2; 
+            Selected = NO; 
+            ShowsStateBy = (NSNoCellMask); 
+            Tag = 0; 
+            Title = "Well Left"; 
+            Transparent = NO; 
+        }; 
+        "Object 32" = {
+            Alignment = NSLeftTextAlignment; 
+            AutoresizingMask = (); 
+            Class = NSImageView; 
+            Editable = NO; 
+            Enabled = YES; 
+            Frame = "{{30.000000, 0.000000}, {95.000000, 15.000000}}"; 
+            Image = "Well Middle"; 
+            ImageAlignment = NSImageAlignCenter; 
+            ImageFrameStyle = NSImageFrameNone; 
+            ImageScaling = NSScaleToFit; 
+            Tag = 0; 
+        }; 
+        "Object 34" = {
+            Alignment = NSCenterTextAlignment; 
+            AutoresizingMask = (); 
+            BackgroundColor = "NSCalibratedWhiteColorSpace 1 0.3"; 
+            Bezeled = NO; 
+            Bordered = NO; 
+            Class = NSTextField; 
+            DrawsBackground = NO; 
+            Editable = YES; 
+            Enabled = YES; 
+            Font = {name = LucidaGrande; pointSize = 11; }; 
+            Frame = "{{20.000000, 0.000000}, {115.000000, 15.000000}}"; 
+            Name = NSTextField; 
+            Scrollable = NO; 
+            Selectable = YES; 
+            StringValue = 000; 
+            Tag = 0; 
+            TextColor = "NSCalibratedWhiteColorSpace 0 1"; 
+        }; 
+    }; 
+}

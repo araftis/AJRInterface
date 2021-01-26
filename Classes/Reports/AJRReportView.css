@@ -1,0 +1,54 @@
+body, table, th, td {
+	font-family: 'Myriad Set','Myriad Pro','Myriad','Arial','Helvetica';
+	font-size: 12px;
+}
+
+th {
+	vertical-align: top;
+	text-align: left;
+}
+
+td {
+	vertical-align: top;
+}
+
+td.number {
+	text-align: right;
+}
+
+tr.even {
+	background-color: #EDF3FE;
+}
+
+tr.odd {
+	background-color: white;
+}
+
+table.report {
+	border: 1px solid #DDDDDD;
+	-webkit-border-top-left-radius: 7.5px;
+	-webkit-border-top-right-radius: 7.5px;
+}
+
+table.report th {
+	background-color: #70A7DE;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+table.report th.sub {
+	background-color: #B5D5FE;
+}
+
+table.report tr:first-child th:first-child {
+	-webkit-border-top-left-radius: 5px;
+}
+
+table.report tr:first-child th:last-child {
+	-webkit-border-top-right-radius: 5px;
+}
+
+table.report td {
+	padding-left: 5px;
+	padding-right: 5px;
+}

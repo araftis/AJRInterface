@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14810.11" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14810.11"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="AJRPNGImageFormat">
+            <connections>
+                <outlet property="progressiveCheck" destination="14" id="17"/>
+                <outlet property="view" destination="5" id="16"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="5" userLabel="View">
+            <rect key="frame" x="0.0" y="0.0" width="298" height="54"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="14">
+                    <rect key="frame" x="22" y="18" width="254" height="18"/>
+                    <buttonCell key="cell" type="check" title="Support Progressive Loading of Image" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="19">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="14" firstAttribute="top" secondItem="5" secondAttribute="top" constant="20" id="8EI-oI-FOR"/>
+                <constraint firstAttribute="bottom" secondItem="14" secondAttribute="bottom" constant="20" id="Ch8-7k-HY3"/>
+                <constraint firstItem="14" firstAttribute="leading" secondItem="5" secondAttribute="leading" constant="24" id="UB8-NB-dfW"/>
+                <constraint firstAttribute="trailing" secondItem="14" secondAttribute="trailing" constant="24" id="tKQ-el-Vtz"/>
+            </constraints>
+            <point key="canvasLocation" x="73" y="149"/>
+        </customView>
+    </objects>
+</document>

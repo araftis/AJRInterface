@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14810.11" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14810.11"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="AJRInspectorSliceNumber" customModule="AJRInterface" customModuleProvider="target">
+            <connections>
+                <outlet property="baselineAnchorView" destination="LPp-Nf-EqE" id="10s-PJ-Osi"/>
+                <outlet property="numberField" destination="LPp-Nf-EqE" id="ZCJ-Z2-Iht"/>
+                <outlet property="stepper" destination="9tv-Bx-mwC" id="Her-Ob-quD"/>
+                <outlet property="subtitleField" destination="JSy-hC-6bh" id="BcC-qE-59W"/>
+                <outlet property="trailingContraintToBreakOnMerge" destination="KRW-r0-teL" id="WYC-Gq-z4f"/>
+                <outlet property="view" destination="OW1-s4-BMn" id="CGm-sn-uye"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="OW1-s4-BMn">
+            <rect key="frame" x="0.0" y="0.0" width="108" height="33"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LPp-Nf-EqE">
+                    <rect key="frame" x="0.0" y="14" width="96" height="19"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" drawsBackground="YES" id="dBu-ET-WZa" customClass="AJRInspectorTextFieldCell" customModule="AJRInterface" customModuleProvider="target">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <action selector="takeNumberFrom:" target="-2" id="2T0-GO-cqf"/>
+                    </connections>
+                </textField>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9tv-Bx-mwC">
+                    <rect key="frame" x="95" y="12" width="15" height="22"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="INq-G5-RhR"/>
+                    <connections>
+                        <action selector="step:" target="-2" id="Ncu-Az-eSA"/>
+                    </connections>
+                </stepper>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JSy-hC-6bh">
+                    <rect key="frame" x="-2" y="0.0" width="100" height="14"/>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="center" title="Label" id="GAg-p2-sds">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="JSy-hC-6bh" firstAttribute="leading" secondItem="LPp-Nf-EqE" secondAttribute="leading" id="0ks-aF-NfS"/>
+                <constraint firstItem="9tv-Bx-mwC" firstAttribute="leading" secondItem="LPp-Nf-EqE" secondAttribute="trailing" constant="1" id="E4j-Ol-WQj"/>
+                <constraint firstItem="JSy-hC-6bh" firstAttribute="trailing" secondItem="LPp-Nf-EqE" secondAttribute="trailing" id="FBs-08-amm"/>
+                <constraint firstAttribute="bottom" secondItem="JSy-hC-6bh" secondAttribute="bottom" id="JWE-1a-A2R"/>
+                <constraint firstAttribute="trailing" secondItem="9tv-Bx-mwC" secondAttribute="trailing" id="KRW-r0-teL"/>
+                <constraint firstItem="JSy-hC-6bh" firstAttribute="top" secondItem="LPp-Nf-EqE" secondAttribute="bottom" id="ZQx-eO-UUg"/>
+                <constraint firstItem="LPp-Nf-EqE" firstAttribute="top" secondItem="OW1-s4-BMn" secondAttribute="top" id="cqi-zd-mOE"/>
+                <constraint firstItem="LPp-Nf-EqE" firstAttribute="leading" secondItem="OW1-s4-BMn" secondAttribute="leading" id="eE4-ec-wk7"/>
+                <constraint firstItem="LPp-Nf-EqE" firstAttribute="centerY" secondItem="9tv-Bx-mwC" secondAttribute="centerY" id="wzv-LI-Mcm"/>
+            </constraints>
+            <point key="canvasLocation" x="-32" y="135"/>
+        </customView>
+    </objects>
+</document>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14810.11" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14810.11"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="AJRInspectorSliceGeometry" customModule="AJRInterface" customModuleProvider="target">
+            <connections>
+                <outlet property="baselineAnchorView" destination="94w-9N-5AK" id="au7-CK-4NW"/>
+                <outlet property="label1" destination="djA-o3-d4P" id="yhw-8E-5Nr"/>
+                <outlet property="label2" destination="UTA-5h-jIR" id="48f-z1-Lqe"/>
+                <outlet property="label3" destination="QEo-ne-sF8" id="Zbh-XK-Lpc"/>
+                <outlet property="label4" destination="G6T-PO-eeJ" id="dAf-1n-7gK"/>
+                <outlet property="linkedButton1" destination="vhU-vz-E2E" id="Yxo-cf-LTl"/>
+                <outlet property="linkedButton2" destination="FQL-Ng-h0w" id="Un4-vC-iqo"/>
+                <outlet property="numberField1" destination="94w-9N-5AK" id="BOC-28-Sba"/>
+                <outlet property="numberField2" destination="AD7-Q8-Ffh" id="1kn-cu-onP"/>
+                <outlet property="numberField3" destination="E0l-7w-0i8" id="jMT-gb-1gi"/>
+                <outlet property="numberField4" destination="aOb-gf-mZa" id="cP9-Nf-V8H"/>
+                <outlet property="stepper1" destination="4xG-En-Ldz" id="A25-oZ-8yv"/>
+                <outlet property="stepper2" destination="aPQ-Hv-lke" id="9jx-tr-ako"/>
+                <outlet property="stepper3" destination="c2U-Rg-Nb4" id="IvL-vg-rTg"/>
+                <outlet property="stepper4" destination="OaJ-2y-otK" id="yri-L1-nnr"/>
+                <outlet property="view" destination="c22-O7-iKe" id="gSn-ci-3gZ"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="228" height="69"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="94w-9N-5AK">
+                    <rect key="frame" x="0.0" y="50" width="97" height="19"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" drawsBackground="YES" id="Jnj-b3-kkK" customClass="AJRInspectorTextFieldCell" customModule="AJRInterface" customModuleProvider="target">
+                        <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#,##0" negativeFormat="#,##0" numberStyle="decimal" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="VeG-dM-akX"/>
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <action selector="setValue1:" target="-2" id="zvs-Ht-JcK"/>
+                    </connections>
+                </textField>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4xG-En-Ldz">
+                    <rect key="frame" x="95" y="48" width="15" height="22"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100000" id="LCX-9E-qIN"/>
+                    <connections>
+                        <action selector="setValue1:" target="-2" id="vl7-xp-jtA"/>
+                    </connections>
+                </stepper>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="djA-o3-d4P">
+                    <rect key="frame" x="30" y="37" width="38" height="13"/>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" title="Label 1" id="fBL-RM-tfg">
+                        <font key="font" metaFont="system" size="10"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vhU-vz-E2E">
+                    <rect key="frame" x="109" y="55" width="10" height="10"/>
+                    <buttonCell key="cell" type="bevel" title="Check" bezelStyle="regularSquare" image="AJRFieldsUnlinked" imagePosition="only" alternateImage="AJRFieldsLinked" controlSize="small" state="on" inset="2" id="MYa-a9-xuz">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="toggleLinked1:" target="-2" id="mt2-tm-6dX"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AD7-Q8-Ffh">
+                    <rect key="frame" x="120" y="50" width="97" height="19"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" drawsBackground="YES" id="Sei-Hb-Lai" customClass="AJRInspectorTextFieldCell" customModule="AJRInterface" customModuleProvider="target">
+                        <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#,##0" negativeFormat="#,##0" numberStyle="decimal" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="fqJ-zK-zxV"/>
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <action selector="setValue2:" target="-2" id="yMS-TM-rSJ"/>
+                    </connections>
+                </textField>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aPQ-Hv-lke">
+                    <rect key="frame" x="215" y="48" width="15" height="22"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100000" id="VyN-eZ-cMN"/>
+                    <connections>
+                        <action selector="setValue2:" target="-2" id="FON-9o-tLF"/>
+                    </connections>
+                </stepper>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UTA-5h-jIR">
+                    <rect key="frame" x="149" y="37" width="40" height="13"/>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" title="Label 2" id="YLa-3h-cgc">
+                        <font key="font" metaFont="system" size="10"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E0l-7w-0i8">
+                    <rect key="frame" x="0.0" y="13" width="97" height="19"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" drawsBackground="YES" id="Ov6-bK-M27" customClass="AJRInspectorTextFieldCell" customModule="AJRInterface" customModuleProvider="target">
+                        <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#,##0" negativeFormat="#,##0" numberStyle="decimal" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="D2i-lQ-Pru"/>
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <action selector="setValue3:" target="-2" id="TrR-oy-CFj"/>
+                    </connections>
+                </textField>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c2U-Rg-Nb4">
+                    <rect key="frame" x="95" y="11" width="15" height="22"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100000" id="0wb-L9-VhT"/>
+                    <connections>
+                        <action selector="setValue3:" target="-2" id="vCv-yU-J5O"/>
+                    </connections>
+                </stepper>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QEo-ne-sF8">
+                    <rect key="frame" x="29" y="0.0" width="40" height="13"/>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" title="Label 3" id="MOd-Qa-wVE">
+                        <font key="font" metaFont="system" size="10"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FQL-Ng-h0w">
+                    <rect key="frame" x="109" y="18" width="10" height="10"/>
+                    <buttonCell key="cell" type="bevel" title="Check" bezelStyle="regularSquare" image="AJRFieldsUnlinked" imagePosition="only" alternateImage="AJRFieldsLinked" controlSize="small" state="on" inset="2" id="EvJ-eH-8dQ">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="toggleLinked2:" target="-2" id="gfr-Pe-bpE"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aOb-gf-mZa">
+                    <rect key="frame" x="120" y="13" width="97" height="19"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" drawsBackground="YES" id="orC-U8-XZx" customClass="AJRInspectorTextFieldCell" customModule="AJRInterface" customModuleProvider="target">
+                        <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#,##0" negativeFormat="#,##0" numberStyle="decimal" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="kXt-zp-b6D"/>
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <action selector="setValue4:" target="-2" id="HVl-km-jV0"/>
+                    </connections>
+                </textField>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OaJ-2y-otK">
+                    <rect key="frame" x="215" y="11" width="15" height="22"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100000" id="g4A-Ei-033"/>
+                    <connections>
+                        <action selector="setValue4:" target="-2" id="T1F-5M-dlz"/>
+                    </connections>
+                </stepper>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="G6T-PO-eeJ">
+                    <rect key="frame" x="149" y="0.0" width="40" height="13"/>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" title="Label 4" id="VGj-4s-3GT">
+                        <font key="font" metaFont="system" size="10"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="QEo-ne-sF8" firstAttribute="top" secondItem="E0l-7w-0i8" secondAttribute="bottom" id="8Qs-Od-7qV"/>
+                <constraint firstItem="E0l-7w-0i8" firstAttribute="centerY" secondItem="c2U-Rg-Nb4" secondAttribute="centerY" id="9Kj-Yh-nQL"/>
+                <constraint firstItem="djA-o3-d4P" firstAttribute="centerX" secondItem="94w-9N-5AK" secondAttribute="centerX" id="ADA-5O-iql"/>
+                <constraint firstItem="QEo-ne-sF8" firstAttribute="centerX" secondItem="E0l-7w-0i8" secondAttribute="centerX" id="EMX-4n-ysd"/>
+                <constraint firstItem="aOb-gf-mZa" firstAttribute="width" secondItem="94w-9N-5AK" secondAttribute="width" id="H5r-HC-Drp"/>
+                <constraint firstItem="94w-9N-5AK" firstAttribute="centerY" secondItem="4xG-En-Ldz" secondAttribute="centerY" id="HLZ-OQ-3qC"/>
+                <constraint firstItem="FQL-Ng-h0w" firstAttribute="leading" secondItem="c2U-Rg-Nb4" secondAttribute="trailing" constant="1" id="JHS-3h-r0c"/>
+                <constraint firstAttribute="bottom" secondItem="QEo-ne-sF8" secondAttribute="bottom" id="Lbs-ZA-dTe"/>
+                <constraint firstItem="aPQ-Hv-lke" firstAttribute="leading" secondItem="AD7-Q8-Ffh" secondAttribute="trailing" id="MY7-nV-BBP"/>
+                <constraint firstItem="E0l-7w-0i8" firstAttribute="firstBaseline" secondItem="aOb-gf-mZa" secondAttribute="firstBaseline" id="NPN-tM-7Lk"/>
+                <constraint firstItem="4xG-En-Ldz" firstAttribute="leading" secondItem="94w-9N-5AK" secondAttribute="trailing" id="OAE-cl-FN0"/>
+                <constraint firstItem="AD7-Q8-Ffh" firstAttribute="centerY" secondItem="aPQ-Hv-lke" secondAttribute="centerY" id="SmE-wO-WbH"/>
+                <constraint firstItem="4xG-En-Ldz" firstAttribute="centerY" secondItem="vhU-vz-E2E" secondAttribute="centerY" id="VEH-kR-u2n"/>
+                <constraint firstItem="94w-9N-5AK" firstAttribute="firstBaseline" secondItem="AD7-Q8-Ffh" secondAttribute="firstBaseline" id="VaA-4P-LIp"/>
+                <constraint firstItem="AD7-Q8-Ffh" firstAttribute="leading" secondItem="vhU-vz-E2E" secondAttribute="trailing" constant="1" id="ZFV-Ra-KK5"/>
+                <constraint firstItem="UTA-5h-jIR" firstAttribute="centerX" secondItem="AD7-Q8-Ffh" secondAttribute="centerX" id="bl8-j6-tF3"/>
+                <constraint firstAttribute="trailing" secondItem="aPQ-Hv-lke" secondAttribute="trailing" id="dGE-Ow-UHv"/>
+                <constraint firstItem="UTA-5h-jIR" firstAttribute="top" secondItem="AD7-Q8-Ffh" secondAttribute="bottom" id="dhf-NO-1eO"/>
+                <constraint firstAttribute="trailing" secondItem="OaJ-2y-otK" secondAttribute="trailing" id="drl-aW-xnK"/>
+                <constraint firstItem="E0l-7w-0i8" firstAttribute="width" secondItem="aOb-gf-mZa" secondAttribute="width" id="geH-nk-xZF"/>
+                <constraint firstItem="OaJ-2y-otK" firstAttribute="leading" secondItem="aOb-gf-mZa" secondAttribute="trailing" id="iEc-4y-jai"/>
+                <constraint firstItem="aOb-gf-mZa" firstAttribute="leading" secondItem="FQL-Ng-h0w" secondAttribute="trailing" constant="1" id="iT3-rR-YmZ"/>
+                <constraint firstItem="c2U-Rg-Nb4" firstAttribute="leading" secondItem="E0l-7w-0i8" secondAttribute="trailing" id="j8H-rJ-bL6"/>
+                <constraint firstItem="djA-o3-d4P" firstAttribute="top" secondItem="94w-9N-5AK" secondAttribute="bottom" id="lMu-I0-Fpz"/>
+                <constraint firstItem="E0l-7w-0i8" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="oDU-qq-72c"/>
+                <constraint firstItem="94w-9N-5AK" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="pBa-X4-pPJ"/>
+                <constraint firstItem="E0l-7w-0i8" firstAttribute="width" secondItem="94w-9N-5AK" secondAttribute="width" id="pfG-Qv-m3T"/>
+                <constraint firstItem="94w-9N-5AK" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="rPM-3S-HS5"/>
+                <constraint firstItem="G6T-PO-eeJ" firstAttribute="top" secondItem="aOb-gf-mZa" secondAttribute="bottom" id="sTx-HK-qpd"/>
+                <constraint firstItem="aOb-gf-mZa" firstAttribute="centerY" secondItem="OaJ-2y-otK" secondAttribute="centerY" id="tl7-v2-ziG"/>
+                <constraint firstItem="c2U-Rg-Nb4" firstAttribute="centerY" secondItem="FQL-Ng-h0w" secondAttribute="centerY" id="uTY-yC-YFq"/>
+                <constraint firstItem="94w-9N-5AK" firstAttribute="width" secondItem="AD7-Q8-Ffh" secondAttribute="width" id="vkw-MP-7cE"/>
+                <constraint firstItem="vhU-vz-E2E" firstAttribute="leading" secondItem="4xG-En-Ldz" secondAttribute="trailing" constant="1" id="w3D-hk-zNB"/>
+                <constraint firstItem="E0l-7w-0i8" firstAttribute="top" secondItem="djA-o3-d4P" secondAttribute="bottom" constant="5" id="wat-7D-Cme"/>
+                <constraint firstItem="G6T-PO-eeJ" firstAttribute="centerX" secondItem="aOb-gf-mZa" secondAttribute="centerX" id="xq4-Qk-70g"/>
+            </constraints>
+            <point key="canvasLocation" x="520" y="-217.5"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="AJRFieldsLinked" width="10" height="10"/>
+        <image name="AJRFieldsUnlinked" width="10" height="10"/>
+    </resources>
+</document>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="AJRWebView">
+            <connections>
+                <outlet property="searchAccessory" destination="c22-O7-iKe" id="Rej-ru-4aY"/>
+                <outlet property="searchButton" destination="9Ze-qu-vOZ" id="GOn-vs-MjN"/>
+                <outlet property="searchMessage" destination="di7-5F-Gef" id="nZq-NZ-lTm"/>
+                <outlet property="searchNavigation" destination="sZm-Ra-zOC" id="PAe-n0-ZHd"/>
+                <outlet property="searchText" destination="rlw-6r-TdM" id="W3X-g3-bS2"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe" customClass="AJRFlippedView">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="31"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Ze-qu-vOZ">
+                    <rect key="frame" x="423" y="0.0" width="54" height="28"/>
+                    <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YWG-Eq-BoM">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="hideSearchBar:" target="-2" id="owS-UD-pwn"/>
+                        <binding destination="-2" name="title" keyPath="translator.Done" id="ES4-4p-wA4"/>
+                    </connections>
+                </button>
+                <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rlw-6r-TdM" customClass="AJRForwardingSearchField" customModule="AJRInterface" customModuleProvider="target">
+                    <rect key="frame" x="270" y="5" width="150" height="19"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="150" id="TPT-SI-Z8p"/>
+                    </constraints>
+                    <searchFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="dHW-Mb-mSM">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </searchFieldCell>
+                    <connections>
+                        <action selector="takeSearchFrom:" target="-2" id="u3v-W6-ED7"/>
+                    </connections>
+                </searchField>
+                <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sZm-Ra-zOC">
+                    <rect key="frame" x="226" y="5" width="37" height="18"/>
+                    <segmentedCell key="cell" controlSize="small" borderStyle="border" alignment="left" style="roundRect" trackingMode="momentary" id="T2L-Xf-AJy">
+                        <font key="font" metaFont="smallSystem"/>
+                        <segments>
+                            <segment image="AJRWebSearchPrevious" width="16"/>
+                            <segment image="AJRWebSearchNext" width="16" tag="1"/>
+                        </segments>
+                    </segmentedCell>
+                    <connections>
+                        <action selector="navigateSearch:" target="-2" id="upN-1V-16h"/>
+                    </connections>
+                </segmentedControl>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="di7-5F-Gef">
+                    <rect key="frame" x="215" y="8" width="4" height="14"/>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" id="PAn-Pd-dMS">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="di7-5F-Gef" firstAttribute="firstBaseline" secondItem="sZm-Ra-zOC" secondAttribute="firstBaseline" id="3FJ-Za-TyP"/>
+                <constraint firstItem="rlw-6r-TdM" firstAttribute="leading" secondItem="sZm-Ra-zOC" secondAttribute="trailing" constant="8" id="4KV-95-893"/>
+                <constraint firstItem="rlw-6r-TdM" firstAttribute="firstBaseline" secondItem="9Ze-qu-vOZ" secondAttribute="firstBaseline" id="8Fa-KQ-QSu"/>
+                <constraint firstItem="9Ze-qu-vOZ" firstAttribute="leading" secondItem="rlw-6r-TdM" secondAttribute="trailing" constant="8" id="NRJ-Ce-acb"/>
+                <constraint firstItem="sZm-Ra-zOC" firstAttribute="leading" secondItem="di7-5F-Gef" secondAttribute="trailing" constant="10" id="Rao-xW-WSu"/>
+                <constraint firstItem="9Ze-qu-vOZ" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="YgL-f8-t3B"/>
+                <constraint firstAttribute="trailing" secondItem="9Ze-qu-vOZ" secondAttribute="trailing" constant="8" id="o60-WF-At4"/>
+                <constraint firstItem="sZm-Ra-zOC" firstAttribute="firstBaseline" secondItem="rlw-6r-TdM" secondAttribute="firstBaseline" id="prj-D4-RmB"/>
+            </constraints>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                    <color key="value" white="0.95999999999999996" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="borderIsHairline" value="YES"/>
+                <userDefinedRuntimeAttribute type="color" keyPath="borderColorBottom">
+                    <color key="value" white="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+        </customView>
+    </objects>
+    <resources>
+        <image name="AJRWebSearchNext" width="6" height="7"/>
+        <image name="AJRWebSearchPrevious" width="6" height="7"/>
+    </resources>
+</document>

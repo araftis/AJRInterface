@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<group titleKeyPath="translator.Track Properties">
+    <section>
+        <slice type="string" titleKeyPath="translator.Name" valueKeyPath="arrayController.selection.userDataName" />
+        <slice type="choice" titleKeyPath="translator.Forced" contentKeyPath="forcedOptions" contentTitleKeyPath="title" contentValueKeyPath="value">
+        </slice>
+    </section>
+</group>

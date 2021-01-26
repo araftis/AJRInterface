@@ -1,0 +1,39 @@
+// !$*UTF8*$!
+{
+    0867D690FE84028FC02AAC07 /* Project object */ = {
+        activeBuildConfigurationName = Debug;
+        activeTarget = 8DC2EF4F0486A6940098B216 /* AJRInterface */;
+        codeSenseManager = FA4C898911B70333003BD2C6 /* Code sense */;
+        perUserDictionary = {
+            PBXPerProjectTemplateStateSaveDate = 303689142;
+            PBXWorkspaceStateSaveDate = 303689142;
+        };
+        sourceControlManager = FA7516C11219EDD500544072 /* Source Control */;
+        userBuildSettings = {
+        };
+    };
+    8DC2EF4F0486A6940098B216 /* AJRInterface */ = {
+        activeExec = 0;
+    };
+    FA4C898911B70333003BD2C6 /* Code sense */ = {
+        isa = PBXCodeSenseManager;
+        indexTemplatePath = "";
+    };
+    FA7516C11219EDD500544072 /* Source Control */ = {
+        isa = PBXSourceControlManager;
+        fallbackIsa = XCSourceControlManager;
+        isSCMEnabled = 0;
+        scmConfiguration = {
+            repositoryNamesForRoots = {
+                "" = "";
+            };
+        };
+    };
+    FA87BA4B0F4B627A00383FD5 /* AJRButtonTextField.m */ = {
+        uiCtxt = {
+            sepNavIntBoundsRect = "{{0, 0}, {846, 1088}}";
+            sepNavSelRange = "{256, 1}";
+            sepNavVisRange = "{85, 655}";
+        };
+    };
+}

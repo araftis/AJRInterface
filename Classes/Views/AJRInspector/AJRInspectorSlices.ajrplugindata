@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<plugindata owner="com.ajr.framework.AJRInterface" version="1">
+    <extension-point name="ajr_inspector_slice" class="AJRInterface.AJRInspectorSlice" registrySelector="registerSlice:properties:">
+        <attribute name="type" type="string" required="YES" />
+        <attribute name="class" type="class" required="YES" />
+    </extension-point>
+    
+    <ajr_inspector_slice type="boolean" class="AJRInterface.AJRInspectorSliceBoolean" />
+    <ajr_inspector_slice type="button" class="AJRInterface.AJRInspectorSliceButton" />
+    <ajr_inspector_slice type="choice" class="AJRInterface.AJRInspectorSliceChoice" />
+    <ajr_inspector_slice type="color" class="AJRInterface.AJRInspectorSliceColor" />
+    <ajr_inspector_slice type="date" class="AJRInterface.AJRInspectorSliceDate" />
+    <ajr_inspector_slice type="float" class="AJRInterface.AJRInspectorSliceNumber" />
+    <ajr_inspector_slice type="integer" class="AJRInterface.AJRInspectorSliceNumber" />
+    <ajr_inspector_slice type="timeInterval" class="AJRInterface.AJRInspectorSliceNumber" />
+    <ajr_inspector_slice type="level" class="AJRInterface.AJRInspectorSliceLevel" />
+    <ajr_inspector_slice type="string" class="AJRInterface.AJRInspectorSliceString" />
+    <ajr_inspector_slice type="attributedString" class="AJRInterface.AJRInspectorSliceAttributedString" />
+    <ajr_inspector_slice type="table" class="AJRInterface.AJRInspectorSliceTable" />
+    <ajr_inspector_slice type="font" class="AJRInterface.AJRInspectorSliceFont" />
+    <ajr_inspector_slice type="size" class="AJRInterface.AJRInspectorSliceGeometry" />
+    <ajr_inspector_slice type="point" class="AJRInterface.AJRInspectorSliceGeometry" />
+    <ajr_inspector_slice type="rect" class="AJRInterface.AJRInspectorSliceGeometry" />
+    <ajr_inspector_slice type="insets" class="AJRInterface.AJRInspectorSliceGeometry" />
+    <ajr_inspector_slice type="test" class="AJRInterface.AJRInspectorSliceTest" />
+
+    <extension-point name="ajr_inspector" class="AJRInterface.AJRInspectorViewController" registrySelector="registerInspector:properties:">
+        <attribute name="class" type="class" defaultValue="AJRInterface.AJRObjectInspectorViewController" />
+        <attribute name="xml" type="string" />
+        <attribute name="bundle" type="bundle" required="true" defaultValue="$xml-bundle" defaultValueIsLazy="true" />
+        <attribute name="identifier" type="string" required="true" />
+    </extension-point>
+</plugindata>

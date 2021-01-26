@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:as="http://store.apple.com/">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Exception Report</title>
+	<link rel="StyleSheet" type="text/css" href="bundle://AJRInterface/AJRReportView.css" />
+</head>
+
+<body>
+
+	<h1>Uncaught Exception Report</h1>
+
+	<table>
+		<tr>
+			<th>Name:</th>
+			<td><as:string value="root.name" /></td>
+		</tr>
+		<tr>
+			<th>Reason:</th>
+			<td><as:string value="root.description" /></td>
+		</tr>
+		<tr>
+			<th>Problem Report:</th>
+			<td id="problemReport">&lt;Your description goes here&gt;</td>
+		</tr>
+		<tr>
+			<th>Stack Trace:</th>
+			<td></td>
+		</tr>
+	</table>
+
+	<table class="report">
+		<tr>
+			<th>#</th>
+			<th>Address</th>
+			<th>Symbol</th>
+			<th>File</th>
+		</tr>
+		<as:repetition list="root.stackTrace" item="stackFrame" index="frameIndex"><tr as:rowkey="frameIndex">
+			<td><as:string value="stackFrame.index"/></td>
+			<td><as:string value="stackFrame.address"/></td>
+			<td><as:string value="stackFrame.displaySymbol"/></td>
+			<td><as:string value="stackFrame.filename"/></td>
+		</tr></as:repetition>
+	</table>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14810.11" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14810.11"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="AJRInspectorSliceField" customModule="AJRInterface" customModuleProvider="target">
+            <connections>
+                <outlet property="baselineAnchorView" destination="T4A-dI-U1o" id="z5w-LY-LmU"/>
+                <outlet property="field" destination="T4A-dI-U1o" id="Sk6-9l-HfN"/>
+                <outlet property="heightConstraint" destination="Jf1-Ks-z21" id="vBx-hq-DUr"/>
+                <outlet property="view" destination="T4A-dI-U1o" id="z4k-8y-kNs"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="T4A-dI-U1o" customClass="AJRInspectorTextField" customModule="AJRInterface" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="175" height="19"/>
+            <constraints>
+                <constraint firstAttribute="height" constant="19" id="Jf1-Ks-z21"/>
+                <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="50" id="S1A-Rt-tRg"/>
+            </constraints>
+            <textFieldCell key="cell" controlSize="small" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="vGr-hO-WGZ" customClass="AJRInspectorTextFieldCell" customModule="AJRInterface" customModuleProvider="target">
+                <font key="font" metaFont="smallSystem"/>
+                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+            </textFieldCell>
+            <connections>
+                <action selector="takeValueFrom:" target="-2" id="A7x-IK-vs0"/>
+                <outlet property="delegate" destination="-2" id="0nX-OP-umU"/>
+            </connections>
+            <point key="canvasLocation" x="68.5" y="-2"/>
+        </textField>
+    </objects>
+</document>

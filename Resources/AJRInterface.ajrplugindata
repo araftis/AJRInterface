@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<plugindata owner="com.ajr.framework.AJRInterface" version="1">
+    <extension-point name="ajrpreferencesmodule" class="AJRPreferences" registrySelector="registerPreferencesModule:properties:">
+        <attribute name="name" type="string" required="YES" />
+        <attribute name="image" type="string" />
+        <attribute name="tooltip" type="string" />
+        <attribute name="preferred" type="boolean" defaultValue="YES" />
+    </extension-point>
+</plugindata>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="AJRInspectorSliceLevel" customModule="AJRInterface" customModuleProvider="target">
+            <connections>
+                <outlet property="baselineAnchorView" destination="285-vd-j1C" id="hyP-M2-hZz"/>
+                <outlet property="levelIndicator" destination="285-vd-j1C" id="Fuu-mo-AYm"/>
+                <outlet property="view" destination="285-vd-j1C" id="HGL-ao-HKb"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <levelIndicator verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="285-vd-j1C" customClass="AJRStars" customModule="AJRInterface" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="96" height="12"/>
+            <levelIndicatorCell key="cell" alignment="left" doubleValue="2" maxValue="2" levelIndicatorStyle="rating" id="oQB-cN-WfW" customClass="AJRStarsCell" customModule="AJRInterface" customModuleProvider="target"/>
+            <connections>
+                <action selector="takeLevelFrom:" target="-2" id="XCp-3K-6D0"/>
+            </connections>
+            <point key="canvasLocation" x="96" y="59"/>
+        </levelIndicator>
+    </objects>
+</document>

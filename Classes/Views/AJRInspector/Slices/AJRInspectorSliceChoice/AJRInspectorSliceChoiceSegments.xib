@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14810.11" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14810.11"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="AJRInspectorSliceChoice" customModule="AJRInterface" customModuleProvider="target">
+            <connections>
+                <outlet property="baselineAnchorView" destination="ggM-fq-N8O" id="YyG-oI-ciY"/>
+                <outlet property="segments" destination="ggM-fq-N8O" id="BYw-gI-oe5"/>
+                <outlet property="view" destination="ggM-fq-N8O" id="Bhr-OB-Tcs"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ggM-fq-N8O">
+            <rect key="frame" x="0.0" y="0.0" width="128" height="21"/>
+            <segmentedCell key="cell" controlSize="small" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="0tJ-xy-fk5">
+                <font key="font" metaFont="smallSystem"/>
+                <segments>
+                    <segment width="40"/>
+                    <segment width="40" selected="YES" tag="1"/>
+                    <segment width="40">
+                        <nil key="label"/>
+                    </segment>
+                </segments>
+            </segmentedCell>
+            <point key="canvasLocation" x="151" y="155"/>
+        </segmentedControl>
+    </objects>
+</document>

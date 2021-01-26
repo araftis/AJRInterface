@@ -1,0 +1,92 @@
+{
+	components = (
+		{
+			color = "NSCalibratedRGBColorSpace 0.10980392156862745098 0.0 0.81176470588235294117 1.0";
+			charset = "1234567890.";
+			name = "Numbers";
+			type = "Number";
+		}, {
+			color = "NSCalibratedRGBColorSpace 0.76862745098039215686 0.10196078431372549019 0.08627450980392156862 1.0";
+			end = "\"";
+			escapeChar = "\\";
+			name = "Strings";
+			start = "\"";
+			type = "String";
+		}, {
+			color = "NSCalibratedRGBColorSpace 0.10980392156862745098 0.0 0.81176470588235294117 1.0";
+			end = "'";
+			escapeChar = "\\";
+			name = "Characters";
+			start = "'";
+			type = "String";
+		}, {
+			color = "NSCalibratedRGBColorSpace 0.66666666666666666666 0.05098039215686274509 0.56862745098039215686 1.0";
+			charset = "abcdefghijklmnopqrstuvwxyz";
+			keywords = (
+				"super",
+				"void",
+				"this",
+				"return",
+				"enum",
+				"char",
+				"long",
+				"int",
+				"short",
+				"float",
+				"double",
+				"null",
+				"else",
+				"if",
+				"do",
+				"while",
+				"for",
+				"break",
+				"case",
+				"default",
+				"continue",
+				"goto",
+				"switch",
+				"const",
+				"static",
+				"volatile",
+				"extern",
+				"boolean",
+				"true",
+				"false",
+				"try",
+				"catch",
+				"finally",
+				"throw",
+				"class",
+				"interface",
+				"new",
+				"null"
+			);
+			name = "Identifiers";
+			type = "Keywords";
+		}, {
+			color = "NSCalibratedRGBColorSpace 0.39215686274509803921 0.21960784313725490196 0.12549019607843137254 1.0";
+			name = "Preprocessor";
+			start = "import";
+			type = "OneLineComment";
+		}, {
+			color = "NSCalibratedRGBColorSpace 0.65882352941176470588 0.65882352941176470588 0.65882352941176470588 1.0";
+			name = "One Line Comments";
+			start = "//";
+			type = "OneLineComment";
+		}, {
+			color = "NSCalibratedRGBColorSpace 0.65882352941176470588 0.65882352941176470588 0.65882352941176470588 1.0";
+			end = "*/";
+			name = "Comments";
+			start = "/*";
+			type = "BlockComment";
+		}, {
+			name = "Text";
+			type = "Text";
+			color = "NSNamedColorSpace System textColor";
+			backgroundColor = "NSNamedColorSpace System textBackgroundColor";
+			font = "Monaco 10.0";
+		}
+	);
+	fileNameSuffixes = ( "groovy" );
+}

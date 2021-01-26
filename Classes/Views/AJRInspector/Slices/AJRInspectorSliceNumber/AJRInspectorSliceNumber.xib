@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14810.11" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14810.11"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="AJRInspectorSliceNumber" customModule="AJRInterface" customModuleProvider="target">
+            <connections>
+                <outlet property="baselineAnchorView" destination="7qQ-Ak-oWg" id="h2u-pr-PLa"/>
+                <outlet property="numberField" destination="7qQ-Ak-oWg" id="R9V-JR-Pjc"/>
+                <outlet property="stepper" destination="BDP-Op-5Qm" id="r4H-AN-zzX"/>
+                <outlet property="view" destination="c22-O7-iKe" id="dNw-iX-d1P"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="108" height="19"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7qQ-Ak-oWg">
+                    <rect key="frame" x="0.0" y="0.0" width="96" height="19"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" drawsBackground="YES" id="gbv-BH-XDG" customClass="AJRInspectorTextFieldCell" customModule="AJRInterface" customModuleProvider="target">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <action selector="takeNumberFrom:" target="-2" id="3e9-bQ-E9l"/>
+                    </connections>
+                </textField>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BDP-Op-5Qm">
+                    <rect key="frame" x="95" y="-2" width="15" height="22"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="e4t-aY-9vU"/>
+                    <connections>
+                        <action selector="step:" target="-2" id="93l-E1-Tkc"/>
+                    </connections>
+                </stepper>
+            </subviews>
+            <constraints>
+                <constraint firstItem="BDP-Op-5Qm" firstAttribute="leading" secondItem="7qQ-Ak-oWg" secondAttribute="trailing" constant="1" id="1C4-1g-J64"/>
+                <constraint firstItem="7qQ-Ak-oWg" firstAttribute="centerY" secondItem="BDP-Op-5Qm" secondAttribute="centerY" id="7xO-pe-FFs"/>
+                <constraint firstItem="7qQ-Ak-oWg" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="98P-gx-fyq"/>
+                <constraint firstAttribute="trailing" secondItem="BDP-Op-5Qm" secondAttribute="trailing" id="Vkk-Up-UbJ"/>
+                <constraint firstItem="7qQ-Ak-oWg" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="cRC-Yo-CKy"/>
+                <constraint firstAttribute="bottom" secondItem="7qQ-Ak-oWg" secondAttribute="bottom" id="wZR-0U-Yuf"/>
+            </constraints>
+            <point key="canvasLocation" x="-32" y="49"/>
+        </customView>
+    </objects>
+</document>

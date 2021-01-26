@@ -1,0 +1,39 @@
+%!PS-Adobe-2.0 EPSF-2.0
+%%Creator: alex
+%%Title: ASInspectorIcon
+%%CreationDate: October 19, 2001
+%%DocumentFonts: (atend)
+%%Pages: (atend)
+%%BoundingBox: 0 0 48 48
+%%EndComments
+
+/m 15 def
+m -1 1 {
+	/i exch def
+	i setlinewidth
+	48 360 div m i sub m div 1 sethsbcolor
+	m i sub 15 div setalpha
+	newpath
+		40 24 moveto
+		24 24 16 0 360 arc
+	i 1 eq {
+		fill
+	} {
+		stroke
+	} ifelse
+} for
+
+0 setgray
+/Helvetica-Bold 42 selectfont
+/x 24 (?) stringwidth pop 2 div sub def
+/y 9 def
+x y moveto
+(?) show
+x y moveto
+48 360 div 1 .5 sethsbcolor
+1 setlinejoin
+(?) false charpath stroke
+
+%%Trailer
+%%DocumentFonts: 
+%%EOF

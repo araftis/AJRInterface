@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14810.11" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14810.11"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="AJRInspectorSliceChoice" customModule="AJRInterface" customModuleProvider="target">
+            <connections>
+                <outlet property="baselineAnchorView" destination="B1v-q5-cWo" id="0JG-nS-8Ga"/>
+                <outlet property="popUpButton" destination="B1v-q5-cWo" id="3aj-Bc-xnp"/>
+                <outlet property="view" destination="B1v-q5-cWo" id="tID-ay-3tM"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="B1v-q5-cWo">
+            <rect key="frame" x="0.0" y="0.0" width="146" height="22"/>
+            <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="gh6-bE-r2f" id="53C-rx-l6Q">
+                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                <font key="font" metaFont="smallSystem"/>
+                <menu key="menu" id="aig-XZ-IeV">
+                    <items>
+                        <menuItem title="Item 1" state="on" id="gh6-bE-r2f"/>
+                        <menuItem title="Item 2" id="kVp-B1-PgY"/>
+                        <menuItem title="Item 3" id="5D6-4s-hMd"/>
+                    </items>
+                </menu>
+            </popUpButtonCell>
+            <point key="canvasLocation" x="77" y="63.5"/>
+        </popUpButton>
+    </objects>
+</document>

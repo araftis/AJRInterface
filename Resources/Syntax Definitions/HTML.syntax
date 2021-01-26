@@ -1,0 +1,63 @@
+{
+	components = (
+		{
+			color = "NSCalibratedRGBColorSpace 0.00 0.14 0.95 1.00";
+			end = "\"";
+			escapeChar = "";
+			name = "Strings";
+			start = "\"";
+			type = "String";
+		}, {
+			color = "NSCalibratedRGBColorSpace 0.00 0.14 0.95 1.00";
+			end = "'";
+			escapeChar = "";
+			name = "Single Strings";
+			start = "'";
+			type = "String";
+		}, {
+			color = "NSCalibratedRGBColorSpace 0.64 0.24 0.00 1.0";
+			charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+			keywords = (
+			);
+			name = "Tag Attribute Names";
+			type = "Keywords";
+		}, {
+			color = "NSCalibratedRGBColorSpace 0.75 0.75 0.75 1.0";
+			start = "<!";
+			end = ">";
+			ignoreComponent = "String";
+			name = "Meta Tags";
+			type = "Tag";
+			recolorComponents = ( "Strings", "Single Strings" );
+		}, {
+			color = "NSCalibratedRGBColorSpace 0.57 0.00 0.51 1.0";
+			start = "<";
+			end = ">";
+			ignoreComponent = "String";
+			name = "Tags";
+			type = "Tag";
+			recolorComponents = ( "Strings", "Single Strings" );
+		}, {
+			color = "NSCalibratedRGBColorSpace 0.2 0.5 0.2 1.0";
+			start = "&";
+			end = ";";
+			escapeChar = "";
+			name = "Character Entities";
+			type = "String";
+		}, {
+			color = "NSCalibratedRGBColorSpace 0.00 0.44 0.12 1.0";
+			name = "Comments";
+			start = "<!--";
+			end = "-->";
+			type = "BlockComment";
+			name = "Comments";
+			type = "BlockComment";
+		}, {
+			name = "Text";
+			type = "Text";
+			color = "NSNamedColorSpace System textColor";
+			backgroundColor = "NSNamedColorSpace System textBackgroundColor";
+			font = "Monaco 11.0";
+		}
+	);
+}

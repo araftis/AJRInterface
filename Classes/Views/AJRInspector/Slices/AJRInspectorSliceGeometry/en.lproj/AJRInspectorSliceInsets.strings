@@ -1,0 +1,12 @@
+/* 
+  File.strings
+  AJRInterface
+
+  Created by AJ Raftis on 6/16/19.
+  
+*/
+
+"Top" = "Top";
+"Left" = "Left";
+"Bottom" = "Bottom";
+"Right" = "Right";

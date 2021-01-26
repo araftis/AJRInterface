@@ -1,0 +1,64 @@
+/* 
+   AJRCalendarView.strings
+   AJRInterface
+
+   Created by A.J. Raftis on 8/24/09.
+   Copyright 2009 A.J. Raftis. All rights reserved.
+ */
+
+/* Names of the various renderers */
+"Day" = "Day";
+"Week" = "Week";
+"Month" = "Month";
+"Year" = "Year";
+
+/* Inspector fields */
+"location" = "location";
+"all-day" = "all-day";
+"from" = "from";
+"to" = "to";
+"repeat" = "repeat";
+"end" = "end";
+"calendar" = "calendar";
+"alarm" = "alarm";
+"attendees" = "attendees";
+"my status" = "my status";
+"url" = "url";
+"note" = "note";
+
+/* Inspector buttons / actions */
+"Done" = "Done";
+"Edit" = "Edit";
+
+/* Calendar alarms */
+"On" = "On"; /* In the sense of "The alarm happens on x date" */
+"before" = "before";
+"after" = "after";
+"minute" = "minute";
+"hour" = "hour";
+"day" = "day";
+"None" = "None";
+"Messge with sound" = "Messge with sound";
+"Message" = "Message";
+"Email" = "Email";
+"Run script" = "Run script";
+"Open file" = "Open file";
+"Play sound" = "Play sound";
+"Open" = "Open";
+
+/* Calendar recurrence rules */
+"Every day" = "Every day";
+"Every week" = "Every week";
+"Every month" = "Every month";
+"Every year" = "Every year";
+"Custom" = "Custom…";
+"Every %d days" = "Every %d days";
+"Every %d weeks" = "Every %d weeks";
+"Every %d months" = "Every %d months";
+"Every %d years" = "Every %d years";
+"on" = "on"; /* In the sense of "The alarm happens on x date" */
+"and" = "and";
+"After %d time" = "After %d time";
+"After %d times" = "After %d times";
+"Unknown" = "Unknown";
+"Never" = "Never";

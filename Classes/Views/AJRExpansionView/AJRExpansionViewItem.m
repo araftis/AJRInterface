@@ -1,0 +1,35 @@
+//
+//  AJRExpansionViewItem.m
+//  Product Manager
+//
+//  Created by A.J. Raftis on 8/4/08.
+//  Copyright 2008 A.J. Raftis. All rights reserved.
+//
+
+#import "AJRExpansionViewItem.h"
+
+#import "AJRExpansionView.h"
+
+static NSInteger titleCount = 0;
+
+@implementation AJRExpansionViewItem
+
++ (void)initialize
+{
+    [self exposeBinding:@"title"];
+}
+
+
+@synthesize title;
+
+- (NSString *)title
+{
+    @synchronized (self) {
+        if (title == nil) {
+            title = [NSString stringWithFormat:@"Untitled Section %ld", titleCount++];
+        }
+    }
+    return title;
+}
+
+@end

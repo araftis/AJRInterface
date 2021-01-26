@@ -1,0 +1,141 @@
+//
+//  AJRInspectorSection.swift
+//  AJRInterface
+//
+//  Created by AJ Raftis on 3/17/19.
+//
+
+import Cocoa
+
+@objcMembers
+open class AJRInspectorSection: AJRInspectorElement {
+    
+    // MARK: - Properties
+    
+    open var borderMarginTopKey : AJRInspectorKey<CGFloat>!
+    open var borderMarginBottomKey : AJRInspectorKey<CGFloat>!
+    open var borderColorTopKey : AJRInspectorKey<NSColor>?
+    open var borderColorBottomKey : AJRInspectorKey<NSColor>?
+    
+    // MARK: - Creation
+    
+    public required init(element: XMLNode, parent: AJRInspectorElement?, viewController: AJRObjectInspectorViewController, bundle: Bundle = Bundle.main, userInfo: [AnyHashable:Any]? = nil) throws {
+        try super.init(element: element, parent: parent, viewController: viewController, bundle: bundle, userInfo: userInfo)
+        if let element = element as? XMLElement {
+            try buildView(from: element)
+            if let children = element.children {
+                for childNode in children {
+                    if childNode.kind == .element, let childNode = childNode as? XMLElement {
+                        add(child: try createChild(from: childNode))
+                    }
+                }
+                if let childToAdd = self.childToAdd {
+                    add(child: childToAdd)
+                }
+                if let lastView = view.subviews.last {
+                    view.addConstraints([
+                        lastView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -self.bottomMargin)
+                        ])
+                }
+            }
+        }
+    }
+    
+    // MARK: - View
+    
+    internal var debugXColor : NSColor { return NSColor.purple }
+    
+    open var borderRenderer : AJRDrawingBlock? {
+        if let parent = parent as? AJRInspectorSection, parent.childToAdd != nil {
+            weak var weakSelf = self
+            return { (context, bounds) in
+                if let strongSelf = weakSelf {
+                    if let color = strongSelf.borderColorTopKey?.value, !strongSelf.isFirstChild {
+                        color.set()
+                        NSBezierPath.strokeLine(from: NSPoint(x: bounds.minX + 7.0, y: bounds.maxY - 0.5), to: NSPoint(x: bounds.maxX - 7.0, y: bounds.maxY - 0.5));
+                    }
+                    if let color = strongSelf.borderColorBottomKey?.value {
+                        color.set()
+                        NSBezierPath.strokeLine(from: NSPoint(x: bounds.minX + 7.0, y: bounds.minY + 0.5), to: NSPoint(x: bounds.maxX - 7.0, y: bounds.minY + 0.5));
+                    }
+                }
+            }
+        }
+        return nil
+    }
+    
+    open var defaultTopMargin : CGFloat { return 6.0 }
+    open var defaultBottomMargin : CGFloat { return 1.0 }
+    open var topMargin : CGFloat { return borderMarginTopKey.value! }
+    open var bottomMargin : CGFloat { return borderMarginBottomKey.value! }
+
+    open func buildView(from element: XMLElement) throws -> Void {
+        borderMarginTopKey = try AJRInspectorKey(key: "borderMarginTop", xmlElement: element, inspectorElement: self, defaultValue: defaultTopMargin)
+        borderMarginBottomKey = try AJRInspectorKey(key: "borderMarginBottom", xmlElement: element, inspectorElement: self, defaultValue: defaultBottomMargin)
+        borderColorTopKey = try AJRInspectorKey(key: "borderColorTop", xmlElement: element, inspectorElement: self, defaultValue: NSColor(named: .inspectorDividerColor, bundle:Bundle(for: Self.self)))
+        borderColorBottomKey = try AJRInspectorKey(key: "borderColorBottom", xmlElement: element, inspectorElement: self)
+        
+        let view = AJRBlockDrawingView(frame: NSRect.zero)
+        if viewController?.debugFrames ?? false {
+            view.xColor = debugXColor
+        }
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentRenderer = borderRenderer
+        self.view = view
+    }
+    
+    // MARK: - Children
+    
+    open func verticalSpacing(fromView view: NSView) -> CGFloat {
+        return 0.0
+    }
+    
+    open func createChild(from element: XMLElement) throws -> AJRInspectorElement {
+        switch element.name {
+        case "slice":
+            return try AJRInspectorSlice.slice(from: element, parent: self, viewController: viewController!)
+        default:
+            throw NSError(domain: AJRInspectorErrorDomain, message: "Invalid child in section: \(element)")
+        }
+    }
+    
+    private var childToAdd : AJRInspectorElement? = nil
+    open override func add(child: AJRInspectorElement) {
+        if let childToAdd = childToAdd {
+            // Capture this, so that we can determine who our adjacent ancestor is, after we've added. This is easier than dealing with indexes into our children array.
+            let lastView = view.subviews.last
+            super.add(child: childToAdd)
+            
+            var childView : NSView? = nil
+            if child !== childToAdd && child.canMergeWithElement(childToAdd) {
+                childToAdd.mergeViewWithRightAdjacentSibling(child)
+                childView = childToAdd.view
+                super.add(child: child)
+                self.childToAdd = nil
+            } else {
+                childView = childToAdd.view
+                self.childToAdd = child
+            }
+            
+            if let view = self.view, let childView = childView {
+                view.addSubview(childView)
+                view.addConstraints([
+                    childView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0.0),
+                    childView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0.0),
+                    ])
+                if let lastView = lastView {
+                    view.addConstraints([
+                        childView.topAnchor.constraint(equalTo: lastView.bottomAnchor, constant: verticalSpacing(fromView: lastView)),
+                        ])
+                } else {
+                    view.addConstraints([
+                        childView.topAnchor.constraint(equalTo: view.topAnchor, constant: self.topMargin),
+                        ])
+                }
+            }
+        } else {
+            self.childToAdd = child
+        }
+    }
+    
+}

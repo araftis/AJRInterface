@@ -1,0 +1,209 @@
+//
+//  AJRInspectorContent.swift
+//  AJRInterface
+//
+//  Created by AJ Raftis on 3/17/19.
+//
+
+import Cocoa
+
+public let AJRInspectorErrorDomain = "AJRInspectorErrorDomain";
+
+public typealias AJRInspectorXMLReadCallback = (_ url: URL) -> Void
+
+@objcMembers
+open class AJRInspectorContent: AJRInspectorElement {
+    
+    // MARK: - Properties
+    
+    private var xmlReadCallback : AJRInspectorXMLReadCallback? {
+        return userInfo?["xmlReadCallbackKey"] as? AJRInspectorXMLReadCallback
+    }
+    
+    private var _url : URL?
+    
+    // MARK: - Creation
+    
+    public init?(url: URL, inspectorViewController: AJRObjectInspectorViewController, bundle: Bundle = Bundle.main, xmlReadCallback: AJRInspectorXMLReadCallback? = nil) throws {
+        let document = try XMLDocument(contentsOf: url, options: [])
+        var userInfo : [AnyHashable:Any]? = nil
+        if let xmlReadCallback = xmlReadCallback {
+            userInfo = ["xmlReadCallbackKey":xmlReadCallback]
+        }
+        _url = url
+        try super.init(element: document, parent: nil, viewController: inspectorViewController, bundle: bundle, userInfo: userInfo)
+        try completeInit(document: document)
+        self.xmlReadCallback?(url)
+    }
+    
+    public required init(element: XMLNode, parent: AJRInspectorElement?, viewController: AJRObjectInspectorViewController, bundle: Bundle = Bundle.main, userInfo: [AnyHashable:Any]? = nil) throws {
+        try super.init(element: element, parent: parent, viewController: viewController, bundle: bundle, userInfo: userInfo)
+        try completeInit(document: element)
+    }
+    
+    open func completeInit(document: XMLNode) throws -> Void {
+        try resolveIncludes(in: document)
+        
+        if viewController?.debugFrames ?? false {
+            let view = AJRFlippedXView(frame: NSRect(x: 0, y: 0, width: viewController?.minWidth ?? AJRInspectorViewController.defaultMinWidth, height: 0))
+            view.color = NSColor.red
+            view.clear = true
+            view.translatesAutoresizingMaskIntoConstraints = false
+            self.view = view
+        } else {
+            let view = AJRFlippedView(frame: NSRect(x: 0, y: 0, width: viewController?.minWidth ?? AJRInspectorViewController.defaultMinWidth, height: 0))
+            view.translatesAutoresizingMaskIntoConstraints = false
+            self.view = view
+        }
+
+        var possibleChildren : [XMLNode]? = nil
+        if let documentChildren = document.children,
+            let firstChild = documentChildren.first,
+            firstChild.name == "inspector",
+            let children = firstChild.children {
+            possibleChildren = children
+        }
+        
+        if possibleChildren == nil {
+            possibleChildren = document.children
+        }
+        
+        if let children = possibleChildren {
+            for childNode in children {
+                if let childNode = childNode as? XMLElement {
+                    if childNode.name == "group" {
+                        add(child: try AJRInspectorGroup(element: childNode, parent: self, viewController: viewController!))
+                    } else if childNode.name == "section" {
+                        add(child: try AJRInspectorSection(element: childNode, parent: self, viewController: viewController!))
+                    } else if childNode.name == "slice" {
+                        add(child: try AJRInspectorSlice.slice(from: childNode, parent: self, viewController: viewController!))
+                    } else {
+                        throw NSError(domain: AJRInspectorErrorDomain, message: "All top level inspector elements must be \"group\", \"section\", or \"sliver\" elements")
+                    }
+                } else if childNode.kind == .comment {
+                    // Just ignore comments.
+                } else {
+                    throw NSError(domain: AJRInspectorErrorDomain, message: "All top level inspector elements must be XML elements.")
+                }
+            }
+        }
+        if let childToAdd = self.childToAdd {
+            add(child: childToAdd)
+        }
+        if let view = self.view, let lastChildView = lastChild?.view {
+            view.addConstraints([
+                lastChildView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0.0),
+                ])
+        }
+    }
+    
+    open override var url : URL? {
+        return _url
+    }
+    
+    // MARK: - Children
+    
+    private var childToAdd : AJRInspectorElement? = nil
+    open override func add(child: AJRInspectorElement) {
+        if let childToAdd = childToAdd {
+            // Capture this, so that we can determine who our adjacent ancestor is, after we've added. This is easier than dealing with indexes into our children array.
+            let lastView = view.subviews.last
+            super.add(child: childToAdd)
+            
+            var childView : NSView? = nil
+            if child !== childToAdd && child.canMergeWithElement(childToAdd) {
+                childToAdd.mergeViewWithRightAdjacentSibling(child)
+                childView = childToAdd.view
+                super.add(child: child)
+                self.childToAdd = nil
+            } else {
+                childView = childToAdd.view
+                self.childToAdd = child
+            }
+            
+            if let view = self.view, let childView = childView {
+                view.addSubview(childView)
+                view.addConstraints([
+                    childView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0.0),
+                    childView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0.0),
+                    ])
+                if let lastView = lastView {
+                    view.addConstraints([
+                        childView.topAnchor.constraint(equalTo: lastView.bottomAnchor, constant: 0.0),
+                        ])
+                } else {
+                    view.addConstraints([
+                        childView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0.0),
+                        ])
+                }
+            }
+        } else {
+            self.childToAdd = child
+        }
+    }
+    
+    // MARK: - Includes
+    
+    open func resolveIncludes(in node: XMLNode) throws -> Void {
+        var children = node.children ?? []
+        var index = 0
+        while index < children.count {
+            let child = children[index]
+            if child.name == "include", let child = child as? XMLElement {
+                let file = child.attribute(forName: "file")?.stringValue
+                let bundleID = child.attribute(forName: "bundle")?.stringValue
+                let bundle : Bundle
+                
+                if let bundleID = bundleID {
+                    if let foundBundle = Bundle(identifier: bundleID) {
+                        bundle = foundBundle
+                    } else {
+                        throw NSError(domain: AJRInspectorErrorDomain, message: "No bundle with identifier: \(bundleID)")
+                    }
+                } else {
+                    bundle = self.bundle
+                }
+                
+                if let file = file {
+                    if let xmlURL = bundle.url(forResource: file, withExtension: "inspector") {
+                        let document = try XMLDocument(contentsOf: xmlURL, options: [])
+                        self.xmlReadCallback?(xmlURL)
+                        var includeNode : XMLNode? = nil
+                        for documentChild in document.children ?? [] {
+                            if documentChild.name == "inspector-include" {
+                                if includeNode == nil {
+                                    includeNode = documentChild
+                                } else {
+                                    throw NSError(domain: AJRInspectorErrorDomain, message: "The included inspector document must at one and only one \"inspector-include\" node at the top level.")
+                                }
+                            }
+                        }
+                        if let includeNode = includeNode as? XMLElement, let parent = child.parent as? XMLElement {
+                            parent.removeChild(at: index)
+                            if let includeChildren = includeNode.children {
+                                for childToRemove in includeChildren {
+                                    includeNode.removeChild(childToRemove)
+                                }
+                                parent.insertChildren(includeChildren, at: index)
+                            }
+                            children = parent.children!
+                            
+                            // We continue, because we don't want to increment index, since we want to now process the child(ren) we just added.
+                            continue
+                        } else {
+                            throw NSError(domain: AJRInspectorErrorDomain, message: "The included inspector document must have one \"inspector-include\" node at the top level.")
+                        }
+                    } else {
+                        throw NSError(domain: AJRInspectorErrorDomain, message: "Failed to find inspector include with name: \(file)")
+                    }
+                } else {
+                    throw NSError(domain: AJRInspectorErrorDomain, message: "Include elements must define a \"file\" attribute.")
+                }
+            } else {
+                try resolveIncludes(in: child)
+            }
+            index += 1
+        }
+    }
+    
+}

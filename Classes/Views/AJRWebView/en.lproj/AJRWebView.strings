@@ -1,0 +1,17 @@
+/* 
+  AJRWebView.strings
+  AJRInterface
+
+  Created by AJ Raftis on 2/21/19.
+  
+*/
+
+"Done" = "Done";
+"Match" = "%d Match";
+"Matches" = "%d Matches";
+"Failed to complete search" = "Failed to complete search";
+"Not Found" = "Not Found";
+
+"Back" = "Back";
+"Forward" = "Forward";
+"History" = "History";
