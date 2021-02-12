@@ -87,7 +87,7 @@ open class AJRInspectorGroup: AJRInspectorSection {
             titleLabel?.font = NSFont.systemFont(ofSize: viewController!.fontSize, weight: .bold)
             titleLabel?.backgroundColor = nil
             visualEffectView?.blendingMode = .withinWindow
-            visualEffectView?.material = NSVisualEffectView.Material(rawValue: 0)!
+            visualEffectView?.material = .windowBackground
         }
     }
 
