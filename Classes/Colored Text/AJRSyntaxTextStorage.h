@@ -13,8 +13,10 @@
 
 @class AJRSyntaxComponent, AJRSyntaxDefinition;
 
-extern NSString *AJRUserDefinedIdentifiers;                // Key in user defaults holding user-defined identifiers to colorize.
-extern NSString *AJRSyntaxColoringModeAtttributeName;    // Anything we colorize gets this attribute.
+/// Key in user defaults holding user-defined identifiers to colorize.
+extern NSString * const AJRUserDefinedIdentifiers;
+/// Anything we colorize gets this attribute.
+extern NSString * const AJRSyntaxColoringModeAtttributeName;
 
 /*!
  @class AJRSyntaxTextStorage
@@ -22,15 +24,11 @@ extern NSString *AJRSyntaxColoringModeAtttributeName;    // Anything we colorize
  @discussion A long talk about the class.
  */
 @interface AJRSyntaxTextStorage : NSTextStorage 
-{
-    NSMutableAttributedString    *_string;
-    AJRSyntaxDefinition            *_syntaxDefinition;
-    BOOL                        _syntaxColoringEnabled;
-}
 
 - (id)initWithSyntaxDefinition:(AJRSyntaxDefinition *)definition;
 - (id)initWithSyntaxDefinitionNamed:(NSString *)name;
 
+@property (nonatomic,readonly) AJRSyntaxDefinition *syntaxDefinition;
 @property (nonatomic,assign) BOOL syntaxColoringEnabled;
 
 - (NSTextView *)textView;

@@ -13,8 +13,8 @@
 
 #import <AJRFoundation/AJRFunctions.h>
 
-NSString *AJRUserDefinedIdentifiers = @"SyntaxColoring:UserIdentifiers";
-NSString *AJRSyntaxColoringModeAtttributeName = @"AJRTextDocumentSyntaxColoringMode";
+NSString * const AJRUserDefinedIdentifiers = @"SyntaxColoring:UserIdentifiers";
+NSString * const AJRSyntaxColoringModeAtttributeName = @"AJRTextDocumentSyntaxColoringMode";
 
 @interface AJRSyntaxTextStorage ()
 
@@ -23,10 +23,8 @@ NSString *AJRSyntaxColoringModeAtttributeName = @"AJRTextDocumentSyntaxColoringM
 @end
 
 
-@implementation AJRSyntaxTextStorage
-
-+ (void)initialize
-{
+@implementation AJRSyntaxTextStorage {
+    NSMutableAttributedString *_string;
 }
 
 - (void)updateColors:(NSNotification *)notification {
@@ -59,7 +57,7 @@ NSString *AJRSyntaxColoringModeAtttributeName = @"AJRTextDocumentSyntaxColoringM
             [layoutManager processEditingForTextStorage:self edited:NSTextStorageEditedAttributes range:allRange changeInLength:0 invalidatedRange:allRange];
         } else {
             for (NSTextContainer *textContainer in [layoutManager textContainers]) {
-                NSTextView    *textView = [textContainer textView];
+                NSTextView *textView = [textContainer textView];
                 [textView setNeedsDisplay:YES];
                 if (backgroundColor) {
                     [textView setBackgroundColor:backgroundColor];
@@ -73,19 +71,18 @@ NSString *AJRSyntaxColoringModeAtttributeName = @"AJRTextDocumentSyntaxColoringM
 }
 
 - (id)initWithSyntaxDefinition:(AJRSyntaxDefinition *)definition {
-    self = [super init];
-    
-    _string = [[NSMutableAttributedString alloc] init];
-    _syntaxDefinition = definition;
-    _syntaxColoringEnabled = _syntaxDefinition != nil;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateColors:) name:AJRSyntaxDefinitionDidChangeNotification object:_syntaxDefinition]; 
-    
+    if ((self = [super init])) {
+        _string = [[NSMutableAttributedString alloc] init];
+        _syntaxDefinition = definition;
+        _syntaxColoringEnabled = _syntaxDefinition != nil;
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateColors:) name:AJRSyntaxDefinitionDidChangeNotification object:_syntaxDefinition];
+    }
     return self;
 }
 
 - (id)initWithSyntaxDefinitionNamed:(NSString *)name {
-    AJRSyntaxDefinition    *definition = [AJRSyntaxDefinition syntaxDefinitionForName:name];
+    AJRSyntaxDefinition *definition = [AJRSyntaxDefinition syntaxDefinitionForName:name];
     
     if (definition == nil) {
         return nil;
@@ -227,13 +224,13 @@ NSString *AJRSyntaxColoringModeAtttributeName = @"AJRTextDocumentSyntaxColoringM
 }
 
 - (NSDictionary *)_styleFromComponent:(AJRSyntaxComponent *)component andMode:(NSString *)mode {
-	return @{
-			 NSForegroundColorAttributeName:[self _color:component],
-			 NSBackgroundColorAttributeName:[self _backgroundColor:component],
-			 NSFontAttributeName:[self _font:component],
-			 // This must be last, since mode may be nil
-			 AJRSyntaxColoringModeAtttributeName:mode ?: @"",
-			 };
+    return @{
+        NSForegroundColorAttributeName:[self _color:component],
+        NSBackgroundColorAttributeName:[self _backgroundColor:component],
+        NSFontAttributeName:[self _font:component],
+        // This must be last, since mode may be nil
+        AJRSyntaxColoringModeAtttributeName:mode ?: @"",
+    };
 }
 
 - (BOOL)colorComments:(AJRSyntaxComponent *)component inRange:(NSRange)range andMode:(NSString *)attr {
@@ -323,11 +320,11 @@ NSString *AJRSyntaxColoringModeAtttributeName = @"AJRTextDocumentSyntaxColoringM
 
 - (BOOL)colorOneLineComment:(AJRSyntaxComponent *)component inRange:(NSRange)range andMode:(NSString *)attr {
     @try {
-        NSScanner        *vScanner = [NSScanner scannerWithString:[_string string]];
-        NSDictionary    *vStyles = [self _styleFromComponent:component andMode:attr];
-        NSString        *startCh = [component start];
-//        NSString        *string = [_string string];
-//        NSCharacterSet    *newlineCS = [NSCharacterSet newlineCharacterSet];
+        NSScanner *vScanner = [NSScanner scannerWithString:[_string string]];
+        NSDictionary *vStyles = [self _styleFromComponent:component andMode:attr];
+        NSString *startCh = [component start];
+//        NSString *string = [_string string];
+//        NSCharacterSet *newlineCS = [NSCharacterSet newlineCharacterSet];
         
         NSAssert(startCh != nil, @"Comment components must define a start string");
         
@@ -335,7 +332,7 @@ NSString *AJRSyntaxColoringModeAtttributeName = @"AJRTextDocumentSyntaxColoringM
         [vScanner setScanLocation:range.location];
         
         while (![vScanner isAtEnd] && [vScanner scanLocation] < range.location + range.length) {
-            NSInteger        vStartOffs, vEndOffs;
+            NSInteger vStartOffs, vEndOffs;
             
             // Look for start of one-line comment:
             [vScanner scanUpToString:startCh intoString:nil];
@@ -360,11 +357,11 @@ NSString *AJRSyntaxColoringModeAtttributeName = @"AJRTextDocumentSyntaxColoringM
 
 - (BOOL)colorNumbers:(AJRSyntaxComponent *)component inRange:(NSRange)range andMode:(NSString *)attr {
     @try {
-        NSScanner        *vScanner = [NSScanner scannerWithString:[_string string]];
-        NSDictionary    *vStyles = [self _styleFromComponent:component andMode:attr];
-        NSCharacterSet    *cset = [component characterSet];
-        //NSInteger        vStartOffs = 0;
-        NSString        *keyword = nil;
+        NSScanner *vScanner = [NSScanner scannerWithString:[_string string]];
+        NSDictionary *vStyles = [self _styleFromComponent:component andMode:attr];
+        NSCharacterSet *cset = [component characterSet];
+        //NSInteger vStartOffs = 0;
+        NSString *keyword = nil;
         
         NSAssert(cset != nil, @"Keyword type must define a character set");
         
@@ -395,13 +392,13 @@ NSString *AJRSyntaxColoringModeAtttributeName = @"AJRTextDocumentSyntaxColoringM
 
 - (BOOL)colorStrings:(AJRSyntaxComponent *)component inRange:(NSRange)range andMode:(NSString *)attr {
     @try {
-        NSScanner        *vScanner = [NSScanner scannerWithString:[_string string]];
-        NSDictionary    *vStyles = [self _styleFromComponent:component andMode:attr];
-        NSString        *startCh = [component start];
-        NSString        *endCh = [component end];
-        NSString        *vStringEscapeCharacter = [component escapeCharacter];
-        BOOL            vIsEndChar = NO;
-        unichar            vEscChar = '\\';
+        NSScanner *vScanner = [NSScanner scannerWithString:[_string string]];
+        NSDictionary *vStyles = [self _styleFromComponent:component andMode:attr];
+        NSString *startCh = [component start];
+        NSString *endCh = [component end];
+        NSString *vStringEscapeCharacter = [component escapeCharacter];
+        BOOL vIsEndChar = NO;
+        unichar vEscChar = '\\';
         
         NSAssert(startCh != nil, @"Comment components must define a start string");
         NSAssert(endCh != nil, @"Comment components must define a end string");
@@ -445,12 +442,12 @@ NSString *AJRSyntaxColoringModeAtttributeName = @"AJRTextDocumentSyntaxColoringM
 
 - (BOOL)colorTags:(AJRSyntaxComponent *)component inRange:(NSRange)range andMode:(NSString *)attr {
     @try {
-        NSScanner        *vScanner = [NSScanner scannerWithString:[_string string]];
-        NSDictionary    *vStyles = [self _styleFromComponent:component andMode:attr];
-        NSString        *startCh = [component start];
-        NSString        *endCh = [component end];
-        NSString        *ignoreAttr = [component ignoreComponent];
-        NSArray            *recolorComponents = [component recolorComponents];
+        NSScanner *vScanner = [NSScanner scannerWithString:[_string string]];
+        NSDictionary *vStyles = [self _styleFromComponent:component andMode:attr];
+        NSString *startCh = [component start];
+        NSString *endCh = [component end];
+        NSString *ignoreAttr = [component ignoreComponent];
+        NSArray *recolorComponents = [component recolorComponents];
 
         [vScanner setScanLocation:range.location];
         
@@ -466,7 +463,7 @@ NSString *AJRSyntaxColoringModeAtttributeName = @"AJRTextDocumentSyntaxColoringM
             vStartOffs = [vScanner scanLocation];
             if (vStartOffs >= [_string length]) return NO;
             
-            NSString    *scMode = [[_string attributesAtIndex:vStartOffs effectiveRange:nil] objectForKey:AJRSyntaxColoringModeAtttributeName];
+            NSString *scMode = [[_string attributesAtIndex:vStartOffs effectiveRange:nil] objectForKey:AJRSyntaxColoringModeAtttributeName];
             if (![vScanner scanString:startCh intoString:nil]) return NO;
             
             // If start lies in range of ignored style, don't colorize it:
@@ -498,7 +495,7 @@ NSString *AJRSyntaxColoringModeAtttributeName = @"AJRTextDocumentSyntaxColoringM
             
             if (recolorComponents) {
                 for (NSString *name in recolorComponents) {
-                    AJRSyntaxComponent    *component = [_syntaxDefinition componentForName:name];
+                    AJRSyntaxComponent *component = [_syntaxDefinition componentForName:name];
                     if (component) {
                         [self _applyComponent:component toRange:NSMakeRange(vStartOffs, vEndOffs - vStartOffs)];
                     }
@@ -514,12 +511,12 @@ NSString *AJRSyntaxColoringModeAtttributeName = @"AJRTextDocumentSyntaxColoringM
 
 - (BOOL)colorKeywords:(AJRSyntaxComponent *)component inRange:(NSRange)range andMode:(NSString *)attr {
     @try {
-        NSScanner        *vScanner = [NSScanner scannerWithString:[_string string]];
-        NSDictionary    *vStyles = [self _styleFromComponent:component andMode:attr];
-        NSCharacterSet    *cset = [component characterSet];
-        NSSet            *keywords = [component keywords];
-        //NSInteger        vStartOffs = 0;
-        NSString        *keyword = nil;
+        NSScanner *vScanner = [NSScanner scannerWithString:[_string string]];
+        NSDictionary *vStyles = [self _styleFromComponent:component andMode:attr];
+        NSCharacterSet *cset = [component characterSet];
+        NSSet *keywords = [component keywords];
+        //NSInteger vStartOffs = 0;
+        NSString *keyword = nil;
         
         NSAssert(cset != nil, @"Keyword type must define a character set");
         

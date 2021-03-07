@@ -13,37 +13,38 @@
 
 #import    <AJRFoundation/AJRFoundation.h>
 
-NSString *AJRSyntaxDefinitionDidChangeNotification = @"AJRSyntaxDefinitionDidChangeNotification";
-NSString *AJRSyntaxComponentKey = @"component";
-NSString *AJRSyntaxComponentChangeKey = @"key";
-NSString *AJRSyntaxActiveKey = @"active";
+NSString * const AJRSyntaxDefinitionDidChangeNotification = @"AJRSyntaxDefinitionDidChangeNotification";
+NSString * const AJRSyntaxComponentKey = @"component";
+NSString * const AJRSyntaxComponentChangeKey = @"key";
+NSString * const AJRSyntaxActiveKey = @"active";
 
-static NSMutableDictionary    *_syntaxDefinitions = nil;
+static NSMutableDictionary *_syntaxDefinitions = nil;
 
 @interface AJRSyntaxDefinition ()
+
+@property (nonatomic,strong) NSMutableArray<AJRSyntaxComponent *> *components;
 
 - (id)initWithPath:(NSString *)path error:(NSError **)error;
 - (id)initWithName:(NSString *)name dictionary:(NSDictionary *)dictionary error:(NSError **)error;
 
 @end
 
-@implementation AJRSyntaxDefinition
+@implementation AJRSyntaxDefinition {
+    NSMutableDictionary *_componentIndex;
+}
 
-+ (void)initialize
-{
++ (void)initialize {
     if (_syntaxDefinitions == nil) {
         _syntaxDefinitions = [[NSMutableDictionary alloc] init];
     }
 }
 
-+ (NSString *)defaultsKeyForName:(NSString *)name
-{
++ (NSString *)defaultsKeyForName:(NSString *)name {
     return AJRFormat(@"AJRSyntaxDefinition:%@", name);
 }
 
-+ (id)findPathForSyntaxDefinitionWithName:(NSString *)name
-{
-    NSString    *path;
++ (id)findPathForSyntaxDefinitionWithName:(NSString *)name {
+    NSString *path;
     
     path = [[NSBundle mainBundle] pathForResource:name ofType:@"syntax"];
 
@@ -61,9 +62,8 @@ static NSMutableDictionary    *_syntaxDefinitions = nil;
     return path;
 }
 
-+ (id)findSyntaxDefinitionWithName:(NSString *)name
-{
-    AJRSyntaxDefinition    *definition = nil;
++ (id)findSyntaxDefinitionWithName:(NSString *)name {
+    AJRSyntaxDefinition *definition = nil;
     
     if ([[NSUserDefaults standardUserDefaults] dictionaryForKey:[self defaultsKeyForName:name]]) {
         // We seem to have a definition in defaults, so let's try to load that.
@@ -71,7 +71,7 @@ static NSMutableDictionary    *_syntaxDefinitions = nil;
     }
     
     if (definition == nil) {
-        NSString    *path = [self findPathForSyntaxDefinitionWithName:name];
+        NSString *path = [self findPathForSyntaxDefinitionWithName:name];
         
         if (path) {
             definition = [[AJRSyntaxDefinition alloc] initWithPath:path error:NULL];
@@ -81,9 +81,8 @@ static NSMutableDictionary    *_syntaxDefinitions = nil;
     return definition;
 }
 
-+ (id)syntaxDefinitionForName:(NSString *)name
-{
-    AJRSyntaxDefinition    *definition = [_syntaxDefinitions objectForKey:name];
++ (id)syntaxDefinitionForName:(NSString *)name {
+    AJRSyntaxDefinition *definition = [_syntaxDefinitions objectForKey:name];
     
     if (definition == nil) {
         definition = [self findSyntaxDefinitionWithName:name];
@@ -95,10 +94,9 @@ static NSMutableDictionary    *_syntaxDefinitions = nil;
     return definition;
 }
 
-- (id)initWithName:(NSString *)name error:(NSError **)error
-{
-    NSString                *path;
-    AJRSyntaxDefinition        *definition;
+- (id)initWithName:(NSString *)name error:(NSError **)error {
+    NSString *path;
+    AJRSyntaxDefinition *definition;
     
     // Must be retained, because we'll return it if it exists, at which point objects returned from init methods are retained.
     definition = [_syntaxDefinitions objectForKey:name];
@@ -136,8 +134,7 @@ static NSMutableDictionary    *_syntaxDefinitions = nil;
     return self;
 }
 
-- (id)initWithPath:(NSString *)path error:(NSError **)error
-{
+- (id)initWithPath:(NSString *)path error:(NSError **)error {
     NSData                *rawDictionary;
     NSDictionary        *dictionary;
     NSError                *localError;
@@ -173,12 +170,11 @@ static NSMutableDictionary    *_syntaxDefinitions = nil;
     return [self initWithName:name dictionary:dictionary error:error];
 }
 
-- (void)_initComponents:(NSArray *)components
-{
+- (void)_initComponents:(NSArray<AJRSyntaxComponent *> *)components {
     if (components) {
         for (NSDictionary *raw in components) {
-            NSString            *name = [raw objectForKey:AJRSyntaxNameKey];
-            AJRSyntaxComponent    *component;
+            NSString *name = [raw objectForKey:AJRSyntaxNameKey];
+            AJRSyntaxComponent *component;
             
             component = [_componentIndex objectForKey:name];
             if (component) {
@@ -194,12 +190,11 @@ static NSMutableDictionary    *_syntaxDefinitions = nil;
     }
 }
 
-- (id)initWithName:(NSString *)name dictionary:(NSDictionary *)dictionary error:(NSError **)error
-{
+- (id)initWithName:(NSString *)name dictionary:(NSDictionary *)dictionary error:(NSError **)error {
     if ((self = [self init])) {
         
         _name = name;
-        _components    = [[NSMutableArray alloc] init];
+        _components = [[NSMutableArray alloc] init];
         _componentIndex = [[NSMutableDictionary alloc] init];
         [self _initComponents:[dictionary objectForKey:@"components"]];
         
@@ -209,65 +204,48 @@ static NSMutableDictionary    *_syntaxDefinitions = nil;
     return self;
 }
 
-@synthesize name = _name;
-@synthesize components = _components;
-@synthesize fileExtensions = _fileExtensions;
-
-- (NSColor *)textColor
-{
-    NSColor        *color = [[_componentIndex objectForKey:@"Text"] color];
-    
-    return color ? color : [NSColor textColor];
+- (NSColor *)textColor {
+    return [[_componentIndex objectForKey:@"Text"] color] ?: [NSColor textColor];
 }
 
-- (void)setTextColor:(NSColor *)color
-{
+- (void)setTextColor:(NSColor *)color {
     [[_componentIndex objectForKey:@"Text"] setColor:color];
 }
 
-- (NSColor *)textBackgroundColor
-{
-    NSColor        *color = [[_componentIndex objectForKey:@"Text"] backgroundColor];
-    
-    return color ? color : [NSColor textBackgroundColor];
+- (NSColor *)textBackgroundColor {
+    return [[_componentIndex objectForKey:@"Text"] backgroundColor] ?: [NSColor textBackgroundColor];
 }
 
-- (void)setTextBackgroundColor:(NSColor *)color
-{
+- (void)setTextBackgroundColor:(NSColor *)color {
     [[_componentIndex objectForKey:@"Text"] setBackgroundColor:color];
 }
 
-- (NSFont *)textFont
-{
-    NSFont        *font = [[_componentIndex objectForKey:@"Text"] font];
-    
-    return font ? font : [NSFont userFixedPitchFontOfSize:[NSFont systemFontSize]];
+- (NSFont *)textFont {
+    return [[_componentIndex objectForKey:@"Text"] font] ?: [NSFont userFixedPitchFontOfSize:[NSFont systemFontSize]];
 }
 
-- (void)setTextFont:(NSFont *)font
-{
+- (void)setTextFont:(NSFont *)font {
     [[_componentIndex objectForKey:@"Text"] setFont:font];
 }
 
-- (BOOL)isActive
-{
+@synthesize active = _active;
+
+- (BOOL)isActive {
     return _active;
 }
 
-- (void)setActive:(BOOL)flag
-{
+- (void)setActive:(BOOL)flag {
     if (_active != flag) {
         _active = flag;
         [self componentDidChange:nil key:AJRSyntaxActiveKey];
     }
 }
 
-- (void)resetToDefaults
-{
-    NSString    *path = [[self class] findPathForSyntaxDefinitionWithName:_name];
+- (void)resetToDefaults {
+    NSString *path = [[self class] findPathForSyntaxDefinitionWithName:_name];
     
     if (path) {
-        NSDictionary    *dictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
+        NSDictionary *dictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
         
         if (dictionary) {
             [self _initComponents:[dictionary objectForKey:@"components"]];
@@ -276,14 +254,13 @@ static NSMutableDictionary    *_syntaxDefinitions = nil;
     }
 }
 
-- (NSDictionary *)propertyList
-{
-    NSMutableDictionary    *output = [[NSMutableDictionary alloc] init];
-    NSMutableArray        *components = [[NSMutableArray alloc] init];
+- (NSDictionary *)propertyList {
+    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    NSMutableArray *components = [[NSMutableArray alloc] init];
     
     [output setObject:components forKey:@"components"];
     for (AJRSyntaxComponent *component in _components) {
-        NSDictionary    *raw = [component propertyList];
+        NSDictionary *raw = [component propertyList];
         if (raw) {
             [components addObject:raw];
         }
@@ -296,24 +273,20 @@ static NSMutableDictionary    *_syntaxDefinitions = nil;
     return output;
 }
 
-- (BOOL)writeToPath:(NSString *)path error:(NSError **)error
-{
+- (BOOL)writeToPath:(NSString *)path error:(NSError **)error {
     return [[[self propertyList] description] writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:error];
 }
 
-- (void)saveToDefaultsWithError:(NSError **)error
-{
+- (void)saveToDefaultsWithError:(NSError **)error {
     [[NSUserDefaults standardUserDefaults] setObject:[self propertyList] forKey:[[self class] defaultsKeyForName:_name]];
 }
 
-- (AJRSyntaxComponent *)componentForName:(NSString *)name
-{
+- (AJRSyntaxComponent *)componentForName:(NSString *)name {
     return [_componentIndex objectForKey:name];
 }
 
-- (void)componentDidChange:(AJRSyntaxComponent *)component key:(NSString *)key
-{
-    NSMutableDictionary    *info = [[NSMutableDictionary alloc] init];
+- (void)componentDidChange:(AJRSyntaxComponent *)component key:(NSString *)key {
+    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
     if (component) {
         [info setObject:component forKey:AJRSyntaxComponentKey];
     }

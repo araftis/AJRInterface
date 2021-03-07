@@ -13,10 +13,10 @@
 
 @class AJRSyntaxComponent;
 
-extern NSString *AJRSyntaxDefinitionDidChangeNotification;
-extern NSString *AJRSyntaxComponentKey;
-extern NSString *AJRSyntaxComponentChangeKey;
-extern NSString *AJRSyntaxActiveKey;
+extern NSString * const AJRSyntaxDefinitionDidChangeNotification;
+extern NSString * const AJRSyntaxComponentKey;
+extern NSString * const AJRSyntaxComponentChangeKey;
+extern NSString * const AJRSyntaxActiveKey;
 
 /*!
  @class AJRSyntaxDefinition
@@ -24,21 +24,14 @@ extern NSString *AJRSyntaxActiveKey;
  @discussion A long talk about the class.
  */
 @interface AJRSyntaxDefinition : NSObject 
-{
-    NSString                *_name;
-    NSMutableArray            *_components;
-    NSMutableDictionary        *_componentIndex;
-    NSMutableArray            *_fileExtensions;
-    BOOL                    _active;
-}
 
 + (id)syntaxDefinitionForName:(NSString *)name;
 
 - (id)initWithName:(NSString *)name error:(NSError **)error;
 
 @property (readonly) NSString *name;
-@property (readonly) NSArray *components;
-@property (readonly) NSArray *fileExtensions;
+@property (readonly) NSArray<AJRSyntaxComponent *> *components;
+@property (readonly) NSArray<NSString *> *fileExtensions;
 @property (strong) NSColor *textColor;
 @property (strong) NSColor *textBackgroundColor;
 @property (strong) NSFont *textFont;

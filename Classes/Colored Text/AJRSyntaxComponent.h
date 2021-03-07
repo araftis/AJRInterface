@@ -13,26 +13,26 @@
 
 @class AJRSyntaxDefinition;
 
-extern NSString *AJRSyntaxComponentStringType;
-extern NSString *AJRSyntaxComponentNumberType;
-extern NSString *AJRSyntaxComponentKeywordType;
-extern NSString *AJRSyntaxComponentTagType;
-extern NSString *AJRSyntaxComponentBlockCommentType;
-extern NSString *AJRSyntaxComponentOneLineCommentType;
-extern NSString *AJRSyntaxComponentTextType;
+extern NSString * const AJRSyntaxComponentStringType;
+extern NSString * const AJRSyntaxComponentNumberType;
+extern NSString * const AJRSyntaxComponentKeywordType;
+extern NSString * const AJRSyntaxComponentTagType;
+extern NSString * const AJRSyntaxComponentBlockCommentType;
+extern NSString * const AJRSyntaxComponentOneLineCommentType;
+extern NSString * const AJRSyntaxComponentTextType;
 
-extern NSString *AJRSyntaxNameKey;
-extern NSString *AJRSyntaxTypeKey;
-extern NSString *AJRSyntaxColorKey;
-extern NSString *AJRSyntaxBackgroundColorKey;
-extern NSString *AJRSyntaxFontKey;
-extern NSString *AJRSyntaxEndKey;
-extern NSString *AJRSyntaxStartKey;
-extern NSString *AJRSyntaxEscapeCharacterKey;
-extern NSString *AJRSyntaxCharsetKey;
-extern NSString *AJRSyntaxKeywordsKey;
-extern NSString *AJRSyntaxIgnoreCommentsKey;
-extern NSString *AJRSyntaxRecolorComponentsKey;
+extern NSString * const AJRSyntaxNameKey;
+extern NSString * const AJRSyntaxTypeKey;
+extern NSString * const AJRSyntaxColorKey;
+extern NSString * const AJRSyntaxBackgroundColorKey;
+extern NSString * const AJRSyntaxFontKey;
+extern NSString * const AJRSyntaxEndKey;
+extern NSString * const AJRSyntaxStartKey;
+extern NSString * const AJRSyntaxEscapeCharacterKey;
+extern NSString * const AJRSyntaxCharsetKey;
+extern NSString * const AJRSyntaxKeywordsKey;
+extern NSString * const AJRSyntaxIgnoreCommentsKey;
+extern NSString * const AJRSyntaxRecolorComponentsKey;
 
 /*!
  @class AJRSyntaxComponent
@@ -40,43 +40,25 @@ extern NSString *AJRSyntaxRecolorComponentsKey;
  @discussion A long talk about the class.
  */
 @interface AJRSyntaxComponent : NSObject 
-{
-    AJRSyntaxDefinition    *__weak _owner;
-    NSString            *_name;
-    NSString            *_type;
-    NSColor                *_color;
-    NSColor                *_backgroundColor;
-    NSFont                *_font;
-    NSString            *_end;
-    NSString            *_start;
-    NSString            *_escapeCharacter;
-    NSCharacterSet        *_characterSet;
-    NSString            *_rawCharacterSet;
-    NSMutableSet        *_keywords;
-    NSString            *_ignoreComponent;
-    NSArray                *_recolorComponents;
-    
-    NSDictionary        *_attributes;
-}
 
 - (id)initWithProperties:(NSDictionary *)properties owner:(AJRSyntaxDefinition *)owner;
 
-@property (readonly) AJRSyntaxDefinition *owner;
-@property (strong) NSString *name;
-@property (strong) NSString *type;
-@property (strong) NSColor *color;
-@property (strong) NSColor *backgroundColor;
-@property (strong) NSFont *font;
-@property (strong) NSString *end;
-@property (strong) NSString *start;
-@property (strong) NSString *escapeCharacter;
-@property (strong) NSCharacterSet *characterSet;
-@property (readonly) NSSet *keywords;
-@property (strong) NSString *ignoreComponent;
-@property (strong) NSArray *recolorComponents;
+@property (nonatomic,readonly,weak) AJRSyntaxDefinition *owner;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *type;
+@property (nonatomic,strong) NSColor *color;
+@property (nonatomic,strong) NSColor *backgroundColor;
+@property (nonatomic,strong) NSFont *font;
+@property (nonatomic,strong) NSString *end;
+@property (nonatomic,strong) NSString *start;
+@property (nonatomic,strong) NSString *escapeCharacter;
+@property (nonatomic,strong) NSCharacterSet *characterSet;
+@property (nonatomic,readonly) NSSet *keywords;
+@property (nonatomic,strong) NSString *ignoreComponent;
+@property (nonatomic,strong) NSArray *recolorComponents;
 
 - (id)propertyList;
 
-- (NSDictionary *)attributes;
+@property (nonatomic,readonly) NSDictionary *attributes;
 
 @end

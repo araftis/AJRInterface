@@ -13,36 +13,39 @@
 #import "NSMutableDictionary+Extensions.h"
 #import "NSUserDefaults+Extensions.h"
 
-NSString *AJRSyntaxComponentStringType = @"String";
-NSString *AJRSyntaxComponentNumberType = @"Number";
-NSString *AJRSyntaxComponentKeywordType = @"Keywords";
-NSString *AJRSyntaxComponentTagType = @"Tag";
-NSString *AJRSyntaxComponentBlockCommentType = @"BlockComment";
-NSString *AJRSyntaxComponentOneLineCommentType = @"OneLineComment";
-NSString *AJRSyntaxComponentTextType = @"Text";
+NSString * const AJRSyntaxComponentStringType = @"String";
+NSString * const AJRSyntaxComponentNumberType = @"Number";
+NSString * const AJRSyntaxComponentKeywordType = @"Keywords";
+NSString * const AJRSyntaxComponentTagType = @"Tag";
+NSString * const AJRSyntaxComponentBlockCommentType = @"BlockComment";
+NSString * const AJRSyntaxComponentOneLineCommentType = @"OneLineComment";
+NSString * const AJRSyntaxComponentTextType = @"Text";
 
-NSString *AJRSyntaxNameKey = @"name";
-NSString *AJRSyntaxTypeKey = @"type";
-NSString *AJRSyntaxColorKey = @"color";
-NSString *AJRSyntaxBackgroundColorKey = @"backgroundColor";
-NSString *AJRSyntaxFontKey = @"font";
-NSString *AJRSyntaxEndKey = @"end";
-NSString *AJRSyntaxStartKey = @"start";
-NSString *AJRSyntaxEscapeCharacterKey = @"escapeCharacter";
-NSString *AJRSyntaxCharsetKey = @"charset";
-NSString *AJRSyntaxKeywordsKey = @"keywords";
-NSString *AJRSyntaxIgnoreComponentKey = @"ignoreComponent";
-NSString *AJRSyntaxRecolorComponentsKey = @"recolorComponents";
+NSString * const AJRSyntaxNameKey = @"name";
+NSString * const AJRSyntaxTypeKey = @"type";
+NSString * const AJRSyntaxColorKey = @"color";
+NSString * const AJRSyntaxBackgroundColorKey = @"backgroundColor";
+NSString * const AJRSyntaxFontKey = @"font";
+NSString * const AJRSyntaxEndKey = @"end";
+NSString * const AJRSyntaxStartKey = @"start";
+NSString * const AJRSyntaxEscapeCharacterKey = @"escapeCharacter";
+NSString * const AJRSyntaxCharsetKey = @"charset";
+NSString * const AJRSyntaxKeywordsKey = @"keywords";
+NSString * const AJRSyntaxIgnoreComponentKey = @"ignoreComponent";
+NSString * const AJRSyntaxRecolorComponentsKey = @"recolorComponents";
 
-@implementation AJRSyntaxComponent
+@implementation AJRSyntaxComponent {
+    NSString *_rawCharacterSet;
 
-- (id)initWithProperties:(NSDictionary *)properties owner:(AJRSyntaxDefinition *)owner
-{
+    NSDictionary *_attributes;
+}
+
+- (id)initWithProperties:(NSDictionary *)properties owner:(AJRSyntaxDefinition *)owner {
     if ((self = [super init])) {
-        NSColor        *defaultForegoundColor = [NSColor blackColor];
-        NSColor        *defaultBackgroundColor = nil;
-        NSFont        *defaultFont = nil;
-        NSString    *characterSet;
+        NSColor *defaultForegoundColor = [NSColor blackColor];
+        NSColor *defaultBackgroundColor = nil;
+        NSFont *defaultFont = nil;
+        NSString *characterSet;
         
         self.type = [properties objectForKey:AJRSyntaxTypeKey];
         self.name = [properties objectForKey:AJRSyntaxNameKey];
@@ -66,168 +69,112 @@ NSString *AJRSyntaxRecolorComponentsKey = @"recolorComponents";
     return self;
 }
 
-
-@synthesize color = _color;
-@synthesize backgroundColor = _backgroundColor;
-@synthesize font = _font;
-@synthesize keywords = _keywords;
-@synthesize recolorComponents = _recolorComponents;
-
-- (AJRSyntaxDefinition *)owner
-{
-    return _owner;
-}
-
-- (NSString *)name
-{
-    return _name;
-}
-
-- (void)setName:(NSString *)value
-{
+- (void)setName:(NSString *)value {
     if (_name != value) {
         _name = [value copy];
         [_owner componentDidChange:self key:AJRSyntaxNameKey];
     }
 }
 
-- (NSString *)type
-{
-    return _type;
-}
-
-- (void)setType:(NSString *)value
-{
+- (void)setType:(NSString *)value {
     if (_type != value) {
         _type = [value copy];
         [_owner componentDidChange:self key:AJRSyntaxTypeKey];
     }
 }
 
-- (NSColor *)color
-{
+@synthesize color = _color;
+
+- (NSColor *)color {
     if (_color == nil && ![_type isEqualToString:AJRSyntaxComponentTextType]) {
         return [_owner textColor];
     }
     return _color;
 }
 
-- (void)setColor:(NSColor *)value
-{
+- (void)setColor:(NSColor *)value {
     if (_color != value) {
         _color = [value copy];
         [_owner componentDidChange:self key:AJRSyntaxColorKey];
     }
 }
 
-- (NSColor *)backgroundColor
-{
+@synthesize backgroundColor = _backgroundColor;
+
+- (NSColor *)backgroundColor {
     if (_backgroundColor == nil && ![_type isEqualToString:AJRSyntaxComponentTextType]) {
         return [_owner textBackgroundColor];
     }
     return _backgroundColor;
 }
 
-- (void)setBackgroundColor:(NSColor *)value
-{
+- (void)setBackgroundColor:(NSColor *)value {
     if (_backgroundColor != value) {
         _backgroundColor = [value copy];
         [_owner componentDidChange:self key:AJRSyntaxBackgroundColorKey];
     }
 }
 
-- (NSFont *)font
-{
+@synthesize font = _font;
+
+- (NSFont *)font {
     if (_font == nil && ![_type isEqualToString:AJRSyntaxComponentTextType]) {
         return [_owner textFont];
     }
     return _font;
 }
 
-- (void)setFont:(NSFont *)value
-{
+- (void)setFont:(NSFont *)value {
     if (_font != value) {
         _font = [value copy];
         [_owner componentDidChange:self key:AJRSyntaxFontKey];
     }
 }
 
-- (NSString *)end
-{
-    return _end;
-}
-
-- (void)setEnd:(NSString *)value
-{
+- (void)setEnd:(NSString *)value {
     if (_end != value) {
         _end = [value copy];
         [_owner componentDidChange:self key:AJRSyntaxEndKey];
     }
 }
 
-- (NSString *)start
-{
-    return _start;
-}
-
-- (void)setStart:(NSString *)value
-{
+- (void)setStart:(NSString *)value {
     if (_start != value) {
         _start = [value copy];
         [_owner componentDidChange:self key:AJRSyntaxStartKey];
     }
 }
 
-- (NSString *)escapeCharacter
-{
-    return _escapeCharacter;
-}
-
-- (void)setEscapeCharacter:(NSString *)value
-{
+- (void)setEscapeCharacter:(NSString *)value {
     if (_escapeCharacter != value) {
         _escapeCharacter = [value copy];
         [_owner componentDidChange:self key:AJRSyntaxEscapeCharacterKey];
     }
 }
 
-- (NSCharacterSet *)characterSet
-{
-    return _characterSet;
-}
-
-- (void)setCharacterSet:(NSCharacterSet *)value
-{
+- (void)setCharacterSet:(NSCharacterSet *)value {
     if (_characterSet != value) {
         _characterSet = [value copy];
         [_owner componentDidChange:self key:AJRSyntaxCharsetKey];
     }
 }
 
-- (void)setKeywords:(NSMutableSet *)value
-{
+- (void)setKeywords:(NSMutableSet *)value {
     if (_keywords != value) {
         _keywords = [value copy];
         [_owner componentDidChange:self key:AJRSyntaxKeywordsKey];
     }
 }
 
-- (NSString *)ignoreComponent
-{
-    return _ignoreComponent;
-}
-
-- (void)setIgnoreComponent:(NSString *)value
-{
+- (void)setIgnoreComponent:(NSString *)value {
     if (_ignoreComponent != value) {
         _ignoreComponent = [value copy];
         [_owner componentDidChange:self key:AJRSyntaxIgnoreComponentKey];
     }
 }
 
-- (id)propertyList
-{
-    NSMutableDictionary    *properties = [NSMutableDictionary dictionary];
+- (id)propertyList {
+    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
     
     if (_name) [properties setObject:_name forKey:AJRSyntaxNameKey];
     if (_type) [properties setObject:_type forKey:AJRSyntaxTypeKey];
@@ -245,8 +192,7 @@ NSString *AJRSyntaxRecolorComponentsKey = @"recolorComponents";
     return properties;
 }
 
-- (NSDictionary *)attributes
-{
+- (NSDictionary *)attributes {
     if (_attributes == nil) {
         _attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
                        _color ? _color : [_owner textColor], NSForegroundColorAttributeName,
