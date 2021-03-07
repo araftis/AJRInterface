@@ -137,7 +137,7 @@ open class AJRInspectorSliceField: AJRInspectorSlice, NSTextFieldDelegate {
         let width = field.frame.size.width - widthAdjustment
         let string = field.attributedStringValue.mutableCopy() as! NSMutableAttributedString
         let style = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
-        style.lineHeightMultiple = 1.0
+        style.lineHeightMultiple = 1.1 // This is a big of a magic value, and I'm not sure why getting the attributed string isn't setting this.
         string.addAttributes([.paragraphStyle:style], range: NSRange(location: 0, length: string.length))
         let size = string.ajr_sizeConstrained(toWidth: width)
         
