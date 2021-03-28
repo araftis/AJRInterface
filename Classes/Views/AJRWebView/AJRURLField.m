@@ -1,10 +1,3 @@
-//
-//  MBURLField.m
-//  Web Tool
-//
-//  Created by A.J. Raftis on 4/4/07.
-//  Copyright 2007 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRURLField.h"
 

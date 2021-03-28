@@ -1,9 +1,3 @@
-//
-//  NSFontManager+Extensions.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 7/21/20.
-//
 
 import Foundation
 

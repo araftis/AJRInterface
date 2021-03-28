@@ -1,4 +1,3 @@
-/* AJRCIEColor.h created by alex on Sat 01-Sep-2001 */
 
 #import <AppKit/AppKit.h>
 

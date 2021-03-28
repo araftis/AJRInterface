@@ -1,10 +1,3 @@
-//
-//  AJRActivityToolbarProgressLayer.m
-//  Meta Monkey
-//
-//  Created by A.J. Raftis on 9/10/12.
-//
-//
 
 #import "AJRActivityToolbarProgressLayer.h"
 

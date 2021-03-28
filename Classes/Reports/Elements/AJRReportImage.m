@@ -1,10 +1,3 @@
-//
-//  AJRReportImage.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 12/19/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRReportImage.h"
 
@@ -20,20 +13,18 @@
 
 @implementation AJRReportImage
 
-+ (void)load
-{
++ (void)load {
     [AJRReportElement registerReportElement:self forName:@"image"];
 }
 
 
-- (void)apply
-{
-    NSString    *key = [[_node attributeForName:@"image"] stringValue];
-    NSInteger    width = [[[_node attributeForName:@"width"] stringValue] integerValue];
-    NSInteger    height = [[[_node attributeForName:@"height"] stringValue] integerValue];
-    NSImage        *image;
-    NSData        *data;
-    NSString    *extension = nil;
+- (void)apply {
+    NSString *key = [[_node attributeForName:@"image"] stringValue];
+    NSInteger width = [[[_node attributeForName:@"width"] stringValue] integerValue];
+    NSInteger height = [[[_node attributeForName:@"height"] stringValue] integerValue];
+    NSImage *image;
+    NSData *data;
+    NSString *extension = nil;
     
     if (key == nil) {
         @throw [NSException exceptionWithName:@"ReportException" reason:@"Missing \"key\" from conditional element." userInfo:nil];
@@ -64,8 +55,7 @@
     }
 }
 
-- (void)cleanup
-{
+- (void)cleanup {
     if (_path) {
         [[NSFileManager defaultManager] removeItemAtPath:_path error:nil];
     }

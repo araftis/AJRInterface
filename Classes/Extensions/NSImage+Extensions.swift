@@ -1,9 +1,3 @@
-//
-//  NSImage+Extensions.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 7/13/20.
-//
 
 import Foundation
 

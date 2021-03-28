@@ -1,10 +1,3 @@
-//
-//  AJRURLFieldCell.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 11/13/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRURLFieldCell.h"
 

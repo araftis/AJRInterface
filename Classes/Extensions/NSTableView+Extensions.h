@@ -1,9 +1,3 @@
-//
-//  NSTableView+Extensions.h
-//  AJRInterface
-//
-//  Created by AJ Raftis on 2/7/19.
-//
 
 #import <Cocoa/Cocoa.h>
 

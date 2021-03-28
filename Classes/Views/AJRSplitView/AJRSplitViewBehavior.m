@@ -1,10 +1,3 @@
-//
-//  AJRSplitViewBehavior.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 9/28/11.
-//  Copyright (c) 2011 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRSplitViewBehavior.h"
 
@@ -24,8 +17,7 @@
 
 #pragma mark - Creation
 
-- (id)init
-{
+- (id)init {
     if ((self = [super init])) {
         _min = 0.0;
         _minBeforeSnap = 0.0;
@@ -34,8 +26,7 @@
     return self;
 }
 
-+ (id)behaviorWithConstraint:(NSLayoutConstraint *)constraint view:(NSView *)view edge:(AJRViewEdge)edge;
-{
++ (id)behaviorWithConstraint:(NSLayoutConstraint *)constraint view:(NSView *)view edge:(AJRViewEdge)edge; {
     AJRSplitViewBehavior   *container = [[AJRSplitViewBehavior alloc] init];
     
     [container setConstraint:constraint];
@@ -47,13 +38,11 @@
 
 #pragma mark - NSObject
 
-- (NSUInteger)hash
-{
+- (NSUInteger)hash {
     return [_constraint hash] ^ [_view hash] ^ _edge;
 }
 
-- (BOOL)isEqual:(id)object
-{
+- (BOOL)isEqual:(id)object {
     return [_constraint isEqual:[object constraint]] && [_view isEqual:[object view]] && _edge == [(AJRSplitViewBehavior *)object edge];
 }
 

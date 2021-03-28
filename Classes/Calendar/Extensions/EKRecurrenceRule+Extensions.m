@@ -1,10 +1,3 @@
-//
-//  EKRecurrenceRule+Extensions.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 6/6/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "EKRecurrenceRule+Extensions.h"
 
@@ -17,8 +10,7 @@ static NSDateFormatter    *_dateFormatter = nil;
 
 @implementation EKRecurrenceRule (AJRInterfaceExtensions)
 
-+ (NSDateFormatter *)dateFormatter
-{
++ (NSDateFormatter *)dateFormatter {
     if (_dateFormatter == nil) {
         _dateFormatter = [[NSDateFormatter alloc] init];
         [_dateFormatter setDateFormat:@"yyyy/MM/dd hh:mm a"];
@@ -26,8 +18,7 @@ static NSDateFormatter    *_dateFormatter = nil;
     return _dateFormatter;
 }
 
-- (NSString *)ajr_frequencyString
-{
+- (NSString *)ajr_frequencyString {
     switch ([self frequency]) {
         case EKRecurrenceFrequencyDaily:
             if ([self interval] == 1) {
@@ -53,8 +44,7 @@ static NSDateFormatter    *_dateFormatter = nil;
     return [self valueForKeyPath:@"translator.Custom"];
 }
 
-- (NSString *)ajr_frequencyIntervalStringForWeekly
-{
+- (NSString *)ajr_frequencyIntervalStringForWeekly {
     if ([self interval] != 1 || [[self daysOfTheWeek] count] > 0) {
         NSMutableString    *work = [NSMutableString string];
         if ([self interval] == 1) {
@@ -84,8 +74,7 @@ static NSDateFormatter    *_dateFormatter = nil;
     return nil;
 }
 
-- (NSString *)ajr_frequencyIntervalString
-{
+- (NSString *)ajr_frequencyIntervalString {
     switch ([self frequency]) {
         case EKRecurrenceFrequencyDaily:
             break;
@@ -99,9 +88,8 @@ static NSDateFormatter    *_dateFormatter = nil;
     return nil;
 }
 
-- (NSString *)ajr_frequencyEndString
-{
-    EKRecurrenceEnd    *end = [self recurrenceEnd];
+- (NSString *)ajr_frequencyEndString {
+    EKRecurrenceEnd *end = [self recurrenceEnd];
     
     if (end) {
         if ([end endDate]) {
@@ -121,8 +109,7 @@ static NSDateFormatter    *_dateFormatter = nil;
 
 #pragma mark NSObject-Extensions
 
-- (AJRTranslator *)translator
-{
+- (AJRTranslator *)translator {
     return [AJRTranslator translatorForClass:[AJRCalendarView class]];
 }
 

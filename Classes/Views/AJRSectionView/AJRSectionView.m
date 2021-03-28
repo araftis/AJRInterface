@@ -1,10 +1,3 @@
-//
-//  AJRSectionView.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 9/11/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRSectionView.h"
 
@@ -19,14 +12,12 @@
 
 #pragma mark Initialization
 
-- (void)_completeInit
-{
+- (void)_completeInit {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_checkActiveColor:) name:NSApplicationDidBecomeActiveNotification object:NSApp];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_checkActiveColor:) name:NSApplicationDidResignActiveNotification object:NSApp];    
 }
 
-- (id)initWithFrame:(NSRect)frame
-{
+- (id)initWithFrame:(NSRect)frame {
     if ((self = [super initWithFrame:frame])) {
         _sections = [[NSMutableArray alloc] init];
         _viewsToInsert = [[NSMutableArray alloc] init];
@@ -65,8 +56,7 @@
     return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
      _sections = nil;
      _viewsToInsert = nil;
      _viewsToRemove = nil;
@@ -79,7 +69,6 @@
      _titleHighlightBackgroundGradient = nil;
      _titleActiveColor = nil;
      _titleInactiveColor = nil;
-    
 }
 
 #pragma mark Properties
@@ -97,93 +86,81 @@
 @synthesize titleInactiveColor = _titleInactiveColor;
 @synthesize bordered = _bordered;
 
-- (void)setBordered:(BOOL)flag
-{
+- (void)setBordered:(BOOL)flag {
     if ((flag && !_bordered) || (!flag && _bordered)) {
         _bordered = flag;
         [self setNeedsDisplay:YES];
     }
 }
 
-- (CGFloat)arrowProgress
-{
+- (CGFloat)arrowProgress {
     return _arrowProgress;
 }
 
-- (void)setArrowProgress:(CGFloat)progress
-{
+- (void)setArrowProgress:(CGFloat)progress {
     if (_arrowProgress != progress) {
         _arrowProgress = progress;
         [self setNeedsDisplay:YES];
     }
 }
 
-- (void)setActiveBackgroundColor:(NSColor *)color
-{
+- (void)setActiveBackgroundColor:(NSColor *)color {
     if (color != _activeBackgroundColor) {
         _activeBackgroundColor = color;
         [self setNeedsDisplay:YES];
     }
 }
 
-- (void)setInactiveBackgroundColor:(NSColor *)color
-{
+- (void)setInactiveBackgroundColor:(NSColor *)color {
     if (color != _inactiveBackgroundColor) {
         _inactiveBackgroundColor = color;
         [self setNeedsDisplay:YES];
     }
 }
 
-- (void)setTitleHeight:(CGFloat)height
-{
+- (void)setTitleHeight:(CGFloat)height {
     if (height != _titleHeight) {
         _titleHeight = height;
         [self setNeedsDisplay:YES];
     }
 }
 
-- (void)setTitleActiveBackgroundGradient:(NSGradient *)gradient
-{
+- (void)setTitleActiveBackgroundGradient:(NSGradient *)gradient {
     if (gradient != _titleActiveBackgroundGradient) {
         _titleActiveBackgroundGradient = gradient;
         [self setNeedsDisplay:YES];
     }
 }
 
-- (void)setTitleInactiveBackgroundGradient:(NSGradient *)gradient
-{
+- (void)setTitleInactiveBackgroundGradient:(NSGradient *)gradient {
     if (gradient != _titleInactiveBackgroundGradient) {
         _titleInactiveBackgroundGradient = gradient;
         [self setNeedsDisplay:YES];
     }
 }
 
-- (void)setTitleHighlightBackgroundGradient:(NSGradient *)gradient
-{
+- (void)setTitleHighlightBackgroundGradient:(NSGradient *)gradient {
     if (gradient != _titleHighlightBackgroundGradient) {
         _titleHighlightBackgroundGradient = gradient;
         [self setNeedsDisplay:YES];
     }
 }
 
-- (void)setTitleActiveColor:(NSColor *)color
-{
+- (void)setTitleActiveColor:(NSColor *)color {
     if (color != _titleActiveColor) {
         _titleActiveColor = color;
         [self setNeedsDisplay:YES];
     }
 }
 
-- (void)setTitleInactiveColor:(NSColor *)color
-{
+- (void)setTitleInactiveColor:(NSColor *)color {
     if (color != _titleInactiveColor) {
         _titleInactiveColor = color;
         [self setNeedsDisplay:YES];
     }
 }
 
-- (void)setTitleAttributes:(NSDictionary *)attributes
-{
+- (void)setTitleAttributes:(NSDictionary *)attributes {
     if (_titleAttributes != attributes) {
         NSFont        *font;
         
@@ -201,8 +178,7 @@
     }
 }
 
-- (void)setDelegate:(id <AJRSectionViewDelegate>)delegate
-{
+- (void)setDelegate:(id <AJRSectionViewDelegate>)delegate {
     if (_delegate != delegate) {
         _delegate = delegate;
         _delegateRespondsToShouldCollapse = [_delegate respondsToSelector:@selector(sectionView:shouldCollapseView:)];
@@ -216,21 +192,18 @@
 
 #pragma mark Managing Animation
 
-- (void)suppressAnimation
-{
+- (void)suppressAnimation {
     _suppressAnimation = YES;
 }
 
-- (void)enableAnimation
-{
+- (void)enableAnimation {
     _suppressAnimation = NO;
 }
 
 
 #pragma mark Layout
 
-- (NSRect)rectForSection:(AJRSectionViewItem *)item
-{
+- (NSRect)rectForSection:(AJRSectionViewItem *)item {
     NSRect        bounds = [self bounds];
     
     for (NSInteger x = 0, max = [_sections count]; x < max; x++) {
@@ -250,8 +223,7 @@
     return NSZeroRect;
 }
 
-- (NSRect)titleRectForSection:(AJRSectionViewItem *)section
-{
+- (NSRect)titleRectForSection:(AJRSectionViewItem *)section {
     if ([section title]) {
         NSRect    bounds = [[section view] frame];
         bounds.origin.y = bounds.origin.y - _titleHeight;
@@ -261,8 +233,7 @@
     return NSZeroRect;
 }
 
-- (void)_basicTile
-{
+- (void)_basicTile {
     NSRect        frame = [self frame];
     NSRect        bounds = [self bounds];
     
@@ -314,8 +285,7 @@
     [self updateTrackingAreas];
 }
 
-- (void)_animatedTile
-{
+- (void)_animatedTile {
     NSRect        frame = [self frame];
     NSRect        bounds = [self bounds];
     
@@ -383,8 +353,7 @@
     
 }
 
-- (void)_tile
-{
+- (void)_tile {
     if (_suppressAnimation) {
         [self _basicTile];
     } else {
@@ -394,15 +363,13 @@
     [self setNeedsDisplay:YES];
 }
 
-- (void)prepareToTile
-{
+- (void)prepareToTile {
     if (!_suppressAnimation) {
         [self tile];
     }
 }
 
-- (void)tile
-{
+- (void)tile {
     if (_suppressAnimation) {
         [self _tile];
     } else {
@@ -432,8 +399,7 @@
 
 #pragma mark Drawing
 
-- (void)drawSectionTitle:(AJRSectionViewItem *)section inRect:(NSRect)rect
-{
+- (void)drawSectionTitle:(AJRSectionViewItem *)section inRect:(NSRect)rect {
     NSString    *title = [section title];
     BOOL        first = [_sections count] && [_sections objectAtIndex:0] == section;
     
@@ -501,26 +467,22 @@
 
 #pragma mark NSView
 
-- (BOOL)isOpaque
-{
+- (BOOL)isOpaque {
     return NO;
 }
 
-- (BOOL)isFlipped
-{
+- (BOOL)isFlipped {
     return YES;
 }
 
-- (void)setFrame:(NSRect)frame
-{
+- (void)setFrame:(NSRect)frame {
     [super setFrame:frame];
     if (!_isTiling) {
         [self _basicTile];
     }
 }
 
-- (void)addSubview:(NSView *)subview
-{
+- (void)addSubview:(NSView *)subview {
     if (_isTiling) {
         [super addSubview:subview];
     } else {
@@ -528,18 +490,15 @@
     }
 }
 
-- (void)addSubview:(NSView *)subview expanded:(BOOL)expanded
-{
+- (void)addSubview:(NSView *)subview expanded:(BOOL)expanded {
     [self addSubview:subview positioned:NSWindowAbove relativeTo:nil expanded:expanded];
 }
 
-- (void)addSubview:(NSView *)subview withTitle:(NSString *)title expanded:(BOOL)expanded;
-{
+- (void)addSubview:(NSView *)subview withTitle:(NSString *)title expanded:(BOOL)expanded; {
     [self addSubview:subview withTitle:title positioned:NSWindowAbove relativeTo:nil expanded:expanded];
 }
 
-- (void)addSubview:(NSView *)aView positioned:(NSWindowOrderingMode)place relativeTo:(NSView *)otherView;
-{
+- (void)addSubview:(NSView *)aView positioned:(NSWindowOrderingMode)place relativeTo:(NSView *)otherView; {
     if (_isTiling) {
         [super addSubview:aView positioned:place relativeTo:otherView];
     } else {
@@ -547,13 +506,11 @@
     }
 }
 
-- (void)addSubview:(NSView *)subview positioned:(NSWindowOrderingMode)place relativeTo:(NSView *)otherView expanded:(BOOL)expanded
-{
+- (void)addSubview:(NSView *)subview positioned:(NSWindowOrderingMode)place relativeTo:(NSView *)otherView expanded:(BOOL)expanded {
     [self addSubview:subview withTitle:nil positioned:place relativeTo:otherView expanded:expanded];
 }
 
-- (void)addSubview:(NSView *)subview withTitle:(NSString *)title positioned:(NSWindowOrderingMode)place relativeTo:(NSView *)otherView expanded:(BOOL)expanded
-{
+- (void)addSubview:(NSView *)subview withTitle:(NSString *)title positioned:(NSWindowOrderingMode)place relativeTo:(NSView *)otherView expanded:(BOOL)expanded {
     AJRSectionViewItem    *section;
     NSUInteger            index;
     
@@ -588,8 +545,7 @@
     [self tile];
 }
 
-- (void)drawRect:(NSRect)rect
-{
+- (void)drawRect:(NSRect)rect {
     NSColor        *backgroundColor = nil;
     
     if ([NSApp isActive] && _activeBackgroundColor) {
@@ -613,8 +569,7 @@
 
 #pragma mark NSView - Tracking Areas
 
-- (void)updateTrackingAreas
-{
+- (void)updateTrackingAreas {
     for (NSTrackingArea *area in [[self trackingAreas] copy]) {
         [self removeTrackingArea:area];
     }
@@ -631,24 +586,21 @@
 
 #pragma mark NSResponder
 
-- (void)mouseDown:(NSEvent *)mouse
-{
+- (void)mouseDown:(NSEvent *)mouse {
     //NSPoint                where = [self convertPoint:[mouse locationInWindow] fromView:nil];
     //AJRSectionViewItem    *section = [self sectionForPoint:where];
     
     //AJRPrintf(@"%C: down section: %@\n", self, [section title]);
 }
 
-- (void)mouseDragged:(NSEvent *)mouse
-{
+- (void)mouseDragged:(NSEvent *)mouse {
     //NSPoint                where = [self convertPoint:[mouse locationInWindow] fromView:nil];
     //AJRSectionViewItem    *section = [self sectionForPoint:where];
     
     //AJRPrintf(@"%C: dragged section: %@\n", self, [section title]);
 }
 
-- (void)mouseUp:(NSEvent *)mouse
-{
+- (void)mouseUp:(NSEvent *)mouse {
     NSPoint                where = [self convertPoint:[mouse locationInWindow] fromView:nil];
     AJRSectionViewItem    *section = [self sectionForPoint:where];
     
@@ -667,8 +619,7 @@
     }
 }
 
-- (void)mouseEntered:(NSEvent *)event
-{
+- (void)mouseEntered:(NSEvent *)event {
     NSPoint                where = [self convertPoint:[event locationInWindow] fromView:nil];
     AJRSectionViewItem    *section = [self sectionForPoint:where];
     
@@ -684,8 +635,7 @@
     //AJRPrintf(@"%C: %s section: %@\n", self, __PRETTY_FUNCTION__, [section title]);
 }
 
-- (void)mouseExited:(NSEvent *)event
-{
+- (void)mouseExited:(NSEvent *)event {
     NSPoint                where = [self convertPoint:[event locationInWindow] fromView:nil];
     AJRSectionViewItem    *section = [self sectionForPoint:where];
 
@@ -704,8 +654,7 @@
 
 #pragma mark Sections
 
-- (AJRSectionViewItem *)sectionForPoint:(NSPoint)point
-{
+- (AJRSectionViewItem *)sectionForPoint:(NSPoint)point {
     for (AJRSectionViewItem *section in _sections) {
         NSString    *title = [section title];
         
@@ -721,8 +670,7 @@
     return nil;
 }
 
-- (AJRSectionViewItem *)sectionForView:(NSView *)view
-{
+- (AJRSectionViewItem *)sectionForView:(NSView *)view {
     for (AJRSectionViewItem *section in _sections) {
         if ([section view] == view) {
             return section;
@@ -731,26 +679,22 @@
     return nil;
 }
 
-- (NSUInteger)indexOfSection:(AJRSectionViewItem *)section
-{
+- (NSUInteger)indexOfSection:(AJRSectionViewItem *)section {
     if (section == nil) return NSNotFound;
     return [_sections indexOfObjectIdenticalTo:section];
 }
 
-- (BOOL)isSectionHighlighted:(AJRSectionViewItem *)section
-{
+- (BOOL)isSectionHighlighted:(AJRSectionViewItem *)section {
     return section == _highlightedSection;
 }
 
 #pragma mark Managing Section Size
 
-- (BOOL)isViewExpanded:(NSView *)view
-{
+- (BOOL)isViewExpanded:(NSView *)view {
     return [[self sectionForView:view] isExpanded];
 }
 
-- (void)expandView:(NSView *)view
-{
+- (void)expandView:(NSView *)view {
     if (![self isViewExpanded:view]) {
         AJRSectionViewItem    *item = [self sectionForView:view];
         [self prepareToTile];
@@ -761,8 +705,7 @@
     }
 }
 
-- (void)collapseView:(NSView *)view
-{
+- (void)collapseView:(NSView *)view {
     if ([self isViewExpanded:view]) {
         AJRSectionViewItem    *item = [self sectionForView:view];
         [self prepareToTile];
@@ -773,8 +716,7 @@
     }
 }
 
-- (void)setHeight:(CGFloat)height ofView:(NSView *)view;
-{
+- (void)setHeight:(CGFloat)height ofView:(NSView *)view; {
     [self prepareToTile];
     [[self sectionForView:view] setHeight:height];
     [self tile];
@@ -782,8 +724,7 @@
 
 #pragma mark Notification Handling
 
-- (void)_checkActiveColor:(NSNotification *)notification
-{
+- (void)_checkActiveColor:(NSNotification *)notification {
     if (_activeBackgroundColor || _inactiveBackgroundColor) {
         [self setNeedsDisplay:YES];
     }
@@ -791,8 +732,7 @@
 
 #pragma mark NSAnimatablePropertyContainer
 
-+ (id)defaultAnimationForKey:(NSString *)key 
-{
++ (id)defaultAnimationForKey:(NSString *)key  {
     if ([key isEqualToString:@"arrowProgress"]) {
         return [CABasicAnimation animation];
     } else {
@@ -802,8 +742,7 @@
 
 #pragma mark NSCoding
 
-- (id)initWithCoder:(NSCoder *)coder
-{
+- (id)initWithCoder:(NSCoder *)coder {
     if ((self = [super initWithCoder:coder])) {
         _sections = [[coder decodeObjectForKey:@"sections"] mutableCopy];
         
@@ -824,8 +763,7 @@
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder
-{
+- (void)encodeWithCoder:(NSCoder *)coder {
     [super encodeWithCoder:coder];
 
     [coder encodeObject:_activeBackgroundColor forKey:@"activeBackgroundColor"];

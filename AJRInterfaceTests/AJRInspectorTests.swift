@@ -1,9 +1,3 @@
-//
-//  AJRInspectorTests.swift
-//  AJRInterfaceTests
-//
-//  Created by AJ Raftis on 3/17/19.
-//
 
 import XCTest
 import AJRInterface

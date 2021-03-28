@@ -95,6 +95,7 @@
 		FA25CC320FDB940C00B7811D /* AJRCalendarScroller.h in Headers */ = {isa = PBXBuildFile; fileRef = FA25CC300FDB940C00B7811D /* AJRCalendarScroller.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA25CC330FDB940C00B7811D /* AJRCalendarScroller.m in Sources */ = {isa = PBXBuildFile; fileRef = FA25CC310FDB940C00B7811D /* AJRCalendarScroller.m */; };
 		FA273652152FC3800032D750 /* AJRInterface.ajrplugindata in Resources */ = {isa = PBXBuildFile; fileRef = FA273651152FC3800032D750 /* AJRInterface.ajrplugindata */; };
+		FA2876FE2610281F00F5BBE8 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = FA2876FD2610281F00F5BBE8 /* LICENSE.md */; };
 		FA2F06560FFA800D001197AD /* _AJRCalendarPrintView.h in Headers */ = {isa = PBXBuildFile; fileRef = FA2F06540FFA800D001197AD /* _AJRCalendarPrintView.h */; settings = {ATTRIBUTES = (); }; };
 		FA2F06570FFA800D001197AD /* _AJRCalendarPrintView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2F06550FFA800D001197AD /* _AJRCalendarPrintView.m */; };
 		FA2F99670E93EE6D004F1A14 /* AJRExpansionView.h in Headers */ = {isa = PBXBuildFile; fileRef = FA2F99630E93EE6D004F1A14 /* AJRExpansionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -649,7 +650,7 @@
 		FA07190D22ACA23C00C2C409 /* AJRSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRSegmentedControl.swift; sourceTree = "<group>"; };
 		FA07C854220C26D60077A0B5 /* NSTableView+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTableView+Extensions.h"; sourceTree = "<group>"; };
 		FA07C855220C26D60077A0B5 /* NSTableView+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTableView+Extensions.m"; sourceTree = "<group>"; };
-		FA07C891220EAD120077A0B5 /* AJRSnapshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRSnapshotView.swift; sourceTree = "<group>"; usesTabs = 1; };
+		FA07C891220EAD120077A0B5 /* AJRSnapshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRSnapshotView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		FA07C8F02212C9370077A0B5 /* AJRSegmentedCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AJRSegmentedCell.h; sourceTree = "<group>"; };
 		FA07C8F12212C9370077A0B5 /* AJRSegmentedCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AJRSegmentedCell.m; sourceTree = "<group>"; };
 		FA092A9B13F6385800689484 /* AJRRibbonViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRRibbonViewItem.h; sourceTree = "<group>"; usesTabs = 1; };
@@ -716,6 +717,7 @@
 		FA25CC300FDB940C00B7811D /* AJRCalendarScroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRCalendarScroller.h; sourceTree = "<group>"; };
 		FA25CC310FDB940C00B7811D /* AJRCalendarScroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRCalendarScroller.m; sourceTree = "<group>"; };
 		FA273651152FC3800032D750 /* AJRInterface.ajrplugindata */ = {isa = PBXFileReference; explicitFileType = text.xml; fileEncoding = 4; path = AJRInterface.ajrplugindata; sourceTree = "<group>"; };
+		FA2876FD2610281F00F5BBE8 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		FA2F06540FFA800D001197AD /* _AJRCalendarPrintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _AJRCalendarPrintView.h; sourceTree = "<group>"; };
 		FA2F06550FFA800D001197AD /* _AJRCalendarPrintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _AJRCalendarPrintView.m; sourceTree = "<group>"; };
 		FA2F99630E93EE6D004F1A14 /* AJRExpansionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRExpansionView.h; sourceTree = "<group>"; };
@@ -759,7 +761,7 @@
 		FA3ECCAC0ECD4C8B00866EBE /* NSTableView+Dragging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTableView+Dragging.h"; sourceTree = "<group>"; };
 		FA3ECCAD0ECD4C8B00866EBE /* NSTableView+Dragging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTableView+Dragging.m"; sourceTree = "<group>"; };
 		FA3EDA1F139019B100B3367E /* AJRPageLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRPageLayout.h; sourceTree = "<group>"; usesTabs = 1; };
-		FA3EDA20139019B100B3367E /* AJRPageLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRPageLayout.m; sourceTree = "<group>"; usesTabs = 1; };
+		FA3EDA20139019B100B3367E /* AJRPageLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRPageLayout.m; sourceTree = "<group>"; usesTabs = 0; };
 		FA3EDA23139019C300B3367E /* AJRVerticalPageLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRVerticalPageLayout.h; sourceTree = "<group>"; usesTabs = 1; };
 		FA3EDA24139019C300B3367E /* AJRVerticalPageLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRVerticalPageLayout.m; sourceTree = "<group>"; usesTabs = 0; };
 		FA4426610E9846B300545311 /* AJRButtonBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRButtonBar.h; sourceTree = "<group>"; };
@@ -967,7 +969,7 @@
 		FA9A47491520E23500D53751 /* AJRCIEColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRCIEColor.m; sourceTree = "<group>"; usesTabs = 1; };
 		FA9EC0CE0EA65FAB0032BA16 /* NSColor+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+Extensions.h"; sourceTree = "<group>"; };
 		FA9EC0CF0EA65FAB0032BA16 /* NSColor+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+Extensions.m"; sourceTree = "<group>"; };
-		FA9EC26D0EA6809E0032BA16 /* AJRButtonTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJRButtonTextFieldCell.swift; sourceTree = "<group>"; usesTabs = 1; };
+		FA9EC26D0EA6809E0032BA16 /* AJRButtonTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJRButtonTextFieldCell.swift; sourceTree = "<group>"; usesTabs = 0; };
 		FAA133E1237CDE0A00F0DF60 /* NSColor+ExtensionsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSColor+ExtensionsTests.m"; sourceTree = "<group>"; };
 		FAA37ECC0E9D26B1004AEECF /* AJRURLField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRURLField.h; sourceTree = "<group>"; };
 		FAA37ECD0E9D26B1004AEECF /* AJRURLField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRURLField.m; sourceTree = "<group>"; };
@@ -1002,7 +1004,7 @@
 		FABB66C40F2E907D00FBFEEB /* AJRExceptionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRExceptionPanel.m; sourceTree = "<group>"; };
 		FABB66C90F2E92B800FBFEEB /* AJRExceptionPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRExceptionPanel.xib; sourceTree = "<group>"; };
 		FABF842F13B2D7E40032D0F4 /* AJRPagedScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRPagedScrollView.h; sourceTree = "<group>"; usesTabs = 1; };
-		FABF843013B2D7E40032D0F4 /* AJRPagedScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRPagedScrollView.m; sourceTree = "<group>"; usesTabs = 1; };
+		FABF843013B2D7E40032D0F4 /* AJRPagedScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRPagedScrollView.m; sourceTree = "<group>"; usesTabs = 0; };
 		FABFEF6B145286FE008CE3FE /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		FABFEF6D145286FE008CE3FE /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		FABFEF70145286FE008CE3FE /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -1283,6 +1285,7 @@
 		0867D691FE84028FC02AAC07 /* AJRInterface */ = {
 			isa = PBXGroup;
 			children = (
+				FA2876FD2610281F00F5BBE8 /* LICENSE.md */,
 				FA8E36C425C0C48400EB554F /* README.md */,
 				FA2F99880E93F0AA004F1A14 /* AJRInterface.h */,
 				08FB77AEFE84172EC02AAC07 /* Classes */,
@@ -2995,6 +2998,7 @@
 				FA16036C10C498F100A1E97D /* AJRPagesTwoUpOddRight.tiff in Resources */,
 				FA16036D10C498F100A1E97D /* AJRPagesVertical.tiff in Resources */,
 				FA16036E10C498F100A1E97D /* Scroll View Pop Up D.tiff in Resources */,
+				FA2876FE2610281F00F5BBE8 /* LICENSE.md in Resources */,
 				FACEC40D22D3F7BA008AA6DB /* AJRInspectorSliceAttributedField.xib in Resources */,
 				FAD61D0D2255958E004CDD37 /* AJRInspectorViewController.strings in Resources */,
 				FA16036F10C498F100A1E97D /* Scroll View Pop Up Paper D.tiff in Resources */,

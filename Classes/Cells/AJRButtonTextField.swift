@@ -1,10 +1,3 @@
-//
-//  AJRButtonTextField.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 2/17/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 import Cocoa
 

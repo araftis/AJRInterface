@@ -1,10 +1,3 @@
-//
-//  AJRSplitView.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 9/28/11.
-//  Copyright (c) 2011 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRSplitView.h"
 
@@ -15,7 +8,6 @@
 #import "NSView+Extensions.h"
 
 #import <AJRFoundation/AJRLogging.h>
-
 
 @interface AJRSplitView ()
 
@@ -39,8 +31,7 @@
 @synthesize trackingInitialConstant = _trackingInitialConstant;
 @synthesize observations = _observations;
 
-- (void)setBorder:(AJRBorder *)border
-{
+- (void)setBorder:(AJRBorder *)border {
     if (border != _border) {
         _border = border;
         [self setNeedsDisplay:YES];
@@ -49,8 +40,7 @@
 
 #pragma mark - Creation
 
-- (void)commonInit
-{
+- (void)commonInit {
     [self setBorder:[[AJRSeparatorBorder alloc] init]];
     [(AJRSeparatorBorder *)_border setBackgroundColor:[AJRGradientColor gradientColorWithColor:NSColor.underPageBackgroundColor]];
     _trackedViews = [[NSMutableSet alloc] init];
@@ -58,8 +48,7 @@
     [self setRedrawOnApplicationOrWindowStatusChange:YES];
 }
 
-- (id)initWithFrame:(NSRect)frame
-{
+- (id)initWithFrame:(NSRect)frame {
     if ((self = [super initWithFrame:frame])) {
         [self commonInit];
     }
@@ -67,8 +56,7 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
+- (id)initWithCoder:(NSCoder *)aDecoder {
     if ((self = [super initWithCoder:aDecoder])) {
         [self commonInit];
     }
@@ -78,8 +66,7 @@
 
 #pragma mark - Views
 
-- (void)addSubview:(NSView *)aView
-{
+- (void)addSubview:(NSView *)aView {
     [super addSubview:aView];
     
     [aView setPostsFrameChangedNotifications:YES];
@@ -90,10 +77,9 @@
     }] forKey:[NSValue valueWithPointer:(__bridge const void *)aView]];
 }
 
-- (void)willRemoveSubview:(NSView *)subview
-{
-    id                token = [_observations objectForKey:[NSValue valueWithPointer:(__bridge const void *)subview]];
-    NSMutableSet    *toRemove;
+- (void)willRemoveSubview:(NSView *)subview {
+    id token = [_observations objectForKey:[NSValue valueWithPointer:(__bridge const void *)subview]];
+    NSMutableSet *toRemove;
     
     if (token) {
         [[NSNotificationCenter defaultCenter] removeObserver:token];
@@ -110,37 +96,32 @@
     }
 }
 
-- (void)addBehavior:(AJRSplitViewBehavior *)behavior
-{
+- (void)addBehavior:(AJRSplitViewBehavior *)behavior {
     [_trackedViews addObject:behavior];
     [[self window] invalidateCursorRectsForView:self];
 }
 
-- (void)removeBehavior:(AJRSplitViewBehavior *)behavior
-{
+- (void)removeBehavior:(AJRSplitViewBehavior *)behavior {
     [_trackedViews removeObject:behavior];
     [[self window] invalidateCursorRectsForView:self];
 }
 
-- (void)removeAllBehaviors
-{
+- (void)removeAllBehaviors {
     [_trackedViews removeAllObjects];
     [[self window] invalidateCursorRectsForView:self];
 }
 
-- (AJRSplitViewBehavior *)trackConstraint:(NSLayoutConstraint *)constraint ofView:(NSView *)view forEdge:(AJRViewEdge)edge
-{
-    AJRSplitViewBehavior    *behavior = [AJRSplitViewBehavior behaviorWithConstraint:constraint view:view edge:edge];
+- (AJRSplitViewBehavior *)trackConstraint:(NSLayoutConstraint *)constraint ofView:(NSView *)view forEdge:(AJRViewEdge)edge {
+    AJRSplitViewBehavior *behavior = [AJRSplitViewBehavior behaviorWithConstraint:constraint view:view edge:edge];
     
     [self addBehavior:behavior];
     
     return behavior;
 }
 
-- (AJRSplitViewBehavior *)containerForPoint:(NSPoint)point
-{
+- (AJRSplitViewBehavior *)containerForPoint:(NSPoint)point {
     for (AJRSplitViewBehavior *behavior in _trackedViews) {
-        NSRect  trackingRect = [behavior trackingRect];
+        NSRect trackingRect = [behavior trackingRect];
         
         if (NSPointInRect(point, trackingRect)) {
             return behavior;
@@ -152,13 +133,11 @@
 
 #pragma mark - NSView
 
-- (void)drawRect:(NSRect)dirtyRect
-{
+- (void)drawRect:(NSRect)dirtyRect {
     [_border drawBorderInRect:[self bounds] controlView:self];
 }
 
-- (NSRect)trackingRectForView:(NSView *)view edge:(AJRViewEdge)edge
-{
+- (NSRect)trackingRectForView:(NSView *)view edge:(AJRViewEdge)edge {
     NSRect  trackingRect = NSZeroRect;
     NSRect  frame = [view frame];
     
@@ -187,14 +166,13 @@
     return trackingRect;
 }
 
-- (void)resetCursorRects
-{
+- (void)resetCursorRects {
     if (!_trackingContainer) {
         for (AJRSplitViewBehavior *behavior in _trackedViews) {
-            NSView      *view = [behavior view];
-            AJRViewEdge    edge = [behavior edge];
-            NSRect      trackingRect;
-            NSCursor    *cursor = nil;
+            NSView *view = [behavior view];
+            AJRViewEdge edge = [behavior edge];
+            NSRect trackingRect;
+            NSCursor *cursor = nil;
             
             switch (edge) {
                 case AJRViewEdgeTop:
@@ -223,8 +201,7 @@
     }
 }
 
-- (NSView *)hitTest:(NSPoint)aPoint
-{
+- (NSView *)hitTest:(NSPoint)aPoint {
     if ([self containerForPoint:[self convertPoint:aPoint fromView:[self superview]]] != nil) {
         return self;
     }
@@ -232,10 +209,9 @@
     return [super hitTest:aPoint];
 }
 
-- (void)mouseDown:(NSEvent *)event
-{
-    NSPoint                where = [self convertPoint:[event locationInWindow] fromView:nil];
-    AJRSplitViewBehavior    *behavior = [self containerForPoint:where];
+- (void)mouseDown:(NSEvent *)event {
+    NSPoint where = [self convertPoint:[event locationInWindow] fromView:nil];
+    AJRSplitViewBehavior *behavior = [self containerForPoint:where];
     
     if (behavior) {
         _trackingContainer = behavior;
@@ -256,11 +232,10 @@
     }
 }
 
-- (void)mouseDragged:(NSEvent *)event
-{
-    NSPoint         where = [self convertPoint:[event locationInWindow] fromView:nil];
-    CGFloat            offset = 0.0;
-    CGFloat            newConstant;
+- (void)mouseDragged:(NSEvent *)event {
+    NSPoint where = [self convertPoint:[event locationInWindow] fromView:nil];
+    CGFloat offset = 0.0;
+    CGFloat newConstant;
     
     switch ([_trackingContainer edge]) {
         case AJRViewEdgeTop:
@@ -292,8 +267,7 @@
     [[_trackingContainer constraint] setConstant:newConstant];
 }
 
-- (void)mouseUp:(NSEvent *)event
-{
+- (void)mouseUp:(NSEvent *)event {
     if ([_trackingContainer resizeCompletionBlock]) {
         [_trackingContainer resizeCompletionBlock]([[_trackingContainer constraint] constant]);
     }

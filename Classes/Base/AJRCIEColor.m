@@ -1,4 +1,3 @@
-/* AJRCIEColor.m created by alex on Sat 01-Sep-2001 */
 
 #import "AJRCIEColor.h"
 

@@ -1,33 +1,26 @@
-//
-//  AJRGIFImageFormat.m
-//  LDView
-//
-//  Created by alex on Thu Nov 15 2001.
-//  Copyright (c) 2001 __MyCompanyName__. All rights reserved.
-//
 
 #import "AJRGIFImageFormat.h"
 
 @implementation AJRGIFImageFormat
 
 + (void)load {
-	[AJRImageFormat registerFormat:self];
+    [AJRImageFormat registerFormat:self];
 }
 
 - (NSString *)name {
-	return @"GIF (Graphics Interchange Format)";
+    return @"GIF (Graphics Interchange Format)";
 }
 
 - (NSString *)extension {
-	return @"gif";
+    return @"gif";
 }
 
 - (NSInteger)imageType {
-	return NSBitmapImageFileTypeGIF;
+    return NSBitmapImageFileTypeGIF;
 }
 
 - (NSDictionary *)properties {
-	return @{NSImageDitherTransparency:[NSNumber numberWithBool:[_ditherTransparencyCheck state]]};
+    return @{NSImageDitherTransparency:[NSNumber numberWithBool:[_ditherTransparencyCheck state]]};
 }
 
 @end

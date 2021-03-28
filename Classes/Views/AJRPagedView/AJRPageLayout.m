@@ -1,10 +1,3 @@
-//
-//  AJRPageLayout.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 5/27/11.
-//  Copyright 2011 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRPageLayout.h"
 
@@ -12,7 +5,7 @@
 
 @implementation AJRPageLayout
 {
-	AJRPagedView     *__weak _pagedView;
+    AJRPagedView *__weak _pagedView;
 }
 
 NSMutableDictionary *_pageLayouts = nil;
@@ -53,7 +46,7 @@ NSMutableDictionary *_pageLayouts = nil;
 }
 
 - (NSString *)identifier {
-	return [[self class] identifier];
+    return [[self class] identifier];
 }
 
 + (NSString *)name {
@@ -77,7 +70,7 @@ NSMutableDictionary *_pageLayouts = nil;
 }
 
 - (NSInteger)pairedPageForPage:(NSInteger)pageNumber {
-	return NSNotFound;
+    return NSNotFound;
 }
 
 #pragma mark - Actions
@@ -113,19 +106,20 @@ NSMutableDictionary *_pageLayouts = nil;
     pageSize.height *= scale;
     
     // Width + Height
-	[*view addConstraints:@[[[*view widthAnchor] constraintEqualToConstant:pageSize.width],
-							[[*view heightAnchor] constraintEqualToConstant:pageSize.height],
-							]];
+    [*view addConstraints:@[
+        [[*view widthAnchor] constraintEqualToConstant:pageSize.width],
+        [[*view heightAnchor] constraintEqualToConstant:pageSize.height],
+    ]];
 }
 
 #pragma mark - Ruler Support
 
 - (NSArray<NSView *> *)horizontalViews {
-	return @[];
+    return @[];
 }
 
 - (NSArray<NSView *> *)verticalViews {
-	return @[];
+    return @[];
 }
 
 @end

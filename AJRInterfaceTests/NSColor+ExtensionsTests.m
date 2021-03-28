@@ -1,9 +1,3 @@
-//
-//  NSColor+ExtensionsTests.m
-//  AJRInterfaceTests
-//
-//  Created by AJ Raftis on 11/13/19.
-//
 
 #import <XCTest/XCTest.h>
 

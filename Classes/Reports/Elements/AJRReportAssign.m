@@ -1,10 +1,3 @@
-//
-//  AJRReportAssign.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 1/8/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRReportAssign.h"
 
@@ -14,18 +7,16 @@
 
 @implementation AJRReportAssign
 
-+ (void)load
-{
++ (void)load {
     [AJRReportElement registerReportElement:self forName:@"assign"];
 }
 
-- (void)apply
-{
-    NSString    *key = [[_node attributeForName:@"key"] stringValue];
-    NSString    *valueKey = [[_node attributeForName:@"valueKey"] stringValue];
-    NSString    *rawValue = [[_node attributeForName:@"value"] stringValue];
-    NSString    *type = [[_node attributeForName:@"type"] stringValue];
-    id            value;
+- (void)apply {
+    NSString *key = [[_node attributeForName:@"key"] stringValue];
+    NSString *valueKey = [[_node attributeForName:@"valueKey"] stringValue];
+    NSString *rawValue = [[_node attributeForName:@"value"] stringValue];
+    NSString *type = [[_node attributeForName:@"type"] stringValue];
+    id value;
     
     if (key == nil) {
         @throw [NSException exceptionWithName:@"ReportException" reason:@"Missing \"key\" from assign element." userInfo:nil];

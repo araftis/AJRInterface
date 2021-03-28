@@ -1,9 +1,3 @@
-//
-//  AJRInspectorSliceColor.swift
-//  AJRInspectorsTest
-//
-//  Created by AJ Raftis on 3/19/19.
-//
 
 import Cocoa
 

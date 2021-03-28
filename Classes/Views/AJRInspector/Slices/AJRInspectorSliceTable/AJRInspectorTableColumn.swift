@@ -1,9 +1,3 @@
-//
-//  AJRInspectorTableColumn.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 4/7/19.
-//
 
 import AJRFoundation
 import Cocoa

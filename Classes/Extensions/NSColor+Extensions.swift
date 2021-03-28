@@ -1,9 +1,3 @@
-//
-//  NColor+Extensions.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 2/25/19.
-//
 
 import Foundation
 

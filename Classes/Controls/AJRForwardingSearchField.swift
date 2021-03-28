@@ -1,9 +1,3 @@
-//
-//  AJRForwardingSearchField.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 2/21/19.
-//
 
 import Cocoa
 

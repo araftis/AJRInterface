@@ -1,10 +1,3 @@
-//
-//  CalAttendee.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 6/6/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "EKParticipant+Extensions.h"
 
@@ -12,9 +5,8 @@
 
 @implementation EKParticipant (AJRInterfaceExtensions)
 
-- (NSImage *)statusImage
-{
-    NSString    *imageName = @"AJRCalendarStatusUnknown";
+- (NSImage *)statusImage {
+    NSString *imageName = @"AJRCalendarStatusUnknown";
 
     switch ([self participantStatus]) {
         case EKParticipantStatusUnknown:

@@ -1,9 +1,3 @@
-//
-//  AJRSegmentedCell.h
-//  AJRInterface
-//
-//  Created by AJ Raftis on 2/12/19.
-//
 
 #import <Cocoa/Cocoa.h>
 

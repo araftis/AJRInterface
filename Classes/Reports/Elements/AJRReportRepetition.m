@@ -1,10 +1,3 @@
-//
-//  AJRReportRepetition.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 12/19/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRReportRepetition.h"
 
@@ -17,15 +10,13 @@
 
 @implementation AJRReportRepetition
 
-+ (void)load
-{
++ (void)load {
     [AJRReportElement registerReportElement:self forName:@"repetition"];
 }
 
 
-- (void)_iterateArray:(NSArray *)array
-{
-    NSUInteger    max = [array count];
+- (void)_iterateArray:(NSArray *)array {
+    NSUInteger max = [array count];
     
     if (_sortOrderings) {
         array = [array sortedArrayUsingDescriptors:_sortOrderings];
@@ -56,12 +47,11 @@
     }
 }
 
-- (void)_iterateDictionary:(NSDictionary *)dictionary
-{
-    NSMutableArray    *array = [[NSMutableArray alloc] init];
+- (void)_iterateDictionary:(NSDictionary *)dictionary {
+    NSMutableArray *array = [[NSMutableArray alloc] init];
     
     for (NSString *key in dictionary) {
-        id        object = [dictionary objectForKey:key];
+        id object = [dictionary objectForKey:key];
         if ([object isKindOfClass:[NSDictionary class]]) {
             object = [object mutableCopy];
             [object setObject:key forKey:@"_key"];
@@ -73,15 +63,14 @@
 
 }
 
-- (void)_buildSortOrderings:(NSString *)sort
-{
-    NSArray    *parts = [sort componentsSeparatedByString:@","];
-    
+- (void)_buildSortOrderings:(NSString *)sort {
+    NSArray *parts = [sort componentsSeparatedByString:@","];
+
     _sortOrderings = [[NSMutableArray alloc] init];
     for (NSString *part in parts) {
-        NSRange                range = [part rangeOfString:@":"];
-        NSString            *key, *order;
-        NSSortDescriptor    *descriptor;
+        NSRange range = [part rangeOfString:@":"];
+        NSString *key, *order;
+        NSSortDescriptor *descriptor;
         
         if (range.location == NSNotFound) {
             key = part;
@@ -98,11 +87,10 @@
     }
 }
 
-- (void)apply
-{
-    NSString    *key = [[_node attributeForName:@"list"] stringValue];
-    id            rawValue;
-    NSString    *sort;
+- (void)apply {
+    NSString *key = [[_node attributeForName:@"list"] stringValue];
+    id rawValue;
+    NSString *sort;
 
     _objectName = [[_node attributeForName:@"item"] stringValue];
     _indexName = [[_node attributeForName:@"index"] stringValue];

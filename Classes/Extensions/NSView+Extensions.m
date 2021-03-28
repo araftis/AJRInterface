@@ -1,10 +1,3 @@
-//
-//  NSView-Extensions.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 2/19/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "NSView+Extensions.h"
 

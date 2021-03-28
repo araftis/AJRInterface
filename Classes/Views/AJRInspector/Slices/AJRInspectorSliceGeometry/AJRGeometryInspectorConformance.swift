@@ -1,9 +1,3 @@
-//
-//  AJRGeometryInspectorConformance.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 6/14/19.
-//
 
 import Foundation
 

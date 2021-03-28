@@ -1,9 +1,3 @@
-//
-//  NSGradient+Extensions.m
-//  AJRInterface
-//
-//  Created by AJ Raftis on 1/25/19.
-//
 
 #import "NSGradient+Extensions.h"
 

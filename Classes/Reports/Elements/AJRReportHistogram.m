@@ -1,10 +1,3 @@
-//
-//  AJRReportHistogram.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 12/19/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRReportHistogram.h"
 
@@ -21,19 +14,17 @@
 
 @implementation AJRReportHistogram
 
-+ (void)load
-{
++ (void)load {
     [AJRReportElement registerReportElement:self forName:@"histogram"];
 }
 
 
-- (void)apply
-{
-    NSString        *dataKey = [[_node attributeForName:@"key"] stringValue];
-    NSDictionary    *data = nil;
-    NSInteger        width = [[[_node attributeForName:@"width"] stringValue] integerValue];
-    NSInteger        height = [[[_node attributeForName:@"height"] stringValue] integerValue];
-    NSString        *SLAKey = [[_node attributeForName:@"sla"] stringValue];
+- (void)apply {
+    NSString *dataKey = [[_node attributeForName:@"key"] stringValue];
+    NSDictionary *data = nil;
+    NSInteger width = [[[_node attributeForName:@"width"] stringValue] integerValue];
+    NSInteger height = [[[_node attributeForName:@"height"] stringValue] integerValue];
+    NSString *SLAKey = [[_node attributeForName:@"sla"] stringValue];
     
     if (!dataKey) {
         @throw [NSException exceptionWithName:@"ReportException" reason:@"Missing \"key\" from histogram element." userInfo:nil];
@@ -47,9 +38,9 @@
     } @catch (NSException *exception) { }
     
     if (data != nil) {
-        NSWindow            *window;
-        AJRHistogramView        *view;
-        NSRect                frame = NSMakeRect(0.0, 0.0, width, height);
+        NSWindow *window;
+        AJRHistogramView *view;
+        NSRect frame = NSMakeRect(0.0, 0.0, width, height);
         
         window = [[NSWindow alloc] initWithContentRect:frame
                                              styleMask:NSWindowStyleMaskBorderless
@@ -76,8 +67,7 @@
     }
 }
 
-- (void)cleanup
-{
+- (void)cleanup {
     if (path) {
         [[NSFileManager defaultManager] removeItemAtPath:path error:NULL];
     }

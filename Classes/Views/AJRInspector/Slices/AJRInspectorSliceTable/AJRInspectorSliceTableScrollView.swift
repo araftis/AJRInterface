@@ -1,9 +1,3 @@
-//
-//  AJRInspectorSliceTableScrollView.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 5/5/19.
-//
 
 import Cocoa
 

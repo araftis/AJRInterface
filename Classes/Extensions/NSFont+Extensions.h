@@ -1,9 +1,3 @@
-//
-//  NSFont+Extensions.h
-//  AJRInterface
-//
-//  Created by AJ Raftis on 6/8/19.
-//
 
 #import <Cocoa/Cocoa.h>
 

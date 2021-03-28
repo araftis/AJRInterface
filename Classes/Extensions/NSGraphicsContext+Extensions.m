@@ -1,9 +1,3 @@
-//
-//  NSGraphicsContext+Extensions.m
-//  AJRInterface
-//
-//  Created by AJ Raftis on 10/25/18.
-//
 
 #import "NSGraphicsContext+Extensions.h"
 

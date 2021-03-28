@@ -1,10 +1,3 @@
-//
-//  AJRReport.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 12/18/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRReport.h"
 
@@ -12,8 +5,7 @@
 
 @implementation AJRReport
 
-- (id)initWithPath:(NSString *)path
-{
+- (id)initWithPath:(NSString *)path {
     if ((self = [super init])) {
         NSRect        frame = (NSRect){{0.0, 0.0}, { 8.5 * 72.0, 11.0 * 72.0 }};
         _window = [[NSWindow alloc] initWithContentRect:frame
@@ -31,19 +23,16 @@
     return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [_window orderOut:self];
     
 }
 
-- (AJRReportView *)reportView
-{
+- (AJRReportView *)reportView {
     return _reportView;
 }
 
-- (void)setReportPath:(NSString *)path
-{
+- (void)setReportPath:(NSString *)path {
     [_reportView setReportPath:path];
     if ([_reportView isLandscape]) {
         [_window setFrame:(NSRect){{0.0, 0.0}, {11.0 * 72.0, 8.5 * 72.0}} display:NO];
@@ -53,33 +42,27 @@
     [_reportView setFrame:[_window frame]];
 }
 
-- (NSString *)reportPath
-{
+- (NSString *)reportPath {
     return [_reportView reportPath];
 }
 
-- (void)setRootObject:(id)object
-{
+- (void)setRootObject:(id)object {
     [_reportView setRootObject:object];
 }
 
-- (id)rootObject
-{
+- (id)rootObject {
     return [_reportView rootObject];
 }
 
-- (void)print
-{
+- (void)print {
     [self printInWindow:nil];
 }
 
-- (void)printInWindow:(NSWindow *)window
-{
+- (void)printInWindow:(NSWindow *)window {
     [_reportView printInWindow:window];
 }
 
-- (void)reportView:(AJRReportView *)reportView didFinishPrintingWithSuccess:(BOOL)flag
-{
+- (void)reportView:(AJRReportView *)reportView didFinishPrintingWithSuccess:(BOOL)flag {
 }
 
 @end

@@ -1,4 +1,3 @@
-/* NSPrintInfo-Extensions.m created by alex on Thu 22-Oct-1998 */
 
 #import "NSPrintInfo+Extensions.h"
 

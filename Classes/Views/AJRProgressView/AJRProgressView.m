@@ -1,20 +1,12 @@
-//
-//  AJRProgressView.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 8/31/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRProgressView.h"
 
 @implementation AJRProgressView
 
-- (id)initWithFrame:(NSRect)frameRect
-{
+- (id)initWithFrame:(NSRect)frameRect {
     if ((self = [super initWithFrame:frameRect])) {
-        NSProgressIndicator    *progress;
-        NSRect                frame;
+        NSProgressIndicator *progress;
+        NSRect frame;
         
         self.backgroundColor = [NSColor colorWithCalibratedWhite:0.0 alpha:0.25];
         
@@ -33,24 +25,19 @@
     return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    
 }
 
 @synthesize backgroundColor = _backgroundColor;
 
-- (void)drawRect:(NSRect)rect
-{
+- (void)drawRect:(NSRect)rect {
     [_backgroundColor set];
     NSRectFillUsingOperation(rect, NSCompositingOperationSourceOver);
 }
 
-- (void)viewDidMoveToSuperview
-{
-    NSView        *superview = [self superview];
+- (void)viewDidMoveToSuperview {
+    NSView *superview = [self superview];
     
     if (superview) {
         [superview setPostsFrameChangedNotifications:YES];
@@ -59,20 +46,17 @@
     }
 }
 
-- (void)viewWillMoveToSuperview:(NSView *)newSuperview
-{
+- (void)viewWillMoveToSuperview:(NSView *)newSuperview {
     if ([self superview]) {
         [[NSNotificationCenter defaultCenter] removeObserver:self];
     }
 }
 
-- (void)superviewFrameDidChange:(NSNotification *)notification
-{
+- (void)superviewFrameDidChange:(NSNotification *)notification {
     [self setFrame:[[self superview] frame]];
 }
 
-- (BOOL)isOpaque
-{
+- (BOOL)isOpaque {
     return NO;
 }
 

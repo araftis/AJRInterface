@@ -1,9 +1,3 @@
-//
-//  NSOutlineView+Extensions.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 6/21/19.
-//
 
 import AppKit
 

@@ -1,10 +1,3 @@
-//
-//  AJRCalendarItemInspectorWindow.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 6/5/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRCalendarItemInspectorWindow.h"
 
@@ -36,8 +29,7 @@ static const CGFloat AJRMaxInspectorHeight = 488.0;
 
 #pragma mark Initialization
 
-- (id)initWithScreenLocation:(NSPoint)location
-{
+- (id)initWithScreenLocation:(NSPoint)location {
     if ((self = [super initWithContentRect:(NSRect){{100.0, 50.0}, {312.0, AJRMaxInspectorHeight}} styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:NO])) {
         _AJRCalendarItemInspectorFrame    *windowFrame;
         NSScreen                        *screen = [self screen];
@@ -61,24 +53,21 @@ static const CGFloat AJRMaxInspectorHeight = 488.0;
 
 #pragma mark Properties
 
-- (AJRCalendarItemInspector *)inspector
-{
+- (AJRCalendarItemInspector *)inspector {
     return [(AJRCalendarItemInspectorController *)[self delegate] inspector];
 }
 
-- (CGFloat)arrowShift
-{
+- (CGFloat)arrowShift {
     return _arrowShift;
 }
 
 #pragma mark Window Placement
 
-- (void)pointToRect:(NSRect)rect
-{
-    NSPoint        point = { rect.origin.x + rect.size.width * (5.0 / 6.0), NSMidY(rect) };
-    NSRect        frame = [self frame];
-    CGFloat        offsetX = 0.0;
-    CGFloat        offsetY = frame.size.height * (2.0 / 3.0);
+- (void)pointToRect:(NSRect)rect {
+    NSPoint point = { rect.origin.x + rect.size.width * (5.0 / 6.0), NSMidY(rect) };
+    NSRect frame = [self frame];
+    CGFloat offsetX = 0.0;
+    CGFloat offsetY = frame.size.height * (2.0 / 3.0);
     
     frame.origin.x = point.x + offsetX;
     frame.origin.y = point.y - offsetY;
@@ -102,8 +91,7 @@ static const CGFloat AJRMaxInspectorHeight = 488.0;
 
 #pragma mark NSWindow
 
-- (_AJRCalendarItemInspectorFrame *)frameView
-{
+- (_AJRCalendarItemInspectorFrame *)frameView {
     NSView    *view = [self contentView];
     if ([view isKindOfClass:[_AJRCalendarItemInspectorFrame class]]) {
         return [self contentView];
@@ -111,35 +99,29 @@ static const CGFloat AJRMaxInspectorHeight = 488.0;
     return nil;
 }
 
-- (NSView *)documentView
-{
+- (NSView *)documentView {
     return [[self frameView] contentView];
 }
 
-- (void)setDocumentView:(NSView *)documentView;
-{
+- (void)setDocumentView:(NSView *)documentView {
     [[self frameView] setContentView:documentView];
 }
 
-- (void)setTitle:(NSString *)title
-{
+- (void)setTitle:(NSString *)title {
     if (title == nil) title = @"";
     [super setTitle:title];
     [[self frameView] setTitle:title];
 }
 
-- (void)_setTitle:(NSString *)title
-{
+- (void)_setTitle:(NSString *)title {
     [super setTitle:title];
 }
 
-- (void)setFrame:(NSRect)frame display:(BOOL)flag
-{
+- (void)setFrame:(NSRect)frame display:(BOOL)flag {
     [super setFrame:frame display:_animationView == nil];//YES];
 }
 
-- (BOOL)makeFirstResponder:(NSResponder *)responder
-{
+- (BOOL)makeFirstResponder:(NSResponder *)responder {
     if ([super makeFirstResponder:responder]) {
         [[self frameView] setNeedsDisplay:YES];
         return YES;
@@ -147,17 +129,15 @@ static const CGFloat AJRMaxInspectorHeight = 488.0;
     return NO;
 }
 
-- (void)orderFront:(id)sender
-{
+- (void)orderFront:(id)sender {
     [self makeFirstResponder:[self frameView]];
     [super orderFront:sender];
 }
 
 #pragma mark Actions
 
-- (IBAction)dismiss:(id)sender
-{
-    NSWindow    *parent = [self parentWindow];
+- (IBAction)dismiss:(id)sender {
+    NSWindow *parent = [self parentWindow];
     
     if (parent) {
         [parent removeChildWindow:self];
@@ -167,8 +147,7 @@ static const CGFloat AJRMaxInspectorHeight = 488.0;
 
 #pragma mark Window Frame
 
-- (NSTextField *)titleField
-{
+- (NSTextField *)titleField {
     return [[self frameView] titleField];
 }
 
@@ -177,17 +156,15 @@ static const CGFloat AJRMaxInspectorHeight = 488.0;
                enabled:(BOOL)enabled
                 target:(id)target
                 action:(SEL)action
-           forLocation:(AJRButtonLocation)location
-{
+           forLocation:(AJRButtonLocation)location {
     [[self frameView] setButtonTitle:title keyEquivalent:keyEquivalent enabled:enabled target:target action:action forLocation:location];
 }
 
 #pragma mark Animation
 
-- (void)_cleanupAndRestoreViews 
-{
-    NSScreen    *screen = [self screen];
-    NSRect        screenRect = [screen visibleFrame];
+- (void)_cleanupAndRestoreViews {
+    NSScreen *screen = [self screen];
+    NSRect screenRect = [screen visibleFrame];
 
     // Reset this now, since we're about to restore the window to its correct size.
     _minYCoordinate = screenRect.origin.y;
@@ -221,8 +198,7 @@ static const CGFloat AJRMaxInspectorHeight = 488.0;
     }
 }
 
-- (CATransform3D)_transformForScale:(CGFloat)scale 
-{
+- (CATransform3D)_transformForScale:(CGFloat)scale {
     if (scale == 1.0) {
         return CATransform3DIdentity;
     } else {
@@ -243,8 +219,7 @@ static const CGFloat AJRMaxInspectorHeight = 488.0;
     }
 }
 
-- (void)_addAnimationToScale:(CGFloat)scale duration:(NSTimeInterval)duration 
-{
+- (void)_addAnimationToScale:(CGFloat)scale duration:(NSTimeInterval)duration {
     CABasicAnimation *transformAni = [CABasicAnimation animation];
     transformAni.fromValue = [NSValue valueWithCATransform3D:_animationLayer.transform];
     transformAni.duration = duration;
@@ -257,8 +232,7 @@ static const CGFloat AJRMaxInspectorHeight = 488.0;
 }
 
 // Chain several animations together -- one starting at the end of the other
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag 
-{
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
     if (!flag) {
         _animationLayer.transform = [self _transformForScale:1.0];
         [self _cleanupAndRestoreViews];
@@ -275,23 +249,20 @@ static const CGFloat AJRMaxInspectorHeight = 488.0;
 }
 
 // Our window doesn't have a title bar or a resize bar, but we want it to still become key. However, we want the tableview to draw as the first responder even when the window isn't key. So, we return NO when we are drawing to work around that.
-- (BOOL)canBecomeKeyWindow 
-{
+- (BOOL)canBecomeKeyWindow {
     if (_pretendKeyForDrawing) return NO;
     return YES;
 }
 
 // The scrollers always draw blue if they are in a key window. Temporarily tell them that our window is key for caching the proper image.
-- (BOOL)isKeyWindow 
-{
+- (BOOL)isKeyWindow {
     if (_pretendKeyForDrawing) return YES;
     return [super isKeyWindow];
 }
 
-- (void)popup 
-{
-    NSScreen    *screen = [self screen];
-    NSRect        screenRect = [screen visibleFrame];
+- (void)popup {
+    NSScreen *screen = [self screen];
+    NSRect screenRect = [screen visibleFrame];
 
     // Stop any existing animations
     if (_animationView != nil) {
@@ -360,21 +331,18 @@ static const CGFloat AJRMaxInspectorHeight = 488.0;
     [self _addAnimationToScale:GROW_SCALE duration:GROW_ANIMATION_DURATION];
 }
 
-- (void)setEventualParent:(NSWindow *)window
-{
+- (void)setEventualParent:(NSWindow *)window {
     _eventualParent = window;
 }
 
-- (void)sendEvent:(NSEvent *)event
-{
+- (void)sendEvent:(NSEvent *)event {
     // Don't send events if our parent window is displaying a sheet.
     if ([[self parentWindow] attachedSheet] == nil) {
         [super sendEvent:event];
     }
 }
 
-- (void)updateFrameToAccomodateHeight:(CGFloat)height animate:(BOOL)animate
-{
+- (void)updateFrameToAccomodateHeight:(CGFloat)height animate:(BOOL)animate {
     [[self frameView] tileToContainHeight:height withAnimation:animate];
 }
 

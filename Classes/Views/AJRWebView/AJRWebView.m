@@ -1,9 +1,3 @@
-//
-//  AJRWebView.m
-//  AJRInterface
-//
-//  Created by AJ Raftis on 1/24/19.
-//
 
 #import "AJRWebView.h"
 

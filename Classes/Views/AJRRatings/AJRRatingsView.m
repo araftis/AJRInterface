@@ -1,10 +1,3 @@
-//
-//  AJRRatingsView.m
-//  AJRInterface
-//
-//  Created by Mike Lee on 1/21/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRRatingsView.h"
 

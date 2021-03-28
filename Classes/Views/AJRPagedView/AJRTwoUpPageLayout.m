@@ -1,10 +1,3 @@
-//
-//  AJRTwoUpPageLayout.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 6/16/11.
-//  Copyright 2011 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRTwoUpPageLayout.h"
 
@@ -12,10 +5,9 @@
 
 NSString * const AJRTwoUpPageLayoutIdentifier = @"twoUp";
 
-@implementation AJRTwoUpPageLayout
-{
-	NSMutableArray<NSView *> *_horizontalViews;
-	NSMutableArray<NSView *> *_verticalViews;
+@implementation AJRTwoUpPageLayout {
+    NSMutableArray<NSView *> *_horizontalViews;
+    NSMutableArray<NSView *> *_verticalViews;
 }
 
 #pragma mark - Factory
@@ -33,11 +25,11 @@ NSString * const AJRTwoUpPageLayoutIdentifier = @"twoUp";
 }
 
 - (NSInteger)pairedPageForPage:(NSInteger)pageNumber {
-	if ((pageNumber + 1) % 2) {
-		return pageNumber + 1;
-	} else {
-		return pageNumber - 1;
-	}
+    if ((pageNumber + 1) % 2) {
+        return pageNumber + 1;
+    } else {
+        return pageNumber - 1;
+    }
 }
 
 #pragma mark - AJRPageLayout
@@ -50,13 +42,13 @@ NSString * const AJRTwoUpPageLayoutIdentifier = @"twoUp";
     CGFloat verticalGap = [self verticalGap];
     CGFloat horizontalGap = [self horizontalGap];
     NSInteger pageCount = [document pageCountForPagedView:[self pagedView]];
-	
-	_horizontalViews = [NSMutableArray array];
-	_verticalViews = [NSMutableArray array];
-	
+
+    _horizontalViews = [NSMutableArray array];
+    _verticalViews = [NSMutableArray array];
+
     if ([[self pagedView] masterPageDisplay] == AJRMasterPageDisplaySingle) {
         [self getView:&currentView forPage:AJRPageIndexMasterSingle];
-		[_verticalViews addObject:currentView];
+        [_verticalViews addObject:currentView];
         // Top
         [[self pagedView] addConstraint:[NSLayoutConstraint constraintWithItem:currentView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:[self pagedView] attribute:NSLayoutAttributeTop multiplier:1.0 constant:horizontalGap]];
         // Centered
@@ -70,7 +62,7 @@ NSString * const AJRTwoUpPageLayoutIdentifier = @"twoUp";
         previousViewRight = currentView;
     } else if ([[self pagedView] masterPageDisplay] == AJRMasterPageDisplayDouble) {
         [self getView:&currentView forPage:AJRPageIndexMasterOdd];
-		[_verticalViews addObject:currentView];
+        [_verticalViews addObject:currentView];
         // Top
         [[self pagedView] addConstraint:[NSLayoutConstraint constraintWithItem:currentView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:[self pagedView] attribute:NSLayoutAttributeTop multiplier:1.0 constant:horizontalGap]];
         // Center
@@ -93,47 +85,49 @@ NSString * const AJRTwoUpPageLayoutIdentifier = @"twoUp";
     
     for (NSInteger x = 0; x < pageCount; x += 2) {
         [self getView:&currentView forPage:x];
-		[_verticalViews addObject:currentView];
-		if (x == 0) {
-			[_horizontalViews addObject:currentView];
-		}
-		[[self pagedView] addConstraints:@[[[currentView topAnchor] constraintGreaterThanOrEqualToAnchor:previousViewLeft ? [previousViewLeft bottomAnchor] : [[self pagedView] topAnchor] constant:horizontalGap],
-									 [[currentView rightAnchor] constraintEqualToAnchor:[[self pagedView] centerXAnchor] constant:-floor(verticalGap / 2.0)],
-									 [[currentView leftAnchor] constraintGreaterThanOrEqualToAnchor:[[self pagedView] leftAnchor] constant:verticalGap],
-									 ]];
-		previousViewLeft = currentView;
+        [_verticalViews addObject:currentView];
+        if (x == 0) {
+            [_horizontalViews addObject:currentView];
+        }
+        [[self pagedView] addConstraints:@[
+            [[currentView topAnchor] constraintGreaterThanOrEqualToAnchor:previousViewLeft ? [previousViewLeft bottomAnchor] : [[self pagedView] topAnchor] constant:horizontalGap],
+            [[currentView rightAnchor] constraintEqualToAnchor:[[self pagedView] centerXAnchor] constant:-floor(verticalGap / 2.0)],
+            [[currentView leftAnchor] constraintGreaterThanOrEqualToAnchor:[[self pagedView] leftAnchor] constant:verticalGap],
+        ]];
+        previousViewLeft = currentView;
 
         if (x + 1 < pageCount) {
             NSView *currentViewRight;
             [self getView:&currentViewRight forPage:x + 1];
-			if (x == 0) {
-				[_horizontalViews addObject:currentViewRight];
-			}
-			[[self pagedView] addConstraints:@[[[currentViewRight topAnchor] constraintGreaterThanOrEqualToAnchor:previousViewRight ? [previousViewRight bottomAnchor] : [[self pagedView] topAnchor] constant:horizontalGap],
-										 [[currentViewRight leftAnchor] constraintEqualToAnchor:[[self pagedView] centerXAnchor] constant:ceil(verticalGap / 2.0)],
-										 [[currentViewRight rightAnchor] constraintLessThanOrEqualToAnchor:[[self pagedView] rightAnchor] constant:-verticalGap],
-										 ]];
+            if (x == 0) {
+                [_horizontalViews addObject:currentViewRight];
+            }
+            [[self pagedView] addConstraints:@[
+                [[currentViewRight topAnchor] constraintGreaterThanOrEqualToAnchor:previousViewRight ? [previousViewRight bottomAnchor] : [[self pagedView] topAnchor] constant:horizontalGap],
+                [[currentViewRight leftAnchor] constraintEqualToAnchor:[[self pagedView] centerXAnchor] constant:ceil(verticalGap / 2.0)],
+                [[currentViewRight rightAnchor] constraintLessThanOrEqualToAnchor:[[self pagedView] rightAnchor] constant:-verticalGap],
+            ]];
             previousViewRight = currentViewRight;
         }
     }
     
     // Bottom
     if (previousViewLeft) {
-		[[self pagedView] addConstraint:[[previousViewLeft bottomAnchor] constraintLessThanOrEqualToAnchor:[[self pagedView] bottomAnchor] constant:-horizontalGap]];
+        [[self pagedView] addConstraint:[[previousViewLeft bottomAnchor] constraintLessThanOrEqualToAnchor:[[self pagedView] bottomAnchor] constant:-horizontalGap]];
     }
     if (previousViewRight) {
-		[[self pagedView] addConstraint:[[previousViewRight bottomAnchor] constraintLessThanOrEqualToAnchor:[[self pagedView] bottomAnchor] constant:-horizontalGap]];
+        [[self pagedView] addConstraint:[[previousViewRight bottomAnchor] constraintLessThanOrEqualToAnchor:[[self pagedView] bottomAnchor] constant:-horizontalGap]];
     }
 }
 
 #pragma mark - Ruler Support
 
 - (NSArray<NSView *> *)horizontalViews {
-	return _horizontalViews;
+    return _horizontalViews;
 }
 
 - (NSArray<NSView *> *)verticalViews {
-	return _verticalViews;
+    return _verticalViews;
 }
 
 @end

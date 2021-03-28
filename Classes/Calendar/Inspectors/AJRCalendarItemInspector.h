@@ -1,10 +1,3 @@
-//
-//  AJRCalendarItemInspector.h
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 6/5/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import <Cocoa/Cocoa.h>
 

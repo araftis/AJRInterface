@@ -1,10 +1,3 @@
-//
-//  AJRToggleButtonCell.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 9/14/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRToggleButtonCell.h"
 
@@ -20,12 +13,6 @@
 @end
 
 @implementation AJRToggleButtonCell
-
-- (id)initTextCell:(NSString *)aString {
-    if ((self = [super initTextCell:aString])) {
-    }
-    return self;
-}
 
 - (void)dealloc {
     if (_animation) {

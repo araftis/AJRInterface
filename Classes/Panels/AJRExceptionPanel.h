@@ -1,26 +1,18 @@
-//
-//  AJRExceptionPanel.h
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 1/26/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import <Cocoa/Cocoa.h>
 
 @class AJRReportView;
 
-@interface AJRExceptionPanel : NSObject
-{
-    NSPanel            *_panel;
-    NSTextField        *_titleText;
-    NSTextField        *_messageText;
-    AJRReportView    *_exceptionReport;
-    NSButton        *_exitButton;
-    NSButton        *_continueButton;
-    NSButton        *_printButton;
-    NSButton        *_emailButton;
-    NSException        *_exception;
+@interface AJRExceptionPanel : NSObject {
+    NSPanel *_panel;
+    NSTextField *_titleText;
+    NSTextField *_messageText;
+    AJRReportView *_exceptionReport;
+    NSButton *_exitButton;
+    NSButton *_continueButton;
+    NSButton *_printButton;
+    NSButton *_emailButton;
+    NSException *_exception;
 }
 
 + (id)exceptionPanelWithException:(NSException *)exception;

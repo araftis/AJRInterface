@@ -1,10 +1,3 @@
-//
-//  AJRExceptionPanel.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 1/26/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRExceptionPanel.h"
 

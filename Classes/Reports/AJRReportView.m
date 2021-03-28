@@ -1,10 +1,3 @@
-//
-//  AJRReportView.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 12/18/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRReportView.h"
 
@@ -25,8 +18,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated"
 
-@implementation AJRReportView
-{
+@implementation AJRReportView {
 	NSMutableSet *_elements;
 	NSXMLDocument *_document;
 	NSString *_temporaryFilename;

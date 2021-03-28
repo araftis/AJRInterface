@@ -1,4 +1,3 @@
-/* NSPrintInfo+Extensions.h created by alex on Thu 22-Oct-1998 */
 
 #import <AppKit/AppKit.h>
 #import <AJRFoundation/AJRFoundation.h>

@@ -1,9 +1,3 @@
-//
-//  AJRCascadingWindowController.h
-//  AJRInterface
-//
-//  Created by AJ Raftis on 10/18/18.
-//
 
 #import <Cocoa/Cocoa.h>
 

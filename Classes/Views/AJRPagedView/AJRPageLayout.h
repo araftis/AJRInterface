@@ -1,10 +1,3 @@
-//
-//  AJRPageLayout.h
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 5/27/11.
-//  Copyright 2011 A.J. Raftis. All rights reserved.
-//
 
 #import <AJRInterface/AJRPagedView.h>
 

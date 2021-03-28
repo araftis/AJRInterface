@@ -1,36 +1,28 @@
-//
-//  AJRTerritoryCanvas.h
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 10/13/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import <Cocoa/Cocoa.h>
 
 @class AJRTerritoryObject;
 
-@interface AJRTerritoryCanvas : NSView 
-{
-    IBOutlet NSButton            *_worldButton;
-    IBOutlet NSButton            *_amrButton;
-    IBOutlet NSButton            *_apacButton;
-    IBOutlet NSButton            *_emeaButton;
-    IBOutlet NSButton            *_japanButton;
-    IBOutlet NSSlider            *_zoomSlider;
+@interface AJRTerritoryCanvas : NSView {
+    IBOutlet NSButton *_worldButton;
+    IBOutlet NSButton *_amrButton;
+    IBOutlet NSButton *_apacButton;
+    IBOutlet NSButton *_emeaButton;
+    IBOutlet NSButton *_japanButton;
+    IBOutlet NSSlider *_zoomSlider;
 
-    NSMutableDictionary    *_objectIndex;
-    NSMutableArray        *_objects;
-    CGFloat                _scale;
-    NSRect                _currentScaleRect;
-    CGFloat                _minScale;
-    CGFloat                _maxScale;
-    NSPoint                _center;
-    NSGradient            *_oceanColor;
+    NSMutableDictionary *_objectIndex;
+    NSMutableArray *_objects;
+    CGFloat _scale;
+    NSRect _currentScaleRect;
+    CGFloat _minScale;
+    CGFloat _maxScale;
+    NSPoint _center;
+    NSGradient *_oceanColor;
     
     // Dragging
-    NSPoint                _dragOrigin;
-    NSPoint                _dragPrevious;
+    NSPoint _dragOrigin;
+    NSPoint _dragPrevious;
 }
 
 @property (readonly) NSArray *objects;

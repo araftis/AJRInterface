@@ -1,10 +1,3 @@
-//
-//  AJRTimestampToDateTransformer.m
-//  Service Browser
-//
-//  Created by A.J. Raftis on 12/11/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRTimestampToDateTransformer.h"
 
@@ -12,25 +5,21 @@
 
 @implementation AJRTimestampToDateTransformer
 
-+ (void)load
-{
-    AJRTimestampToDateTransformer    *transformer = [[AJRTimestampToDateTransformer alloc] init];
-    [NSValueTransformer setValueTransformer:transformer    forName:@"TimestampToDateTransformer"];
++ (void)load {
+    AJRTimestampToDateTransformer *transformer = [[AJRTimestampToDateTransformer alloc] init];
+    [NSValueTransformer setValueTransformer:transformer forName:@"TimestampToDateTransformer"];
 }
 
-+ (Class)transformedValueClass
-{
++ (Class)transformedValueClass {
     return [NSDate class];
 }
 
-+ (BOOL)allowsReverseTransformation
-{
++ (BOOL)allowsReverseTransformation {
     return YES;
 }
 
-- (id)transformedValue:(id)value
-{
-    NSTimeInterval        timestamp = 0.0;
+- (id)transformedValue:(id)value {
+    NSTimeInterval timestamp = 0.0;
     
     if (value == nil) return nil;
     
@@ -47,8 +36,7 @@
     
 }
 
-- (id)reverseTransformedValue:(id)value
-{
+- (id)reverseTransformedValue:(id)value {
     return [NSNumber numberWithDouble:[value timeIntervalSince1970] * 1000.0];
 }
 

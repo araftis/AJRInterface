@@ -1,10 +1,3 @@
-//
-//  NSWindow-Extensions.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 2/11/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "NSWindow+Extensions.h"
 

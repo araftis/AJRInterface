@@ -1,43 +1,35 @@
-//
-//  AJRCalendarItemInspectorWindow.h
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 6/5/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
 
 @class AJRCalendarItemInspector;
 
-typedef enum _AJRButtonLocation {
+typedef NS_ENUM(UInt8) {
     AJRButtonRight = 1,
     AJRButtonMiddle = 2,
     AJRButtonLeft = 3
 } AJRButtonLocation;
 
-@interface AJRCalendarItemInspectorWindow : NSWindow <CAAnimationDelegate>
-{
-    CGFloat        _arrowShift;
+@interface AJRCalendarItemInspectorWindow : NSWindow <CAAnimationDelegate> {
+    CGFloat _arrowShift;
 
     ///////////////
     // Animation //
     ///////////////
-    NSRect        _originalWidowFrame;
-    NSRect        _originalLayerFrame;
+    NSRect _originalWidowFrame;
+    NSRect _originalLayerFrame;
     
-    NSView        *_oldContentView;
-    NSResponder    *_oldFirstResponder;
-    NSView        *_animationView;
-    CALayer        *_animationLayer;
+    NSView *_oldContentView;
+    NSResponder *_oldFirstResponder;
+    NSView *_animationView;
+    CALayer *_animationLayer;
     
-    BOOL        _growing;
-    BOOL        _shrinking;
-    BOOL        _pretendKeyForDrawing;
-    NSWindow    *_eventualParent;
-    CGFloat        _minYCoordinate;
-    CGFloat        _maxXCoordinate;
+    BOOL _growing;
+    BOOL _shrinking;
+    BOOL _pretendKeyForDrawing;
+    NSWindow *_eventualParent;
+    CGFloat _minYCoordinate;
+    CGFloat _maxXCoordinate;
 }
 
 - (id)initWithScreenLocation:(NSPoint)location;

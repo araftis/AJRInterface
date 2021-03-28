@@ -1,9 +1,3 @@
-//
-//  NSViewController+Extensions.m
-//  AJRInterface
-//
-//  Created by AJ Raftis on 10/17/18.
-//
 
 #import "NSViewController+Extensions.h"
 

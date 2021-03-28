@@ -1,25 +1,17 @@
-//
-//  AJRTerritoryViewer.h
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 10/13/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import <Cocoa/Cocoa.h>
 
 @class AJRTerritoryCanvas, AJRTerritoryObject;
 
-@interface AJRTerritoryViewer : NSView
-{
-    IBOutlet AJRTerritoryCanvas    *_canvas;
+@interface AJRTerritoryViewer : NSView {
+    IBOutlet AJRTerritoryCanvas *_canvas;
 
     // Colors
-    NSColor                *_activeRegionColor;
-    NSColor                *_regionColor;
-    NSColor                *_includedColor;
-    NSColor                *_excludedColor;
-    NSColor                *_mixedColor;
+    NSColor *_activeRegionColor;
+    NSColor *_regionColor;
+    NSColor *_includedColor;
+    NSColor *_excludedColor;
+    NSColor *_mixedColor;
 }
 
 - (id)initWithFrame:(NSRect)frame;

@@ -1,9 +1,3 @@
-//
-//  AJRInspectorSliceButton.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 3/20/19.
-//
 
 import Cocoa
 

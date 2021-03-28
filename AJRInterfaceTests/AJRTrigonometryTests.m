@@ -1,10 +1,3 @@
-//
-//  AJRTrigonometryTests.m
-//  AJRTrigonometryTests
-//
-//  Created by A.J. Raftis on 10/21/11.
-//  Copyright (c) 2011 A.J. Raftis. All rights reserved.
-//
 
 #import <XCTest/XCTest.h>
 
@@ -18,23 +11,19 @@
 
 @implementation AJRTrigonometryTests
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
 }
 
-- (void)tearDown
-{
+- (void)tearDown {
     [super tearDown];
 }
 
-- (void)checkAngle:(double)angle granularity:(double)granularity expected:(double)expected
-{
+- (void)checkAngle:(double)angle granularity:(double)granularity expected:(double)expected {
     NSAssert(AJRRoundAngle(angle, granularity) == expected, @"Expected angles don't match AJRRoundAngle(%.1f, %.1f) = %.1f, should equal %.1f", angle, granularity, AJRRoundAngle(angle, granularity));
 }
 
-- (void)testAngleRounding
-{
+- (void)testAngleRounding {
 //    for (double angle = -180; angle < 720; angle += 5) {
 //        AJRLogInfo(@"[self checkAngle:%.1f granularity:45.0 expected:%.1f];", angle, AJRRoundAngle(angle, 45.0));
 //    }

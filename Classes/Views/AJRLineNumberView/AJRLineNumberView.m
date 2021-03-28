@@ -1,9 +1,9 @@
 //
 //  AJRLineNumberView.m
-//  Line View Test
+//  AJRInterface
 //
 //  Created by Paul Kim on 9/28/08.
-//  Copyright (c) 2008 AJRsoft, LLC. All rights reserved.
+//  Copyright (c) 2008 ASsoft, LLC. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person
 // obtaining a copy of this software and ajrsociated documentation
@@ -36,8 +36,8 @@
 
 #import <objc/runtime.h>
 
-#define DEFAULT_THICKNESS    22.0
-#define DEFAULT_MARGIN        5.0
+#define DEFAULT_THICKNESS 22.0
+#define DEFAULT_MARGIN 5.0
 
 @interface AJRLineNumberView (Private)
 
@@ -50,8 +50,7 @@
 
 @end
 
-@implementation AJRLineNumberView
-{
+@implementation AJRLineNumberView {
     // Array of character indices for the beginning of each line
     NSMutableArray *_lineIndices;
     // Maps line numbers to markers

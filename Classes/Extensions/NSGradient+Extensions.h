@@ -1,9 +1,3 @@
-//
-//  NSGradient+Extensions.h
-//  AJRInterface
-//
-//  Created by AJ Raftis on 1/25/19.
-//
 
 #import <Cocoa/Cocoa.h>
 

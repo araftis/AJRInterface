@@ -3,8 +3,7 @@
 
 @class AJRInspectorModule, AJRBox;
 
-@interface AJRInspector : NSObject <NSToolbarDelegate, NSWindowDelegate>
-{
+@interface AJRInspector : NSObject <NSToolbarDelegate, NSWindowDelegate> {
     IBOutlet NSPanel *window;
     IBOutlet NSBox *box;
     IBOutlet NSMatrix *buttons;
@@ -66,7 +65,7 @@
 // and orders front.
 - (void)showInspectorPanel:(id)sender;
 // Calls selectInspector, passing sender, and makes window key and orders front.
-// This method is the action for menu items created by addInspectorMenu method.
+// This method is the action for menu items created via addInspectorMenu method.
 
 - (void)selectInspector:(id)sender;
 // Uses sender's tag to set the current inspector (if allowed to switch) and

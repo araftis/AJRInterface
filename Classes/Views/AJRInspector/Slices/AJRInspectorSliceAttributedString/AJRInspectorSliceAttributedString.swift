@@ -1,20 +1,12 @@
-//
-//  AJRInspectorSliceAttributedString.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 7/8/19.
-//
 
 import Cocoa
 
 fileprivate enum AJRSegmentType : Int {
-    
     case bold
     case italics
     case underline
     case fontPanel
     case foregroundColor
-    
 }
 
 fileprivate extension NSSegmentedControl {

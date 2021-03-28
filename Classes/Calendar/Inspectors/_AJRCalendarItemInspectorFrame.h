@@ -1,10 +1,3 @@
-//
-//  _AJRCalendarItemInspectorFrame.h
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 6/6/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import <AJRInterface/AJRCalendarItemInspectorWindow.h>
 
@@ -28,22 +21,22 @@ typedef enum __AJRPointerDirection {
 
 @interface _AJRCalendarItemInspectorFrame : NSView <NSTextFieldDelegate>
 {
-    NSGradient            *_backgroundGradient;
-    NSScrollView        *_scrollView;
-    NSView                *_contentView;
-    NSTextField            *_titleField;
-    NSButton            *_rightButton;
-    NSButton            *_middleButton;
-    NSButton            *_leftButton;
-    NSMutableDictionary    *_titleAttributes;
-    BOOL                _isScrolling;
-    BOOL                _isTiling;
-    _AJRPointerDirection    _pointerDirection;
-    AJRDropShadowBorder    *_dropShadow;
+    NSGradient *_backgroundGradient;
+    NSScrollView *_scrollView;
+    NSView *_contentView;
+    NSTextField *_titleField;
+    NSButton *_rightButton;
+    NSButton *_middleButton;
+    NSButton *_leftButton;
+    NSMutableDictionary *_titleAttributes;
+    BOOL _isScrolling;
+    BOOL _isTiling;
+    _AJRPointerDirection _pointerDirection;
+    AJRDropShadowBorder *_dropShadow;
     
-    NSRect                _desiredBounds;
-    NSRect                extraFrame;
-    NSSize                _lastSize;
+    NSRect _desiredBounds;
+    NSRect extraFrame;
+    NSSize _lastSize;
 }
 
 - (AJRCalendarItemInspector *)inspector;

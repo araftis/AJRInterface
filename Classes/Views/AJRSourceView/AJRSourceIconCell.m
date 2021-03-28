@@ -1,10 +1,3 @@
-//
-//  AJRMediaIconCell.m
-//  iMediaCenter
-//
-//  Created by A.J. Raftis on Thu Jun 17 2004.
-//  Copyright (c) 2004 __MyCompanyName__. All rights reserved.
-//
 
 #import "AJRSourceIconCell.h"
 

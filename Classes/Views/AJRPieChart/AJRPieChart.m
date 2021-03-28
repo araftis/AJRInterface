@@ -1,10 +1,3 @@
-//
-//  AJRPieChart.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 10/27/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRPieChart.h"
 
@@ -16,8 +9,7 @@ static NSMutableArray    *_defaultColors = nil;
 
 @implementation AJRPieChart
 
-+ (void)initialize
-{
++ (void)initialize {
     if (_defaultColors == nil) {
         _defaultColors = [[NSMutableArray alloc] init];
         [_defaultColors addObject:[NSColor redColor]];
@@ -31,8 +23,7 @@ static NSMutableArray    *_defaultColors = nil;
     }
 }
 
-- (id)initWithFrame:(NSRect)frame
-{
+- (id)initWithFrame:(NSRect)frame {
     if ((self = [super initWithFrame:frame])) {
         _keys = [[NSMutableArray alloc] init];
         _values = [[NSMutableDictionary alloc] init];
@@ -59,8 +50,7 @@ static NSMutableArray    *_defaultColors = nil;
 
 @synthesize backgroundColor = _backgroundColor;
 
-- (void)setBackgroundColor:(NSColor *)value
-{
+- (void)setBackgroundColor:(NSColor *)value {
     if (_backgroundColor != value) {
         _backgroundColor = value;
         [self setNeedsDisplay:YES];
@@ -70,8 +60,7 @@ static NSMutableArray    *_defaultColors = nil;
 
 @synthesize backgroundLabel = _backgroundLabel;
 
-- (void)setBackgroundLabel:(NSString *)backgroundLabel
-{
+- (void)setBackgroundLabel:(NSString *)backgroundLabel {
     if (_backgroundLabel != backgroundLabel) {
         _backgroundLabel = backgroundLabel;
         [self setNeedsDisplay:YES];
@@ -80,8 +69,7 @@ static NSMutableArray    *_defaultColors = nil;
 
 @synthesize totalValue = _totalValue;
 
-- (void)setTotalValue:(double)value
-{
+- (void)setTotalValue:(double)value {
     if (_totalValue != value) {
         _totalValue = value;
         [self setNeedsDisplay:YES];
@@ -90,8 +78,7 @@ static NSMutableArray    *_defaultColors = nil;
 
 @synthesize valueFormatter = _valueFormatter;
 
-- (void)setValueFormatter:(NSFormatter *)formatter
-{
+- (void)setValueFormatter:(NSFormatter *)formatter {
     if (_valueFormatter != formatter) {
         _valueFormatter = formatter;
     }
@@ -99,8 +86,7 @@ static NSMutableArray    *_defaultColors = nil;
 
 @synthesize font = _font;
 
-- (void)setFont:(NSFont *)font
-{
+- (void)setFont:(NSFont *)font {
     if (font != _font) {
         _font = font;
         [_attributes setObject:_font forKey:NSFontAttributeName];
@@ -108,14 +94,12 @@ static NSMutableArray    *_defaultColors = nil;
     }
 }
 
-- (void)addValue:(CGFloat)value forKey:(NSString *)key
-{
+- (void)addValue:(CGFloat)value forKey:(NSString *)key {
     [self addValue:value forKey:key withColor:[_defaultColors objectAtIndex:_currentColor]];
     _currentColor = (_currentColor + 1) % [_defaultColors count];
 }
 
-- (void)addValue:(CGFloat)value forKey:(NSString *)key withColor:(NSColor *)color
-{
+- (void)addValue:(CGFloat)value forKey:(NSString *)key withColor:(NSColor *)color {
     if (![_keys containsObject:key]) {
         [_keys addObject:key];
     }
@@ -124,8 +108,7 @@ static NSMutableArray    *_defaultColors = nil;
     [self setNeedsDisplay:YES];
 }
 
-- (void)removeKey:(NSString *)key
-{
+- (void)removeKey:(NSString *)key {
     if ([_keys containsObject:key]) {
         [_keys removeObject:key];
         [_values removeObjectForKey:key];
@@ -134,50 +117,43 @@ static NSMutableArray    *_defaultColors = nil;
     }
 }
 
-- (NSColor *)colorForKey:(NSString *)key
-{
+- (NSColor *)colorForKey:(NSString *)key {
     return [_colors objectForKey:key];
 }
 
-- (void)setColor:(NSColor *)color forKey:(NSString *)key
-{
+- (void)setColor:(NSColor *)color forKey:(NSString *)key {
     [_colors setObject:color forKey:key];
     [self setNeedsDisplay:YES];
 }
 
-- (double)floatValueForKey:(NSString *)key
-{
+- (double)floatValueForKey:(NSString *)key {
     return [[_values objectForKey:key] doubleValue];
 }
 
-- (void)setFloatValue:(double)value forKey:(NSString *)key
-{
+- (void)setFloatValue:(double)value forKey:(NSString *)key {
     [_values setObject:[NSNumber numberWithDouble:value] forKey:key];
     [self setNeedsDisplay:YES];
 }
 
-- (double)displayValueForKey:(NSString *)key
-{
+- (double)displayValueForKey:(NSString *)key {
     return [[_displayValues objectForKey:key] doubleValue];
 }
 
-- (void)setDisplayValue:(double)value forKey:(NSString *)key
-{
+- (void)setDisplayValue:(double)value forKey:(NSString *)key {
     [_displayValues setObject:[NSNumber numberWithDouble:value] forKey:key];
     [self setNeedsDisplay:YES];
 }
 
-- (void)drawRect:(NSRect)rect
-{
-    NSRect            bounds = [self bounds];
-    NSPoint            center;
-    NSBezierPath    *path;
-    NSBezierPath    *wedge;
-    CGFloat            radius = rint((bounds.size.width > bounds.size.height ? bounds.size.height : bounds.size.width) / 2.0) - 5.0;
-    NSInteger        x;
-    CGFloat            angle;
-    NSShadow        *shadow;
-    CGFloat            lineHeight;
+- (void)drawRect:(NSRect)rect {
+    NSRect bounds = [self bounds];
+    NSPoint center;
+    NSBezierPath *path;
+    NSBezierPath *wedge;
+    CGFloat radius = rint((bounds.size.width > bounds.size.height ? bounds.size.height : bounds.size.width) / 2.0) - 5.0;
+    NSInteger x;
+    CGFloat angle;
+    NSShadow *shadow;
+    CGFloat lineHeight;
 
     center.x = radius + 5.0;
     center.y = rint(bounds.origin.y + bounds.size.height / 2.0) + 2.0;
@@ -209,9 +185,9 @@ static NSMutableArray    *_defaultColors = nil;
     angle = 0;
     if (_totalValue >= 0.0) {
         for (x = 0; x < [_keys count]; x++) {
-            NSString    *key = [_keys objectAtIndex:x];
-            CGFloat        value = [self floatValueForKey:key];
-            CGFloat        endAngle = angle + 360.0 * (value / _totalValue);
+            NSString *key = [_keys objectAtIndex:x];
+            CGFloat value = [self floatValueForKey:key];
+            CGFloat endAngle = angle + 360.0 * (value / _totalValue);
             
             if (angle >= 0.0 && angle <= 360.0 && endAngle >= 0.0 && endAngle <= 360.0) {
                 [wedge removeAllPoints];
@@ -234,12 +210,12 @@ static NSMutableArray    *_defaultColors = nil;
     lineHeight = [_font capHeight] - [_font descender] + [_font leading];
     angle = bounds.origin.y + bounds.size.height - lineHeight;
     for (x = 0; x <= [_keys count]; x++) {
-        NSString    *key;
-        NSRect        colorRect;
-        NSNumber    *value;
-        NSString    *displayString;
-        NSSize        displaySize;
-        NSGradient    *gradient;
+        NSString *key;
+        NSRect colorRect;
+        NSNumber *value;
+        NSString *displayString;
+        NSSize displaySize;
+        NSGradient *gradient;
 
         if (x == [_keys count]) {
             key = _backgroundLabel;

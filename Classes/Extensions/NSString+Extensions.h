@@ -1,10 +1,3 @@
-//
-//  NSString+Extensions.h
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 5/17/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import <Cocoa/Cocoa.h>
 

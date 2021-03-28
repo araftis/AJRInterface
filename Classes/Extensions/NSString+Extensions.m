@@ -1,10 +1,3 @@
-//
-//  NSString-Extensions.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 5/17/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "NSString+Extensions.h"
 

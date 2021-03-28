@@ -1,18 +1,10 @@
-//
-//  AJRTabViewController.m
-//  Service Browser
-//
-//  Created by A.J. Raftis on 12/10/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRTabViewController.h"
 
 @implementation AJRTabViewController
 
-- (void)setView:(NSView *)view
-{
-    NSInteger        x;
+- (void)setView:(NSView *)view {
+    NSInteger x;
     
     [super setView:view];
     
@@ -33,8 +25,7 @@
     }
 }
 
-- (void)tabView:(NSTabView *)tabView willSelectTabViewItem:(NSTabViewItem *)tabViewItem
-{
+- (void)tabView:(NSTabView *)tabView willSelectTabViewItem:(NSTabViewItem *)tabViewItem {
     if ([tabViewItem view] == nil) {
         NSViewController    *viewController = [self viewControllerForName:[tabViewItem identifier]];
         
@@ -44,8 +35,7 @@
     }
 }
 
-- (void)selectViewAtIndex:(NSUInteger)index
-{
+- (void)selectViewAtIndex:(NSUInteger)index {
     if (index < [(NSTabView *)self.view numberOfTabViewItems]) {
         NSTabViewItem    *item = [(NSTabView *)self.view tabViewItemAtIndex:index];
         [self tabView:(NSTabView *)self.view willSelectTabViewItem:item];

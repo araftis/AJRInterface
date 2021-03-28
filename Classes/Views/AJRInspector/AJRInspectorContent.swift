@@ -1,9 +1,3 @@
-//
-//  AJRInspectorContent.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 3/17/19.
-//
 
 import Cocoa
 

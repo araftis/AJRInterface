@@ -1,10 +1,3 @@
-//
-//  AJRCalendarEvent.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 6/4/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRCalendarEvent.h"
 
@@ -17,8 +10,8 @@ const NSTimeInterval AJRDayInterval = 1.0 * 60.0 * 60.0 * 24.0;
 
 @implementation AJRCalendarEvent
 
-static NSDateFormatter        *_dateFormatter = nil;
-static NSDateFormatter        *_dateTimeFormatter = nil;
+static NSDateFormatter *_dateFormatter = nil;
+static NSDateFormatter *_dateTimeFormatter = nil;
 
 + (void)initialize
 {

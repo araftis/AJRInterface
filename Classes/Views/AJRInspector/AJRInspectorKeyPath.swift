@@ -1,9 +1,3 @@
-//
-//  AJRInspectorKeyPath.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 4/9/19.
-//
 
 import Cocoa
 

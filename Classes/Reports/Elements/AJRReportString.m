@@ -1,10 +1,3 @@
-//
-//  AJRReportString.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 12/19/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRReportString.h"
 
@@ -19,28 +12,26 @@
 
 @implementation AJRReportString
 
-+ (void)load
-{
++ (void)load {
     [AJRReportElement registerReportElement:self forName:@"string"];
 }
 
-- (void)apply
-{
-    NSString        *key = [[_node attributeForName:@"value"] stringValue];
+- (void)apply {
+    NSString *key = [[_node attributeForName:@"value"] stringValue];
     
     if (key) {
-        id                    value = nil;
-        NSMutableArray        *text;
-        NSString            *numberFormat = [[_node attributeForName:@"numberformat"] stringValue];
-        NSNumberFormatter    *numberFormatter = nil;
-        NSString            *dateFormat = [[_node attributeForName:@"dateformat"] stringValue];
-        NSDateFormatter        *dateFormatter = nil;
-        NSString            *formatterKey = [[_node attributeForName:@"format"] stringValue];
-        NSFormatter            *formatter = nil;
-        NSString            *escapeHTMLString = [[_node attributeForName:@"escapeHTML"] stringValue];
-        NSUInteger            index;
-        NSXMLElement        *parent = (NSXMLElement *)[_node parent];
-        BOOL                escapeHTML = YES;
+        id value = nil;
+        NSMutableArray *text;
+        NSString *numberFormat = [[_node attributeForName:@"numberformat"] stringValue];
+        NSNumberFormatter *numberFormatter = nil;
+        NSString *dateFormat = [[_node attributeForName:@"dateformat"] stringValue];
+        NSDateFormatter *dateFormatter = nil;
+        NSString *formatterKey = [[_node attributeForName:@"format"] stringValue];
+        NSFormatter *formatter = nil;
+        NSString *escapeHTMLString = [[_node attributeForName:@"escapeHTML"] stringValue];
+        NSUInteger index;
+        NSXMLElement *parent = (NSXMLElement *)[_node parent];
+        BOOL escapeHTML = YES;
 
         if (numberFormat) {
             numberFormatter = [[NSNumberFormatter alloc] init];

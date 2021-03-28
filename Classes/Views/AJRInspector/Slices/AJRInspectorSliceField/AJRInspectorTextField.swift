@@ -1,9 +1,3 @@
-//
-//  AJRInspectorTextField.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 4/3/19.
-//
 
 import Cocoa
 

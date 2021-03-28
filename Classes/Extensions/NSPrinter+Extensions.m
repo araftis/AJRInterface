@@ -1,9 +1,3 @@
-//
-//  NSPrinter+Extensions.m
-//  AJRInterface
-//
-//  Created by AJ Raftis on 1/14/21.
-//
 
 #import "NSPrinter+Extensions.h"
 

@@ -1,32 +1,24 @@
-//
-//  AJRHistogramView.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 10/20/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRHistogramView.h"
 
 static NSString        *keys[] = {
-@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9",
-@"10", @"20", @"30", @"40", @"50", @"60", @"70", @"80", @"90",
-@"100", @"200", @"300", @"400", @"500", @"600", @"700", @"800", @"900",
-@"1000", @"2000", @"3000", @"4000", @"5000", @"6000", @"7000", @"8000", @"9000", 
-@"10000", @"20000", @"30000", @"40000", @"50000", @"60000", @"70000", @"80000", @"90000",
-@"100000", @"200000", @"300000", @"400000", @"500000", @"600000", @"700000", @"800000", @"900000",
-@"1000000", @"2000000", @"3000000", @"4000000", @"5000000", @"6000000", @"7000000", @"8000000", @"9000000",
-@">= 10000000"
+    @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9",
+    @"10", @"20", @"30", @"40", @"50", @"60", @"70", @"80", @"90",
+    @"100", @"200", @"300", @"400", @"500", @"600", @"700", @"800", @"900",
+    @"1000", @"2000", @"3000", @"4000", @"5000", @"6000", @"7000", @"8000", @"9000",
+    @"10000", @"20000", @"30000", @"40000", @"50000", @"60000", @"70000", @"80000", @"90000",
+    @"100000", @"200000", @"300000", @"400000", @"500000", @"600000", @"700000", @"800000", @"900000",
+    @"1000000", @"2000000", @"3000000", @"4000000", @"5000000", @"6000000", @"7000000", @"8000000", @"9000000",
+    @">= 10000000"
 };
-static NSInteger            keyCount = sizeof(keys) / sizeof(NSString *);
+static NSInteger keyCount = sizeof(keys) / sizeof(NSString *);
 
 #import <AJRFoundation/AJRFoundation.h>
 
-@implementation AJRHistogramView
-{
-	NSInteger _maxBucket;
-	long _maxCount;
-	NSMenu *_menu;
+@implementation AJRHistogramView {
+    NSInteger _maxBucket;
+    long _maxCount;
+    NSMenu *_menu;
 }
 
 + (void)initialize {
@@ -174,13 +166,13 @@ static NSInteger            keyCount = sizeof(keys) / sizeof(NSString *);
         NSRect            fill;
         NSGradient        *gradient;
         
-//        AJRPrintf(@"%C: bucket: %d, count: %d, height: %.0f, maxCount: %d, step: %d\n", 
-//                 self,
-//                 x,
-//                 count,
-//                 (double)count * yScale,
-//                 _maxCount,
-//                 step);
+        //        AJRPrintf(@"%C: bucket: %d, count: %d, height: %.0f, maxCount: %d, step: %d\n",
+        //                 self,
+        //                 x,
+        //                 count,
+        //                 (double)count * yScale,
+        //                 _maxCount,
+        //                 step);
         
         if (count != 0) {
             double        width;
@@ -289,25 +281,25 @@ static NSInteger            keyCount = sizeof(keys) / sizeof(NSString *);
     NSMutableString *string = [NSMutableString string];
     NSInteger x;
     
-	[pb declareTypes:@[NSPasteboardTypeString, NSPasteboardTypeTabularText] owner:self];
+    [pb declareTypes:@[NSPasteboardTypeString, NSPasteboardTypeTabularText] owner:self];
     
     for (x = 0; x < keyCount; x++) {
         [string appendFormat:@"%@\t%@\n", keys[x], [_statistics objectForKey:keys[x]]];
     }
     
-	[pb setString:string forType:NSPasteboardTypeString];
-	[pb setString:string forType:NSPasteboardTypeTabularText];
+    [pb setString:string forType:NSPasteboardTypeString];
+    [pb setString:string forType:NSPasteboardTypeTabularText];
 }
 
 - (IBAction)copyAsImage:(id)sender {
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
     NSBitmapImageRep *imageRep;
     
-	[pb declareTypes:[NSArray arrayWithObjects:NSPasteboardTypeTIFF, nil] owner:self];
-	
-	[self cacheDisplayInRect:[self bounds] toBitmapImageRep:imageRep];
-	
-	[pb setData:[imageRep TIFFRepresentation] forType:NSPasteboardTypeTIFF];
+    [pb declareTypes:[NSArray arrayWithObjects:NSPasteboardTypeTIFF, nil] owner:self];
+
+    [self cacheDisplayInRect:[self bounds] toBitmapImageRep:imageRep];
+
+    [pb setData:[imageRep TIFFRepresentation] forType:NSPasteboardTypeTIFF];
     
 }
 

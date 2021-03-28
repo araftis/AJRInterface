@@ -1,9 +1,3 @@
-//
-//  AJRInspectable.h
-//  AJRInterface
-//
-//  Created by AJ Raftis on 4/4/19.
-//
 
 #import <Foundation/Foundation.h>
 

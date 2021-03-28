@@ -1,10 +1,3 @@
-//
-//  AJRCalendarItemInspectorController.m
-//  AJRCalendarView
-//
-//  Created by A.J. Raftis on 6/5/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRCalendarItemInspectorController.h"
 
@@ -21,8 +14,7 @@ static NSArray                *_inspectorKeysToObserve = nil;
 
 #pragma mark NSObject
 
-+ (void)initialize
-{
++ (void)initialize {
     if (_inspectorKeysToObserve == nil) {
         _inspectorKeysToObserve = [[NSArray alloc] initWithObjects:@"rightButtonTitle", @"rightButtonKeyEquivalent", @"rightButtonTarget", @"rightButtonAction", @"rightButtonEnabled", @"middleButtonTitle", @"middleButtonKeyEquivalent", @"middleButtonTarget", @"middleButtonAction", @"middleButtonEnabled", @"leftButtonTitle", @"leftButtonKeyEquivalent", @"leftButtonTarget", @"leftButtonAction", @"leftButtonEnabled", @"isTitleEditable", @"title", nil];
         
@@ -31,8 +23,7 @@ static NSArray                *_inspectorKeysToObserve = nil;
 
 #pragma mark Managing Inspectors
 
-+ (void)registerInspector:(Class)inspectorClass
-{
++ (void)registerInspector:(Class)inspectorClass {
     @autoreleasepool {
         if (_inspectorsIndex == nil) {
             _inspectorsIndex = [[NSMutableDictionary alloc] init];
@@ -41,8 +32,7 @@ static NSArray                *_inspectorKeysToObserve = nil;
     }
 }
 
-+ (Class)inspectorClassForCalendarItem:(EKCalendarItem *)item
-{
++ (Class)inspectorClassForCalendarItem:(EKCalendarItem *)item {
     NSUInteger    weight = 0;
     Class        chosenClass = Nil;
     
@@ -61,8 +51,7 @@ static NSArray                *_inspectorKeysToObserve = nil;
 
 #pragma mark Initialization
 
-- (id)initWithOwner:(AJRCalendarView *)calendarView
-{
+- (id)initWithOwner:(AJRCalendarView *)calendarView {
     if ((self = [super init])) {
         _owner = calendarView;
         _inspectors = [[NSMutableDictionary alloc] init];
@@ -70,8 +59,7 @@ static NSArray                *_inspectorKeysToObserve = nil;
     return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_window orderOut:self];
 }
@@ -82,13 +70,11 @@ static NSArray                *_inspectorKeysToObserve = nil;
 @synthesize window = _window;
 @synthesize inspector = _inspector;
 
-- (AJRCalendarView *)owner
-{
+- (AJRCalendarView *)owner {
     return _owner;
 }
 
-- (AJRCalendarItemInspectorWindow *)window
-{
+- (AJRCalendarItemInspectorWindow *)window {
     if (_window == nil) {
         _window = [[AJRCalendarItemInspectorWindow alloc] initWithScreenLocation:(NSPoint){100.0,100.0}];
         [_window setDelegate:self];
@@ -96,8 +82,7 @@ static NSArray                *_inspectorKeysToObserve = nil;
     return _window;
 }
 
-- (void)setParentWindow:(NSWindow *)parentWindow
-{
+- (void)setParentWindow:(NSWindow *)parentWindow {
     if (_parentWindow != parentWindow) {
         if (_window) {
             if ([_window parentWindow]) {
@@ -113,18 +98,16 @@ static NSArray                *_inspectorKeysToObserve = nil;
 
 #pragma mark Actions
 
-- (IBAction)dismiss:(id)sender
-{
+- (IBAction)dismiss:(id)sender {
     if ([_window isVisible] && [_window parentWindow] != nil) {
         [_inspector dismiss:sender];
     }
 }
 
-- (void)inspectItem:(EKCalendarItem *)item inRect:(NSRect)rect
-{
-//    NSRect                    finalFrame;
-    Class                    inspectorClass;
-    AJRCalendarItemInspector    *inspector;
+- (void)inspectItem:(EKCalendarItem *)item inRect:(NSRect)rect {
+//    NSRect finalFrame;
+    Class inspectorClass;
+    AJRCalendarItemInspector *inspector;
     
     //AJRPrintf(@"INFO: Examinging calendar item: %@", item);
     
@@ -132,7 +115,7 @@ static NSArray                *_inspectorKeysToObserve = nil;
     
     inspectorClass = [[self class] inspectorClassForCalendarItem:item];
     if (inspectorClass) {
-        NSString    *key = NSStringFromClass(inspectorClass);
+        NSString *key = NSStringFromClass(inspectorClass);
         
         inspector = [_inspectors objectForKey:key];
         if (inspector == nil) {
@@ -185,8 +168,7 @@ static NSArray                *_inspectorKeysToObserve = nil;
 
 #pragma mark NSWindowDelegate
 
-- (void)windowDidCompletePopAnimation:(NSWindow *)window
-{
+- (void)windowDidCompletePopAnimation:(NSWindow *)window {
     // We fake this one more time, because the pop animation messes with our configuration.
     if ([_inspector editTitleOnFirstAppearance]) {
         [self observeValueForKeyPath:@"isTitleEditable" ofObject:_inspector change:nil context:NULL];
@@ -198,8 +180,7 @@ static NSArray                *_inspectorKeysToObserve = nil;
 
 #pragma mark NSKeyValueObserving
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     //AJRPrintf(@"%C: observe: %@\n", self, keyPath);
     if ([keyPath hasPrefix:@"right"]) {
         [_window setButtonTitle:[_inspector rightButtonTitle]
@@ -240,8 +221,7 @@ static NSArray                *_inspectorKeysToObserve = nil;
 
 #pragma mark NSWindow Notifications
 
-- (void)windowDidResignKey:(NSNotification *)notification
-{
+- (void)windowDidResignKey:(NSNotification *)notification {
     //AJRPrintf(@"%C: %s\n", self, __PRETTY_FUNCTION__);
     //AJRPrintf(@"%C:    application active: %B\n", self, [NSApp isActive]);
     
@@ -252,15 +232,13 @@ static NSArray                *_inspectorKeysToObserve = nil;
     }
 }
 
-- (void)windowDidBecomeKey:(NSNotification *)notification
-{
+- (void)windowDidBecomeKey:(NSNotification *)notification {
     //AJRPrintf(@"%C: %s\n", self, __PRETTY_FUNCTION__);
 }
 
 #pragma mark NSApplication Notifications
 
-- (void)dismissIfNotKey
-{
+- (void)dismissIfNotKey {
     //AJRPrintf(@"%C: %s\n", self, __PRETTY_FUNCTION__);
     //AJRPrintf(@"%C:    key? %B\n", self, [NSApp keyWindow] == _window);
     if ([NSApp keyWindow] != _window) {
@@ -268,8 +246,7 @@ static NSArray                *_inspectorKeysToObserve = nil;
     }
 }
 
-- (void)applicationDidBecomeActive:(NSNotification *)notification
-{
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
     //AJRPrintf(@"%C: %s\n", self, __PRETTY_FUNCTION__);
     [self performSelector:@selector(dismissIfNotKey) withObject:nil afterDelay:0.0];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSApplicationDidBecomeActiveNotification object:NSApp];

@@ -1,10 +1,3 @@
-//
-//  AJRTerritoryViewer.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 10/13/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRTerritoryViewer.h"
 
@@ -16,8 +9,7 @@
 
 @implementation AJRTerritoryViewer
 
-- (id)initWithFrame:(NSRect)frame
-{
+- (id)initWithFrame:(NSRect)frame {
     if ((self = [super initWithFrame:frame])) {
         NSView    *contentView;
         
@@ -47,54 +39,43 @@
 
 @synthesize canvas = _canvas;
 
-- (IBAction)selectWorld:(id)sender
-{
+- (IBAction)selectWorld:(id)sender {
 }
 
-- (IBAction)selectAMR:(id)sender
-{
+- (IBAction)selectAMR:(id)sender {
 }
 
-- (IBAction)selectAPAC:(id)sender
-{
+- (IBAction)selectAPAC:(id)sender {
 }
 
-- (IBAction)selectEMEA:(id)sender
-{
+- (IBAction)selectEMEA:(id)sender {
 }
 
-- (IBAction)selectJAPAN:(id)sender
-{
+- (IBAction)selectJAPAN:(id)sender {
 }
 
-- (IBAction)takeZoomValueFrom:(id)sender
-{
+- (IBAction)takeZoomValueFrom:(id)sender {
     [self.canvas takeZoomValueFrom:sender];
 }
 
-- (void)setFrameSize:(NSSize)size
-{
+- (void)setFrameSize:(NSSize)size {
     [super setFrameSize:size];
     [self.canvas recomputeScale];
 }
 
-- (AJRTerritoryObject *)addGeoPath:(NSString *)geoPath
-{
+- (AJRTerritoryObject *)addGeoPath:(NSString *)geoPath {
     return [self.canvas addGeoPath:geoPath];
 }
 
-- (void)removeGeoPath:(NSString *)geoPath
-{
+- (void)removeGeoPath:(NSString *)geoPath {
     return [self.canvas removeGeoPath:geoPath];
 }
 
-- (AJRTerritoryObject *)objectForGeoPath:(NSString *)geoPath
-{
+- (AJRTerritoryObject *)objectForGeoPath:(NSString *)geoPath {
     return [self.canvas objectForGeoPath:geoPath];
 }
 
-- (void)_updateColors
-{
+- (void)_updateColors {
     for (AJRTerritoryObject *object in self.canvas.objects) {
         NSString    *geoPath = [object geoPath];
         if ([geoPath isEqualToString:@"ww.amr"] ||
@@ -114,8 +95,7 @@
 
 @synthesize activeRegionColor = _activeRegionColor;
 
-- (void)setActiveRegionColor:(NSColor *)aColor
-{
+- (void)setActiveRegionColor:(NSColor *)aColor {
     if (_activeRegionColor != aColor) {
         _activeRegionColor = aColor;
         [self _updateColors];
@@ -124,8 +104,7 @@
 
 @synthesize regionColor = _regionColor;
 
-- (void)setRegionColor:(NSColor *)aColor
-{
+- (void)setRegionColor:(NSColor *)aColor {
     if (_regionColor != aColor) {
         _regionColor = aColor;
         [self _updateColors];
@@ -134,8 +113,7 @@
 
 @synthesize includedColor = _includedColor;
 
-- (void)setIncludedColor:(NSColor *)aColor
-{
+- (void)setIncludedColor:(NSColor *)aColor {
     if (_includedColor != aColor) {
         _includedColor = aColor;
         [self _updateColors];
@@ -144,8 +122,7 @@
 
 @synthesize excludedColor = _excludedColor;
 
-- (void)setExcludedColor:(NSColor *)aColor
-{
+- (void)setExcludedColor:(NSColor *)aColor {
     if (_excludedColor != aColor) {
         _excludedColor = aColor;
         [self _updateColors];
@@ -154,21 +131,18 @@
 
 @synthesize mixedColor = _mixedColor;
 
-- (void)setMixedColor:(NSColor *)aColor
-{
+- (void)setMixedColor:(NSColor *)aColor {
     if (_mixedColor != aColor) {
         _mixedColor = aColor;
         [self _updateColors];
     }
 }
 
-- (void)zoomToTerritoryWithGeoPath:(NSString *)geoPath
-{
+- (void)zoomToTerritoryWithGeoPath:(NSString *)geoPath {
     [self.canvas zoomToTerritoryWithGeoPath:geoPath];
 }
 
-- (void)zoomToTerritory:(AJRTerritoryObject *)territory
-{
+- (void)zoomToTerritory:(AJRTerritoryObject *)territory {
     [self.canvas zoomToTerritory:territory];
 }
 

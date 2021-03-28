@@ -1,9 +1,3 @@
-//
-//  NSFont+Extensions.m
-//  AJRInterface
-//
-//  Created by AJ Raftis on 6/8/19.
-//
 
 #import "NSFont+Extensions.h"
 

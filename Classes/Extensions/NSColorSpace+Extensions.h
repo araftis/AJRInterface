@@ -1,10 +1,3 @@
-//
-//  NSColorSpace+Extensions.h
-//  MMFoundation
-//
-//  Created by AJ Raftis on 11/15/18.
-//  Copyright © 2018 A.J. Raftis. All rights reserved.
-//
 
 #import <AppKit/AppKit.h>
 

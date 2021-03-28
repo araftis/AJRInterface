@@ -1,10 +1,3 @@
-//
-//  AJRPagedScrollView.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 6/22/11.
-//  Copyright 2011 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRPagedScrollView.h"
 
@@ -29,10 +22,10 @@
 - (void)_commonInit {
     NSMenu *menu;
     NSMenuItem *item;
-	
-	// Because this doesn't look right for right now.
-	[self setAutohidesScrollers:NO];
-	
+    
+    // Because this doesn't look right for right now.
+    [self setAutohidesScrollers:NO];
+    
     _viewPopUp = [[NSPopUpButton alloc] initWithFrame:(NSRect){{0.0, 0.0}, {62.0, 18.0}} pullsDown:NO];
     [_viewPopUp setBordered:NO];
     [[_viewPopUp cell] setControlSize:NSControlSizeSmall];
@@ -107,7 +100,7 @@
 #pragma mark - Utilities
 
 - (AJRPagedView *)pagedView {
-	return AJRObjectIfKindOfClassOrAssert([self documentView], AJRPagedView);
+    return AJRObjectIfKindOfClassOrAssert([self documentView], AJRPagedView);
 }
 
 - (void)_syncPopUp {
@@ -128,12 +121,12 @@
 #pragma mark - Properties
 
 - (void)setScale:(CGFloat)scale {
-	[[self pagedView] setScale:scale];
-	[self _syncPopUp];
+    [[self pagedView] setScale:scale];
+    [self _syncPopUp];
 }
 
 - (CGFloat)scale {
-	return [[self pagedView] scale];
+    return [[self pagedView] scale];
 }
 
 #pragma mark - NSScrollView
@@ -200,7 +193,7 @@
 - (void)drawRect:(NSRect)dirtyRect {
     NSRect frame = [_viewPopUp frame];
     NSRect topEdgeFrame;
-
+    
     [super drawRect:dirtyRect];
     
     [_controlsGradient drawInRect:frame angle:90.0];
@@ -214,7 +207,7 @@
     
     frame = [_pagesLabel frame];
     [_controlsGradient drawInRect:frame angle:90.0];
-
+    
     topEdgeFrame = NSUnionRect(topEdgeFrame, frame);
     
     frame.origin.x += frame.size.width;
@@ -232,35 +225,35 @@
 #pragma mark - Actions
 
 - (void)selectPageLayout:(id)sender {
-	AJRPageLayout *newLayout = [AJRPageLayout pageLayoutForView:[self pagedView] withIdentifier:[sender representedObject]];
-	id <AJRPagedViewDelegate> delegate = [[self pagedView] delegate];
-	BOOL shouldSet = YES;
-	
-	if (delegate && [delegate respondsToSelector:@selector(pagedView:shouldSwitchToLayout:)] && ![delegate pagedView:[self pagedView] shouldSwitchToLayout:newLayout]) {
-		shouldSet = NO;
-	}
-	if (shouldSet) {
-		if (delegate && [delegate respondsToSelector:@selector(pagedView:willSwitchToLayout:)]) {
-			[delegate pagedView:[self pagedView] shouldSwitchToLayout:newLayout];
-		}
-		[[self pagedView] setPageLayout:newLayout];
-		if (delegate && [delegate respondsToSelector:@selector(pagedView:didSwitchToLayout:)]) {
-			[delegate pagedView:[self pagedView] didSwitchToLayout:newLayout];
-		}
-		[self _syncPopUp];
-	}
+    AJRPageLayout *newLayout = [AJRPageLayout pageLayoutForView:[self pagedView] withIdentifier:[sender representedObject]];
+    id <AJRPagedViewDelegate> delegate = [[self pagedView] delegate];
+    BOOL shouldSet = YES;
+    
+    if (delegate && [delegate respondsToSelector:@selector(pagedView:shouldSwitchToLayout:)] && ![delegate pagedView:[self pagedView] shouldSwitchToLayout:newLayout]) {
+        shouldSet = NO;
+    }
+    if (shouldSet) {
+        if (delegate && [delegate respondsToSelector:@selector(pagedView:willSwitchToLayout:)]) {
+            [delegate pagedView:[self pagedView] shouldSwitchToLayout:newLayout];
+        }
+        [[self pagedView] setPageLayout:newLayout];
+        if (delegate && [delegate respondsToSelector:@selector(pagedView:didSwitchToLayout:)]) {
+            [delegate pagedView:[self pagedView] didSwitchToLayout:newLayout];
+        }
+        [self _syncPopUp];
+    }
 }
 
 - (void)selectZoom:(id)sender {
-	AJRPagedView *pagedView = [self pagedView];
-	
-	if ([pagedView delegate] && [[pagedView delegate] respondsToSelector:@selector(pagedView:willScaleTo:)]) {
-		[[pagedView delegate] pagedView:pagedView willScaleTo:[[sender representedObject] floatValue]];
-	}
+    AJRPagedView *pagedView = [self pagedView];
+    
+    if ([pagedView delegate] && [[pagedView delegate] respondsToSelector:@selector(pagedView:willScaleTo:)]) {
+        [[pagedView delegate] pagedView:pagedView willScaleTo:[[sender representedObject] floatValue]];
+    }
     [pagedView setScale:[[sender representedObject] floatValue]];
-	if ([pagedView delegate] && [[pagedView delegate] respondsToSelector:@selector(pagedView:didScaleTo:)]) {
-		[[pagedView delegate] pagedView:pagedView didScaleTo:[[sender representedObject] floatValue]];
-	}
+    if ([pagedView delegate] && [[pagedView delegate] respondsToSelector:@selector(pagedView:didScaleTo:)]) {
+        [[pagedView delegate] pagedView:pagedView didScaleTo:[[sender representedObject] floatValue]];
+    }
     [self _syncPopUp];
 }
 
@@ -313,9 +306,9 @@
     
     if ([representedObject isKindOfClass:[NSString class]]) {
         if ([representedObject isEqualToString:[[[pagedView pageLayout] class] identifier]]) {
-			[item setState:NSControlStateValueOn];
+            [item setState:NSControlStateValueOn];
         } else {
-			[item setState:NSControlStateValueOff];
+            [item setState:NSControlStateValueOff];
         }
     }
     return YES;

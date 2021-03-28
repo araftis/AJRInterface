@@ -1,9 +1,3 @@
-//
-//  AJRCascadingWindowController.m
-//  AJRInterface
-//
-//  Created by AJ Raftis on 10/18/18.
-//
 
 #import "AJRCascadingWindowController.h"
 

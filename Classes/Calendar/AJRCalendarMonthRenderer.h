@@ -1,27 +1,20 @@
-//
-//  AJRCalendarMonthRenderer.h
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 5/15/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import <AJRInterface/AJRCalendarRenderer.h>
 
 @interface AJRCalendarMonthRenderer : AJRCalendarRenderer
 {
-    NSDictionary        *_titleAttributes;
-    NSDictionary        *_dayAttributes;
-    NSDictionary        *_dateAttributes;
-    NSDictionary        *_dimDateAttributes;
-    NSDateFormatter        *_formatter;
-    NSDateFormatter        *_timeFormatter;
-    NSInteger            _weeksInMonth;
-    NSInteger            _weekOfYear;
+    NSDictionary *_titleAttributes;
+    NSDictionary *_dayAttributes;
+    NSDictionary *_dateAttributes;
+    NSDictionary *_dimDateAttributes;
+    NSDateFormatter *_formatter;
+    NSDateFormatter *_timeFormatter;
+    NSInteger _weeksInMonth;
+    NSInteger _weekOfYear;
 
     // Used during drawing.
-    NSMutableDictionary    *_eventAttributes;
-    NSMutableDictionary    *_eventListAttributes;
+    NSMutableDictionary *_eventAttributes;
+    NSMutableDictionary *_eventListAttributes;
 }
 
 @end

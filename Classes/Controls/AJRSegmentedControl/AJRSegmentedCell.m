@@ -1,9 +1,3 @@
-//
-//  AJRSegmentedCell.m
-//  AJRInterface
-//
-//  Created by AJ Raftis on 2/12/19.
-//
 
 #import "AJRSegmentedCell.h"
 

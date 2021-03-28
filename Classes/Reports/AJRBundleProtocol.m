@@ -1,10 +1,3 @@
-//
-//  AJRBundleProtocol.m
-//  OnlineStoreManager
-//
-//  Created by A.J. Raftis on 12/1/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRBundleProtocol.h"
 

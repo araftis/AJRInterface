@@ -1,9 +1,3 @@
-//
-//  NSWorkspace+Extensions.m
-//  AJRInterface
-//
-//  Created by AJ Raftis on 1/28/19.
-//
 
 #import "NSWorkspace+Extensions.h"
 

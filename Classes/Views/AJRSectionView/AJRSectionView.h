@@ -1,10 +1,3 @@
-//
-//  AJRSectionView.h
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 9/11/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import <Cocoa/Cocoa.h>
 
@@ -13,40 +6,40 @@
 
 @interface AJRSectionView : NSView <NSCoding>
 {
-    NSMutableArray                *_sections;
-    NSMutableArray                *_sectionSnapshots;
+    NSMutableArray *_sections;
+    NSMutableArray *_sectionSnapshots;
     
     // Visual Attributes
-    NSColor                        *_activeBackgroundColor;
-    NSColor                        *_inactiveBackgroundColor;
-    NSDictionary                *_titleAttributes;
-    CGFloat                        _titleHeight;
-    NSGradient                    *_titleActiveBackgroundGradient;
-    NSGradient                    *_titleInactiveBackgroundGradient;
-    NSGradient                    *_titleHighlightBackgroundGradient;
-    NSColor                        *_titleActiveColor;
-    NSColor                        *_titleInactiveColor;
+    NSColor *_activeBackgroundColor;
+    NSColor *_inactiveBackgroundColor;
+    NSDictionary *_titleAttributes;
+    CGFloat _titleHeight;
+    NSGradient *_titleActiveBackgroundGradient;
+    NSGradient *_titleInactiveBackgroundGradient;
+    NSGradient *_titleHighlightBackgroundGradient;
+    NSColor *_titleActiveColor;
+    NSColor *_titleInactiveColor;
     
     // Animation place holders
-    NSMutableArray                *_viewsToInsert;
-    NSMutableArray                *_viewsToRemove;
-    NSMutableSet                *_viewsToResize;
-    CGFloat                        _arrowProgress;
+    NSMutableArray *_viewsToInsert;
+    NSMutableArray *_viewsToRemove;
+    NSMutableSet *_viewsToResize;
+    CGFloat _arrowProgress;
     
     // Highlights
-    AJRSectionViewItem            *_highlightedSection;
+    AJRSectionViewItem *_highlightedSection;
     
-    id <AJRSectionViewDelegate>    __unsafe_unretained _delegate;
+    id <AJRSectionViewDelegate> __unsafe_unretained _delegate;
     
-    BOOL                        _suppressAnimation;
-    BOOL                        _isTiling;
-    BOOL                        _bordered;
-    BOOL                        _delegateRespondsToShouldCollapse;
-    BOOL                        _delegateRespondsToWillCollapse;
-    BOOL                        _delegateRespondsToDidCollapse;
-    BOOL                        _delegateRespondsToShouldExpand;
-    BOOL                        _delegateRespondsToWillExpand;
-    BOOL                        _delegateRespondsToDidExpand;
+    BOOL _suppressAnimation;
+    BOOL _isTiling;
+    BOOL _bordered;
+    BOOL _delegateRespondsToShouldCollapse;
+    BOOL _delegateRespondsToWillCollapse;
+    BOOL _delegateRespondsToDidCollapse;
+    BOOL _delegateRespondsToShouldExpand;
+    BOOL _delegateRespondsToWillExpand;
+    BOOL _delegateRespondsToDidExpand;
 }
 
 - (id)initWithFrame:(NSRect)frame;

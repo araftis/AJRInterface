@@ -1,9 +1,3 @@
-//
-//  AJRSegmentedControl.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 6/8/19.
-//
 
 import Cocoa
 

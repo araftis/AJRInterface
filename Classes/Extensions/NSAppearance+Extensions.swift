@@ -1,9 +1,3 @@
-//
-//  NSAppearance+Extensions.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 2/12/20.
-//
 
 import AppKit
 

@@ -1,9 +1,3 @@
-//
-//  AJRToggleButtonCell.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 4/17/19.
-//
 
 import Cocoa
 

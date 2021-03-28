@@ -1,10 +1,3 @@
-//
-//  AJRCollectionView.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 2/11/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRCollectionView.h"
 
@@ -21,24 +14,21 @@
 @synthesize delegate = _delegate;
 #endif
 
-- (NSTimeInterval)__lastSearchTime
-{
+- (NSTimeInterval)__lastSearchTime {
     if (__lastSearchTime == 0.0) {
         __lastSearchTime = [[NSDate distantPast] timeIntervalSinceReferenceDate];
     }
     return __lastSearchTime;
 }
 
-- (void)_noteSearchTime
-{
+- (void)_noteSearchTime {
     __lastSearchTime = [NSDate timeIntervalSinceReferenceDate];
 }
 
-- (void)_updateSearchForCharacter:(unichar)character
-{
-    NSTimeInterval    lastSearchTime = [self __lastSearchTime];
-    NSString        *searchString = [self searchString];
-    NSIndexSet        *indexes = nil;
+- (void)_updateSearchForCharacter:(unichar)character {
+    NSTimeInterval lastSearchTime = [self __lastSearchTime];
+    NSString *searchString = [self searchString];
+    NSIndexSet *indexes = nil;
     
     AJRPrintf(@"DEBUG: search (%.1f): %@", [NSDate timeIntervalSinceReferenceDate] - lastSearchTime, searchString);
     
@@ -68,10 +58,9 @@
     }
 }
 
-- (void)keyDown:(NSEvent *)event
-{
+- (void)keyDown:(NSEvent *)event {
     if ([event type] == NSEventTypeKeyDown) {
-        NSString    *key = [event charactersIgnoringModifiers];
+        NSString *key = [event charactersIgnoringModifiers];
         
         if ([key isEqualToString:@"\t"]) {
             [[self window] selectNextKeyView:self];

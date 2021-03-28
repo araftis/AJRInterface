@@ -1,9 +1,3 @@
-//
-//  NSTableView+Extensions.m
-//  AJRInterface
-//
-//  Created by AJ Raftis on 2/7/19.
-//
 
 #import "NSTableView+Extensions.h"
 

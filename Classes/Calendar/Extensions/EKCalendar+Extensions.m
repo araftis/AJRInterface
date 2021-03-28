@@ -1,17 +1,9 @@
-//
-//  CalCalendar.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 6/8/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "EKCalendar+Extensions.h"
 
 @implementation EKCalendar (AJRInterfaceExtensions)
 
-- (NSString *)typeString
-{
+- (NSString *)typeString {
     NSString *typeString = @"Other";
     
     switch ([self type]) {
@@ -35,8 +27,7 @@
     return typeString;
 }    
 
-- (NSString *)UID
-{
+- (NSString *)UID {
     return [self calendarIdentifier];
 }
 

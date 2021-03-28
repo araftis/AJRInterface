@@ -1,10 +1,3 @@
-//
-//  AJRActivityToolbarView.h
-//  Meta Monkey
-//
-//  Created by A.J. Raftis on 9/7/12.
-//
-//
 
 #import <Cocoa/Cocoa.h>
 

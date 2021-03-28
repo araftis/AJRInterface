@@ -1,10 +1,3 @@
-//
-//  _AJRCalendarPrintView.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 6/30/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "_AJRCalendarPrintView.h"
 

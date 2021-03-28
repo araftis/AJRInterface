@@ -1,10 +1,3 @@
-//
-//  AJRReportConditional.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 12/19/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRReportConditional.h"
 
@@ -19,17 +12,15 @@
 
 @implementation AJRReportConditional
 
-+ (void)load
-{
++ (void)load {
     [AJRReportElement registerReportElement:self forName:@"conditional"];
 }
 
-- (void)apply
-{
-    NSString    *key = [[_node attributeForName:@"condition"] stringValue];
-    BOOL        negate = [[[_node attributeForName:@"negate"] stringValue] boolValue];
-    id            value;
-    BOOL        isTrue = NO;
+- (void)apply {
+    NSString *key = [[_node attributeForName:@"condition"] stringValue];
+    BOOL negate = [[[_node attributeForName:@"negate"] stringValue] boolValue];
+    id value;
+    BOOL isTrue = NO;
     
     if (key == nil) {
         @throw [NSException exceptionWithName:@"ReportException" reason:@"Missing \"key\" from conditional element." userInfo:nil];

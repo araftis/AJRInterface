@@ -1,17 +1,9 @@
-//
-//  AJRSectionViewItem.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 9/11/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRSectionViewItem.h"
 
 @implementation AJRSectionViewItem
 
-- (id)initWithView:(NSView *)view sectionView:(AJRSectionView *)sectionView
-{
+- (id)initWithView:(NSView *)view sectionView:(AJRSectionView *)sectionView {
     if ((self = [super init])) {
         self.view = view;
         _viewFrame = [view frame];
@@ -32,35 +24,30 @@
 
 #pragma mark Utility Methods
 
-- (NSSize)desiredSize
-{
+- (NSSize)desiredSize {
     if (self.expanded) {
         return _viewFrame.size;
     }
     return NSZeroSize;
 }
 
-- (void)setHeight:(CGFloat)height
-{
+- (void)setHeight:(CGFloat)height {
     _viewFrame.size.height = height;
 }
 
 #pragma mark NSObject
 
-- (BOOL)isEqual:(id)object
-{
+- (BOOL)isEqual:(id)object {
     return self == object;
 }
 
-- (NSUInteger)hash
-{
+- (NSUInteger)hash {
     return (NSUInteger)self;
 }
 
 #pragma mark NSCoding
 
-- (id)initWithCoder:(NSCoder *)coder
-{
+- (id)initWithCoder:(NSCoder *)coder {
     if ((self = [super init])) {
         _view = [coder decodeObjectForKey:@"view"];
         _title = [coder decodeObjectForKey:@"title"];
@@ -71,8 +58,7 @@
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder
-{
+- (void)encodeWithCoder:(NSCoder *)coder {
     //[super encodeWithCoder:coder];
     [coder encodeObject:_view forKey:@"view"];
     [coder encodeObject:_title forKey:@"title"];

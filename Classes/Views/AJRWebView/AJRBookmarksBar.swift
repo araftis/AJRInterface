@@ -1,9 +1,3 @@
-//
-//  AJRBookmarksBar.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 3/7/19.
-//
 
 import Cocoa
 import AJRInterfaceFoundation

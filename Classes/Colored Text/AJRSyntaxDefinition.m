@@ -1,10 +1,3 @@
-//
-//  AJRSyntaxDefinition.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 3/20/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRSyntaxDefinition.h"
 

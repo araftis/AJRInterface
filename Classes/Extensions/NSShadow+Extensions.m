@@ -1,10 +1,3 @@
-//
-//  NSShadow+Extensions.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 5/30/14.
-//
-//
 
 #import "NSShadow+Extensions.h"
 

@@ -1,10 +1,3 @@
-//
-//  AJRMediaOutlineView.m
-//  AJRMedia Desktop
-//
-//  Created by A.J. Raftis on 12/29/06.
-//  Copyright 2006 __MyCompanyName__. All rights reserved.
-//
 
 #import "AJRSourceOutlineView.h"
 
@@ -27,36 +20,31 @@
 //   NSFrameRect(frame);
 //}
 
-- (void)_setup
-{
+- (void)_setup {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleActiveApplication:) name:NSApplicationWillBecomeActiveNotification object:NSApp];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleActiveApplication:) name:NSApplicationWillResignActiveNotification object:NSApp];
 }
 
-- (id)initWithFrame:(NSRect)frame
-{
+- (id)initWithFrame:(NSRect)frame {
     if ((self = [super initWithFrame:frame])) {
         [self _setup];
     }
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)coder
-{
+- (id)initWithCoder:(NSCoder *)coder {
     if ((self = [super initWithCoder:coder])) {
         [self _setup];
     }
     return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }
 
-- (NSGradient *)highlightFocusedGradient
-{
+- (NSGradient *)highlightFocusedGradient {
     @synchronized (self) {
         if (highlightFocusedGradient == nil) {
             highlightFocusedGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceRed:93.0 / 255.0 green:148.0 / 255.0 blue:214.0 / 255.0 alpha:1.0] endingColor:[NSColor colorWithDeviceRed:25.0 / 255.0 green:86.0 / 255.0 blue:173.0 / 255.0 alpha:1.0]];
@@ -65,8 +53,7 @@
     return highlightFocusedGradient;
 }
 
-- (NSGradient *)highlightGradient
-{
+- (NSGradient *)highlightGradient {
     @synchronized (self) {
         if (highlightGradient == nil) {
             highlightGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceRed:161.0 / 255.0 green:176.0 / 255.0 blue:207.0 / 255.0 alpha:1.0] endingColor:[NSColor colorWithDeviceRed:113.0 / 255.0 green:133.0 / 255.0 blue:171.0 / 255.0 alpha:1.0]];
@@ -75,8 +62,7 @@
     return highlightGradient;
 }
 
-- (void)drawRow:(NSInteger)row clipRect:(NSRect)frame;
-{
+- (void)drawRow:(NSInteger)row clipRect:(NSRect)frame; {
     if ([[self selectedRowIndexes] containsIndex:row]) {
 //        if ([self levelForRow:row] == 0) {
 //            [[self backgroundColor] set];
@@ -101,8 +87,7 @@
     [super drawRow:row clipRect:frame];
 }
 
-- (void)tile;
-{
+- (void)tile {
     NSRect        frame = [[self enclosingScrollView] documentVisibleRect];
     
     if ([[self tableColumns] count] > 1) {
@@ -118,28 +103,24 @@
 //    AJRPrintf(@"%C: document view's frame: %R\n", self, [[[self enclosingScrollView] documentView] frame]);
 }
 
-- (void)setFrame:(NSRect)frame
-{
+- (void)setFrame:(NSRect)frame {
     [super setFrame:frame];
     [self tile];
 }
 
-- (void)setFrameSize:(NSSize)size
-{
+- (void)setFrameSize:(NSSize)size {
     [super setFrameSize:size];
     [self tile];
 }
 
-- (NSColor *)backgroundColor
-{
+- (NSColor *)backgroundColor {
     if ([NSApp isActive]) {
         return [NSColor sourceActiveBackgroundColor];
     }
     return [NSColor sourceInactiveBackgroundColor];
 }
 
-- (void)toggleActiveApplication:(NSNotification *)notification
-{
+- (void)toggleActiveApplication:(NSNotification *)notification {
     [self setNeedsDisplay:YES];
 }
 

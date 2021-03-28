@@ -1,17 +1,9 @@
-//
-//  AJRRibbonView.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 8/6/11.
-//  Copyright (c) 2011 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRRibbonView.h"
 
 #import "AJRGradientColor.h"
 #import "AJRRibbonViewItem.h"
 #import "AJRSeparatorBorder.h"
-
 
 static AJRGradientColor *_separatorGradientDark;
 static AJRGradientColor *_separatorGradientLight;

@@ -1,10 +1,3 @@
-//
-//  AJRSeparatorBorder.h
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 8/6/11.
-//  Copyright (c) 2011 A.J. Raftis. All rights reserved.
-//
 
 #import <AJRInterface/AJRBorder.h>
 

@@ -1,9 +1,3 @@
-//
-//  AJRAlternateHighlightButtonCellTests.swift
-//  AJRInterfaceTests
-//
-//  Created by AJ Raftis on 9/2/19.
-//
 
 import XCTest
 

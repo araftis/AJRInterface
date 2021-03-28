@@ -1,10 +1,3 @@
-//
-//  AJRExpansionView.m
-//  Product Manager
-//
-//  Created by A.J. Raftis on 8/4/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRExpansionView.h"
 
@@ -12,12 +5,11 @@
 
 #import <AJRFoundation/AJRFoundation.h>
 
-@implementation AJRExpansionView
-{
-	NSMutableArray *_items;
-	NSDictionary *_headerAttributes;
-	BOOL *_expanded;
-	BOOL _isTiling;
+@implementation AJRExpansionView {
+    NSMutableArray *_items;
+    NSDictionary *_headerAttributes;
+    BOOL *_expanded;
+    BOOL _isTiling;
 }
 
 - (void)updateHeaderAttributes {
@@ -28,11 +20,11 @@
     [shadow setShadowOffset:(NSSize){0, -1}];
     [shadow setShadowBlurRadius:1.0];
     
-	_headerAttributes = @{
-						  NSFontAttributeName:_font,
-						  NSShadowAttributeName:shadow,
-						  NSForegroundColorAttributeName:[NSColor colorWithCalibratedWhite:45.0 / 255.0 alpha:1.0],
-						  };
+    _headerAttributes = @{
+        NSFontAttributeName:_font,
+        NSShadowAttributeName:shadow,
+        NSForegroundColorAttributeName:[NSColor colorWithCalibratedWhite:45.0 / 255.0 alpha:1.0],
+    };
 }
 
 - (void)setup {
@@ -158,7 +150,7 @@
         frame.size.height = [item title] ? _headerHeight : 1.0;
         frame.origin.y -= frame.size.height;
 
-        if ([item title]) {            
+        if ([item title]) {
             [[NSColor blackColor] set];
             [_highlightGradient drawInRect:frame angle:90.0];
             [[[_items objectAtIndex:x] title] drawInRect:[self titleFrameForRect:frame] withAttributes:_headerAttributes];
@@ -195,9 +187,9 @@
     }
     
     //AJRPrintf(@"%C: content = %@\n", self, [self content]);
-	for (NSInteger x = 0; x < [[self content] count]; x++) {
+    for (NSInteger x = 0; x < [[self content] count]; x++) {
 #warning This is probably wrong. We need to know what the identifier should be.
-		AJRExpansionViewItem *newItem = (AJRExpansionViewItem *)[self makeItemWithIdentifier:@"" forIndexPath:[NSIndexPath indexPathWithIndex:x]];
+        AJRExpansionViewItem *newItem = (AJRExpansionViewItem *)[self makeItemWithIdentifier:@"" forIndexPath:[NSIndexPath indexPathWithIndex:x]];
         if (newItem) {
             [self addSubview:[newItem view]];
             [[newItem view] setPostsFrameChangedNotifications:YES];
@@ -279,13 +271,13 @@
         }
         
         for (x = 0; x < max; x++) {
-            NSView        *subview = [subviews objectAtIndex:x];
+            NSView *subview = [subviews objectAtIndex:x];
             
             frame = [self frameForSection:x];
             
             if (animate) {
                 // Create the attributes dictionary for the first view.
-                NSRect                    startingFrame = [subview frame];
+                NSRect startingFrame = [subview frame];
                 
                 if (!NSEqualRects(startingFrame, frame)) {
                     NSMutableDictionary        *dictionary = [[NSMutableDictionary alloc] init];
@@ -304,12 +296,12 @@
             [subview setHidden:![self isSectionExpanded:x]];
         }
         
-        //    if (max == 0) {
-        //        AJRPrintf(@"%C: break here: %s:%d\n", self, __PRETTY_FUNCTION__, __LINE__);
-        //    }
+//    if (max == 0) {
+//        AJRPrintf(@"%C: break here: %s:%d\n", self, __PRETTY_FUNCTION__, __LINE__);
+//    }
         
-        NSRect        startingFrame = [self frame];
-        NSRect        myFrame = startingFrame;
+        NSRect startingFrame = [self frame];
+        NSRect myFrame = startingFrame;
         
         myFrame.size.height = frame.origin.y + frame.size.height;
         
@@ -317,7 +309,7 @@
             // Create the attributes dictionary for the first view.
             
             if (!NSEqualRects(startingFrame, myFrame)) {
-                NSMutableDictionary        *dictionary = [[NSMutableDictionary alloc] init];
+                NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
                 // Specify which view to modify.
                 [dictionary setObject:self forKey:NSViewAnimationTargetKey];
                 // Specify the starting position of the view.
@@ -332,7 +324,7 @@
         }
         
         if ([animations count]) {
-            NSViewAnimation        *animation = [[NSViewAnimation alloc] initWithViewAnimations:animations];
+            NSViewAnimation *animation = [[NSViewAnimation alloc] initWithViewAnimations:animations];
             [animation setDuration:0.0625];
             [animation setAnimationCurve:NSAnimationLinear];
             [animation startAnimation];
@@ -343,8 +335,7 @@
     }
 }
 
-- (void)_contentChanged:(BOOL)changedFlag regenerate:(BOOL)regenerateFlag
-{
+- (void)_contentChanged:(BOOL)changedFlag regenerate:(BOOL)regenerateFlag {
     //AJRPrintf(@"%C: _contentChanged:%B regenerate:%B\n", self, changedFlag, regenerateFlag);
     if (regenerateFlag) {
         [self createExpansionViewItems];
@@ -354,24 +345,21 @@
     }
 }
 
-- (void)setFont:(NSFont *)aFont
-{
+- (void)setFont:(NSFont *)aFont {
     if (_font != aFont) {
         _font = aFont;
         [self setNeedsDisplay:YES];
     }
 }
 
-- (void)setHeaderHeight:(CGFloat)aHeight
-{
+- (void)setHeaderHeight:(CGFloat)aHeight {
     if (_headerHeight != aHeight) {
         _headerHeight = aHeight;
         [self setNeedsDisplay:YES];
     }
 }
 
-- (void)setHighlightFocusedGradient:(NSGradient *)aGradient
-{
+- (void)setHighlightFocusedGradient:(NSGradient *)aGradient {
     if (_highlightFocusedGradient != aGradient) {
         _highlightFocusedGradient = aGradient;
         [self setNeedsDisplay:YES];

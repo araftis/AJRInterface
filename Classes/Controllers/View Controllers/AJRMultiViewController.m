@@ -1,28 +1,19 @@
-//
-//  ServiceEditorManager.m
-//  Service Browser
-//
-//  Created by A.J. Raftis on 12/10/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRMultiViewController.h"
 
-static NSMutableDictionary    *_subviewControllerClasses = nil;
+static NSMutableDictionary *_subviewControllerClasses = nil;
 
 @implementation AJRMultiViewController
 
-+ (void)initialize
-{
++ (void)initialize {
     if (_subviewControllerClasses == nil) {
         _subviewControllerClasses = [[NSMutableDictionary alloc] init];
     }
 }
 
-+ (void)registerEditor:(Class)editorClass forName:(NSString *)name
-{
++ (void)registerEditor:(Class)editorClass forName:(NSString *)name {
     @synchronized (_subviewControllerClasses) {
-        NSMutableDictionary        *classes = [_subviewControllerClasses objectForKey:NSStringFromClass([self class])];
+        NSMutableDictionary *classes = [_subviewControllerClasses objectForKey:NSStringFromClass([self class])];
         
         if (classes == nil) {
             classes = [[NSMutableDictionary alloc] init];
@@ -33,38 +24,33 @@ static NSMutableDictionary    *_subviewControllerClasses = nil;
     }
 }
 
-+ (NSArray *)viewControllerNames
-{
++ (NSArray *)viewControllerNames {
     @synchronized (_subviewControllerClasses) {
         return [[[_subviewControllerClasses objectForKey:NSStringFromClass([self class])] allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
     }
     return nil;
 }
 
-+ (Class)viewControllerClassForName:(NSString *)name
-{
++ (Class)viewControllerClassForName:(NSString *)name {
     @synchronized (_subviewControllerClasses) {
         return [[_subviewControllerClasses objectForKey:NSStringFromClass([self class])] objectForKey:name];
     }
     return nil;
 }
 
-- (id)init
-{
+- (id)init {
     if ((self = [super init])) {
         _viewControllers = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
-
 @synthesize autosaveName = _autosaveName;
 @synthesize rootController = _rootController;
 @synthesize selectorControl = _selectorControl;
 
-- (void)setAutosaveName:(NSString *)autosaveName
-{
-    BOOL        restore = _autosaveName == nil;
+- (void)setAutosaveName:(NSString *)autosaveName {
+    BOOL restore = _autosaveName == nil;
 
     if (_autosaveName != autosaveName) {
         _autosaveName = autosaveName;
@@ -75,9 +61,8 @@ static NSMutableDictionary    *_subviewControllerClasses = nil;
     }
 }
 
-- (NSViewController *)viewControllerForName:(NSString *)name
-{
-    NSViewController    *viewController = nil;
+- (NSViewController *)viewControllerForName:(NSString *)name {
+    NSViewController *viewController = nil;
     
     @synchronized (_viewControllers) {
         viewController = [_viewControllers objectForKey:name];
@@ -94,21 +79,18 @@ static NSMutableDictionary    *_subviewControllerClasses = nil;
     return viewController;
 }
 
-- (void)selectViewWithName:(NSString *)name
-{
+- (void)selectViewWithName:(NSString *)name {
     [self selectViewAtIndex:[[[self class] viewControllerNames] indexOfObject:name]];
 }
 
-- (void)selectViewAtIndex:(NSUInteger)index
-{
+- (void)selectViewAtIndex:(NSUInteger)index {
     _selectedViewIndex = index;
     if (self.autosaveName) {
         [[NSUserDefaults standardUserDefaults] setInteger:index forKey:self.autosaveName];
     }
 }
 
-- (IBAction)selectView:(id)sender
-{
+- (IBAction)selectView:(id)sender {
     if ([sender isKindOfClass:[NSPopUpButton class]]) {
         [self selectViewAtIndex:[(NSPopUpButton *)sender indexOfSelectedItem]];
     } else if ([sender isKindOfClass:[NSMenuItem class]]) {
@@ -120,20 +102,18 @@ static NSMutableDictionary    *_subviewControllerClasses = nil;
     }
 }
 
-- (void)setupMenu:(NSMenu *)menu
-{
+- (void)setupMenu:(NSMenu *)menu {
 }
 
-- (void)setupSegmentControl:(NSSegmentedControl *)segments
-{
+- (void)setupSegmentControl:(NSSegmentedControl *)segments {
 }
 
 - (void)setupPopUpButton:(NSPopUpButton *)popUpButton
 {
     [popUpButton removeAllItems];
     for (NSString *name in [[self class] viewControllerNames]) {
-        NSViewController    *controller = [self viewControllerForName:name];
-        NSMenuItem            *item;
+        NSViewController *controller = [self viewControllerForName:name];
+        NSMenuItem *item;
         
         [popUpButton addItemWithTitle:[controller title]];
         item = [[popUpButton itemArray] lastObject];
@@ -141,8 +121,7 @@ static NSMutableDictionary    *_subviewControllerClasses = nil;
     }
 }
 
-- (void)setupSelectorControl:(NSControl *)control
-{
+- (void)setupSelectorControl:(NSControl *)control {
     if ([control isKindOfClass:[NSMenu class]]) {
         [self setupMenu:(NSMenu *)control];
     } else if ([control isKindOfClass:[NSSegmentedControl class]]) {
@@ -152,15 +131,13 @@ static NSMutableDictionary    *_subviewControllerClasses = nil;
     }
 }
 
-- (void)setSelectorControl:(NSControl *)control
-{
+- (void)setSelectorControl:(NSControl *)control {
     [self setupSelectorControl:control];
     [control setTarget:self];
     [control setAction:@selector(selectView:)];
 }
 
-- (NSUInteger)selectedViewIndex
-{
+- (NSUInteger)selectedViewIndex {
     return _selectedViewIndex;
 }
 

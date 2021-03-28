@@ -1,10 +1,3 @@
-//
-//  AJRPagedView.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 5/19/11.
-//  Copyright 2011 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRPagedView.h"
 
@@ -22,11 +15,9 @@ const NSInteger AJRPageIndexMasterEven   = -2;
 const NSInteger AJRPageIndexMasterOdd    = -1;
 const NSInteger AJRPageIndexFirst        = 0;
 
-
 @interface AJRPagedView ()
 
 @end
-
 
 @implementation AJRPagedView {
     NSUInteger _printingPage;

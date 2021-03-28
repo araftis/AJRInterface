@@ -1,4 +1,3 @@
-/* AJRRulerView.m created by alex on Thu 12-Nov-1998 */
 
 #import "AJRRulerView.h"
 
@@ -18,51 +17,50 @@
 #define RULE_THICKNESS 0.0
 #define MARKER_THICKNESS 16.0
 
-@implementation AJRRulerView
-{
-	NSDictionary *_unitAttributes;
-	NSImage *_hashMarksAndLabelCache;
-	NSMutableDictionary<NSNumber *, CALayer *> *_sublayerCache;
+@implementation AJRRulerView {
+    NSDictionary *_unitAttributes;
+    NSImage *_hashMarksAndLabelCache;
+    NSMutableDictionary<NSNumber *, CALayer *> *_sublayerCache;
 }
 
 #pragma mark - Creation
 
 - (id)initWithScrollView:(NSScrollView *)scrollView orientation:(NSRulerOrientation)orientation {
-	if ((self = [super initWithScrollView:scrollView orientation:orientation])) {
-		self.backgroundColor = [NSColor windowBackgroundColor];
-		self.rulerBackgroundColor = [NSColor whiteColor];
-		self.rulerMarginBackgroundColor = [NSColor colorWithDeviceWhite:0.9 alpha:1.0];
-		self.tickColor = [NSColor colorWithCalibratedWhite:0.47 alpha:1.0];
-		self.unitColor = [NSColor colorWithCalibratedWhite:0.1 alpha:1.0];
-		
-		_unitAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
-						   [NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSControlSizeMini]], NSFontAttributeName, 
-						   _unitColor, NSForegroundColorAttributeName, nil];
-		_sublayerCache = [NSMutableDictionary dictionary];
-		
-		[self setLayerContentsRedrawPolicy:NSViewLayerContentsRedrawOnSetNeedsDisplay];
-	}
-	return self;
+    if ((self = [super initWithScrollView:scrollView orientation:orientation])) {
+        self.backgroundColor = [NSColor windowBackgroundColor];
+        self.rulerBackgroundColor = [NSColor whiteColor];
+        self.rulerMarginBackgroundColor = [NSColor colorWithDeviceWhite:0.9 alpha:1.0];
+        self.tickColor = [NSColor colorWithCalibratedWhite:0.47 alpha:1.0];
+        self.unitColor = [NSColor colorWithCalibratedWhite:0.1 alpha:1.0];
+
+        _unitAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
+                           [NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSControlSizeMini]], NSFontAttributeName,
+                           _unitColor, NSForegroundColorAttributeName, nil];
+        _sublayerCache = [NSMutableDictionary dictionary];
+
+        [self setLayerContentsRedrawPolicy:NSViewLayerContentsRedrawOnSetNeedsDisplay];
+    }
+    return self;
 }
 
 #pragma mark - Properties
 
 - (NSString *)rulerUnitAbbreviation {
-	return [[NSRulerView _registrationDictionaryForUnitNamed:[self measurementUnits]] objectForKey:@"NSRulerUnitAbbreviation"];
+    return [[NSRulerView _registrationDictionaryForUnitNamed:[self measurementUnits]] objectForKey:@"NSRulerUnitAbbreviation"];
 }
 
 - (CGFloat)rulerUnitConversionFactor {
-	return [[[NSRulerView _registrationDictionaryForUnitNamed:[self measurementUnits]] objectForKey:@"NSRulerUnitConversionFactor"] floatValue];
+    return [[[NSRulerView _registrationDictionaryForUnitNamed:[self measurementUnits]] objectForKey:@"NSRulerUnitConversionFactor"] floatValue];
 }
 
 #pragma mark - Utilities
 
 - (NSRulerMarker *)markerAtPoint:(NSPoint)point {
-	for (NSRulerMarker *marker in [self markers]) {
-		if ([self mouse:point inRect:[marker imageRectInRuler]]) {
-			return marker;
-		}
-	}
+    for (NSRulerMarker *marker in [self markers]) {
+        if ([self mouse:point inRect:[marker imageRectInRuler]]) {
+            return marker;
+        }
+    }
 
     return nil;
 }
@@ -163,184 +161,184 @@
 //}
 
 - (void)drawHorizontalRulerInRect:(NSRect)rect pageScale:(CGFloat)pageScale {
-	NSDictionary *ticks = [NSRulerView _registrationDictionaryForUnitNamed:[self measurementUnits]];
-	CGFloat tickConversionFactor = [[ticks objectForKey:@"NSRulerUnitConversionFactor"] floatValue];
-	NSArray *stepDownCycle = [ticks objectForKey:@"NSRulerUnitStepDownCycle"];
-	
-	[_tickColor set];
-	NSRectFill((NSRect){{rect.origin.x, 0.0}, {1.0, rect.size.height}});
-	NSRectFill((NSRect){{rect.origin.x + rect.size.width, 0.0}, {1.0, rect.size.height}});
-	
-	[[NSGraphicsContext currentContext] drawWithSavedGraphicsState:^(NSGraphicsContext *context) {
-		NSInteger sdcCount = [stepDownCycle count];
-		NSInteger sdcIndex = NSNotFound;
-		CGFloat sdcValue = 1.0;
-		CGFloat tickHeight = rect.size.height;
-		CGFloat tickStep = tickConversionFactor;
-		
-		do {
-			for (CGFloat x = rect.origin.x; x <= rect.origin.x + rect.size.width; x += tickStep) {
-				NSRect tickRect = (NSRect){{x, rect.origin.y}, {1.0, rect.origin.y + tickHeight}};
-				NSString *unit;
-				NSPoint unitPoint;
-				
-				[self->_tickColor set];
-				
-				tickRect.origin.y = rect.origin.y + rect.size.height - tickHeight;
-				tickRect.size.width = 1.0;
-				tickRect.size.height = tickHeight;
-				NSFrameRect([self centerScanRect:tickRect]);
-				
-				if (sdcIndex == NSNotFound) { // For now, only label the top most unit.
-					unit = [NSString stringWithFormat:@"%.0f", x / 72.0];
-					unitPoint.x = tickRect.origin.x + 3.0;
-					unitPoint.y = tickRect.origin.y - 2.0;
-					[unit drawAtPoint:unitPoint withAttributes:self->_unitAttributes];
-				}
-			}
-			
-			if (sdcIndex == NSNotFound) {
-				tickHeight /= 2.0;
-			} else {
-				tickHeight -= 2.0;
-				if (tickHeight < 2.0) {
-					tickHeight = 2.0;
-				}
-			}
-			
-			sdcIndex = sdcIndex == NSNotFound ? 0 : sdcIndex + 1;
-			if (sdcIndex >= sdcCount) sdcIndex = sdcCount - 1;
-			sdcValue = [[stepDownCycle objectAtIndex:sdcIndex] floatValue];
-			
-			tickStep *= sdcValue;
-		} while (tickStep >= 5.0 / pageScale);
-	}];
-	
-	[_tickColor set];
-	[NSBezierPath strokeLineFromPoint:(NSPoint){rect.origin.x, rect.origin.y + rect.size.height - 0.5} toPoint:(NSPoint){rect.origin.x + rect.size.width, rect.origin.y + rect.size.height - 0.5}];
+    NSDictionary *ticks = [NSRulerView _registrationDictionaryForUnitNamed:[self measurementUnits]];
+    CGFloat tickConversionFactor = [[ticks objectForKey:@"NSRulerUnitConversionFactor"] floatValue];
+    NSArray *stepDownCycle = [ticks objectForKey:@"NSRulerUnitStepDownCycle"];
+
+    [_tickColor set];
+    NSRectFill((NSRect){{rect.origin.x, 0.0}, {1.0, rect.size.height}});
+    NSRectFill((NSRect){{rect.origin.x + rect.size.width, 0.0}, {1.0, rect.size.height}});
+
+    [[NSGraphicsContext currentContext] drawWithSavedGraphicsState:^(NSGraphicsContext *context) {
+        NSInteger sdcCount = [stepDownCycle count];
+        NSInteger sdcIndex = NSNotFound;
+        CGFloat sdcValue = 1.0;
+        CGFloat tickHeight = rect.size.height;
+        CGFloat tickStep = tickConversionFactor;
+
+        do {
+            for (CGFloat x = rect.origin.x; x <= rect.origin.x + rect.size.width; x += tickStep) {
+                NSRect tickRect = (NSRect){{x, rect.origin.y}, {1.0, rect.origin.y + tickHeight}};
+                NSString *unit;
+                NSPoint unitPoint;
+
+                [self->_tickColor set];
+
+                tickRect.origin.y = rect.origin.y + rect.size.height - tickHeight;
+                tickRect.size.width = 1.0;
+                tickRect.size.height = tickHeight;
+                NSFrameRect([self centerScanRect:tickRect]);
+
+                if (sdcIndex == NSNotFound) { // For now, only label the top most unit.
+                    unit = [NSString stringWithFormat:@"%.0f", x / 72.0];
+                    unitPoint.x = tickRect.origin.x + 3.0;
+                    unitPoint.y = tickRect.origin.y - 2.0;
+                    [unit drawAtPoint:unitPoint withAttributes:self->_unitAttributes];
+                }
+            }
+
+            if (sdcIndex == NSNotFound) {
+                tickHeight /= 2.0;
+            } else {
+                tickHeight -= 2.0;
+                if (tickHeight < 2.0) {
+                    tickHeight = 2.0;
+                }
+            }
+
+            sdcIndex = sdcIndex == NSNotFound ? 0 : sdcIndex + 1;
+            if (sdcIndex >= sdcCount) sdcIndex = sdcCount - 1;
+            sdcValue = [[stepDownCycle objectAtIndex:sdcIndex] floatValue];
+
+            tickStep *= sdcValue;
+        } while (tickStep >= 5.0 / pageScale);
+    }];
+
+    [_tickColor set];
+    [NSBezierPath strokeLineFromPoint:(NSPoint){rect.origin.x, rect.origin.y + rect.size.height - 0.5} toPoint:(NSPoint){rect.origin.x + rect.size.width, rect.origin.y + rect.size.height - 0.5}];
 }
 
 - (void)drawVerticalRulerInRect:(NSRect)rect pageScale:(CGFloat)pageScale {
-	NSDictionary *ticks = [NSRulerView _registrationDictionaryForUnitNamed:[self measurementUnits]];
-	CGFloat tickConversionFactor = [[ticks objectForKey:@"NSRulerUnitConversionFactor"] floatValue];
-	NSArray *stepDownCycle = [ticks objectForKey:@"NSRulerUnitStepDownCycle"];
-	
-	[[NSGraphicsContext currentContext] drawWithSavedGraphicsState:^(NSGraphicsContext *context) {
-		CGFloat tickHeight = rect.size.width;
-		CGFloat tickStep = tickConversionFactor;
-		NSInteger sdcCount = [stepDownCycle count];
-		NSInteger sdcIndex = NSNotFound;
-		CGFloat sdcValue = 1.0;
-		
-		[[NSBezierPath bezierPathWithRect:(NSRect){{0.0, rect.origin.y - 1.0}, {rect.size.width, rect.size.height + 1.0}}] addClip];
-		
-		do {
-			for (CGFloat y = rect.origin.y; y <= rect.origin.y + rect.size.height; y += tickStep) {
-				NSRect		tickRect = (NSRect){{0.0, y}, {1.0, 1.0}};
-				NSString	*unit;
-				NSPoint		unitPoint;
-				
-				[self->_tickColor set];
-				
-				tickRect.origin.x = rect.origin.x + rect.size.width - tickHeight;
-				tickRect.size.width = tickHeight;
-				tickRect.size.height = 1.0;
-				NSFrameRect([self centerScanRect:tickRect]);
-				
-				if (sdcIndex == NSNotFound) { // For now, only label the top most unit.
-					[NSGraphicsContext saveGraphicsState];
-					unit = [NSString stringWithFormat:@"%.0f", y / 72.0];
-					unitPoint.x = tickRect.origin.x + 3.0;
-					unitPoint.y = tickRect.origin.y - 2.0;
-					[NSAffineTransform translateXBy:unitPoint.x yBy:unitPoint.y];
-					[NSAffineTransform rotateByDegrees:-90.0];
-					[NSAffineTransform translateXBy:0.0 yBy:-4.0];
-					[unit drawAtPoint:NSZeroPoint withAttributes:self->_unitAttributes];
-					[NSGraphicsContext restoreGraphicsState];
-				}
-			}
-			
-			if (sdcIndex == NSNotFound) {
-				tickHeight /= 2.0;
-			} else {
-				tickHeight -= 2.0;
-				if (tickHeight < 2.0) {
-					tickHeight = 2.0;
-				}
-			}
-			
-			sdcIndex = sdcIndex == NSNotFound ? 0 : sdcIndex + 1;
-			if (sdcIndex >= sdcCount) sdcIndex = sdcCount - 1;
-			sdcValue = [[stepDownCycle objectAtIndex:sdcIndex] floatValue];
-			
-			tickStep *= sdcValue;
-		} while (tickStep >= 5.0 / pageScale);
-	}];
-	
-	[_tickColor set];
-	[NSBezierPath strokeLineFromPoint:(NSPoint){rect.origin.x + rect.size.width, rect.origin.y - 0.5} toPoint:(NSPoint){rect.origin.x + rect.size.width, rect.origin.y + rect.size.height - 0.5}];
+    NSDictionary *ticks = [NSRulerView _registrationDictionaryForUnitNamed:[self measurementUnits]];
+    CGFloat tickConversionFactor = [[ticks objectForKey:@"NSRulerUnitConversionFactor"] floatValue];
+    NSArray *stepDownCycle = [ticks objectForKey:@"NSRulerUnitStepDownCycle"];
+
+    [[NSGraphicsContext currentContext] drawWithSavedGraphicsState:^(NSGraphicsContext *context) {
+        CGFloat tickHeight = rect.size.width;
+        CGFloat tickStep = tickConversionFactor;
+        NSInteger sdcCount = [stepDownCycle count];
+        NSInteger sdcIndex = NSNotFound;
+        CGFloat sdcValue = 1.0;
+
+        [[NSBezierPath bezierPathWithRect:(NSRect){{0.0, rect.origin.y - 1.0}, {rect.size.width, rect.size.height + 1.0}}] addClip];
+
+        do {
+            for (CGFloat y = rect.origin.y; y <= rect.origin.y + rect.size.height; y += tickStep) {
+                NSRect		tickRect = (NSRect){{0.0, y}, {1.0, 1.0}};
+                NSString	*unit;
+                NSPoint		unitPoint;
+
+                [self->_tickColor set];
+
+                tickRect.origin.x = rect.origin.x + rect.size.width - tickHeight;
+                tickRect.size.width = tickHeight;
+                tickRect.size.height = 1.0;
+                NSFrameRect([self centerScanRect:tickRect]);
+
+                if (sdcIndex == NSNotFound) { // For now, only label the top most unit.
+                    [NSGraphicsContext saveGraphicsState];
+                    unit = [NSString stringWithFormat:@"%.0f", y / 72.0];
+                    unitPoint.x = tickRect.origin.x + 3.0;
+                    unitPoint.y = tickRect.origin.y - 2.0;
+                    [NSAffineTransform translateXBy:unitPoint.x yBy:unitPoint.y];
+                    [NSAffineTransform rotateByDegrees:-90.0];
+                    [NSAffineTransform translateXBy:0.0 yBy:-4.0];
+                    [unit drawAtPoint:NSZeroPoint withAttributes:self->_unitAttributes];
+                    [NSGraphicsContext restoreGraphicsState];
+                }
+            }
+
+            if (sdcIndex == NSNotFound) {
+                tickHeight /= 2.0;
+            } else {
+                tickHeight -= 2.0;
+                if (tickHeight < 2.0) {
+                    tickHeight = 2.0;
+                }
+            }
+
+            sdcIndex = sdcIndex == NSNotFound ? 0 : sdcIndex + 1;
+            if (sdcIndex >= sdcCount) sdcIndex = sdcCount - 1;
+            sdcValue = [[stepDownCycle objectAtIndex:sdcIndex] floatValue];
+
+            tickStep *= sdcValue;
+        } while (tickStep >= 5.0 / pageScale);
+    }];
+
+    [_tickColor set];
+    [NSBezierPath strokeLineFromPoint:(NSPoint){rect.origin.x + rect.size.width, rect.origin.y - 0.5} toPoint:(NSPoint){rect.origin.x + rect.size.width, rect.origin.y + rect.size.height - 0.5}];
 }
 - (NSImage *)hashMarkAndLabelImageForSize:(NSSize)size pageScale:(CGFloat)pageScale {
-	if (_hashMarksAndLabelCache == nil || !NSEqualSizes(size, [_hashMarksAndLabelCache size])) {
-		_hashMarksAndLabelCache = [[NSImage alloc] initWithSize:size];
-		[_hashMarksAndLabelCache lockFocusFlipped:YES];
-		if ([self orientation] == NSHorizontalRuler) {
-			[self drawHorizontalRulerInRect:(NSRect){NSZeroPoint, size} pageScale:1.0];
-		} else {
-			[self drawVerticalRulerInRect:(NSRect){NSZeroPoint, size} pageScale:1.0];
-		}
-		[_hashMarksAndLabelCache unlockFocus];
-	}
-	return _hashMarksAndLabelCache;
+    if (_hashMarksAndLabelCache == nil || !NSEqualSizes(size, [_hashMarksAndLabelCache size])) {
+        _hashMarksAndLabelCache = [[NSImage alloc] initWithSize:size];
+        [_hashMarksAndLabelCache lockFocusFlipped:YES];
+        if ([self orientation] == NSHorizontalRuler) {
+            [self drawHorizontalRulerInRect:(NSRect){NSZeroPoint, size} pageScale:1.0];
+        } else {
+            [self drawVerticalRulerInRect:(NSRect){NSZeroPoint, size} pageScale:1.0];
+        }
+        [_hashMarksAndLabelCache unlockFocus];
+    }
+    return _hashMarksAndLabelCache;
 }
 
 - (void)updateSublayers {
-	AJRPagedView *page = AJRObjectIfKindOfClass([self clientView], AJRPagedView);
-	CALayer *layer = [self layer];
-	
-	if (page) {
-		NSRect rulerBounds = [self bounds];
-		NSArray *views = @[page];
-		
-		if ([self orientation] == NSHorizontalRuler) {
-			if ([page respondsToSelector:@selector(horizontalViews)]) {
-				views = [(id <AJRRulerViewClient>)page horizontalViews];
-			}
-		} else {
-			if ([page respondsToSelector:@selector(verticalViews)]) {
-				views = [(id <AJRRulerViewClient>)page verticalViews];
-			}
-		}
-		
-		[CATransaction begin];
-		[CATransaction setValue:@YES forKey:kCATransactionDisableActions];
-		for (NSInteger x = 0, max = [views count]; x < max; x++) {
-			CALayer *rulerLayer = [_sublayerCache objectForKey:@(x)];
-			NSView *page = views[x];
-			NSRect frame = [self convertRect:[page bounds] fromView:page];
+    AJRPagedView *page = AJRObjectIfKindOfClass([self clientView], AJRPagedView);
+    CALayer *layer = [self layer];
 
-			if ([self orientation] == NSHorizontalRuler) {
-				frame.origin.y = 0;
-				frame.size.height = rulerBounds.size.height;
-			} else {
-				frame.origin.x = 0;
-				frame.size.width = rulerBounds.size.width;
-			}
+    if (page) {
+        NSRect rulerBounds = [self bounds];
+        NSArray *views = @[page];
 
-			if (rulerLayer == nil) {
-				rulerLayer = [[CALayer alloc] init];
-				[_sublayerCache setObject:rulerLayer forKey:@(x)];
-				[rulerLayer setBackgroundColor:[[self rulerBackgroundColor] CGColor]];
-				[layer addSublayer:rulerLayer];
-			}
+        if ([self orientation] == NSHorizontalRuler) {
+            if ([page respondsToSelector:@selector(horizontalViews)]) {
+                views = [(id <AJRRulerViewClient>)page horizontalViews];
+            }
+        } else {
+            if ([page respondsToSelector:@selector(verticalViews)]) {
+                views = [(id <AJRRulerViewClient>)page verticalViews];
+            }
+        }
 
-			if ([rulerLayer contents] == nil || !NSEqualRects(frame, rulerLayer.frame)) {
-				[rulerLayer setContents:[self hashMarkAndLabelImageForSize:frame.size pageScale:1.0]];
-				[rulerLayer setFrame:frame];
-			}
-		}
-		[CATransaction commit];
-	}
+        [CATransaction begin];
+        [CATransaction setValue:@YES forKey:kCATransactionDisableActions];
+        for (NSInteger x = 0, max = [views count]; x < max; x++) {
+            CALayer *rulerLayer = [_sublayerCache objectForKey:@(x)];
+            NSView *page = views[x];
+            NSRect frame = [self convertRect:[page bounds] fromView:page];
+
+            if ([self orientation] == NSHorizontalRuler) {
+                frame.origin.y = 0;
+                frame.size.height = rulerBounds.size.height;
+            } else {
+                frame.origin.x = 0;
+                frame.size.width = rulerBounds.size.width;
+            }
+
+            if (rulerLayer == nil) {
+                rulerLayer = [[CALayer alloc] init];
+                [_sublayerCache setObject:rulerLayer forKey:@(x)];
+                [rulerLayer setBackgroundColor:[[self rulerBackgroundColor] CGColor]];
+                [layer addSublayer:rulerLayer];
+            }
+
+            if ([rulerLayer contents] == nil || !NSEqualRects(frame, rulerLayer.frame)) {
+                [rulerLayer setContents:[self hashMarkAndLabelImageForSize:frame.size pageScale:1.0]];
+                [rulerLayer setFrame:frame];
+            }
+        }
+        [CATransaction commit];
+    }
 }
 
 //- (void)drawVerticalRulerInRect:(NSRect)rect {
@@ -442,82 +440,82 @@
 //}
 
 - (BOOL)wantsLayer {
-	return YES;
+    return YES;
 }
 
 - (BOOL)wantsUpdateLayer {
-	return YES;
+    return YES;
 }
 
 - (BOOL)canDrawSubviewsIntoLayer {
-	return NO;
+    return NO;
 }
 
 - (void)updateLayer {
-	CALayer *layer = [self layer];
-	layer.backgroundColor = [[self backgroundColor] CGColor];
-	[self updateSublayers];
+    CALayer *layer = [self layer];
+    layer.backgroundColor = [[self backgroundColor] CGColor];
+    [self updateSublayers];
 }
 
 - (CGFloat)baselineLocation {
-	NSRect	bounds = [self bounds];
-	
-	if ([self orientation] == NSHorizontalRuler) {
-		return bounds.origin.y + bounds.size.height;
-	} else {
-		return bounds.origin.x + bounds.size.width;
-	}
+    NSRect	bounds = [self bounds];
+
+    if ([self orientation] == NSHorizontalRuler) {
+        return bounds.origin.y + bounds.size.height;
+    } else {
+        return bounds.origin.x + bounds.size.width;
+    }
 }
 
 - (void)setRuleThickness:(CGFloat)thickness {
-	[super setRuleThickness:RULE_THICKNESS];
+    [super setRuleThickness:RULE_THICKNESS];
 }
 
 - (CGFloat)ruleThickness {
-	return RULE_THICKNESS;
+    return RULE_THICKNESS;
 }
 
 - (CGFloat)requiredThickness {
-	return RULE_THICKNESS + MARKER_THICKNESS;
+    return RULE_THICKNESS + MARKER_THICKNESS;
 }
 
 - (void)setReservedThicknessForMarkers:(CGFloat)thickness {
-	[super setReservedThicknessForMarkers:MARKER_THICKNESS];
+    [super setReservedThicknessForMarkers:MARKER_THICKNESS];
 }
 
 - (CGFloat)reservedThicknessForMarkers {
-	return MARKER_THICKNESS;
+    return MARKER_THICKNESS;
 }
 
 - (void)setReservedThicknessForAccessoryView:(CGFloat)thickness {
-	[super setReservedThicknessForAccessoryView:0.0];
+    [super setReservedThicknessForAccessoryView:0.0];
 }
 
 - (CGFloat)reservedThicknessForAccessoryView {
-	return 0.0;
+    return 0.0;
 }
 
 - (void)setClientView:(NSView *)client {
-	[super setClientView:client];
-	
-	if ([[self clientView] respondsToSelector:@selector(rulerViewDidSetClientView:)]) {
-		[(id <AJRRulerViewClient>)[self clientView] rulerViewDidSetClientView:self];
-	}
+    [super setClientView:client];
+
+    if ([[self clientView] respondsToSelector:@selector(rulerViewDidSetClientView:)]) {
+        [(id <AJRRulerViewClient>)[self clientView] rulerViewDidSetClientView:self];
+    }
 }
 
 #pragma mark - NSResponder
 
 - (void)mouseDown:(NSEvent *)event {
-	NSPoint where = [self convertPoint:[event locationInWindow] fromView:nil];
-	NSRulerMarker *marker = [self markerAtPoint:where];
-	
-	if (marker) {
-		[marker trackMouse:event adding:NO];
-	} else {
-		if ([[self clientView] respondsToSelector:@selector(rulerView:handleMouseDown:)]) {
-			[[self clientView] rulerView:self handleMouseDown:event];
-		}
-	}
+    NSPoint where = [self convertPoint:[event locationInWindow] fromView:nil];
+    NSRulerMarker *marker = [self markerAtPoint:where];
+
+    if (marker) {
+        [marker trackMouse:event adding:NO];
+    } else {
+        if ([[self clientView] respondsToSelector:@selector(rulerView:handleMouseDown:)]) {
+            [[self clientView] rulerView:self handleMouseDown:event];
+        }
+    }
 }
 
 @end

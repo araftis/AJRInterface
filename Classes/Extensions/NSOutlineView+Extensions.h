@@ -1,9 +1,3 @@
-//
-//  NSOutlineView+Extensions.h
-//  AJRInterface
-//
-//  Created by AJ Raftis on 1/28/19.
-//
 
 #import <Cocoa/Cocoa.h>
 

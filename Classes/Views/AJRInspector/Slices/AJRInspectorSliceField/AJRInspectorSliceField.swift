@@ -1,9 +1,3 @@
-//
-//  AJRInspectorSliceField.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 4/24/19.
-//
 
 import Cocoa
 

@@ -1,10 +1,3 @@
-//
-//  NSTextFieldCell.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 6/18/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import "NSTextFieldCell+Extensions.h"
 

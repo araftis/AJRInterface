@@ -1,10 +1,3 @@
-//
-//  AJRRatingsCell.m
-//  AJRInterface
-//
-//  Created by Mike Lee on 1/21/09.
-//  Copyright 2009 United Lemur. All rights reserved.
-//
 
 #import "AJRRatingsCell.h"
 
@@ -21,15 +14,13 @@ static NSString *starNotSelectedSuffix = @"";
 
 #pragma mark NSObject (NSNibAwaking)
 
-- (void)awakeFromNib;
-{
+- (void)awakeFromNib {
     self.usesLargeStars = ![self.controlView isKindOfClass:[NSTableView class]];
 }
 
 #pragma mark NSCell
 
-- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView;
-{
+- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
     NSString *suffix = starNotSelectedSuffix;
     if ([self isHighlighted]) {
         suffix = starSelectedSuffix;
@@ -59,13 +50,11 @@ static NSString *starNotSelectedSuffix = @"";
 
 #pragma mark API
 
-- (BOOL)usesLargeStars
-{
+- (BOOL)usesLargeStars {
     return _usesLargeStars;
 }
 
-- (void)setUsesLargeStars:(BOOL)usesLargeStars;
-{
+- (void)setUsesLargeStars:(BOOL)usesLargeStars {
     [self willChangeValueForKey:@"usesLargeStars"];
     _usesLargeStars = usesLargeStars;
     [self didChangeValueForKey:@"usesLargeStars"];
@@ -76,8 +65,7 @@ static NSString *starNotSelectedSuffix = @"";
 
 #pragma mark Private API
 
-- (void)_updateImage;
-{    
+- (void)_updateImage {    
     self.image = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:self.usesLargeStars ? @"LargeStarApple" : @"SmallStarApple"]];
 }
 

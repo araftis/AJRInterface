@@ -1,9 +1,3 @@
-//
-//  NSButton+Extensions.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 5/5/19.
-//
 
 import Foundation
 

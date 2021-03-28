@@ -1,9 +1,3 @@
-//
-//  NSBundle+Extensions.h
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 5/9/14.
-//
 
 @interface NSBundle (AJRInterfaceExtensions)
 

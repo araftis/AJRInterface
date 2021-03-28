@@ -1,9 +1,3 @@
-//
-//  WKBackForewardList+Extensions.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 2/24/19.
-//
 
 import Foundation
 import WebKit

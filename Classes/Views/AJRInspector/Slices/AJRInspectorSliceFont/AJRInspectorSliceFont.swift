@@ -1,9 +1,3 @@
-//
-//  AJRInspectorSliceFont.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 6/16/19.
-//
 
 import Cocoa
 

@@ -1,17 +1,9 @@
-//
-//  AJRToggleButtonCell.h
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 9/14/09.
-//  Copyright 2009 A.J. Raftis. All rights reserved.
-//
 
 #import <Cocoa/Cocoa.h>
 
 @class AJRToggleButtonAnimation;
 
-@interface AJRToggleButtonCell : NSButtonCell <NSCoding, NSAnimationDelegate>
-{
+@interface AJRToggleButtonCell : NSButtonCell <NSCoding, NSAnimationDelegate> {
     NSColor *_backgroundColor;
     NSColor *_alternateBackgroundColor;
     

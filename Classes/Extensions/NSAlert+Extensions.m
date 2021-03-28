@@ -1,10 +1,3 @@
-//
-//  NSAlert+Extensions.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 5/9/14.
-//
-//
 
 #import "NSAlert+Extensions.h"
 
@@ -13,24 +6,24 @@
 @implementation NSAlert (AJRInterfaceExtensions)
 
 + (NSAlert *)ajr_alertWithMessageText:(NSString *)message defaultButton:(NSString *)defaultButton alternateButton:(NSString *)alternateButton otherButton:(NSString *)otherButton informativeTextWithFormat:(NSString *)format, ... {
-	NSAlert *alert = [[NSAlert alloc] init];
-	va_list ap;
-	
-	alert.messageText = message;
-	va_start(ap, format);
-	alert.informativeText = [[NSString alloc] initWithFormat:format arguments:ap];
-	va_end(ap);
-	if (defaultButton) {
-		[alert addButtonWithTitle:defaultButton];
-	}
-	if (alternateButton) {
-		[alert addButtonWithTitle:alternateButton];
-	}
-	if (otherButton) {
-		[alert addButtonWithTitle:otherButton];
-	}
-	
-	return alert;
+    NSAlert *alert = [[NSAlert alloc] init];
+    va_list ap;
+
+    alert.messageText = message;
+    va_start(ap, format);
+    alert.informativeText = [[NSString alloc] initWithFormat:format arguments:ap];
+    va_end(ap);
+    if (defaultButton) {
+        [alert addButtonWithTitle:defaultButton];
+    }
+    if (alternateButton) {
+        [alert addButtonWithTitle:alternateButton];
+    }
+    if (otherButton) {
+        [alert addButtonWithTitle:otherButton];
+    }
+
+    return alert;
 }
 
 - (void)setInformativeFormat:(NSString *)format, ... {

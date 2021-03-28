@@ -1,9 +1,3 @@
-//
-//  AJRInspectorSliceChoiceObject.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 4/18/19.
-//
 
 import Cocoa
 

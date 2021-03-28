@@ -1,10 +1,3 @@
-//
-//  AJRImageCell.m
-//  AJRInterface
-//
-//  Created by A.J. Raftis on 10/6/08.
-//  Copyright 2008 A.J. Raftis. All rights reserved.
-//
 
 #import "AJRImageCell.h"
 
@@ -14,12 +7,9 @@
 }
 
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
-    NSShadow    *shadow = [[NSShadow alloc] init];
-    NSImage        *image = [self image];
+    NSShadow *shadow = [[NSShadow alloc] init];
+    NSImage *image = [self image];
     
-//    [[NSColor redColor] set];
-//    NSFrameRect(cellFrame);
-
     cellFrame.size.width -= 10.0;
     cellFrame.size.height -= 10.0;
     cellFrame.origin.x += 5.0;
@@ -38,9 +28,9 @@
     NSFrameRect(cellFrame);
     
     if (image) {
-        float        scale = 1.0;
-        NSRect        imageRect;
-        NSSize        imageSize = [image size];
+        CGFloat scale = 1.0;
+        NSRect imageRect;
+        NSSize imageSize = [image size];
         
         cellFrame.size.width -= 10.0;
         cellFrame.size.height -= 10.0;
@@ -71,7 +61,6 @@
         }
         [image drawInRect:imageRect fromRect:(NSRect){{0.0, 0.0}, imageSize} operation:NSCompositingOperationSourceOver fraction:1.0];
     }
-
 }
 
 @end

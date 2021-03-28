@@ -1,10 +1,3 @@
-//
-//  AJRImageFormat.m
-//  LDView
-//
-//  Created by alex on Thu Nov 15 2001.
-//  Copyright (c) 2001 __MyCompanyName__. All rights reserved.
-//
 
 #import "AJRImageFormat.h"
 
@@ -16,42 +9,35 @@ static NSMutableDictionary        *_formats = nil;
 
 @implementation AJRImageFormat
 
-+ (void)initialize
-{
++ (void)initialize {
     if (_formats == nil) {
         _formats = [[NSMutableDictionary alloc] init];
     }
 }
 
-+ (void)registerFormat:(Class)aClass
-{
-    AJRImageFormat    *instance = [[aClass alloc] init];
++ (void)registerFormat:(Class)aClass {
+    AJRImageFormat *instance = [[aClass alloc] init];
     
     [_formats setObject:instance forKey:[instance name]];
 }
 
-+ (NSArray *)formatNames
-{
++ (NSArray *)formatNames {
     return [[_formats allKeys] sortedArrayUsingSelector:@selector(compare:)];
 }
 
-+ (AJRImageFormat *)imageFormatForName:(NSString *)name
-{
++ (AJRImageFormat *)imageFormatForName:(NSString *)name {
     return [_formats objectForKey:name];
 }
 
-- (NSString *)name
-{
+- (NSString *)name {
     return nil;
 }
 
-- (NSString *)extension
-{
+- (NSString *)extension {
     return nil;
 }
 
-- (NSView *)view
-{
+- (NSView *)view {
     if (!view) {
         [NSBundle ajr_loadNibNamed:NSStringFromClass([self class]) owner:self];
     }
@@ -59,13 +45,11 @@ static NSMutableDictionary        *_formats = nil;
     return view;
 }
 
-- (NSInteger)imageType
-{
+- (NSInteger)imageType {
     return -1;
 }
 
-- (NSDictionary *)properties
-{
+- (NSDictionary *)properties {
     return nil;
 }
 

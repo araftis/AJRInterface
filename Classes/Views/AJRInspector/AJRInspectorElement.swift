@@ -1,9 +1,3 @@
-//
-//  AJRInspectorElement.swift
-//  AJRInterfaceTests
-//
-//  Created by AJ Raftis on 3/18/19.
-//
 
 import Cocoa
 

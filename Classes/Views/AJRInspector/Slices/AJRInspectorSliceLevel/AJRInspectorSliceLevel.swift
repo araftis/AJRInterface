@@ -1,9 +1,3 @@
-//
-//  AJRInspectorSliceLevel.swift
-//  AJRInterface
-//
-//  Created by AJ Raftis on 4/25/19.
-//
 
 import Cocoa
 

@@ -1,9 +1,3 @@
-//
-//  AJRInspectable.m
-//  AJRInterface
-//
-//  Created by AJ Raftis on 4/4/19.
-//
 
 #import "AJRInspectable.h"
 
