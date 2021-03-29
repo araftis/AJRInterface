@@ -2,13 +2,37 @@
 
 ## Overview
 
+AJRInterface is all about Cocoa, AppKit, and macOS applications. This layer sits above AJRInterfaceFoundation and AJRFoundation. It contains a number of resources and classes to help you develop you applications. Note that there are some classes that should probably be deprecated (or seriously updated), as I've been developing this framework for over 20 years. 
 
+Some highlights:
+
+Activites
+: Represents the UI for AJRActivity in AJRFoundation, and is useful for tracking long running background processes. AJRInterface provides UI for displaying activities.
+
+Calendar
+: A complex control that implements most the UI of Apple's Calendar application. Note that the renderers render a style that's a couple OSes out of date, but still useful.
+
+Reports
+: Generates reports using HTML that can be displayed in Web Views.
+
+AJRColorWell
+: A simple control for adding a color well with an associated pop up color chooser. Think similar to Pages.
+
+AJRInspector
+: A system for generating inspectors from simple XML templates. Allows for quick turn around time when working with inspectors, since you don't have to constantly fiddle with NIB / XIB / Storyboards.
+
+AJRWebView
+: Makes embedding a web browser into your application much easier. Provides a number of ancillary support APIs for things like a URL text field and APIs for more easily accessing the document DOM.
+
+There's a ton of other small classes. I didn't want to spend too much time discussing everything here. Take a look and see what looks useful.
+
+As always, if something is close to what you want, but seems a little out of date, then drop me a line. Time permitting, I'd be happy to polish it up for you.
 
 ## Documentation
 
 Documentation is currently fairly sparse. I hope to remedy that in the future. In the meantime, I try to write classes that somewhat self-document, so that should help. If you have further questions, please feel free to drop me an e-mail. 
 
-## Contributed
+## Contributing
 
 I'm open to other developers contributing code. If you have some bug fixes, documentation, or new classes you'd like to see add, please contact me about doing a pull request.
 
@@ -62,7 +86,7 @@ There's bound to be some I've missed. If you spot any, and it's not attributed, 
 I'm releasing this under a BSD license.
 
 ```
-Copyright (c) 2021, AJ Raftis
+Copyright (c) 2021, AJ Raftis and AJRInterface authors
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
