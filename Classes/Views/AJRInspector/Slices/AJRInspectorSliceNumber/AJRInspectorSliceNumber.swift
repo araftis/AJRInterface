@@ -53,7 +53,7 @@ open class AJRInspectorSliceNumber: AJRInspectorSlice {
         case "timeInterval":
             return try AJRInspectorSliceTimeInterval(element: element, parent: parent, viewController: viewController, bundle: bundle)
         default:
-            throw NSError(domain: AJRInspectorErrorDomain, message: "Unknown choice type: \(valueType!)")
+            throw NSError(domain: AJRInspectorErrorDomain, message: "Unknown number type: \(valueType!). Current valid values are \"integer\", \"float\", and \"timeInterval\".")
         }
     }
 
@@ -73,6 +73,7 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
     open var minValueKey : AJRInspectorKey<T>?
     open var maxValueKey : AJRInspectorKey<T>?
     open var incrementKey : AJRInspectorKey<T>?
+    open var formatKey : AJRInspectorKey<String>?
     
     open override var isMerged: Bool {
         didSet {
@@ -97,6 +98,7 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
         keys.insert("increment")
         keys.insert("valueWhenNil")
         keys.insert("mergeWithRight")
+        keys.insert("format")
     }
     
     // MARK: - Generation
@@ -114,11 +116,13 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
         incrementKey = try AJRInspectorKey(key: "increment", xmlElement: element, inspectorElement: self)
         valueWhenNilKey = try AJRInspectorKey(key: "valueWhenNil", xmlElement: element, inspectorElement: self, defaultValue: "")
         mergeWithRightKey = try AJRInspectorKey(key: "mergeWithRight", xmlElement: element, inspectorElement: self, defaultValue: false)
+        formatKey = try AJRInspectorKey(key: "format", xmlElement: element, inspectorElement: self)
 
         try super.buildView(from: element)
         
         subtitleField?.font = NSFont.systemFont(ofSize: viewController!.fontSize)
         numberField.font = NSFont.monospacedDigitSystemFont(ofSize: viewController!.fontSize, weight: .regular)
+        numberField.formatter = defaultFormatter
         
         weak var weakSelf = self
         valueKey?.addObserver {
@@ -160,6 +164,18 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
         mergeWithRightKey?.addObserver {
             // Do we do anything here? We don't actually expect this to change during run time.
         }
+        formatKey?.addObserver {
+            if let strongSelf = weakSelf {
+                let formatter : NumberFormatter
+                if let format = strongSelf.formatKey?.value {
+                    formatter = NumberFormatter()
+                    formatter.format = format
+                } else {
+                    formatter = strongSelf.defaultFormatter
+                }
+                strongSelf.numberField.formatter = formatter
+            }
+        }
     }
     
     open override func canMergeWithElement(_ element: AJRInspectorElement) -> Bool {
@@ -185,6 +201,14 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
     
     open func updateSingleDisplayedValue() {
         // Meant for subclasses to override
+    }
+
+    // MARK: - Default Formatter
+
+    open var defaultFormatter : NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
     }
     
 }
