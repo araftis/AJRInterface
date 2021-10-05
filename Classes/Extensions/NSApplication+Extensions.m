@@ -96,6 +96,15 @@ NSString *AJRApplicationExceptionKey = @"AJRApplicationExceptionKey";
 
             return AJRAssertOrPropagateError(cursor, error, localError);
         });
+        AJRRegisterPluinTransformer(@"rect", ^id _Nullable(NSString *rawValue, NSBundle *bundle, NSError **error) {
+            return [NSValue valueWithRect:NSRectFromString(rawValue)];
+        });
+        AJRRegisterPluinTransformer(@"size", ^id _Nullable(NSString *rawValue, NSBundle *bundle, NSError **error) {
+            return [NSValue valueWithSize:NSSizeFromString(rawValue)];
+        });
+        AJRRegisterPluinTransformer(@"point", ^id _Nullable(NSString *rawValue, NSBundle *bundle, NSError **error) {
+            return [NSValue valueWithPoint:NSPointFromString(rawValue)];
+        });
     });
 }
 
