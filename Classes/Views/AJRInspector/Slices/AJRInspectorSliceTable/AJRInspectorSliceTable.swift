@@ -114,6 +114,8 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
     open var usesAlternatingRowBackgroundColorsKey : AJRInspectorKey<Bool>!
     open var hasVerticalGridKey : AJRInspectorKey<Bool>!
     open var selectedRowIndexesKeyPath : AJRInspectorKeyPath<IndexSet>?
+    open var selectedObjectsKeyPath : AJRInspectorKeyPath<[AnyObject]>?
+    open var selectedObjectKeyPath : AJRInspectorKeyPath<AnyObject>?
 
     open var topAnchor : NSLayoutConstraint!
     open var bottomAnchor : NSLayoutConstraint!
@@ -145,6 +147,8 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
         keys.insert("removeAction")
         keys.insert("addMenu")
         keys.insert("selectedRowIndexes")
+        keys.insert("selectedObjects")
+        keys.insert("selectedObject")
     }
     
     // MARK: - View
@@ -161,6 +165,8 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
         removeActionKey = try AJRInspectorKey(key: "removeAction", xmlElement: element, inspectorElement: self)
         addMenuKeyPath = try AJRInspectorKeyPath(key: "addMenu", xmlElement: element, inspectorElement: self)
         selectedRowIndexesKeyPath = try AJRInspectorKeyPath(key: "selectedRowIndexes", xmlElement: element, inspectorElement: self)
+        selectedObjectsKeyPath = try AJRInspectorKeyPath(key: "selectedObjects", xmlElement: element, inspectorElement: self)
+        selectedObjectKeyPath = try AJRInspectorKeyPath(key: "selectedObject", xmlElement: element, inspectorElement: self)
 
         for child in element.children ?? [] {
             if child.kind == .comment {
@@ -259,6 +265,26 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
                 if let selection = selection {
                     strongSelf.tableView.selectRowIndexes(selection, byExtendingSelection: false)
                 }
+            }
+        }
+        selectedObjectKeyPath?.addObserver {
+            if let strongSelf = weakSelf {
+                var selection = IndexSet()
+                if let selectedObject = strongSelf.selectedObjectKeyPath?.value {
+                    if let index = strongSelf.values.index(ofObjectIdenticalTo: selectedObject) {
+                        selection = IndexSet(integer: index)
+                    }
+                }
+                strongSelf.tableView.selectRowIndexes(selection, byExtendingSelection: false)
+            }
+        }
+        selectedObjectsKeyPath?.addObserver {
+            if let strongSelf = weakSelf {
+                var selection = IndexSet()
+                if let selectedObjects = strongSelf.selectedObjectsKeyPath?.value {
+                    selection =  strongSelf.values.indexes(ofObjectsIdenticalTo: selectedObjects)
+                }
+                strongSelf.tableView.selectRowIndexes(selection, byExtendingSelection: false)
             }
         }
         addMenuKeyPath?.addObserver {
@@ -465,7 +491,15 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
     
     open func tableViewSelectionDidChange(_ notification: Notification) {
         updateButtons()
-        selectedRowIndexesKeyPath?.value = tableView.selectedRowIndexes
+        let indexes = tableView.selectedRowIndexes
+        selectedRowIndexesKeyPath?.value = indexes
+        if let selectedObjectKeyPath = selectedObjectKeyPath {
+            selectedObjectKeyPath.value = indexes.count == 1 ? values[indexes.first!] : nil
+        }
+        if let selectedObjectsKeyPath = selectedObjectsKeyPath {
+            let objects = values[indexes]
+            selectedObjectsKeyPath.value = objects
+        }
     }
 
     // MARK: - Actions
@@ -504,6 +538,8 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
             if let index = tableView.selectedRowIndexes.first {
                 let selectedObject = values[index]
                 for object in objects {
+                    // This is a nasty hack, but ARC / Swift is becoming confused with this invocation causing an extra release to the object. At some point in the future, this could potentially cause a memory leak.
+                    AJRForceRetain(selectedObject)
                     _ = object.perform(action, with: selectedObject)
                 }
             }

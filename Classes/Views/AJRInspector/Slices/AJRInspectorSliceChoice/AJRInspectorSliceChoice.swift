@@ -301,6 +301,7 @@ private class AJRInspectorSliceChoiceTyped<T: AJRInspectorValue> : AJRInspectorS
         newMenu.removeAllItems()
         for choice in choices {
             newMenu.addItem(choice.menuItem)
+            choice.menuItem.state = .off
         }
         return newMenu
     }
