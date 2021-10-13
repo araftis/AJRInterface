@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21FCD9D627161B640049E558 /* AJRInspectorSliceFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FCD9D527161B640049E558 /* AJRInspectorSliceFile.swift */; };
+		21FCD9D8271626F00049E558 /* AJRInspectorSliceFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21FCD9D727161CC10049E558 /* AJRInspectorSliceFile.xib */; };
+		21FCD9DB27162C330049E558 /* AJRInspectorSliceFile.strings in Resources */ = {isa = PBXBuildFile; fileRef = 21FCD9DD27162C330049E558 /* AJRInspectorSliceFile.strings */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		C34C0BA610112E80004D2653 /* AJRSpeechBorder.h in Headers */ = {isa = PBXBuildFile; fileRef = C34C0BA410112E80004D2653 /* AJRSpeechBorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -634,6 +637,10 @@
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		089C1667FE841158C02AAC07 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		21FCD9D527161B640049E558 /* AJRInspectorSliceFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorSliceFile.swift; sourceTree = "<group>"; };
+		21FCD9D727161CC10049E558 /* AJRInspectorSliceFile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRInspectorSliceFile.xib; sourceTree = "<group>"; };
+		21FCD9DC27162C330049E558 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AJRInspectorSliceFile.strings; sourceTree = "<group>"; };
+		21FCD9DE27162C370049E558 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/AJRInspectorSliceFile.strings; sourceTree = "<group>"; };
 		32DBCF5E0370ADEE00C91783 /* AJRInterface_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRInterface_Prefix.pch; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* AJRInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AJRInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1361,7 +1368,6 @@
 				FA631A9A0EC89C54002F3DD5 /* Extensions */,
 				FAFE49950EC4F30900AE17D0 /* Fills */,
 				FACEF6270F38D59A00401F2D /* Image Formats */,
-				FA6FFEAE2202E8D90083357D /* Layers */,
 				FAC4E1D00ED4D0D300897E9B /* Panels */,
 				FAFE4AAE0EC5012F00AE17D0 /* Path Renderers */,
 				FA3CF6F10EFB059D000F4669 /* Reports */,
@@ -1390,6 +1396,16 @@
 				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
 			);
 			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		21FCD9D427161B3B0049E558 /* AJRInspectorSliceFile */ = {
+			isa = PBXGroup;
+			children = (
+				21FCD9D527161B640049E558 /* AJRInspectorSliceFile.swift */,
+				21FCD9D727161CC10049E558 /* AJRInspectorSliceFile.xib */,
+				21FCD9DD27162C330049E558 /* AJRInspectorSliceFile.strings */,
+			);
+			path = AJRInspectorSliceFile;
 			sourceTree = "<group>";
 		};
 		32C88DFF0371C24200C91783 /* Other Sources */ = {
@@ -1749,6 +1765,7 @@
 				FA53D6592242010B003E02B1 /* AJRInspectorSliceColor */,
 				FA53D65A22420115003E02B1 /* AJRInspectorSliceChoice */,
 				FA1819FD2271334700BA7E06 /* AJRInspectorSliceField */,
+				21FCD9D427161B3B0049E558 /* AJRInspectorSliceFile */,
 				FA95DE5A22B69779005EC953 /* AJRInspectorSliceFont */,
 				FA1819FA2271323B00BA7E06 /* AJRInspectorSliceDate */,
 				FA181A082272597400BA7E06 /* AJRInspectorSliceLevel */,
@@ -1997,13 +2014,6 @@
 				FA52B5E310601D6C00B6C3D4 /* AJRToggleButtonAnimation.m */,
 			);
 			path = AJRToggleButton;
-			sourceTree = "<group>";
-		};
-		FA6FFEAE2202E8D90083357D /* Layers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Layers;
 			sourceTree = "<group>";
 		};
 		FA76AB96221CC1B7008FA786 /* AJRWebView */ = {
@@ -2987,6 +2997,7 @@
 				FADDA17F22A3094F00257007 /* AJRPairedNumberEditor.strings in Resources */,
 				FAC20F980EC8A65100470124 /* AJRStrokeRendererInspectorModule.xib in Resources */,
 				FAC20F9F0EC8A70100470124 /* AJRDropShadowBorderInspectorModule.xib in Resources */,
+				21FCD9D8271626F00049E558 /* AJRInspectorSliceFile.xib in Resources */,
 				FAC20FA20EC8A70E00470124 /* AJRLineBorderInspectorModule.xib in Resources */,
 				FA826D7723243A9800C4B53D /* AJRInspectorSliceChoiceComboBox.xib in Resources */,
 				FAC20FA50EC8A71D00470124 /* AJRPipeBorderInspectorModule.xib in Resources */,
@@ -3030,6 +3041,7 @@
 				FA16036910C498F100A1E97D /* AJRPagesHorizontal.tiff in Resources */,
 				FA95DE5722B47FC8005EC953 /* AJRInspectorSliceGeometryFourFields.xib in Resources */,
 				FA16036A10C498F100A1E97D /* AJRPagesSingle.tiff in Resources */,
+				21FCD9DB27162C330049E558 /* AJRInspectorSliceFile.strings in Resources */,
 				FA16036B10C498F100A1E97D /* AJRPagesTwoUpOddLeft.tiff in Resources */,
 				FA16036C10C498F100A1E97D /* AJRPagesTwoUpOddRight.tiff in Resources */,
 				FA16036D10C498F100A1E97D /* AJRPagesVertical.tiff in Resources */,
@@ -3256,6 +3268,7 @@
 				FACC05C70FBCD086004A40FA /* AJRCalendarView.m in Sources */,
 				FACC05D50FBDC97D004A40FA /* AJRCalendarRenderer.m in Sources */,
 				FACC05D90FBDC9FB004A40FA /* AJRCalendarDayRenderer.m in Sources */,
+				21FCD9D627161B640049E558 /* AJRInspectorSliceFile.swift in Sources */,
 				FACC05DE0FBDCA23004A40FA /* AJRCalendarWeekRenderer.m in Sources */,
 				FACC05E20FBDCA2F004A40FA /* AJRCalendarMonthRenderer.m in Sources */,
 				FA10399A225DD20F005B0D3B /* AJRInspectorSliceTest.swift in Sources */,
@@ -3396,6 +3409,15 @@
 				089C1667FE841158C02AAC07 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		21FCD9DD27162C330049E558 /* AJRInspectorSliceFile.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				21FCD9DC27162C330049E558 /* en */,
+				21FCD9DE27162C370049E558 /* es */,
+			);
+			name = AJRInspectorSliceFile.strings;
 			sourceTree = "<group>";
 		};
 		FA16034810C498F000A1E97D /* AJRScrollViewAccessories.nib */ = {

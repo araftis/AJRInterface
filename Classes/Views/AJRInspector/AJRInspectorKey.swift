@@ -370,3 +370,33 @@ extension NSAttributedString : AJRInspectorValue {
     }
     
 }
+
+extension URL : AJRInspectorValue {
+    
+    public static func inspectorValue(from string: String) -> Any? {
+        if let url = URL(string: string) {
+            return url
+        // Let's see if it might be a file path
+        } else if string.hasPrefix("/") {
+            return URL(fileURLWithPath: string)
+        }
+        return nil
+    }
+    
+    public static func inspectorValue(from value: NSValue) -> Any? {
+        return nil
+    }
+    
+}
+
+extension Array : AJRInspectorValue where Element == String {
+    
+    public static func inspectorValue(from string: String) -> Any? {
+        return string.components(separatedBy:",")
+    }
+    
+    public static func inspectorValue(from value: NSValue) -> Any? {
+        nil
+    }
+    
+}
