@@ -252,6 +252,7 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
                 }
                 strongSelf.tableView.reloadData()
                 strongSelf.updateButtons()
+                strongSelf.updateSelection()
             }
         }
         selectedRowIndexesKeyPath?.addObserver {
@@ -268,15 +269,7 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
             }
         }
         selectedObjectKeyPath?.addObserver {
-            if let strongSelf = weakSelf {
-                var selection = IndexSet()
-                if let selectedObject = strongSelf.selectedObjectKeyPath?.value {
-                    if let index = strongSelf.values.index(ofObjectIdenticalTo: selectedObject) {
-                        selection = IndexSet(integer: index)
-                    }
-                }
-                strongSelf.tableView.selectRowIndexes(selection, byExtendingSelection: false)
-            }
+            weakSelf?.updateSelection()
         }
         selectedObjectsKeyPath?.addObserver {
             if let strongSelf = weakSelf {
@@ -353,7 +346,18 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
     }
     
     // MARK: - Utilities
-    
+
+    // There's a bit of a race condition where the selection won't be selected if the notification for the selection changing happens before the notification for the values changings. As such, we call this from both locations (values and selection change) to make sure the selection is correct.
+    open func updateSelection() -> Void {
+        var selection = IndexSet()
+        if let selectedObject = selectedObjectKeyPath?.value {
+            if let index = values.index(ofObjectIdenticalTo: selectedObject) {
+                selection = IndexSet(integer: index)
+            }
+        }
+        tableView.selectRowIndexes(selection, byExtendingSelection: false)
+    }
+
     /** Called on selection change to update the add / remove buttons. Subclasses can override if they've added additoinal buttons that might need to be updated on selection change. */
     open func updateButtons() -> Void {
         if tableView.selectedRowIndexes.count != 0 {
