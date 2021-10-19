@@ -486,7 +486,13 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
     }
     
     open func tableView(_ tableView: NSTableView, shouldEdit tableColumn: NSTableColumn?, row: Int) -> Bool {
-        return true
+        if let tableColumn = tableColumn,
+           let columnIndex = tableView.tableColumns.index(ofObjectIdenticalTo: tableColumn) {
+            if let editableKey = columns[columnIndex].editableKey {
+                return editableKey.value ?? false
+            }
+        }
+        return false
     }
     
     open func tableViewSelectionDidChange(_ notification: Notification) {
