@@ -40,6 +40,7 @@ open class AJRInspectorKeyPath<T> : NSObject {
     open var willChangeBlocks = [AJRInspectorKeyObserver]()
     open var didChangeBlocks = [AJRInspectorKeyObserver]()
     open var defaultValue : T?
+    open var pauseCount : Int = 0
     
     public init?(key: String, xmlElement: XMLElement, inspectorElement: AJRInspectorElement, defaultValue : T? = nil) throws {
         self.key = key
@@ -124,14 +125,30 @@ open class AJRInspectorKeyPath<T> : NSObject {
     // MARK: - Key/Value Observing
     
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == self.keyPath {
-            if let isPrior = change?[.notificationIsPriorKey] as? Bool, isPrior {
-                notifyWillChangeObservers()
+        if pauseCount == 0 {
+            if keyPath == self.keyPath {
+                if let isPrior = change?[.notificationIsPriorKey] as? Bool, isPrior {
+                    notifyWillChangeObservers()
+                } else {
+                    notifyDidChangeObservers()
+                }
             } else {
-                notifyDidChangeObservers()
+                super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
             }
+        }
+    }
+    
+    // MARK: - Pause
+    
+    open func pause() -> Void {
+        pauseCount += 1
+    }
+    
+    open func resume() -> Void {
+        if pauseCount > 0 {
+            pauseCount -= 1
         } else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+            AJRLog.warning("Trying to resume \(self) without a matched pause().")
         }
     }
     

@@ -497,20 +497,35 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
     }
     
     open func tableViewSelectionDidChange(_ notification: Notification) {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime(secondsFromNow: 0.01)) {
-            self.updateButtons()
-            let indexes = self.tableView.selectedRowIndexes
-            self.selectedRowIndexesKeyPath?.value = indexes
-            if let selectedObjectKeyPath = self.selectedObjectKeyPath {
-                selectedObjectKeyPath.value = indexes.count == 1 ? self.values[indexes.first!] : nil
-            }
-            if let selectedObjectsKeyPath = self.selectedObjectsKeyPath {
-                let objects = self.values[indexes]
-                selectedObjectsKeyPath.value = objects
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime(secondsFromNow: 0.01)) { [self] in
+            self.performBlockWhileSelectionObservationIsPaused {
+                self.updateButtons()
+                let indexes = self.tableView.selectedRowIndexes
+                
+                self.selectedRowIndexesKeyPath?.value = indexes
+                if let selectedObjectKeyPath = self.selectedObjectKeyPath {
+                    selectedObjectKeyPath.value = indexes.count == 1 ? self.values[indexes.first!] : nil
+                }
+                if let selectedObjectsKeyPath = self.selectedObjectsKeyPath {
+                    let objects = self.values[indexes]
+                    selectedObjectsKeyPath.value = objects
+                }
             }
         }
     }
 
+    internal func performBlockWhileSelectionObservationIsPaused(_ block: @escaping () -> Void) -> Void {
+        selectedObjectKeyPath?.pause()
+        selectedObjectsKeyPath?.pause()
+        selectedRowIndexesKeyPath?.pause()
+        
+        try? NSObject.catchException(block)
+        
+        selectedRowIndexesKeyPath?.resume()
+        selectedObjectsKeyPath?.resume()
+        selectedObjectKeyPath?.resume()
+    }
+    
     // MARK: - Actions
     
     @IBAction open func add(_ sender: Any?) -> Void {
