@@ -106,5 +106,5 @@ NSRect AJRComputeScaledRect(NSRect rect, NSSize naturalSize, NSUInteger mask)
 }
 
 NSBundle *AJRInterfaceBundle(void) {
-    return [NSBundle bundleWithIdentifier:@"com.ajr.framework.interface"];
+    return [NSBundle bundleWithIdentifier:@"com.ajr.framework.AJRInterface"];
 }

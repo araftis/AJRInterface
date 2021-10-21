@@ -1,33 +1,33 @@
 /*
-NSApplication+Extensions.m
-AJRInterface
+ NSApplication+Extensions.m
+ AJRInterface
 
-Copyright © 2021, AJ Raftis and AJRFoundation authors
-All rights reserved.
+ Copyright © 2021, AJ Raftis and AJRFoundation authors
+ All rights reserved.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
 
-* Redistributions of source code must retain the above copyright notice, this 
-  list of conditions and the following disclaimer.
-* Redistributions in binary form must reproduce the above copyright notice, 
-  this list of conditions and the following disclaimer in the documentation 
-  and/or other materials provided with the distribution.
-* Neither the name of AJRFoundation nor the names of its contributors may be 
-  used to endorse or promote products derived from this software without 
-  specific prior written permission.
+ * Redistributions of source code must retain the above copyright notice, this
+ list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the name of AJRFoundation nor the names of its contributors may be
+ used to endorse or promote products derived from this software without
+ specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL AJ RAFTIS BE LIABLE FOR ANY DIRECT, INDIRECT, 
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL AJ RAFTIS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #import "NSApplication+Extensions.h"
 
@@ -113,83 +113,83 @@ NSString *AJRApplicationExceptionKey = @"AJRApplicationExceptionKey";
 @implementation NSApplication (AJRInterfaceExtensions)
 
 - (void)snapshotAndSaveWindow:(NSWindow *)window {
-	NSView *view = [[window contentView] superview];
-	NSBitmapImageRep *bitmap;
-	NSImage *image;
-	
-	if (view) {
-		NSSavePanel *savePanel;
-		NSString *path;
-		AJRImageSaveAccessory *accessory;
-		NSSize size;
-		AJRBorder *border;
-		NSURL *directory;
-		
-		window = [self keyWindow];
-		[view cacheDisplayInRect:[view bounds] toBitmapImageRep:bitmap];
-		size = [view bounds].size;
-		border = [AJRBorder borderForName:@"Drop Shadow"];
-		[(AJRDropShadowBorder *)border setClip:NO];
-		image = [[NSImage alloc] initWithSize:(NSSize){size.width + 20.0, size.height + 20.0}];
-		[image lockFocus];
-		[border drawBorderInRect:(NSRect){{0.0, 0.0}, [image size]} controlView:nil];
-		[border drawBorderInRect:(NSRect){{0.0, 0.0}, [image size]} controlView:nil];
-		[bitmap drawInRect:(NSRect){{10.0, 13.0}, size}];
-		[image unlockFocus];
-		
-		savePanel = [NSSavePanel savePanel];
-		accessory = [[AJRImageSaveAccessory alloc] initWithSavePanel:savePanel];
-		if ([[window title] length]) {
-			path = [window title];
-		} else {
-			path = @"Untitled";
-		}
-		path = [path stringByAppendingPathExtension:[[accessory currentImageFormat] extension]];
-		
-		directory = [[NSUserDefaults standardUserDefaults] URLForKey:@"AJRExportWindowPath"];
-		if (!directory) directory = [NSURL fileURLWithPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]];
-		[savePanel setAllowedFileTypes:[NSArray arrayWithObject:[[accessory currentImageFormat] extension]]];
-		[savePanel setCanSelectHiddenExtension:YES];
-		[savePanel setAccessoryView:[accessory view]];
-		[savePanel setDirectoryURL:directory];
-		[savePanel setNameFieldStringValue:[path lastPathComponent]];
-		[savePanel beginSheetModalForWindow:window completionHandler:^(NSInteger result) {
-			if (result == NSModalResponseOK) {
-				NSData *data;
-				
-				[[NSUserDefaults standardUserDefaults] setObject:[savePanel URL] forKey:@"AJRExportWindowPath"];
-				
-				data = [accessory representationForImage:image];
-				if (data) {
-					[data writeToURL:[savePanel URL] atomically:NO];
-				} else {
-					AJRBeginAlertPanel(NSAlertStyleWarning, @"Unable to produce bitmap data for image, please try saving in a different image format.", nil, nil, nil, nil, nil);
-				}
-			}
-		}];
-	}
+    NSView *view = [[window contentView] superview];
+    NSBitmapImageRep *bitmap;
+    NSImage *image;
+
+    if (view) {
+        NSSavePanel *savePanel;
+        NSString *path;
+        AJRImageSaveAccessory *accessory;
+        NSSize size;
+        AJRBorder *border;
+        NSURL *directory;
+
+        window = [self keyWindow];
+        [view cacheDisplayInRect:[view bounds] toBitmapImageRep:bitmap];
+        size = [view bounds].size;
+        border = [AJRBorder borderForName:@"Drop Shadow"];
+        [(AJRDropShadowBorder *)border setClip:NO];
+        image = [[NSImage alloc] initWithSize:(NSSize){size.width + 20.0, size.height + 20.0}];
+        [image lockFocus];
+        [border drawBorderInRect:(NSRect){{0.0, 0.0}, [image size]} controlView:nil];
+        [border drawBorderInRect:(NSRect){{0.0, 0.0}, [image size]} controlView:nil];
+        [bitmap drawInRect:(NSRect){{10.0, 13.0}, size}];
+        [image unlockFocus];
+
+        savePanel = [NSSavePanel savePanel];
+        accessory = [[AJRImageSaveAccessory alloc] initWithSavePanel:savePanel];
+        if ([[window title] length]) {
+            path = [window title];
+        } else {
+            path = @"Untitled";
+        }
+        path = [path stringByAppendingPathExtension:[[accessory currentImageFormat] extension]];
+
+        directory = [[NSUserDefaults standardUserDefaults] URLForKey:@"AJRExportWindowPath"];
+        if (!directory) directory = [NSURL fileURLWithPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]];
+        [savePanel setAllowedFileTypes:[NSArray arrayWithObject:[[accessory currentImageFormat] extension]]];
+        [savePanel setCanSelectHiddenExtension:YES];
+        [savePanel setAccessoryView:[accessory view]];
+        [savePanel setDirectoryURL:directory];
+        [savePanel setNameFieldStringValue:[path lastPathComponent]];
+        [savePanel beginSheetModalForWindow:window completionHandler:^(NSInteger result) {
+            if (result == NSModalResponseOK) {
+                NSData *data;
+
+                [[NSUserDefaults standardUserDefaults] setObject:[savePanel URL] forKey:@"AJRExportWindowPath"];
+
+                data = [accessory representationForImage:image];
+                if (data) {
+                    [data writeToURL:[savePanel URL] atomically:NO];
+                } else {
+                    AJRBeginAlertPanel(NSAlertStyleWarning, @"Unable to produce bitmap data for image, please try saving in a different image format.", nil, nil, nil, nil, nil);
+                }
+            }
+        }];
+    }
 }
 
 - (void)snapshotAndSaveWindowAsPDF:(NSWindow *)window {
-	NSSavePanel *savePanel = [NSSavePanel savePanel];
-	NSURL *directory = [[NSUserDefaults standardUserDefaults] URLForKey:@"AJRExportWindowPath"];
-	
-	[savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"pdf"]];
-	[savePanel setCanSelectHiddenExtension:YES];
-	[savePanel setDirectoryURL:directory];
-	[savePanel setNameFieldStringValue:[[window title] lastPathComponent]];
-	[savePanel beginSheetModalForWindow:window completionHandler:^(NSInteger result) {
-		if (result == NSModalResponseOK) {
-			NSData *data = [window dataWithPDFInsideRect:(NSRect){NSZeroPoint, [[self keyWindow] frame].size}];
-			NSError *error;
-			
-			[[NSUserDefaults standardUserDefaults] setURL:[savePanel directoryURL] forKey:@"AJRExportWindowPath"];
-			
-			if (![data writeToURL:[savePanel URL] options:NSAtomicWrite error:&error]) {
-				AJRBeginAlertPanel(NSAlertStyleCritical, AJRFormat(@"Unable to save file %@: %@", [[savePanel URL] lastPathComponent], [error localizedDescription]), @"OK", nil, nil, nil, NULL);
-			}
-		}
-	}];
+    NSSavePanel *savePanel = [NSSavePanel savePanel];
+    NSURL *directory = [[NSUserDefaults standardUserDefaults] URLForKey:@"AJRExportWindowPath"];
+
+    [savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"pdf"]];
+    [savePanel setCanSelectHiddenExtension:YES];
+    [savePanel setDirectoryURL:directory];
+    [savePanel setNameFieldStringValue:[[window title] lastPathComponent]];
+    [savePanel beginSheetModalForWindow:window completionHandler:^(NSInteger result) {
+        if (result == NSModalResponseOK) {
+            NSData *data = [window dataWithPDFInsideRect:(NSRect){NSZeroPoint, [[self keyWindow] frame].size}];
+            NSError *error;
+
+            [[NSUserDefaults standardUserDefaults] setURL:[savePanel directoryURL] forKey:@"AJRExportWindowPath"];
+
+            if (![data writeToURL:[savePanel URL] options:NSAtomicWrite error:&error]) {
+                AJRBeginAlertPanel(NSAlertStyleCritical, AJRFormat(@"Unable to save file %@: %@", [[savePanel URL] lastPathComponent], [error localizedDescription]), @"OK", nil, nil, nil, NULL);
+            }
+        }
+    }];
 }
 
 - (void)ajr_sendEvent:(NSEvent *)event {
@@ -197,42 +197,42 @@ NSString *AJRApplicationExceptionKey = @"AJRApplicationExceptionKey";
         // Basically, cmd-alt-f1
         if ([[event characters] length] > 0 && [[event characters] characterAtIndex:0] == 0xf704 &&
             ([event modifierFlags] & (NSEventModifierFlagCommand | NSEventModifierFlagOption | NSEventModifierFlagFunction))) {
-			[self snapshotAndSaveWindow:[self keyWindow]];
+            [self snapshotAndSaveWindow:[self keyWindow]];
         } else if ([[event characters] length] > 0 && [[event characters] characterAtIndex:0] == 0xf705 &&
-                    ([event modifierFlags] & (NSEventModifierFlagCommand | NSEventModifierFlagOption | NSEventModifierFlagFunction))) {
-			[self snapshotAndSaveWindowAsPDF:[self keyWindow]];
+                   ([event modifierFlags] & (NSEventModifierFlagCommand | NSEventModifierFlagOption | NSEventModifierFlagFunction))) {
+            [self snapshotAndSaveWindowAsPDF:[self keyWindow]];
         }
     }
     [self ajr_sendEvent:event];
 }
 
 - (id)targetBypassForAction:(SEL)action defaultTarget:(nullable id)defaultTarget {
-	id foundTarget = defaultTarget;
-	
-	if (foundTarget == nil || [foundTarget respondsToSelector:@selector(window)]) {
-		NSWindow *possibleWindow = foundTarget == nil ? [NSApp keyWindow] : [(NSView *)foundTarget window];
-		AJRWindow *foundWindow = AJRObjectIfKindOfClass(possibleWindow, AJRWindow);
-		if (foundWindow) {
-			foundTarget = [foundWindow targetBypassForAction:action defaultTarget:foundTarget];
-		}
-	}
-	
-	return foundTarget;
+    id foundTarget = defaultTarget;
+
+    if (foundTarget == nil || [foundTarget respondsToSelector:@selector(window)]) {
+        NSWindow *possibleWindow = foundTarget == nil ? [NSApp keyWindow] : [(NSView *)foundTarget window];
+        AJRWindow *foundWindow = AJRObjectIfKindOfClass(possibleWindow, AJRWindow);
+        if (foundWindow) {
+            foundTarget = [foundWindow targetBypassForAction:action defaultTarget:foundTarget];
+        }
+    }
+
+    return foundTarget;
 }
 
 - (id)ajr_targetForAction:(SEL)action to:(id)target from:(id)sender {
-	return [self targetBypassForAction:action defaultTarget:[self ajr_targetForAction:action to:target from:sender]];
+    return [self targetBypassForAction:action defaultTarget:[self ajr_targetForAction:action to:target from:sender]];
 }
 
 - (BOOL)ajr_sendAction:(SEL)action to:(id)target from:(id)sender {
-	return [self ajr_sendAction:action to:[self targetBypassForAction:action defaultTarget:target] from:sender];
+    return [self ajr_sendAction:action to:[self targetBypassForAction:action defaultTarget:target] from:sender];
 }
 
 + (id)ajr_sharedApplication {
-	id result = [self ajr_sharedApplication];
-	[AJRInterfaceBootstrap bootstrap];
-	[AJRPlugInManager sharedPlugInManager];
-	return result;
+    id result = [self ajr_sharedApplication];
+    [AJRInterfaceBootstrap bootstrap];
+    [AJRPlugInManager sharedPlugInManager];
+    return result;
 }
 
 #pragma clang diagnostic push

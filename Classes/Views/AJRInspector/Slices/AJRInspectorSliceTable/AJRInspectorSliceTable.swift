@@ -30,6 +30,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 import Cocoa
+import AJRFoundation
 
 public extension NSUserInterfaceItemIdentifier {
     
@@ -272,13 +273,7 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
             weakSelf?.updateSelection()
         }
         selectedObjectsKeyPath?.addObserver {
-            if let strongSelf = weakSelf {
-                var selection = IndexSet()
-                if let selectedObjects = strongSelf.selectedObjectsKeyPath?.value {
-                    selection =  strongSelf.values.indexes(ofObjectsIdenticalTo: selectedObjects)
-                }
-                strongSelf.tableView.selectRowIndexes(selection, byExtendingSelection: false)
-            }
+            weakSelf?.updateSelection()
         }
         addMenuKeyPath?.addObserver {
             if let strongSelf = weakSelf {
@@ -354,6 +349,8 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
             if let index = values.index(ofObjectIdenticalTo: selectedObject) {
                 selection = IndexSet(integer: index)
             }
+        } else if let selectedObjects = selectedObjectsKeyPath?.value {
+            selection =  values.indexes(ofObjectsIdenticalTo: selectedObjects)
         }
         tableView.selectRowIndexes(selection, byExtendingSelection: false)
     }
@@ -500,15 +497,17 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
     }
     
     open func tableViewSelectionDidChange(_ notification: Notification) {
-        updateButtons()
-        let indexes = tableView.selectedRowIndexes
-        selectedRowIndexesKeyPath?.value = indexes
-        if let selectedObjectKeyPath = selectedObjectKeyPath {
-            selectedObjectKeyPath.value = indexes.count == 1 ? values[indexes.first!] : nil
-        }
-        if let selectedObjectsKeyPath = selectedObjectsKeyPath {
-            let objects = values[indexes]
-            selectedObjectsKeyPath.value = objects
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime(secondsFromNow: 0.01)) {
+            self.updateButtons()
+            let indexes = self.tableView.selectedRowIndexes
+            self.selectedRowIndexesKeyPath?.value = indexes
+            if let selectedObjectKeyPath = self.selectedObjectKeyPath {
+                selectedObjectKeyPath.value = indexes.count == 1 ? self.values[indexes.first!] : nil
+            }
+            if let selectedObjectsKeyPath = self.selectedObjectsKeyPath {
+                let objects = self.values[indexes]
+                selectedObjectsKeyPath.value = objects
+            }
         }
     }
 
