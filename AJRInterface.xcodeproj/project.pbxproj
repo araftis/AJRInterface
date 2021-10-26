@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		218F4F402728768A00BD92BD /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218F4F3F2728768A00BD92BD /* UserDefaults+Extensions.swift */; };
 		21FCD9D627161B640049E558 /* AJRInspectorSliceFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FCD9D527161B640049E558 /* AJRInspectorSliceFile.swift */; };
 		21FCD9D8271626F00049E558 /* AJRInspectorSliceFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21FCD9D727161CC10049E558 /* AJRInspectorSliceFile.xib */; };
 		21FCD9DB27162C330049E558 /* AJRInspectorSliceFile.strings in Resources */ = {isa = PBXBuildFile; fileRef = 21FCD9DD27162C330049E558 /* AJRInspectorSliceFile.strings */; };
@@ -637,6 +638,7 @@
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		089C1667FE841158C02AAC07 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		218F4F3F2728768A00BD92BD /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		21FCD9D527161B640049E558 /* AJRInspectorSliceFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorSliceFile.swift; sourceTree = "<group>"; };
 		21FCD9D727161CC10049E558 /* AJRInspectorSliceFile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRInspectorSliceFile.xib; sourceTree = "<group>"; };
 		21FCD9DC27162C330049E558 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AJRInspectorSliceFile.strings; sourceTree = "<group>"; };
@@ -1965,6 +1967,7 @@
 				FA6FFE6521FFDDF30083357D /* NSWorkspace+Extensions.h */,
 				FA6FFE6621FFDDF30083357D /* NSWorkspace+Extensions.m */,
 				FA8061832224CDB900D6D59F /* String+Extensions.swift */,
+				218F4F3F2728768A00BD92BD /* UserDefaults+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3235,6 +3238,7 @@
 				FAD61D0222556132004CDD37 /* AJRInspectorTextField.swift in Sources */,
 				FACEF6430F38D59A00401F2D /* AJRGIFImageFormat.m in Sources */,
 				FA07C8F32212C9370077A0B5 /* AJRSegmentedCell.m in Sources */,
+				218F4F402728768A00BD92BD /* UserDefaults+Extensions.swift in Sources */,
 				FA76AB9D221CC1FE008FA786 /* AJRWebView.m in Sources */,
 				FA53D669224347B0003E02B1 /* AJRInspectorSliceButton.swift in Sources */,
 				FA8061822224C79300D6D59F /* NSColor+Extensions.swift in Sources */,
