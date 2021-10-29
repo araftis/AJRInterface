@@ -84,6 +84,8 @@ typedef NS_ENUM(NSInteger, AJRWindowOperation) {
 
 @property (nonatomic,readonly) NSString *subtreeDescription;
 
+- (nullable NSView *)enclosingViewOfType:(Class)viewType;
+
 @end
 
 @interface NSButton (Extensions)

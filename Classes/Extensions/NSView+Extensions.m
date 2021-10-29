@@ -1,33 +1,33 @@
 /*
-NSView+Extensions.m
-AJRInterface
+ NSView+Extensions.m
+ AJRInterface
 
-Copyright © 2021, AJ Raftis and AJRFoundation authors
-All rights reserved.
+ Copyright © 2021, AJ Raftis and AJRFoundation authors
+ All rights reserved.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
 
-* Redistributions of source code must retain the above copyright notice, this 
-  list of conditions and the following disclaimer.
-* Redistributions in binary form must reproduce the above copyright notice, 
-  this list of conditions and the following disclaimer in the documentation 
-  and/or other materials provided with the distribution.
-* Neither the name of AJRFoundation nor the names of its contributors may be 
-  used to endorse or promote products derived from this software without 
-  specific prior written permission.
+ * Redistributions of source code must retain the above copyright notice, this
+ list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the name of AJRFoundation nor the names of its contributors may be
+ used to endorse or promote products derived from this software without
+ specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL AJ RAFTIS BE LIABLE FOR ANY DIRECT, INDIRECT, 
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL AJ RAFTIS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #import "NSView+Extensions.h"
 
@@ -161,145 +161,145 @@ static const NSInteger AJRStatusChangeKey = 0;
 }
 
 - (NSView *)findViewWithIdentifier:(NSString *)identifier {
-	if (AJREqual([self identifier], identifier)) {
-		return self;
-	}
-	NSView *found = nil;
-	for (NSView *subview in [self subviews]) {
-		found = [subview findViewWithIdentifier:identifier];
-		if (found) break;
-	}
-	return found;
+    if (AJREqual([self identifier], identifier)) {
+        return self;
+    }
+    NSView *found = nil;
+    for (NSView *subview in [self subviews]) {
+        found = [subview findViewWithIdentifier:identifier];
+        if (found) break;
+    }
+    return found;
 }
 
 - (void)moveChildrenFromOldFrame:(NSRect)oldFrame {
-	NSRect frame;
-	NSRect parentFrame;
-	NSArray *children;
-	NSWindow *child;
-	NSInteger x;
-	
-	children = [[self window] childWindows];
-	parentFrame = [[self window] frame];
-	for (x = 0; x < (const int)[children count]; x++) {
-		child = [children objectAtIndex:x];
-		frame = [child frame];
-		frame.origin.x = parentFrame.origin.x + (frame.origin.x - oldFrame.origin.x);
-		frame.origin.y = parentFrame.origin.y + (frame.origin.y - oldFrame.origin.y);
-		[child setFrame:frame display:YES];
-		[child orderWindow:NSWindowAbove relativeTo:[[self window] windowNumber]];
-	}
+    NSRect frame;
+    NSRect parentFrame;
+    NSArray *children;
+    NSWindow *child;
+    NSInteger x;
+
+    children = [[self window] childWindows];
+    parentFrame = [[self window] frame];
+    for (x = 0; x < (const int)[children count]; x++) {
+        child = [children objectAtIndex:x];
+        frame = [child frame];
+        frame.origin.x = parentFrame.origin.x + (frame.origin.x - oldFrame.origin.x);
+        frame.origin.y = parentFrame.origin.y + (frame.origin.y - oldFrame.origin.y);
+        [child setFrame:frame display:YES];
+        [child orderWindow:NSWindowAbove relativeTo:[[self window] windowNumber]];
+    }
 }
 
 - (void)trackMouseForOperation:(AJRWindowOperation)dragAction fromEvent:(NSEvent *)event {
-	BOOL done = NO;
-	NSPoint start;
-	NSPoint newLocation;
-	NSWindow *window = [self window];
-	NSRect frame, previousFrame;
-	NSRect startFrame = [window frame];
-	NSSize minSize = [window minSize];
-	BOOL cx, cy;
-	
-	[window makeKeyWindow];
-	[window orderFront:self];
-	start = [event locationInWindow];
-	frame = startFrame;
-	
-	while (!done) {
-		event = [NSApp nextEventMatchingMask:NSEventMaskLeftMouseUp | NSEventMaskLeftMouseDragged
-								   untilDate:[NSDate distantFuture]
-									  inMode:NSEventTrackingRunLoopMode
-									 dequeue:YES];
-		cx = NO;
-		cy = NO;
-		switch ([event type]) {
-			case NSEventTypeLeftMouseUp:
-				done = YES;
-				break;
-			case NSEventTypeLeftMouseDragged:
-				newLocation = [event locationInWindow];
-				previousFrame = frame;
-				frame = [window frame];
-				switch (dragAction) {
-					case AJRWindowOperationResizeTopLeft:
-						frame.origin.x = frame.origin.x + newLocation.x - start.x;
-						frame.origin.y = frame.origin.y;
-						frame.size.width = frame.size.width + start.x - newLocation.x;
-						frame.size.height = startFrame.size.height + newLocation.y - start.y;
-						cx = YES;
-						break;
-					case AJRWindowOperationResizeTop:
-						frame.origin.x = frame.origin.x;
-						frame.origin.y = frame.origin.y;
-						frame.size.width = frame.size.width;
-						frame.size.height = startFrame.size.height + newLocation.y - start.y;
-						break;
-					case AJRWindowOperationResizeTopRight:
-						frame.origin.x = startFrame.origin.x;
-						frame.origin.y = startFrame.origin.y;
-						frame.size.width = startFrame.size.width + newLocation.x - start.x;
-						frame.size.height = startFrame.size.height + newLocation.y - start.y;
-						break;
-					case AJRWindowOperationResizeLeft:
-						frame.origin.x = frame.origin.x + newLocation.x - start.x;
-						frame.origin.y = frame.origin.y;
-						frame.size.width = frame.size.width + start.x - newLocation.x;
-						frame.size.height = frame.size.height;
-						cx = YES;
-						break;
-					case AJRWindowOperationMove:
-						[window setFrameOrigin:
-						 NSMakePoint(frame.origin.x + newLocation.x - start.x,
-									 frame.origin.y + newLocation.y - start.y)];
-						continue;
-					case AJRWindowOperationResizeRight:
-						frame.origin.x = startFrame.origin.x;
-						frame.origin.y = startFrame.origin.y;
-						frame.size.width = startFrame.size.width + newLocation.x - start.x;
-						frame.size.height = startFrame.size.height;
-						break;
-					case AJRWindowOperationResizeBottomLeft:
-						frame.origin.x = frame.origin.x + newLocation.x - start.x;
-						frame.origin.y = frame.origin.y + newLocation.y - start.y;
-						frame.size.width = frame.size.width + start.x - newLocation.x;
-						frame.size.height = frame.size.height + start.y - newLocation.y;
-						cx = YES;
-						cy = YES;
-						break;
-					case AJRWindowOperationResizeBottom:
-						frame.origin.x = frame.origin.x;
-						frame.origin.y = frame.origin.y + newLocation.y - start.y;
-						frame.size.width = frame.size.width;
-						frame.size.height = frame.size.height + start.y - newLocation.y;
-						cy = YES;
-						break;
-					case AJRWindowOperationResizeBottomRight:
-						frame.origin.x = frame.origin.x;
-						frame.origin.y = frame.origin.y + newLocation.y - start.y;
-						frame.size.width = startFrame.size.width + newLocation.x - start.x;
-						frame.size.height = frame.size.height + start.y - newLocation.y;
-						cy = YES;
-						break;
-				}
-				if ([[window delegate] respondsToSelector:@selector(windowWillResize:toSize:)]) {
-					frame.size = [[window delegate] windowWillResize:window toSize:frame.size];
-				}
-				if (frame.size.width < minSize.width) {
-					if (cx) frame.origin.x -= minSize.width - frame.size.width;
-					frame.size.width = minSize.width;
-				}
-				if (frame.size.height < minSize.height) {
-					if (cy) frame.origin.y -= minSize.height - frame.size.height;
-					frame.size.height = minSize.height;
-				}
-				[window setFrame:frame display:YES];
-				[self moveChildrenFromOldFrame:previousFrame];
-				break;
-			default:
-				break;
-		}
-	}
+    BOOL done = NO;
+    NSPoint start;
+    NSPoint newLocation;
+    NSWindow *window = [self window];
+    NSRect frame, previousFrame;
+    NSRect startFrame = [window frame];
+    NSSize minSize = [window minSize];
+    BOOL cx, cy;
+
+    [window makeKeyWindow];
+    [window orderFront:self];
+    start = [event locationInWindow];
+    frame = startFrame;
+
+    while (!done) {
+        event = [NSApp nextEventMatchingMask:NSEventMaskLeftMouseUp | NSEventMaskLeftMouseDragged
+                                   untilDate:[NSDate distantFuture]
+                                      inMode:NSEventTrackingRunLoopMode
+                                     dequeue:YES];
+        cx = NO;
+        cy = NO;
+        switch ([event type]) {
+            case NSEventTypeLeftMouseUp:
+                done = YES;
+                break;
+            case NSEventTypeLeftMouseDragged:
+                newLocation = [event locationInWindow];
+                previousFrame = frame;
+                frame = [window frame];
+                switch (dragAction) {
+                    case AJRWindowOperationResizeTopLeft:
+                        frame.origin.x = frame.origin.x + newLocation.x - start.x;
+                        frame.origin.y = frame.origin.y;
+                        frame.size.width = frame.size.width + start.x - newLocation.x;
+                        frame.size.height = startFrame.size.height + newLocation.y - start.y;
+                        cx = YES;
+                        break;
+                    case AJRWindowOperationResizeTop:
+                        frame.origin.x = frame.origin.x;
+                        frame.origin.y = frame.origin.y;
+                        frame.size.width = frame.size.width;
+                        frame.size.height = startFrame.size.height + newLocation.y - start.y;
+                        break;
+                    case AJRWindowOperationResizeTopRight:
+                        frame.origin.x = startFrame.origin.x;
+                        frame.origin.y = startFrame.origin.y;
+                        frame.size.width = startFrame.size.width + newLocation.x - start.x;
+                        frame.size.height = startFrame.size.height + newLocation.y - start.y;
+                        break;
+                    case AJRWindowOperationResizeLeft:
+                        frame.origin.x = frame.origin.x + newLocation.x - start.x;
+                        frame.origin.y = frame.origin.y;
+                        frame.size.width = frame.size.width + start.x - newLocation.x;
+                        frame.size.height = frame.size.height;
+                        cx = YES;
+                        break;
+                    case AJRWindowOperationMove:
+                        [window setFrameOrigin:
+                         NSMakePoint(frame.origin.x + newLocation.x - start.x,
+                                     frame.origin.y + newLocation.y - start.y)];
+                        continue;
+                    case AJRWindowOperationResizeRight:
+                        frame.origin.x = startFrame.origin.x;
+                        frame.origin.y = startFrame.origin.y;
+                        frame.size.width = startFrame.size.width + newLocation.x - start.x;
+                        frame.size.height = startFrame.size.height;
+                        break;
+                    case AJRWindowOperationResizeBottomLeft:
+                        frame.origin.x = frame.origin.x + newLocation.x - start.x;
+                        frame.origin.y = frame.origin.y + newLocation.y - start.y;
+                        frame.size.width = frame.size.width + start.x - newLocation.x;
+                        frame.size.height = frame.size.height + start.y - newLocation.y;
+                        cx = YES;
+                        cy = YES;
+                        break;
+                    case AJRWindowOperationResizeBottom:
+                        frame.origin.x = frame.origin.x;
+                        frame.origin.y = frame.origin.y + newLocation.y - start.y;
+                        frame.size.width = frame.size.width;
+                        frame.size.height = frame.size.height + start.y - newLocation.y;
+                        cy = YES;
+                        break;
+                    case AJRWindowOperationResizeBottomRight:
+                        frame.origin.x = frame.origin.x;
+                        frame.origin.y = frame.origin.y + newLocation.y - start.y;
+                        frame.size.width = startFrame.size.width + newLocation.x - start.x;
+                        frame.size.height = frame.size.height + start.y - newLocation.y;
+                        cy = YES;
+                        break;
+                }
+                if ([[window delegate] respondsToSelector:@selector(windowWillResize:toSize:)]) {
+                    frame.size = [[window delegate] windowWillResize:window toSize:frame.size];
+                }
+                if (frame.size.width < minSize.width) {
+                    if (cx) frame.origin.x -= minSize.width - frame.size.width;
+                    frame.size.width = minSize.width;
+                }
+                if (frame.size.height < minSize.height) {
+                    if (cy) frame.origin.y -= minSize.height - frame.size.height;
+                    frame.size.height = minSize.height;
+                }
+                [window setFrame:frame display:YES];
+                [self moveChildrenFromOldFrame:previousFrame];
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 - (NSButton *)selectedRadioButtonTargetting:(id)target withAction:(SEL)action {
@@ -338,17 +338,27 @@ static const NSInteger AJRStatusChangeKey = 0;
     return [self _subtreeDescription];
 }
 
+- (NSView *)enclosingViewOfType:(Class)viewType {
+    NSView *superview = self.superview;
+
+    while (superview != nil && ![superview isKindOfClass:viewType]) {
+        superview = superview.superview;
+    }
+
+    return superview;
+}
+
 @end
 
 @implementation NSButton (Extensions)
 
 - (void)ajr_updateRadioGroup {
-	for (NSView *subview in [[self superview] subviews]) {
-		NSButton *button = AJRObjectIfKindOfClass(subview, NSButton);
-		if (button && [button target] == [self target] && [button action] == [self action]) {
-			[button setState:button == self ? NSControlStateValueOn : NSControlStateValueOff];
-		}
-	}
+    for (NSView *subview in [[self superview] subviews]) {
+        NSButton *button = AJRObjectIfKindOfClass(subview, NSButton);
+        if (button && [button target] == [self target] && [button action] == [self action]) {
+            [button setState:button == self ? NSControlStateValueOn : NSControlStateValueOff];
+        }
+    }
 }
 
 @end

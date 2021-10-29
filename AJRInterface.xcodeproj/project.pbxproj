@@ -347,6 +347,7 @@
 		FAA37EE20E9D26B1004AEECF /* AJRURLField.h in Headers */ = {isa = PBXBuildFile; fileRef = FAA37ECC0E9D26B1004AEECF /* AJRURLField.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAA37EE30E9D26B1004AEECF /* AJRURLField.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA37ECD0E9D26B1004AEECF /* AJRURLField.m */; };
 		FAA37F710E9D2EC5004AEECF /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA37F700E9D2EC5004AEECF /* WebKit.framework */; };
+		FAA82A47272B8CFB009CAB51 /* NSView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA82A46272B8CFB009CAB51 /* NSView+Extensions.swift */; };
 		FAAAD9522231E1C9002CA09C /* AJRBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAAD9512231E1C9002CA09C /* AJRBookmark.swift */; };
 		FAAAD9552231EBD9002CA09C /* AJRBookmarksBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAAD9532231EBD9002CA09C /* AJRBookmarksBarViewController.swift */; };
 		FAAAD9562231EBD9002CA09C /* AJRBookmarksBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAAAD9542231EBD9002CA09C /* AJRBookmarksBarViewController.xib */; };
@@ -623,6 +624,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = AJRInterface;
+		};
+		FAA82A4A272B8CFC009CAB51 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAD49E6F263E333E00CE2C4C /* AJRBezierPathTests.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FAD49E7F263E340100CE2C4C;
+			remoteInfo = AJRBezierPathTests;
 		};
 		FAD49E73263E333E00CE2C4C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -992,6 +1000,7 @@
 		FAA37ECC0E9D26B1004AEECF /* AJRURLField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRURLField.h; sourceTree = "<group>"; };
 		FAA37ECD0E9D26B1004AEECF /* AJRURLField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRURLField.m; sourceTree = "<group>"; };
 		FAA37F700E9D2EC5004AEECF /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
+		FAA82A46272B8CFB009CAB51 /* NSView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+Extensions.swift"; sourceTree = "<group>"; };
 		FAAAD9512231E1C9002CA09C /* AJRBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRBookmark.swift; sourceTree = "<group>"; };
 		FAAAD9532231EBD9002CA09C /* AJRBookmarksBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRBookmarksBarViewController.swift; sourceTree = "<group>"; };
 		FAAAD9542231EBD9002CA09C /* AJRBookmarksBarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRBookmarksBarViewController.xib; sourceTree = "<group>"; };
@@ -1959,6 +1968,7 @@
 				FAFE4B9E0EC5070F00AE17D0 /* NSUserDefaults+Extensions.m */,
 				FA6459280F4DD3B0009C90DD /* NSView+Extensions.h */,
 				FA6459290F4DD3B0009C90DD /* NSView+Extensions.m */,
+				FAA82A46272B8CFB009CAB51 /* NSView+Extensions.swift */,
 				FA5F2D51217836DC00E1EEF6 /* NSViewController+Extensions.h */,
 				FA5F2D52217836DC00E1EEF6 /* NSViewController+Extensions.m */,
 				FA07190022AC75EA00C2C409 /* NSViewController+Extensions.swift */,
@@ -2377,6 +2387,7 @@
 			isa = PBXGroup;
 			children = (
 				FAD49E74263E333E00CE2C4C /* AJRBezierPathTests.app */,
+				FAA82A4B272B8CFC009CAB51 /* AJRBezierPathTests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2957,10 +2968,17 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		FAD49E74263E333E00CE2C4C /* AJRBezierPathTests.app */ = {
+		FAA82A4B272B8CFC009CAB51 /* AJRBezierPathTests.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = AJRBezierPathTests.app;
+			remoteRef = FAA82A4A272B8CFC009CAB51 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FAD49E74263E333E00CE2C4C /* AJRBezierPathTests.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = AJRBezierPathTests2.app;
 			remoteRef = FAD49E73263E333E00CE2C4C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -3098,6 +3116,7 @@
 			files = (
 				FA2F99680E93EE6D004F1A14 /* AJRExpansionView.m in Sources */,
 				FA2F996A0E93EE6D004F1A14 /* AJRExpansionViewItem.m in Sources */,
+				FAA82A47272B8CFB009CAB51 /* NSView+Extensions.swift in Sources */,
 				FA2F99730E93EF5D004F1A14 /* AJRSourceIconCell.m in Sources */,
 				FA0014DF226804EB001DFB69 /* AJRAlternateHighlightButtonCell.swift in Sources */,
 				FA2F99750E93EF5D004F1A14 /* AJRSourceOutlineView.m in Sources */,
