@@ -127,7 +127,11 @@ class AJRInspectorSliceAttributedString: AJRInspectorSliceField, AJRInspectorTex
                 
                 if changedValue {
                     strongSelf.updateHeightContraint()
-                    strongSelf.updateDisplay(for: strongSelf.field.attributedStringValue.attributes(at: 0, effectiveRange: nil))
+                    if strongSelf.field.attributedStringValue.length == 0 {
+                        strongSelf.updateDisplay(for: [:])
+                    } else {
+                        strongSelf.updateDisplay(for: strongSelf.field.attributedStringValue.attributes(at: 0, effectiveRange: nil))
+                    }
                 }
             }
         }
