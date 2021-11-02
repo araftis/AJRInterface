@@ -35,8 +35,18 @@ fileprivate enum AJRSegmentType : Int {
     case bold
     case italics
     case underline
+    case outline
+    case strikethrough
     case fontPanel
     case foregroundColor
+}
+
+fileprivate enum AJRSegmentAlignmentType : Int {
+    case left
+    case center
+    case right
+    case justified
+    case natural
 }
 
 fileprivate extension NSSegmentedControl {
@@ -61,6 +71,18 @@ fileprivate extension NSSegmentedControl {
         setMenu(menu, forSegment: segment.rawValue)
     }
     
+    var selectedAlignmentControl : AJRSegmentAlignmentType? {
+        return AJRSegmentAlignmentType(rawValue: self.selectedSegment)
+    }
+    
+    func isSelected(forSegment segment: AJRSegmentAlignmentType) -> Bool {
+        return isSelected(forSegment: segment.rawValue)
+    }
+    
+    func setSelected(_ selected: Bool, forSegment segment: AJRSegmentAlignmentType) -> Void {
+        setSelected(selected, forSegment: segment.rawValue)
+    }
+    
 }
 
 class AJRInspectorSliceAttributedString: AJRInspectorSliceField, AJRInspectorTextFieldDelegate {
@@ -70,7 +92,8 @@ class AJRInspectorSliceAttributedString: AJRInspectorSliceField, AJRInspectorTex
     open var fieldEditor : NSTextView? = nil
     
     @IBOutlet open var attributeSegments : NSSegmentedControl!
-    
+    @IBOutlet open var alignmentSegments : NSSegmentedControl!
+
     // MARK: - View
     
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
@@ -155,40 +178,63 @@ class AJRInspectorSliceAttributedString: AJRInspectorSliceField, AJRInspectorTex
         }
     }
     
+    open func toggleTrait(_ trait: NSFontTraitMask, from sender: Any?) -> Void {
+        if var font = attribute(.font, in: fieldEditor) as? NSFont {
+            if NSFontManager.shared.traits(of: font).contains(trait) {
+                font = NSFontManager.shared.convert(font, toNotHaveTrait: trait)
+                NSFontManager.shared.removeFontTrait(sender)
+            } else {
+                font = NSFontManager.shared.convert(font, toHaveTrait: trait)
+                NSFontManager.shared.addFontTrait(sender)
+            }
+            setAttribute(.font, to: font, in: fieldEditor)
+            updateDisplay(forEditor: fieldEditor)
+            updateHeightContraint()
+        }
+    }
+    
     @IBAction open func toggleBold(_ sender: Any?) -> Void {
         if let sender = sender as? NSSegmentedControl {
             sender.tag = 2
         }
-        if let fieldEditor = fieldEditor {
-            if currentAttributes(in: fieldEditor, hasFontTrait: .boldFontMask) {
-                NSFontManager.shared.removeFontTrait(sender)
-            } else {
-                NSFontManager.shared.addFontTrait(sender)
-            }
-            updateDisplay(forEditor: fieldEditor)
-            updateHeightContraint()
-        }
+        toggleTrait(.boldFontMask, from: sender)
     }
     
     @IBAction open func toggleItalics(_ sender: Any?) -> Void {
         if let sender = sender as? NSSegmentedControl {
             sender.tag = 1
         }
-        if let fieldEditor = fieldEditor {
-            if currentAttributes(in: fieldEditor, hasFontTrait: .italicFontMask) {
-                NSFontManager.shared.removeFontTrait(sender)
-            } else {
-                NSFontManager.shared.addFontTrait(sender)
-            }
-            updateDisplay(forEditor: fieldEditor)
-            updateHeightContraint()
-        }
+        toggleTrait(.italicFontMask, from: sender)
     }
     
     @IBAction open func toggleUnderline(_ sender: Any?) -> Void {
-        if let fieldEditor = fieldEditor {
-            fieldEditor.underline(sender)
+        if hasAttribute(.underlineStyle, in: fieldEditor) {
+            setAttribute(.underlineStyle, to: nil, in: fieldEditor)
+        } else {
+            setAttribute(.underlineStyle, to: NSUnderlineStyle.single, in: fieldEditor)
         }
+        updateDisplay(forEditor: fieldEditor)
+        updateHeightContraint()
+    }
+    
+    @IBAction open func toggleOutline(_ sender: Any?) -> Void {
+        if hasAttribute(.strokeWidth, in: fieldEditor) {
+            setAttribute(.strokeWidth, to: nil, in: fieldEditor)
+        } else {
+            setAttribute(.strokeWidth, to: 3.0, in: fieldEditor)
+        }
+        updateDisplay(forEditor: fieldEditor)
+        updateHeightContraint()
+    }
+    
+    @IBAction open func toggleStrikethrough(_ sender: Any?) -> Void {
+        if hasAttribute(.strikethroughStyle, in: fieldEditor) {
+            setAttribute(.strikethroughStyle, to: nil, in: fieldEditor)
+        } else {
+            setAttribute(.strikethroughStyle, to: NSUnderlineStyle.single, in: fieldEditor)
+        }
+        updateDisplay(forEditor: fieldEditor)
+        updateHeightContraint()
     }
     
     @IBAction open func showFontPanel(_ sender: Any?) -> Void {
@@ -200,15 +246,11 @@ class AJRInspectorSliceAttributedString: AJRInspectorSliceField, AJRInspectorTex
         }
     }
     
-    @IBAction open func takeColor(from sender: Any?) -> Void {
+    @IBAction open func takeColor(from sender: AJRColorSwatchView?) -> Void {
         attributeSegments.setSelected(false, forSegment: .foregroundColor)
-        if let fieldEditor = fieldEditor {
-            let color = (sender as? AJRColorSwatchView)?.selectedColor
-            fieldEditor.setTextColor(color, range: fieldEditor.selectedRange())
-            var typingAttributes = fieldEditor.typingAttributes
-            typingAttributes[.foregroundColor] = color
-            fieldEditor.typingAttributes = typingAttributes
-        }
+        setAttribute(.foregroundColor, to: sender?.selectedColor, in: fieldEditor)
+        updateDisplay(forEditor: fieldEditor)
+        valueKey?.value = field.attributedStringValue
     }
     
     @IBAction open func showColors(_ sender: Any?) -> Void {
@@ -230,13 +272,41 @@ class AJRInspectorSliceAttributedString: AJRInspectorSliceField, AJRInspectorTex
             toggleItalics(sender)
         case .underline:
             toggleUnderline(sender)
+        case .outline:
+            toggleOutline(sender)
+        case .strikethrough:
+            toggleStrikethrough(sender)
         case .fontPanel:
             showFontPanel(sender)
         case .foregroundColor:
             showColors(sender)
-        default:
+        case .none:
             break
         }
+        valueKey?.value = field.attributedStringValue
+    }
+    
+    @IBAction open func selectAlignmentSegment(_ sender: NSSegmentedControl?) -> Void {
+        let alignment : NSTextAlignment
+        switch sender?.selectedAlignmentControl {
+        case .left:
+            alignment = .left
+        case .center:
+            alignment = .center
+        case .right:
+            alignment = .right
+        case .justified:
+            alignment = .justified
+        case .natural:
+            alignment = .natural
+        case .none:
+            alignment = .left
+        }
+        let style = (attribute(.paragraphStyle, in: fieldEditor) as! NSParagraphStyle).mutableCopy() as! NSMutableParagraphStyle
+        style.alignment = alignment
+        setAttribute(.paragraphStyle, to: style, in: fieldEditor)
+        updateDisplay(forEditor: fieldEditor)
+        valueKey?.value = field.attributedStringValue
     }
     
     // MARK: - AJRInspectorTextFieldDelegate
@@ -259,29 +329,77 @@ class AJRInspectorSliceAttributedString: AJRInspectorSliceField, AJRInspectorTex
 
     // MARK: - Utilities
     
-    open func attributes(forEditor editor: NSTextView) -> [NSAttributedString.Key:Any] {
-        let selection = editor.selectedRange()
+    open func attributes(in editor: NSTextView?) -> [NSAttributedString.Key:Any] {
         let attributes : [NSAttributedString.Key:Any]
-        
-        if selection.length == 0 {
-            attributes = editor.typingAttributes
+
+        if let editor = editor {
+            let selection = editor.selectedRange()
+            
+            if selection.length == 0 {
+                attributes = editor.typingAttributes
+            } else {
+                attributes = editor.textStorage!.attributes(at: selection.location, effectiveRange: nil)
+            }
         } else {
-            attributes = editor.textStorage!.attributes(at: selection.location, effectiveRange: nil)
+            let string = field.attributedStringValue
+            attributes = string.attributes(at: 0, effectiveRange: nil)
         }
         
         return attributes
     }
     
-    open func currentAttributes(in editor: NSTextView, hasFontTrait mask: NSFontTraitMask) -> Bool {
-        if let font = attributes(forEditor: editor)[.font] as? NSFont {
+    open func attribute(_ key: NSAttributedString.Key, in editor: NSTextView?) -> Any? {
+        return attributes(in: editor)[key]
+    }
+    
+    open func hasAttribute(_ attribute: NSAttributedString.Key, in editor: NSTextView?) -> Bool {
+        return self.attribute(attribute, in: editor) != nil
+    }
+    
+    private func attributedValue(for value: Any?) -> Any? {
+        if let value = value {
+            if let value = value as? NSUnderlineStyle {
+                return value.rawValue
+            } else {
+                return value
+            }
+        }
+        return nil
+    }
+    
+    open func setAttribute(_ key: NSAttributedString.Key, to value: Any?, in editor: NSTextView?) -> Void {
+        if let editor = editor {
+            var attributes = self.attributes(in: editor)
+            
+            attributes[key] = attributedValue(for: value)
+            
+            let selection = editor.selectedRange()
+            if selection.length == 0 {
+                editor.typingAttributes = attributes
+            } else {
+                editor.textStorage!.setAttributes(attributes, range: selection)
+            }
+        } else {
+            let string = field.attributedStringValue.mutableCopy() as! NSMutableAttributedString
+            if let value = value {
+                string.addAttribute(key, value: attributedValue(for: value)!, range: string.string.fullRange)
+            } else {
+                string.removeAttribute(key, range: string.string.fullRange)
+            }
+            field.attributedStringValue = string
+        }
+    }
+    
+    open func currentAttributes(hasFontTrait mask: NSFontTraitMask, in editor: NSTextView?) -> Bool {
+        if let font = attribute(.font, in: editor) as? NSFont {
             let traits = NSFontManager.shared.traits(of: font)
             return traits.contains(mask)
         }
         return false
     }
     
-    open func updateDisplay(forEditor editor : NSTextView) -> Void {
-        updateDisplay(for: attributes(forEditor: editor))
+    open func updateDisplay(forEditor editor : NSTextView?) -> Void {
+        updateDisplay(for: attributes(in: editor))
     }
     
     open func updateDisplay(for attributes: [NSAttributedString.Key:Any]) -> Void {
@@ -294,6 +412,34 @@ class AJRInspectorSliceAttributedString: AJRInspectorSliceField, AJRInspectorTex
         if let color = attributes[.foregroundColor] as? NSColor {
             let image = AJRColorSwatchImage(color, false, NSSize(width: 12.0, height: 12.0))
             attributeSegments.setImage(image, forSegment: .foregroundColor)
+        }
+        if let outline = attributes[.strokeWidth] as? Int {
+            attributeSegments.setSelected(outline > 0, forSegment: .outline)
+        } else {
+            attributeSegments.setSelected(false, forSegment: .strikethrough)
+        }
+        if let strikethough = attributes[.strikethroughStyle] as? Int {
+            attributeSegments.setSelected(strikethough >= 0, forSegment: .strikethrough)
+        } else {
+            attributeSegments.setSelected(false, forSegment: .strikethrough)
+        }
+        if let style = attributes[.paragraphStyle] as? NSParagraphStyle {
+            switch style.alignment {
+            case .left:
+                alignmentSegments.setSelected(true, forSegment: .left)
+            case .center:
+                alignmentSegments.setSelected(true, forSegment: .center)
+            case .right:
+                alignmentSegments.setSelected(true, forSegment: .right)
+            case .justified:
+                alignmentSegments.setSelected(true, forSegment: .justified)
+            case .natural:
+                alignmentSegments.setSelected(true, forSegment: .natural)
+            @unknown default:
+                alignmentSegments.setSelected(true, forSegment: .left)
+            }
+        } else {
+            alignmentSegments.setSelected(true, forSegment: .left)
         }
     }
 
