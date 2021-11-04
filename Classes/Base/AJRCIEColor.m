@@ -65,6 +65,10 @@ static CGColorSpaceRef _whiteColorSpace;
     });
 }
 
++ (NSString *)ajr_nameForXMLArchiving {
+	return @"cieColor";
+}
+
 + (NSColor *)colorWithCIEX:(CGFloat)xIn y:(CGFloat)yIn z:(CGFloat)zIn alpha:(CGFloat)alphaIn {
     return [[self alloc] initWithCIEX:xIn y:yIn z:zIn alpha:alphaIn];
 }
