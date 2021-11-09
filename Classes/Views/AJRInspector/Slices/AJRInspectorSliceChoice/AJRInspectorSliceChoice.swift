@@ -509,7 +509,11 @@ open class AJRInspectorSliceChoice: AJRInspectorSlice {
         case "object":
             return try AJRInspectorSliceChoiceObject(element: element, parent: parent, viewController: viewController, bundle: bundle)
         default:
-            throw NSError(domain: AJRInspectorErrorDomain, message: "Unknown choice type: \(valueType ?? "<none>")")
+            if let valueType = valueType {
+                throw NSError(domain: AJRInspectorErrorDomain, message: "Unknown valueType: \(valueType)")
+            } else {
+                throw NSError(domain: AJRInspectorErrorDomain, message: "Missing key valueType")
+            }
         }
     }
 
