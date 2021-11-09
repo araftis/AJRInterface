@@ -53,7 +53,11 @@ static CGFloat _bottomMargin = 5.0;
 
 #pragma mark - Creation
 
-- (id)initWithWidth:(NSInteger)width andHeight:(NSInteger)height {
+- (id)initWithBaseColor:(NSColor *)color width:(NSInteger)width andHeight:(NSInteger)height {
+    return [self initWithBaseColor:color width:width andHeight:height includeAlpha:NO];
+}
+
+- (id)initWithBaseColor:(NSColor *)color width:(NSInteger)width andHeight:(NSInteger)height includeAlpha:(BOOL)includeAlpha {
     NSSize swatchSize = (NSSize){12.0, 12.0};
     
     if ((self = [super initWithFrame:(NSRect){NSZeroPoint, {(swatchSize.width + 1) * width + 1 + (_leftMargin + _rightMargin), (swatchSize.height + 1) * height + 1 + (_topMargin + _bottomMargin)}}])) {
@@ -64,6 +68,7 @@ static CGFloat _bottomMargin = 5.0;
         _swatchSize = swatchSize;
         _highlightX = -1;
         _highlightY = -1;
+        _includesAlpha = includeAlpha;
         
         _colors = (__strong NSColor **)calloc(sizeof(NSColor *), width * height);
         for (y = 0; y < height; y++) {
@@ -72,8 +77,12 @@ static CGFloat _bottomMargin = 5.0;
                 for (x = 1; x < _width; x++) {
                     [self setColor:[NSColor colorWithCalibratedWhite:1.0 - ((CGFloat)(x - 1) / (CGFloat)(_width - 2)) alpha:1.0] atX:x andY:y];
                 }
+            } else if (_includesAlpha && y == _height - 1) {
+                for (x = 0; x < _width; x++) {
+                    [self setColor:NSColor.whiteColor atX:x andY:y];
+                }
             } else {
-                NSInteger twoThirds = floor((CGFloat)_height * (2.0 / 3.0));
+                NSInteger twoThirds = floor((CGFloat)(_height - (_includesAlpha ? 1 : 0)) * (2.0 / 3.0));
                 
                 for (x = 0; x < _width; x++) {
                     CGFloat    hue, saturation, brightness;
@@ -81,7 +90,7 @@ static CGFloat _bottomMargin = 5.0;
                     hue = (196.0 + (360.0 * ((CGFloat)x / (CGFloat)(_width + 1)))) / 360.0;
                     while (hue > 1.0) hue -= 1.0;
                     if (y > twoThirds) {
-                        saturation = 1.0 - (((CGFloat)y - (CGFloat)twoThirds) / ((CGFloat)_height - (CGFloat)twoThirds));
+                        saturation = 1.0 - (((CGFloat)y - (CGFloat)twoThirds) / ((CGFloat)(_height - (_includesAlpha ? 1 : 0)) - (CGFloat)twoThirds));
                     } else {
                         saturation = 1.0;
                     }
@@ -95,6 +104,7 @@ static CGFloat _bottomMargin = 5.0;
                 }
             }
         }
+        [self setBaseColor:color];
         [self addTrackingArea:[[NSTrackingArea alloc] initWithRect:[self bounds] options:NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveAlways owner:self userInfo:nil]];
     }
     return self;
@@ -112,6 +122,15 @@ static CGFloat _bottomMargin = 5.0;
 }
 
 #pragma mark - Properties
+
+- (void)setBaseColor:(NSColor *)baseColor {
+    if (_includesAlpha) {
+        _baseColor = baseColor;
+        for (NSInteger x = 0; x < _width; x++) {
+            [self setColor:[_baseColor colorWithAlphaComponent:(CGFloat)x / (CGFloat)(_width - 1)] atX:x andY:_height - 1];
+        }
+    }
+}
 
 - (void)setColor:(NSColor *)color atX:(NSInteger)x andY:(NSInteger)y {
     _colors[y * _width + x] = color;

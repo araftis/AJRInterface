@@ -84,7 +84,7 @@ NSMenu *AJRColorSwatchMenu(id colorTarget, SEL colorAction, id showColorsTarget,
     [image setSize:(NSSize){14, 14}];
     
     swatchItem = [menu addItemWithTitle:@"" action:NULL keyEquivalent:@""];
-    swatchView = [[AJRColorSwatchView alloc] initWithWidth:12 andHeight:10];
+    swatchView = [[AJRColorSwatchView alloc] initWithBaseColor:nil width:12 andHeight:10 includeAlpha:YES];
     [swatchView setTarget:colorTarget];
     [swatchView setAction:colorAction];
     [swatchItem setView:swatchView];
@@ -155,6 +155,10 @@ NSMenu *AJRColorSwatchMenu(id colorTarget, SEL colorAction, id showColorsTarget,
 - (void)mouseDown:(NSEvent *)event {
     if (self.isEnabled) {
         NSMenu *menu = [self menu];
+        AJRColorSwatchView *view = AJRObjectIfKindOfClass([[menu itemArray][0] view], AJRColorSwatchView);
+        if (view != nil) {
+            view.baseColor = self.color;
+        }
         [menu popUpMenuPositioningItem:[[menu itemArray] objectAtIndex:0] atLocation:NSZeroPoint inView:self];
     }
 }

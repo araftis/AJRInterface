@@ -35,11 +35,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AJRColorSwatchView : NSView
 
-- (id)initWithWidth:(NSInteger)width andHeight:(NSInteger)height;
+- (id)initWithBaseColor:(nullable NSColor *)color width:(NSInteger)width andHeight:(NSInteger)height;
+- (id)initWithBaseColor:(nullable NSColor *)color width:(NSInteger)width andHeight:(NSInteger)height includeAlpha:(BOOL)includeAlpha;
 
+@property (nonatomic,strong,nullable) NSColor *baseColor;
 @property (nonatomic,nullable,readonly,weak) NSColor *selectedColor;
 @property (nonatomic,nullable,weak) id target;
 @property (nonatomic,nullable,assign) SEL action;
+@property (nonatomic,readonly) BOOL includesAlpha;
 
 - (void)setColor:(nullable NSColor *)color atX:(NSInteger)x andY:(NSInteger)y;
 - (NSColor *)colorAtX:(NSInteger)x andY:(NSInteger)y;
