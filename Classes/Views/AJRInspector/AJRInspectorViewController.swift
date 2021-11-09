@@ -262,9 +262,17 @@ open class AJRInspectorViewController: NSViewController {
             view = noSelectionView
         } else {
             var inspectors = OrderedSet<AJRInspectorIdentifier>()
+            var first = true
             for object in content {
                 if let object = object as? AJRInspectable {
-                    inspectors.append(contentsOf: object.inspectorIdentifiers)
+                    if first {
+                        // The first time we get inspectors, just append those inspectors
+                        inspectors.append(contentsOf: object.inspectorIdentifiers)
+                        first = false
+                    } else {
+                        // The on the subsequent inspectors, we just want to have the intersection.
+                        inspectors.formIntersection(object.inspectorIdentifiers)
+                    }
                 }
             }
             if content.count == 0 || (inspectors.count == 1 && inspectors.first == .noInspector) {
