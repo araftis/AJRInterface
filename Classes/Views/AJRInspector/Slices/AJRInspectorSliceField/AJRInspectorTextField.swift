@@ -89,7 +89,7 @@ class AJRInspectorTextFieldCell: NSTextFieldCell, NSTextDelegate {
                 }
             })
             didEndEditingObserverToken = NotificationCenter.default.addObserver(forName: NSControl.textDidEndEditingNotification, object: controlView, queue: nil, using: { (notification) in
-                print("end editing")
+                //print("end editing")
                 if let strongSelf = weakSelf {
                     strongSelf.stopObserving(token: &strongSelf.selectionDidChangeObserverToken)
                     strongSelf.stopObserving(token: &strongSelf.didEndEditingObserverToken)
