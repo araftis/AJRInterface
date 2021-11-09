@@ -218,7 +218,12 @@ NSMenu *AJRColorSwatchMenu(id colorTarget, SEL colorAction, id showColorsTarget,
 #pragma mark - Actions
 
 - (IBAction)showColors:(id)sender {
-    [[NSColorPanel sharedColorPanel] orderFront:self];
+    NSColorPanel *panel = [NSColorPanel sharedColorPanel];
+    panel.showsAlpha = YES;
+    panel.color = self.color;
+    panel.target = self;
+    panel.action = @selector(selectColorFromPanel:);
+    [panel orderFront:self];
 }
 
 - (IBAction)selectColor:(AJRColorSwatchView *)sender {
@@ -229,7 +234,12 @@ NSMenu *AJRColorSwatchMenu(id colorTarget, SEL colorAction, id showColorsTarget,
         [self setDisplayMode:AJRColorWellDisplayNone];
     }
     [_menu cancelTracking];
-    [NSApp sendAction:[self action] to:[self target] from:self];
+    [NSApp sendAction:self.action to:self.target from:self];
+}
+
+- (IBAction)selectColorFromPanel:(NSColorPanel *)sender {
+    self.color = sender.color;
+    [NSApp sendAction:self.action to:self.target from:self];
 }
 
 @end
