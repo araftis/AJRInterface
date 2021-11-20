@@ -69,6 +69,8 @@ typedef NS_ENUM(uint8_t, AJRButtonBarTracking) {
 - (SEL)actionForIndex:(NSInteger)index;
 - (void)setRepresentedObject:(id)object forIndex:(NSInteger)index;
 - (id)representedObjectForIndex:(NSInteger)index;
+- (void)setBadge:(nullable NSImage *)image forIndex:(NSInteger)index;
+- (nullable NSImage *)badgeForIndex:(NSInteger)index;
 
 @end
 
