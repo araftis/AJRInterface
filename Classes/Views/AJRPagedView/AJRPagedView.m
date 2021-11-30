@@ -415,7 +415,6 @@ const NSInteger AJRPageIndexFirst        = 0;
 - (NSRect)rectForPage:(NSInteger)page {
     _printingPage = page;
     NSRect rect = NSIntegralRect([[_pageDataSource pagedView:self viewForPage:_printingPage - 1] frame]);
-    AJRPrintf(@"%d: rect: %R\n", _printingPage, rect);
     return rect;
 }
 
@@ -436,7 +435,6 @@ const NSInteger AJRPageIndexFirst        = 0;
 
 - (void)beginPageInRect:(NSRect)rect atPlacement:(NSPoint)location {
     [super beginPageInRect:rect atPlacement:location];
-    AJRPrintf(@"print: page: %d, rect: %R, placement: %P\n", _printingPage, rect, location);
 }
 
 - (BOOL)isPrinting {
