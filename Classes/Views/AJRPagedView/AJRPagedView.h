@@ -78,6 +78,7 @@ typedef NS_ENUM(uint8_t, AJRMasterPageDisplay) {
 @property (nullable,nonatomic,strong) NSColor *backgroundColor;
 @property (nonatomic,strong) AJRBorder *pageBorder;
 @property (nonatomic,assign) CGFloat scale;
+@property (nonatomic,readonly) BOOL isPrinting;
 
 @property (nonatomic,strong) AJRPageLayout *pageLayout;
 @property (nonatomic,strong) NSString *pageLayoutIdentifier;
@@ -95,6 +96,17 @@ typedef NS_ENUM(uint8_t, AJRMasterPageDisplay) {
 
 - (void)scrollPageToVisible:(NSInteger)pageIndex;
 - (void)scrollPagesToVisible:(NSIndexSet *)pageIndex;
+
+#pragma mark - Printing
+
+- (BOOL)prepareViewForPrinting:(NSView *)view;
+- (void)concludePrintingInView:(NSView *)view;
+
+@end
+
+@interface NSView (AJRPagedViewExtensions)
+
+@property (nonatomic,nullable,readonly) AJRPagedView *enclosingPagedView;
 
 @end
 

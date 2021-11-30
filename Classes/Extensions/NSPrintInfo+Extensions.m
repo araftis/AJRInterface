@@ -34,7 +34,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import <AJRFoundation/AJRFoundation.h>
 #import <AJRInterfaceFoundation/AJRInterfaceFoundation.h>
 
-NSString    *NSUnitsOfMeasure = @"NSUnitsOfMeasure";
+NSString *NSUnitsOfMeasure = @"NSUnitsOfMeasure";
+NSPrintInfoAttributeKey const AJRIsPrintingKey = @"AJRIsPrinting";
 
 NSString *AJRStringFromPaginationMode(NSPrintingPaginationMode mode) {
     switch (mode) {
@@ -223,6 +224,18 @@ static NSMutableArray<AJRPaper *> *_papers = nil;
     }
 
     return _papers;
+}
+
+- (void)setIsPrinting:(BOOL)isPrinting {
+    if (isPrinting) {
+        self.dictionary[AJRIsPrintingKey] = @YES;
+    } else {
+        self.dictionary[AJRIsPrintingKey] = nil;
+    }
+}
+
+- (BOOL)isPrinting {
+    return [self.dictionary[AJRIsPrintingKey] boolValue];
 }
 
 + (id)instantiateWithXMLCoder:(AJRXMLCoder *)coder {

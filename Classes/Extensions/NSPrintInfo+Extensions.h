@@ -38,8 +38,9 @@ extern NSString *NSUnitsOfMeasure;
 
 extern NSString *AJRStringFromPaginationMode(NSPrintingPaginationMode mode);
 extern NSPrintingPaginationMode AJRPaginationModeFromString(NSString *mode);
+extern NSPrintInfoAttributeKey const AJRIsPrintingKey;
 
-    @interface AJRPaper : NSObject
+@interface AJRPaper : NSObject
 
 + (instancetype)paperForSize:(NSSize)size;
 
@@ -62,6 +63,7 @@ extern NSPrintingPaginationMode AJRPaginationModeFromString(NSString *mode);
 - (NSString *)measureAsString:(CGFloat)measure places:(NSInteger)places;
 
 @property (nonatomic,strong) NSString *unitsOfMeasure;
+@property (nonatomic,assign) BOOL isPrinting;
 
 + (NSArray<AJRPaper *> *)allPapers;
 

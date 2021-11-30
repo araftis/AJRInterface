@@ -36,6 +36,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import "AJRPageLayout.h"
 #import "AJRVerticalPageLayout.h"
 #import "NSGraphicsContext+Extensions.h"
+#import "NSPrintInfo+Extensions.h"
+#import "NSView+Extensions.h"
 
 #import <AJRFoundation/AJRFunctions.h>
 #import <AJRInterfaceFoundation/AJRBezierPath.h>
@@ -238,9 +240,7 @@ const NSInteger AJRPageIndexFirst        = 0;
 }
 
 - (void)_drawPageViewForPageIndex:(NSInteger)pageIndex inRect:(NSRect)dirtyRect {
-    NSView *pageView = nil;
-    
-    pageView = [_pageDataSource pagedView:self viewForPage:pageIndex];
+    NSView *pageView = [_pageDataSource pagedView:self viewForPage:pageIndex];
     
     if (pageView) {
         NSRect subviewFrame = [pageView frame];
@@ -251,7 +251,9 @@ const NSInteger AJRPageIndexFirst        = 0;
             if ([self needsToDrawRect:subviewDrawFrame]) {
                 NSColor *pageColor = _pageDataSourceRespondsToColorForPage ? [_pageDataSource pagedView:self colorForPage:pageIndex] : [NSColor whiteColor];
 
-                [_pageBorder drawBorderInRect:[_pageBorder rectForContentRect:subviewFrame] controlView:self];
+                if (!self.isPrinting) {
+                    [_pageBorder drawBorderInRect:[_pageBorder rectForContentRect:subviewFrame] controlView:self];
+                }
 
                 [pageColor set];
                 NSRectFill(subviewFrame);
@@ -412,11 +414,33 @@ const NSInteger AJRPageIndexFirst        = 0;
 
 - (NSRect)rectForPage:(NSInteger)page {
     _printingPage = page;
-    return [[_pageDataSource pagedView:self viewForPage:_printingPage - 1] frame];
+    NSRect rect = NSIntegralRect([[_pageDataSource pagedView:self viewForPage:_printingPage - 1] frame]);
+    AJRPrintf(@"%d: rect: %R\n", _printingPage, rect);
+    return rect;
 }
 
 - (NSPoint)locationOfPrintRect:(NSRect)rect {
     return NSZeroPoint;
+}
+
+- (void)beginDocument {
+    NSPrintInfo *info = [NSPrintInfo sharedPrintInfo];
+    info.isPrinting = YES;
+    info.scalingFactor = 1.0 / self.scale;
+}
+
+- (void)endDocument {
+    NSPrintInfo *info = [NSPrintInfo sharedPrintInfo];
+    info.isPrinting = NO;
+}
+
+- (void)beginPageInRect:(NSRect)rect atPlacement:(NSPoint)location {
+    [super beginPageInRect:rect atPlacement:location];
+    AJRPrintf(@"print: page: %d, rect: %R, placement: %P\n", _printingPage, rect, location);
+}
+
+- (BOOL)isPrinting {
+    return [NSPrintInfo.sharedPrintInfo.dictionary[@"AJRIsPrinting"] boolValue];
 }
 
 - (IBAction)print:(id)sender {
@@ -427,6 +451,28 @@ const NSInteger AJRPageIndexFirst        = 0;
     [printOperation runOperationModalForWindow:[self window] delegate:nil didRunSelector:NULL contextInfo:NULL];
 }
 
+- (BOOL)prepareViewForPrinting:(NSView *)view {
+    if (self.isPrinting) {
+        CGFloat scale = 1.0 / self.scale;
+        NSRect bounds = view.bounds;
+        NSAffineTransform *transform = [NSAffineTransform transform];
+        [transform translateXBy:0.0 yBy:bounds.size.height - (bounds.size.height * scale)];
+        [transform scaleBy:scale];
+        [transform concat];
+        objc_setAssociatedObject(view, @selector(prepareViewForPrinting:), transform, OBJC_ASSOCIATION_RETAIN);
+        return YES;
+    }
+    return NO;
+}
+
+- (void)concludePrintingInView:(NSView *)view {
+    NSAffineTransform *transform = objc_getAssociatedObject(view, @selector(prepareViewForPrinting:));
+    if (transform) {
+        [transform invert];
+        [transform concat];
+    }
+}
+
 #pragma mark - Ruler Support
 
 - (NSArray<NSView *> *)horizontalViews {
@@ -435,6 +481,14 @@ const NSInteger AJRPageIndexFirst        = 0;
 
 - (NSArray<NSView *> *)verticalViews {
     return [[self pageLayout] verticalViews];
+}
+
+@end
+
+@implementation NSView (AJRPagedViewExtensions)
+
+- (AJRPagedView *)enclosingPagedView {
+    return AJRObjectIfKindOfClass([self enclosingViewOfType:AJRPagedView.class], AJRPagedView);
 }
 
 @end
