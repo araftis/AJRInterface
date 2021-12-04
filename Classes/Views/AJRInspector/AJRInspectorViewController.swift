@@ -413,8 +413,8 @@ open class AJRInspectorViewController: NSViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
-        updateDisplay(withNewContent: [])
+        // OK. So our view has loaded, which means we now need to update to our content, if we've already been given content.
+        updateDisplay(withNewContent: content)
     }
     
 }
