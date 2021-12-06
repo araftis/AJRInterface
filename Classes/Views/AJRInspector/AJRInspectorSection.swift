@@ -40,6 +40,8 @@ open class AJRInspectorSection: AJRInspectorElement {
     open var borderMarginBottomKey : AJRInspectorKey<CGFloat>!
     open var borderColorTopKey : AJRInspectorKey<NSColor>?
     open var borderColorBottomKey : AJRInspectorKey<NSColor>?
+    open var hiddenKey : AJRInspectorKey<Bool>?
+    open var heightConstaint : NSLayoutConstraint?
     
     // MARK: - Creation
     
@@ -98,6 +100,7 @@ open class AJRInspectorSection: AJRInspectorElement {
         borderMarginBottomKey = try AJRInspectorKey(key: "borderMarginBottom", xmlElement: element, inspectorElement: self, defaultValue: defaultBottomMargin)
         borderColorTopKey = try AJRInspectorKey(key: "borderColorTop", xmlElement: element, inspectorElement: self, defaultValue: NSColor(named: .inspectorDividerColor, bundle:Bundle(for: Self.self)))
         borderColorBottomKey = try AJRInspectorKey(key: "borderColorBottom", xmlElement: element, inspectorElement: self)
+        hiddenKey = try AJRInspectorKey(key: "hidden", xmlElement: element, inspectorElement: self, defaultValue: false)
         
         let view = AJRBlockDrawingView(frame: NSRect.zero)
         if viewController?.debugFrames ?? false {
@@ -106,6 +109,24 @@ open class AJRInspectorSection: AJRInspectorElement {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentRenderer = borderRenderer
         self.view = view
+
+        weak var weakSelf = self
+        hiddenKey?.addObserver {
+            if let strongSelf = weakSelf {
+                if strongSelf.hiddenKey?.value ?? false {
+                    strongSelf.view.isHidden = true
+//                    if strongSelf.heightConstaint == nil {
+//                        strongSelf.heightConstaint = strongSelf.view.heightAnchor.constraint(equalToConstant: 0.0)
+//                        strongSelf.view.addConstraint(strongSelf.heightConstaint!)
+//                    }
+                } else {
+                    strongSelf.view.isHidden = false
+//                    if strongSelf.heightConstaint != nil {
+//                        strongSelf.view.removeConstraint(strongSelf.heightConstaint!)
+//                    }
+                }
+            }
+        }
     }
     
     // MARK: - Children

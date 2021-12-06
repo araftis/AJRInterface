@@ -31,6 +31,19 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Cocoa
 
+private class _AJRFlippedStackView : NSStackView {
+
+    public convenience init(views: [NSView], orientation: NSUserInterfaceLayoutOrientation) {
+        self.init(views: views)
+        self.orientation = orientation
+    }
+
+    open override var isFlipped: Bool {
+        return true
+    }
+
+}
+
 public extension NSColor.Name {
     
     static var inspectorDividerColor = NSColor.Name("inspectorDividerColor")
@@ -282,50 +295,15 @@ open class AJRInspectorViewController: NSViewController {
                 // There is content, and the content produced at least one inspector in common to all the content.
                 view = activeInspectorView
 
-                let stackedView = AJRBlockDrawingView(frame: NSRect.zero, flipped: true)
-                if debugFrames {
-                    stackedView.xColor = NSColor.orange
-                }
-                stackedView.translatesAutoresizingMaskIntoConstraints = false
-
-                var previousView : NSView? = nil
+                var views = [NSView]()
                 for inspectorId in inspectors.reversed() {
                     if let inspector = inspector(for: inspectorId) {
-                        let inspectorView = inspector.view
                         newInspectors.append(inspector)
-
-                        stackedView.addSubview(inspectorView)
-                        // Set up our shared constraints, first.
-                        stackedView.addConstraints([
-                            stackedView.leftAnchor.constraint(equalTo: inspectorView.leftAnchor),
-                            inspectorView.rightAnchor.constraint(equalTo: stackedView.rightAnchor),
-                        ])
-                        // Basically, if we have a previous view, then the top constraint of the view is to previous view's bottomAnchor, otherwise it's to stackedView's topAnchor.
-                        if let previousView = previousView {
-                            stackedView.addConstraints([
-                                previousView.bottomAnchor.constraint(equalTo: inspectorView.topAnchor),
-                            ])
-                        } else {
-                            stackedView.addConstraints([
-                                stackedView.topAnchor.constraint(equalTo: inspectorView.topAnchor),
-                            ])
-                        }
-
-                        previousView = inspectorView
+                        views.append(inspector.view)
                     }
                 }
-                if let previousView = previousView {
-                    // If previousView is no nil, then we actually generated some content for display, so make it our scroll view's document view. Handily, it's also the last view in our stack, which we'll use to set up the final, bottom anchor.
-                    stackedView.addConstraints([
-                        previousView.bottomAnchor.constraint(equalTo: stackedView.bottomAnchor)
-                    ])
-                    let clipView = activeInspectorView.contentView
-                    activeInspectorView.documentView = stackedView
-                    clipView.addConstraints([
-                        stackedView.topAnchor.constraint(equalTo: clipView.topAnchor),
-                        stackedView.leftAnchor.constraint(equalTo: clipView.leftAnchor),
-                        stackedView.rightAnchor.constraint(equalTo: clipView.rightAnchor),
-                    ])
+                if views.count > 0 {
+                    activeInspectorView.documentView = _AJRFlippedStackView(views: views, orientation: .vertical)
                 } else {
                     activeInspectorView.documentView = NSView()
                 }
