@@ -41,8 +41,7 @@ open class AJRInspectorSection: AJRInspectorElement {
     open var borderColorTopKey : AJRInspectorKey<NSColor>?
     open var borderColorBottomKey : AJRInspectorKey<NSColor>?
     open var hiddenKey : AJRInspectorKey<Bool>?
-    open var heightConstaint : NSLayoutConstraint?
-    
+
     // MARK: - Creation
     
     public required init(element: XMLNode, parent: AJRInspectorElement?, viewController: AJRObjectInspectorViewController, bundle: Bundle = Bundle.main, userInfo: [AnyHashable:Any]? = nil) throws {
@@ -115,15 +114,8 @@ open class AJRInspectorSection: AJRInspectorElement {
             if let strongSelf = weakSelf {
                 if strongSelf.hiddenKey?.value ?? false {
                     strongSelf.view.isHidden = true
-//                    if strongSelf.heightConstaint == nil {
-//                        strongSelf.heightConstaint = strongSelf.view.heightAnchor.constraint(equalToConstant: 0.0)
-//                        strongSelf.view.addConstraint(strongSelf.heightConstaint!)
-//                    }
                 } else {
                     strongSelf.view.isHidden = false
-//                    if strongSelf.heightConstaint != nil {
-//                        strongSelf.view.removeConstraint(strongSelf.heightConstaint!)
-//                    }
                 }
             }
         }
