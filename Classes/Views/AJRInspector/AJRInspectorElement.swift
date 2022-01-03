@@ -126,13 +126,49 @@ open class AJRInspectorElement: NSObject {
 
             secondToLast.lastKeyView.nextKeyView = last.firstKeyView
         }
+        child.didAddToParent()
     }
-    
-    public var isFirstChild : Bool {
-        if let parent = self.parent {
-            return parent.firstChild === self
+
+    open var siblings : [AJRInspectorElement] {
+        if let parent = parent {
+            return parent.children
         }
-        return false
+
+        if let c = viewController?.inspectorViewController {
+            return c.activeInspectors.compactMap { $0.inspectorContent }
+        }
+
+        return [self]
     }
-    
+
+    /**
+     Returns `true` if the receiver is the first child of its parent.
+     */
+    open var isFirstChild : Bool {
+//        if let parent = parent {
+//            return parent.firstChild === self
+//        }
+//        return false
+        return siblings.first === self
+    }
+
+    /**
+     Returns `true` if the receiver is the last child of its parent.
+     */
+    open var isLastChild : Bool {
+        return siblings.last === self
+    }
+
+    /**
+     The default implementation does nothing, but this is called when your object is added to a parent. This potentially allows you to do some setup which could be dependent on your parent and at least some of your siblings. Note that when this is called siblings already added will be available to your object, but not sublings that will follow.
+     */
+    public func didAddToParent() -> Void {
+    }
+
+    /**
+     For objects in a section (or group), this will be called when the group has initialized and added all children. This is potentially useful for doing some final initialization that might be depended on your element's position within its parent.
+     */
+    public func didAddAllChildren() -> Void {
+    }
+
 }

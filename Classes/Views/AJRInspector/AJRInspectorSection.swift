@@ -57,10 +57,8 @@ open class AJRInspectorSection: AJRInspectorElement {
                 if let childToAdd = self.childToAdd {
                     add(child: childToAdd)
                 }
-                if let lastView = view.subviews.last {
-                    view.addConstraints([
-                        lastView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -self.bottomMargin)
-                        ])
+                for child in self.children {
+                    child.didAddAllChildren()
                 }
             }
         }
@@ -100,13 +98,12 @@ open class AJRInspectorSection: AJRInspectorElement {
         borderColorTopKey = try AJRInspectorKey(key: "borderColorTop", xmlElement: element, inspectorElement: self, defaultValue: NSColor(named: .inspectorDividerColor, bundle:Bundle(for: Self.self)))
         borderColorBottomKey = try AJRInspectorKey(key: "borderColorBottom", xmlElement: element, inspectorElement: self)
         hiddenKey = try AJRInspectorKey(key: "hidden", xmlElement: element, inspectorElement: self, defaultValue: false)
-        
-        let view = AJRBlockDrawingView(frame: NSRect.zero)
-        if viewController?.debugFrames ?? false {
-            view.xColor = debugXColor
-        }
+
+        let view = NSStackView(frame: NSRect.zero)
+        view.orientation = .vertical
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.contentRenderer = borderRenderer
+        view.spacing = 2.0
+        //view.contentRenderer = borderRenderer
         self.view = view
 
         weak var weakSelf = self
@@ -140,7 +137,6 @@ open class AJRInspectorSection: AJRInspectorElement {
     open override func add(child: AJRInspectorElement) {
         if let childToAdd = childToAdd {
             // Capture this, so that we can determine who our adjacent ancestor is, after we've added. This is easier than dealing with indexes into our children array.
-            let lastView = view.subviews.last
             super.add(child: childToAdd)
             
             var childView : NSView? = nil
@@ -154,21 +150,8 @@ open class AJRInspectorSection: AJRInspectorElement {
                 self.childToAdd = child
             }
             
-            if let view = self.view, let childView = childView {
-                view.addSubview(childView)
-                view.addConstraints([
-                    childView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0.0),
-                    childView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0.0),
-                    ])
-                if let lastView = lastView {
-                    view.addConstraints([
-                        childView.topAnchor.constraint(equalTo: lastView.bottomAnchor, constant: verticalSpacing(fromView: lastView)),
-                        ])
-                } else {
-                    view.addConstraints([
-                        childView.topAnchor.constraint(equalTo: view.topAnchor, constant: self.topMargin),
-                        ])
-                }
+            if let view = self.view as? NSStackView, let childView = childView {
+                view.addView(childView, in: .top)
             }
         } else {
             self.childToAdd = child

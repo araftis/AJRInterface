@@ -31,7 +31,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Cocoa
 
-private class _AJRFlippedStackView : NSStackView {
+internal class _AJRFlippedStackView : NSStackView {
 
     public convenience init(views: [NSView], orientation: NSUserInterfaceLayoutOrientation) {
         self.init(views: views)
@@ -303,7 +303,16 @@ open class AJRInspectorViewController: NSViewController {
                     }
                 }
                 if views.count > 0 {
-                    activeInspectorView.documentView = _AJRFlippedStackView(views: views, orientation: .vertical)
+                    let stackView = _AJRFlippedStackView(views: views, orientation: .vertical)
+                    activeInspectorView.documentView = stackView
+                    stackView.distribution = .fill
+                    stackView.translatesAutoresizingMaskIntoConstraints = false
+                    if let view = activeInspectorView.documentView as? _AJRFlippedStackView {
+                        NSLayoutConstraint.activate([
+                            view.leadingAnchor.constraint(equalTo: activeInspectorView.leadingAnchor),
+                            view.trailingAnchor.constraint(equalTo: activeInspectorView.trailingAnchor),
+                        ])
+                    }
                 } else {
                     activeInspectorView.documentView = NSView()
                 }
@@ -333,6 +342,14 @@ open class AJRInspectorViewController: NSViewController {
 
         // Finally, now that everyone is looking at our array controller, "ping" the array controller to get everyone to update their display.
         arrayController.content = content
+
+        for inspector in activeInspectors {
+            if let children = inspector.inspectorContent?.children {
+                for inspectorChild in children {
+                    inspectorChild.didAddAllChildren()
+                }
+            }
+        }
 
         // Now that the arrayController has the new content, we can assign the controller to the inspectors
         for inspector in newInspectors {

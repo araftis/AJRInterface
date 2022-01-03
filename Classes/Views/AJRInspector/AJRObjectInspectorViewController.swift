@@ -93,6 +93,7 @@ open class AJRObjectInspectorViewController: NSViewController {
         self.name = name
         self._xmlName = xmlName
         self._bundle = bundle
+        self.inspectorViewController = parent
         super.init(nibName: nil, bundle: nil)
     }
     

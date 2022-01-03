@@ -37,7 +37,7 @@ public typealias AJRInspectorXMLReadCallback = (_ url: URL) -> Void
 
 @objcMembers
 open class AJRInspectorContent: AJRInspectorElement {
-    
+
     // MARK: - Properties
     
     private var xmlReadCallback : AJRInspectorXMLReadCallback? {

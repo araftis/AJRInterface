@@ -37,6 +37,7 @@ open class AJRInspectorGroup: AJRInspectorSection {
     open var titleKey : AJRInspectorKey<String>?
     open var visualEffectView : NSVisualEffectView!
     open var titleLabel : NSTextField!
+    open var separatorView : AJRBlockDrawingView? = nil
     
     // MARK: - View
 
@@ -70,12 +71,10 @@ open class AJRInspectorGroup: AJRInspectorSection {
             visualEffectView = NSVisualEffectView(frame: NSRect.zero)
             visualEffectView.translatesAutoresizingMaskIntoConstraints = false
 
-            view.addSubview(visualEffectView)
+            (view as? NSStackView)?.addView(visualEffectView, in: .top)
             view.addConstraints([
                 visualEffectView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0.0),
                 visualEffectView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0.0),
-                visualEffectView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0.0),
-                visualEffectView.heightAnchor.constraint(greaterThanOrEqualToConstant:15.0),
             ])
 
             titleLabel = NSTextField(labelWithString: "Title")
@@ -96,20 +95,45 @@ open class AJRInspectorGroup: AJRInspectorSection {
             titleKey.addObserver {
                 weakSelf?.titleLabel?.stringValue = weakSelf?.titleKey?.value ?? ""
             }
+            borderColorBottomKey?.addObserver {
+                // We just need to make sure this updates.
+                weakSelf?.separatorView?.needsDisplay = true
+            }
         }
     }
 
     // MARK: - Utilities
 
+    /**
+     Returns the nesting level of the group within other groups. This is useful for determining how to format the title. For example, the groups at level 1 have a stronger appearance than lower groups. Currently, only two title styles are used, those at depth 1 and greater than 1.
+     */
+    open var groupDepth : Int {
+        var element : AJRInspectorElement? = self
+        var depth = 0
+
+        while element != nil {
+            if element is AJRInspectorGroup {
+                depth += 1
+            }
+            element = element?.parent
+        }
+
+        return depth
+    }
+
     open func updateTitleLabel() -> Void {
-        if hasChildGroup {
+        // A little overkill at the moment, since we only have two depths, but I wanted to leave things open for the future.
+        let depth = groupDepth
+
+        if depth == 1 {
             titleLabel.textColor = NSColor.headerTextColor
             titleLabel.font = NSFont.systemFont(ofSize: viewController!.fontSize + 2.0, weight: .bold)
             visualEffectView.blendingMode = .withinWindow
             visualEffectView.material = .headerView
-        } else {
-            titleLabel?.font = NSFont.systemFont(ofSize: viewController!.fontSize, weight: .bold)
+        } else if depth > 1 {
+            titleLabel?.font = NSFont.systemFont(ofSize: viewController!.fontSize + 2.0, weight: .bold)
             titleLabel?.backgroundColor = nil
+            titleLabel?.textColor = NSColor.headerTextColor
             visualEffectView?.blendingMode = .withinWindow
             visualEffectView?.material = .windowBackground
         }
@@ -117,12 +141,6 @@ open class AJRInspectorGroup: AJRInspectorSection {
 
     // MARK: - Children
 
-    open var hasChildGroup : Bool {
-        return children.any { (child) -> Bool in
-            return child is AJRInspectorGroup
-        } != nil
-    }
-    
     open override func verticalSpacing(fromView view: NSView) -> CGFloat {
         return view == titleLabel ? 2.0 : super.verticalSpacing(fromView: view)
     }
@@ -144,9 +162,55 @@ open class AJRInspectorGroup: AJRInspectorSection {
         }
     }
 
-    open override func add(child: AJRInspectorElement) {
-        super.add(child: child)
+    open override func didAddAllChildren() {
+        // TODO: Remove this debug code, once I'm sure everything is working.
+//        print("title: \(groupDepth): \(titleKey?.value ?? "")")
+//        if titleKey?.value == "Graphic" {
+//            print("break here")
+//        }
         updateTitleLabel()
+
+        if let view = view as? NSStackView {
+            let depth = groupDepth
+            var addBorder = false
+
+            // Yes, these could probably be combined into one big expression, but that'd just make it harder to read.
+            if depth == 1 {
+                if let parent = parent as? AJRInspectorContent {
+                    addBorder = isLastChild && parent.isLastChild
+                } else {
+                    addBorder = !isLastChild
+                }
+            } else if depth > 1 {
+                addBorder = !isLastChild
+            }
+
+            if addBorder && separatorView == nil {
+                separatorView = AJRBlockDrawingView(frame: NSRect.zero)
+                if let separatorView = separatorView {
+                    separatorView.addConstraint(separatorView.heightAnchor.constraint(equalToConstant: 5.0))
+                    weak var weakSelf = self
+                    separatorView.contentRenderer = { (context, bounds) in
+                        if let self = weakSelf {
+                            var color : NSColor? = depth == 1 ? NSColor.red : NSColor.blue //self.borderColorBottomKey?.value
+                            if color == nil {
+                                color = NSColor.separatorColor
+                            }
+                            color?.set()
+                            var rect = CGRect(x: bounds.minX, y: bounds.minY + bounds.height / 2.0, width: bounds.width, height: 1.0)
+                            // TODO: Use margins
+                            rect.origin.x += 5.0
+                            rect.size.width -= 10.0
+                            rect.frame()
+                        }
+                    }
+                    view.addView(separatorView, in: .top)
+                }
+            } else if !addBorder, let separatorView = separatorView {
+                separatorView.removeFromSuperview()
+                self.separatorView = nil
+            }
+        }
     }
 
 }
