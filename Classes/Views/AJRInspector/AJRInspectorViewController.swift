@@ -304,10 +304,16 @@ open class AJRInspectorViewController: NSViewController {
                 }
                 if views.count > 0 {
                     let stackView = _AJRFlippedStackView(views: views, orientation: .vertical)
-                    activeInspectorView.documentView = stackView
-                    stackView.distribution = .fill
+                    // NOTE: As per the documentation, you'd think we could use stackView.alignment = .width, but apparently that's invalid, and just sets the alignment equal to .notAnAttribute.
+                    for view in views {
+                        // NOTE: Order is important. This must be a constraint added to the stack view, not the subview.
+                        let constraint = stackView.widthAnchor.constraint(equalTo: view.widthAnchor)
+                        constraint.priority = .init(999)
+                        stackView.addConstraint(constraint)
+                    }
                     stackView.translatesAutoresizingMaskIntoConstraints = false
-                    if let view = activeInspectorView.documentView as? _AJRFlippedStackView {
+                    activeInspectorView.documentView = stackView
+                    if let view = activeInspectorView.documentView as? NSStackView {
                         NSLayoutConstraint.activate([
                             view.leadingAnchor.constraint(equalTo: activeInspectorView.leadingAnchor),
                             view.trailingAnchor.constraint(equalTo: activeInspectorView.trailingAnchor),

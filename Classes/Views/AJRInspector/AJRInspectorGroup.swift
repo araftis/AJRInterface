@@ -41,8 +41,6 @@ open class AJRInspectorGroup: AJRInspectorSection {
     
     // MARK: - View
 
-    internal override var debugXColor : NSColor { return NSColor.blue }
-
     open override var borderRenderer : AJRDrawingBlock? {
         weak var weakSelf = self
         return { (context, bounds) in
@@ -192,7 +190,8 @@ open class AJRInspectorGroup: AJRInspectorSection {
                     weak var weakSelf = self
                     separatorView.contentRenderer = { (context, bounds) in
                         if let self = weakSelf {
-                            var color : NSColor? = depth == 1 ? NSColor.red : NSColor.blue //self.borderColorBottomKey?.value
+                            // Useful for debugging: var color : NSColor? = depth == 1 ? NSColor.red : NSColor.blue
+                            var color : NSColor? = self.borderColorBottomKey?.value
                             if color == nil {
                                 color = NSColor.separatorColor
                             }

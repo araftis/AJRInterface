@@ -66,8 +66,6 @@ open class AJRInspectorSection: AJRInspectorElement {
     
     // MARK: - View
     
-    internal var debugXColor : NSColor { return NSColor.purple }
-    
     open var borderRenderer : AJRDrawingBlock? {
         if let parent = parent as? AJRInspectorSection, parent.childToAdd != nil {
             weak var weakSelf = self
@@ -152,6 +150,10 @@ open class AJRInspectorSection: AJRInspectorElement {
             
             if let view = self.view as? NSStackView, let childView = childView {
                 view.addView(childView, in: .top)
+                // NOTE: Order is important. This must be a constraint added to the stack view, not the subview.
+                let constraint = view.widthAnchor.constraint(equalTo: childView.widthAnchor)
+                constraint.priority = .init(999)
+                view.addConstraint(constraint)
             }
         } else {
             self.childToAdd = child
