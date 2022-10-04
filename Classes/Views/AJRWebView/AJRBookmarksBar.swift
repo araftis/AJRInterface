@@ -58,13 +58,13 @@ open class AJRBookmarkLayer : CALayer {
         return AJRImages.imageNamed("AJRPullDown", forClass: self)!
     }
     public static var highlightedPullDownImage : NSImage = {
-        return AJRImages.imageNamed("AJRPullDown", forClass: self)!.ajr_imageTinted(with: highlightedForegroundColor)
+        return AJRImages.imageNamed("AJRPullDown", forClass: AJRBookmarkLayer.self)!.ajr_imageTinted(with: highlightedForegroundColor)
     }()
     public static var highlightedInactivePullDownImage : NSImage = {
-        return AJRImages.imageNamed("AJRPullDown", forClass: self)!.ajr_imageTinted(with: highlightedInactiveForegroundColor)
+        return AJRImages.imageNamed("AJRPullDown", forClass: AJRBookmarkLayer.self)!.ajr_imageTinted(with: highlightedInactiveForegroundColor)
     }()
     public static var inactivePullDownImage : NSImage = {
-        return AJRImages.imageNamed("AJRPullDown", forClass: self)!.ajr_imageTinted(with: inactiveForegroundColor)
+        return AJRImages.imageNamed("AJRPullDown", forClass: AJRBookmarkLayer.self)!.ajr_imageTinted(with: inactiveForegroundColor)
     }()
 
     // MARK: - Properties
@@ -216,10 +216,10 @@ open class AJRBookmarksBar: NSView, NSMenuDelegate {
     public class var activeBorderColor : NSColor { return NSColor(deviceWhite: 0.715, alpha: 1.0) }
     public class var inactiveBorderColor : NSColor { return NSColor(deviceWhite: 0.875, alpha: 1.0) }
     public static var activeOverflowImage : NSImage = {
-        return AJRImages.imageNamed("AJRBookmarksOverflow", forClass: self)!.ajr_imageTinted(with: AJRBookmarkLayer.activeForegroundColor)
+        return AJRImages.imageNamed("AJRBookmarksOverflow", forClass: AJRBookmarksBar.self)!.ajr_imageTinted(with: AJRBookmarkLayer.activeForegroundColor)
     }()
     public static var inactiveOverflowImage : NSImage = {
-        return AJRImages.imageNamed("AJRBookmarksOverflow", forClass: self)!.ajr_imageTinted(with: AJRBookmarkLayer.inactiveForegroundColor)
+        return AJRImages.imageNamed("AJRBookmarksOverflow", forClass: AJRBookmarksBar.self)!.ajr_imageTinted(with: AJRBookmarkLayer.inactiveForegroundColor)
     }()
 
     internal static var buttonGap : CGFloat = 0.0
