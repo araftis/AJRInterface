@@ -625,20 +625,6 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = AJRInterface;
 		};
-		FAA82A4A272B8CFC009CAB51 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FAD49E6F263E333E00CE2C4C /* AJRBezierPathTests.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FAD49E7F263E340100CE2C4C;
-			remoteInfo = AJRBezierPathTests;
-		};
-		FAD49E73263E333E00CE2C4C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FAD49E6F263E333E00CE2C4C /* AJRBezierPathTests.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FAE4609914292630006AB282;
-			remoteInfo = AJRBezierPathTests;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -1113,7 +1099,6 @@
 		FAD0C74E1433DFC80027168E /* AJRSplitViewBehavior.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRSplitViewBehavior.m; sourceTree = "<group>"; usesTabs = 1; };
 		FAD38A2E25B133D600383EA3 /* NSPrinter+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSPrinter+Extensions.h"; sourceTree = "<group>"; };
 		FAD38A2F25B133D600383EA3 /* NSPrinter+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSPrinter+Extensions.m"; sourceTree = "<group>"; };
-		FAD49E6F263E333E00CE2C4C /* AJRBezierPathTests.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AJRBezierPathTests.xcodeproj; path = ../../Testing/AJRBezierPathTests/AJRBezierPathTests.xcodeproj; sourceTree = "<group>"; };
 		FAD61D0122556132004CDD37 /* AJRInspectorTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorTextField.swift; sourceTree = "<group>"; };
 		FAD61D0722559373004CDD37 /* AJRInspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorViewController.swift; sourceTree = "<group>"; };
 		FAD61D0E2255958E004CDD37 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AJRInspectorViewController.strings; sourceTree = "<group>"; };
@@ -1313,7 +1298,6 @@
 		0867D691FE84028FC02AAC07 /* AJRInterface */ = {
 			isa = PBXGroup;
 			children = (
-				FAD49E6F263E333E00CE2C4C /* AJRBezierPathTests.xcodeproj */,
 				FA2876FD2610281F00F5BBE8 /* LICENSE.md */,
 				FA8E36C425C0C48400EB554F /* README.md */,
 				FA2F99880E93F0AA004F1A14 /* AJRInterface.h */,
@@ -2383,15 +2367,6 @@
 			path = AJRSplitView;
 			sourceTree = "<group>";
 		};
-		FAD49E70263E333E00CE2C4C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				FAD49E74263E333E00CE2C4C /* AJRBezierPathTests.app */,
-				FAA82A4B272B8CFC009CAB51 /* AJRBezierPathTests.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		FAD61D252259D972004CDD37 /* AJRInspectorSliceTable */ = {
 			isa = PBXGroup;
 			children = (
@@ -2952,12 +2927,6 @@
 			mainGroup = 0867D691FE84028FC02AAC07 /* AJRInterface */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = FAD49E70263E333E00CE2C4C /* Products */;
-					ProjectRef = FAD49E6F263E333E00CE2C4C /* AJRBezierPathTests.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				8DC2EF4F0486A6940098B216 /* AJRInterface */,
@@ -2966,23 +2935,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		FAA82A4B272B8CFC009CAB51 /* AJRBezierPathTests.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = AJRBezierPathTests.app;
-			remoteRef = FAA82A4A272B8CFC009CAB51 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		FAD49E74263E333E00CE2C4C /* AJRBezierPathTests.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = AJRBezierPathTests2.app;
-			remoteRef = FAD49E73263E333E00CE2C4C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8DC2EF520486A6940098B216 /* Resources */ = {
