@@ -103,11 +103,11 @@ static NSInteger draggingRow;
     NSRect rowRect = [self rectOfRow:rowIndex];
     
     if (rowIndex == draggingRow) {
-        [[NSColor controlShadowColor] set];
+        [NSColor.underPageBackgroundColor set];
     } else if ([self isRowSelected:rowIndex]) {
-        [[NSColor selectedControlColor] set];
+        [NSColor.selectedControlColor set];
     } else {
-        [[self backgroundColor] set];
+        [self.backgroundColor set];
     }
     NSRectFill(rowRect);
     if ([self gridStyleMask]) {

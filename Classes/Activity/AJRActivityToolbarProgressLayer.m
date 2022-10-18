@@ -48,7 +48,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 
 - (void)ajr_commonInit {
-	[self setColor:[[NSColor alternateSelectedControlColor] CGColor]];
+    [self setColor:[[NSColor selectedContentBackgroundColor] CGColor]];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {

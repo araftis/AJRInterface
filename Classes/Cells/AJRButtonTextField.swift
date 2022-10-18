@@ -85,7 +85,7 @@ open class AJRButtonTextField : NSTextField {
     open func setImages(withTemplate templateImage: NSImage?) -> Void {
         if let cell = cell as? AJRButtonTextFieldCell {
             cell.image = templateImage?.ajr_templateImage(with: .secondaryLabelColor)
-            cell.alternateImage = templateImage?.ajr_templateImage(with: .alternateSelectedControlColor)
+            cell.alternateImage = templateImage?.ajr_templateImage(with: .selectedContentBackgroundColor)
             cell.highlightImage = templateImage?.ajr_templateImage(with: .controlBackgroundColor)
         }
     }

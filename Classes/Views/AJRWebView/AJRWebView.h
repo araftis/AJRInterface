@@ -50,7 +50,7 @@ extern NSString * const MMWebDocumentKey;
 
 @end
 
-@interface AJRWebView : WKWebView <NSDraggingDestination>
+@interface AJRWebView : WKWebView <NSDraggingDestination, NSMenuItemValidation>
 
 @property (nullable,nonatomic,weak) id <AJRWebViewUIDelegate> delegate;
 @property (nonatomic,class,readonly) NSImage *defaultFavoriteIcon;

@@ -56,7 +56,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (void)ajr_commonInit {
     NSImage *image = [AJRImages imageNamed:@"AJRWebReloadIcon" forObject:self];
     _reloadButton = [NSButton buttonWithImage:[image ajr_imageTintedWithColor:[NSColor colorWithCalibratedWhite:0.3 alpha:1.0]] target:nil action:@selector(reload:)];
-    _reloadButton.alternateImage = [image ajr_imageTintedWithColor:[NSColor alternateSelectedControlColor]];
+    _reloadButton.alternateImage = [image ajr_imageTintedWithColor:[NSColor selectedContentBackgroundColor]];
     [_reloadButton setBordered:NO];
     [_reloadButton setBezelStyle:NSBezelStyleSmallSquare];
     [_reloadButton setButtonType:NSButtonTypeMomentaryChange];

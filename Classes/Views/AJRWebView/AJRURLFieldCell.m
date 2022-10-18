@@ -149,7 +149,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			progressFrame.size.width *= self->_progress;
 			progressFrame.size.height = 2.0;
 			NSRectFill(progressFrame);
-            [[NSColor alternateSelectedControlColor] set];
+            [[NSColor selectedContentBackgroundColor] set];
             NSRectFill(progressFrame);
 		}
 		

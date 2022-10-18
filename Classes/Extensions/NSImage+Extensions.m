@@ -39,6 +39,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import <AJRInterfaceFoundation/AJRImageUtilities.h>
 #import <AJRInterface/AJRInterface-Swift.h>
 
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
+
 static char * const DrawNaturalSizeKey = "naturalSize";
 
 @interface AJRImageDecodingPlaceholder : NSObject <AJRXMLDecoding>
@@ -340,7 +342,8 @@ static char * const DrawNaturalSizeKey = "naturalSize";
 + (BOOL)ajr_supportsFileExtension:(NSString *)extension {
     NSString *utiType;
     
-    utiType = (__bridge NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)[extension lowercaseString], NULL);
+    utiType = [[UTType typeWithFilenameExtension:extension.lowercaseString] preferredMIMEType];
+    //utiType = (__bridge NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)[extension lowercaseString], NULL);
     
     return [[NSImage imageTypes] containsObject:utiType];
 }

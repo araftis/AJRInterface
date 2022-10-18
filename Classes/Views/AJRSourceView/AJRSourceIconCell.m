@@ -185,7 +185,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         increment = (NSInteger)(([NSDate timeIntervalSinceReferenceDate] - [[_activity startTime] timeIntervalSinceReferenceDate]) * 12.0) % steps;
         
         path = [[NSBezierPath alloc] init];
-        [path setLineCapStyle:NSRoundLineCapStyle];
+        [path setLineCapStyle:NSLineCapStyleRound];
         [path setLineWidth:lineWidth];
         for (x = 0; x < steps; x++) {
             NSPoint        point1, point2;

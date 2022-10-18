@@ -196,7 +196,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     /// set the clipping path to the bubble, allows us to draw interior shadows.
     innerPath = [[NSBezierPath alloc] init];
     // Make sure to use this winding rule, since we don't know the directions of our subpaths.
-    [innerPath setWindingRule:NSEvenOddWindingRule];
+    [innerPath setWindingRule:NSWindingRuleEvenOdd];
     [innerPath appendBezierPathWithRect:NSInsetRect(rect, -25.0, -25.0)];
     [innerPath appendBezierPath:_path];
 

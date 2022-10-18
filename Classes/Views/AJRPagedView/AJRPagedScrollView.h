@@ -33,7 +33,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @class AJRPagedView;
 
-@interface AJRPagedScrollView : NSScrollView {
+@interface AJRPagedScrollView : NSScrollView <NSMenuItemValidation> {
     NSPopUpButton *_viewPopUp;
     NSTextField *_pagesLabel;
     NSGradient *_controlsGradient;

@@ -79,7 +79,7 @@ open class AJRInspectorKeyPath<T> : NSObject {
     
     public var selectionType : AJRValueSelectionType {
         if let keyPath = keyPath, let raw = inspectorElement?.viewController?.value(forKeyPath: keyPath) {
-            if (raw as AnyObject) === NSMultipleValuesMarker {
+            if (raw as? NSBindingSelectionMarker) == .multipleValues {
                 return .multiple
             }
             return NSIsControllerMarker(raw) ? .none : .single

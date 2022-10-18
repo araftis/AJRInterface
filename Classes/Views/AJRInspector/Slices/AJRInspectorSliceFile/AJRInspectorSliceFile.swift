@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import UniformTypeIdentifiers
 
 @objcMembers
 open class AJRInspectorSliceFile: AJRInspectorSliceField {
@@ -86,9 +87,11 @@ open class AJRInspectorSliceFile: AJRInspectorSliceField {
             savePanel.directoryURL = url
         }
         if let types = utisKey?.value {
-            savePanel.allowedFileTypes = types
+            savePanel.allowedContentTypes = types.compactMap({ string in
+                return UTType(filenameExtension: string)
+            })
         } else {
-            savePanel.allowedFileTypes = nil
+            savePanel.allowedContentTypes = []
         }
         savePanel.beginSheetModal(for: field.window!) { (response) in
             if response == .OK {

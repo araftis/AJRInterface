@@ -184,7 +184,7 @@ NSString *AJRCalendarViewEventsKey = @"events";
         _eventStore = [[EKEventStore alloc] init];
         self.displayDate = [NSDate date];
         _backgroundColor = [NSColor textBackgroundColor];
-        _selectedBackgroundColor = [[NSColor controlHighlightColor] colorWithAlphaComponent:0.5];
+        _selectedBackgroundColor = [[NSColor selectedControlColor] colorWithAlphaComponent:0.5];
         _todayBackgroundColor = [[NSColor selectedControlColor] colorWithAlphaComponent:0.25];
         _gridColor = [NSColor gridColor];
         _font = [NSFont systemFontOfSize:[NSFont systemFontSize]];
@@ -1325,8 +1325,8 @@ NSString *AJRCalendarViewEventsKey = @"events";
         [printInfo setOrientation:NSPaperOrientationLandscape];
     }
     [printInfo setVerticallyCentered:NO]; // Don't vertically center the content on the page
-    [printInfo setHorizontalPagination:NSFitPagination]; // Fit content horizontally onto a single page width
-    [printInfo setVerticalPagination:NSFitPagination]; // Fit content horizontally onto a single page width
+    [printInfo setHorizontalPagination:NSPrintingPaginationModeFit]; // Fit content horizontally onto a single page width
+    [printInfo setVerticalPagination:NSPrintingPaginationModeFit]; // Fit content horizontally onto a single page width
     [printInfo setTopMargin:36.0];
     [printInfo setBottomMargin:36.0];
     [printInfo setLeftMargin:36.0];

@@ -189,7 +189,7 @@ static NSMutableArray    *_defaultColors = nil;
     center.y = rint(bounds.origin.y + bounds.size.height / 2.0) + 2.0;
     
     path = [[NSBezierPath alloc] init];
-    [path setLineCapStyle:NSRoundLineCapStyle];
+    [path setLineCapStyle:NSLineCapStyleRound];
 
     [path moveToPoint:(NSPoint){center.x + radius, center.y}];
     [path appendBezierPathWithArcWithCenter:center radius:radius startAngle:0.0 endAngle:360.0];
@@ -211,7 +211,7 @@ static NSMutableArray    *_defaultColors = nil;
     [path stroke];
     
     wedge = [[NSBezierPath alloc] init];
-    [wedge setLineCapStyle:NSRoundLineCapStyle];
+    [wedge setLineCapStyle:NSLineCapStyleRound];
     angle = 0;
     if (_totalValue >= 0.0) {
         for (x = 0; x < [_keys count]; x++) {

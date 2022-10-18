@@ -48,7 +48,7 @@ open class AJRInspectorChoiceObject : AJRInspectorChoiceVariable<Any> {
     open var type : AJRInspectorChoiceObjectType = .object
     
     open var objectPredicate : String!
-    open var objectExpression : AJRExpression!
+    open var objectExpression : AJREvaluation!
     
     open var object : AnyObject?
     
@@ -60,7 +60,7 @@ open class AJRInspectorChoiceObject : AJRInspectorChoiceVariable<Any> {
     override init(element: XMLElement, slice: AJRInspectorSlice, viewController: AJRObjectInspectorViewController, bundle: Bundle = Bundle.main) throws {
         if let predicate = element.attribute(forName: "objectPredicate")?.stringValue {
             objectPredicate = predicate
-            objectExpression = try AJRExpression(string: objectPredicate)
+            objectExpression = try AJRExpression.expression(string: objectPredicate)
             type = .object
         } else if let attribute = element.attribute(forName: "noSelection")?.stringValue?.lowercased(),
             attribute == "true" || attribute == "yes" {
@@ -127,7 +127,7 @@ open class AJRInspectorSliceChoiceObject : AJRInspectorSliceChoice {
                         let expression = choice.objectExpression
                         choice.object = nil
                         for object in objects {
-                            if let result = try? expression?.evaluate(with: object) as? Bool, result {
+                            if let result = try? expression?.evaluate(with: AJREvaluationContext(rootObject: object)) as? Bool, result {
                                 choice.object = object
                                 break
                             }

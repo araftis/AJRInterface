@@ -31,13 +31,13 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import <AppKit/AppKit.h>
 
-@interface AJRScrollViewAccessories : NSObject
+@interface AJRScrollViewAccessories : NSObject <NSControlTextEditingDelegate>
 {
-    IBOutlet NSPanel        *window;
-    IBOutlet NSSlider        *slider;
-    IBOutlet NSTextField    *textField;
-    IBOutlet NSButton        *okButton;
-    IBOutlet NSButton        *cancelButton;
+    IBOutlet NSPanel *window;
+    IBOutlet NSSlider *slider;
+    IBOutlet NSTextField *textField;
+    IBOutlet NSButton *okButton;
+    IBOutlet NSButton *cancelButton;
 }
 
 + (id)sharedInstance;

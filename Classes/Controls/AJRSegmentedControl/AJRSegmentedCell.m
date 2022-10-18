@@ -70,8 +70,8 @@ typedef NSRect (*AJRTitleRectForBoundsIMP)(id, SEL, NSRect);
 - (NSGradient *)selectedActiveGradient {
     if (_selectedActiveGradient == nil) {
         _selectedActiveGradient = [[NSGradient alloc] initWithColorsAndLocations:
-                                   [[NSColor alternateSelectedControlColor] colorByMultiplyingSaturation:0.8 andBrightness:3.0], 0.0,
-                                   [NSColor alternateSelectedControlColor], 1.0,
+                                   [[NSColor selectedContentBackgroundColor] colorByMultiplyingSaturation:0.8 andBrightness:3.0], 0.0,
+                                   [NSColor selectedContentBackgroundColor], 1.0,
                                    nil];
     }
     return _selectedActiveGradient;
@@ -79,8 +79,8 @@ typedef NSRect (*AJRTitleRectForBoundsIMP)(id, SEL, NSRect);
 
 - (NSGradient *)selectedInactiveGradient {
     if (_selectedInactiveGradient == nil) {
-        NSColor *color1 = [NSColor secondarySelectedControlColor];
-        NSColor *color2 = [[NSColor secondarySelectedControlColor] colorByMultiplyingBrightness:0.85];
+        NSColor *color1 = [NSColor unemphasizedSelectedContentBackgroundColor];
+        NSColor *color2 = [[NSColor unemphasizedSelectedContentBackgroundColor] colorByMultiplyingBrightness:0.85];
         _selectedInactiveGradient = [[NSGradient alloc] initWithStartingColor:color1 endingColor:color2];
     }
     return _selectedInactiveGradient;

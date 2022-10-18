@@ -260,7 +260,7 @@ static NSColor *colors[13];
     clippingPath = [[NSBezierPath alloc] init];
     [clippingPath appendBezierPathWithRect:rect];
     [clippingPath appendBezierPath:path];
-    [clippingPath setWindingRule:NSEvenOddWindingRule];
+    [clippingPath setWindingRule:NSWindingRuleEvenOdd];
     [clippingPath addClip];
     
     CGContextTranslateCTM(context, 0.0, -3.0);

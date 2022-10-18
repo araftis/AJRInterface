@@ -139,7 +139,7 @@ open class AJRInspectorKey<T: AJRInspectorValue> : NSObject {
             } catch let error as NSError {
                 AJRLog.warning("Error while accessing selection: \(error.localizedDescription)")
             }
-            if (raw as AnyObject) === NSMultipleValuesMarker {
+            if (raw as AnyObject) === NSBindingSelectionMarker.multipleValues {
                 return .multiple
             }
             return NSIsControllerMarker(raw) ? .none : .single

@@ -52,9 +52,9 @@ public extension NSObject {
             let object = info[.observedObject],
             let keyPath = info[.observedKeyPath] as? String {
             let raw = (object as AnyObject).value(forKeyPath: keyPath)
-            if (raw as AnyObject) === NSMultipleValuesMarker {
+            if (raw as? NSBindingSelectionMarker) == .multipleValues {
                 type = .multiple
-            } else if (raw as AnyObject) === NSNoSelectionMarker {
+            } else if (raw as? NSBindingSelectionMarker) == .noSelection {
                 type = .none
             } else {
                 type = .single

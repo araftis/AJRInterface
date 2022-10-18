@@ -41,27 +41,23 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 static AJRScrollViewAccessories *SELF = nil;
 
-+ (id)allocWithZone:(NSZone *)zone
-{
++ (id)allocWithZone:(NSZone *)zone {
     if (SELF == nil) {
         SELF = [super allocWithZone:zone];
     }
     return SELF;
 }
 
-+ (id)sharedInstance
-{
++ (id)sharedInstance {
     return [[self alloc] init];
 }
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
    [textField setFont:[NSFont userFontOfSize:10.0]];
 }
 
-- (NSInteger)runWithPercent:(NSInteger)percent
-{
-   NSInteger        result;
+- (NSInteger)runWithPercent:(NSInteger)percent {
+   NSInteger result;
    
    if (!window) {
       [NSBundle ajr_loadNibNamed:@"AJRScrollViewAccessories" owner:self];
@@ -83,9 +79,8 @@ static AJRScrollViewAccessories *SELF = nil;
    return result;
 }
 
-- (void)takeIntValueFrom:(id)sender
-{
-   NSInteger        percent = rint(pow([sender floatValue], EXPONENT));
+- (void)takeIntValueFrom:(id)sender {
+   NSInteger percent = rint(pow([sender floatValue], EXPONENT));
 
    if (percent < 100) {
       percent = (percent / 5) * 5;
@@ -100,24 +95,20 @@ static AJRScrollViewAccessories *SELF = nil;
    [textField setIntegerValue:percent];
 }
 
-- (void)ok:sender
-{
+- (void)ok:sender {
    [NSApp stopModalWithCode:NSModalResponseOK];
 }
 
-- (void)cancel:sender
-{
+- (void)cancel:sender {
    [NSApp stopModalWithCode:NSModalResponseCancel];
 }
 
-- (NSInteger)percent
-{
+- (NSInteger)percent {
    return [textField floatValue];
 }
 
-- (void)controlTextDidChange:(NSNotification *)aNotification
-{
-   double        value = [textField doubleValue];
+- (void)controlTextDidChange:(NSNotification *)aNotification {
+   double value = [textField doubleValue];
 
    if (value < 10.0) value = 10.0;
    if (value > 1600.0) value = 1600.0;

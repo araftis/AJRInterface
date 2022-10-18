@@ -127,7 +127,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     path = [self pathForRect:rect];
 
     clippingPath = [[NSBezierPath alloc] init];
-    [clippingPath setWindingRule:NSEvenOddWindingRule];
+    [clippingPath setWindingRule:NSWindingRuleEvenOdd];
     [clippingPath appendBezierPathWithRect:NSInsetRect(rect, -20.0, -20.0)];
     [clippingPath appendBezierPath:path];
     [clippingPath addClip];

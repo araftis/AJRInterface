@@ -376,7 +376,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     
     font = [NSFont boldSystemFontOfSize:pointSize];
 	attributes = @{
-				   NSForegroundColorAttributeName:[NSColor controlHighlightColor],
+				   NSForegroundColorAttributeName:[NSColor selectedControlColor],
 				   NSFontAttributeName:font,
 				   };
     

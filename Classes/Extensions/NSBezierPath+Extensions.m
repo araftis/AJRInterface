@@ -39,17 +39,17 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 static inline CGLineCap AJRLineCapStyleToCGLineCap(NSLineCapStyle lineCapStyle) {
     switch (lineCapStyle) {
-        case NSButtLineCapStyle:   return kCGLineCapButt;
-        case NSRoundLineCapStyle:  return kCGLineCapRound;
-        case NSSquareLineCapStyle: return kCGLineCapSquare;
+        case NSLineCapStyleButt:   return kCGLineCapButt;
+        case NSLineCapStyleRound:  return kCGLineCapRound;
+        case NSLineCapStyleSquare: return kCGLineCapSquare;
     }
 }
 
 static inline CGLineJoin AJRLineLineStyleToCGLineCap(NSLineJoinStyle lineJoinStyle) {
     switch (lineJoinStyle) {
-        case NSBevelLineJoinStyle: return kCGLineJoinBevel;
-        case NSMiterLineJoinStyle: return kCGLineJoinMiter;
-        case NSRoundLineJoinStyle: return kCGLineJoinRound;
+        case NSLineJoinStyleBevel: return kCGLineJoinBevel;
+        case NSLineJoinStyleMiter: return kCGLineJoinMiter;
+        case NSLineJoinStyleRound: return kCGLineJoinRound;
     }
 }
 
@@ -175,16 +175,16 @@ static NSTextView *_textView = nil;
     CGContextBeginPath(context);
     for (x = 0; x < max; x++) {
         switch ([self elementAtIndex:x associatedPoints:points]) {
-            case NSMoveToBezierPathElement:
+            case NSBezierPathElementMoveTo:
                 CGContextMoveToPoint(context, points[0].x, points[0].y);
                 break;
-            case NSLineToBezierPathElement:
+            case NSBezierPathElementLineTo:
                 CGContextAddLineToPoint(context, points[0].x, points[0].y);
                 break;
-            case NSCurveToBezierPathElement:
+            case NSBezierPathElementCurveTo:
                 CGContextAddCurveToPoint(context, points[0].x, points[0].y, points[1].x, points[1].y, points[2].x, points[2].y);
                 break;
-            case NSClosePathBezierPathElement:
+            case NSBezierPathElementClosePath:
                 CGContextClosePath(context);
                 break;
         }
@@ -248,21 +248,21 @@ static NSTextView *_textView = nil;
     if (!self.isEmpty) {
         [self enumerateWithBlock:^(NSBezierPathElement element, NSPoint *points, BOOL *stop) {
             switch (element) {
-                case NSMoveToBezierPathElement: {
+                case NSBezierPathElementMoveTo: {
                     NSPoint point = points[0];
                     [coder encodePoint:point forKey:@"moveTo"];
                     break;
                 }
-                case NSLineToBezierPathElement: {
+                case NSBezierPathElementLineTo: {
                     NSPoint point = points[0];
                     [coder encodePoint:point forKey:@"lineTo"];
                     break;
                 }
-                case NSClosePathBezierPathElement:
+                case NSBezierPathElementClosePath:
                     [coder encodeGroupForKey:@"closePath" usingBlock:^{
                     }];
                     break;
-                case NSCurveToBezierPathElement: {
+                case NSBezierPathElementCurveTo: {
                     NSPoint point = points[0];
                     NSPoint pointC0 = points[1];
                     NSPoint pointC1 = points[2];

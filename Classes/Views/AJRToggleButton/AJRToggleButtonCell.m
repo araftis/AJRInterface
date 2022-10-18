@@ -293,7 +293,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     [backgroundShadowPath appendBezierPathWithRect:NSInsetRect(cellFrame, -10.0, -10.0)];
     [backgroundShadowPath appendBezierPath:border];
     [backgroundShadowPath appendBezierPath:thumb];
-    [backgroundShadowPath setWindingRule:NSEvenOddWindingRule];
+    [backgroundShadowPath setWindingRule:NSWindingRuleEvenOdd];
     [border addClip];
     [grayBorderColor set];
     [[self backgroundShadow] set];
@@ -316,7 +316,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     backgroundShadowPath = [[NSBezierPath alloc] init];
     [backgroundShadowPath appendBezierPathWithRect:NSInsetRect(cellFrame, -10.0, -10.0)];
     [backgroundShadowPath appendBezierPath:thumb];
-    [backgroundShadowPath setWindingRule:NSEvenOddWindingRule];
+    [backgroundShadowPath setWindingRule:NSWindingRuleEvenOdd];
     [thumb addClip];
     [grayBorderColor set];
     [[self thumbInnerShadow] set];

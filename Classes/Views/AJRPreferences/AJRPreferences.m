@@ -193,7 +193,7 @@ static NSMutableArray        *_preferredModuleNames;
 }
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)toolbar {
-    NSMutableArray *items = [NSMutableArray arrayWithObjects:@"Show All", NSToolbarSeparatorItemIdentifier, nil];
+    NSMutableArray *items = [NSMutableArray arrayWithObjects:@"Show All", nil];
     [items addObjectsFromArray:_preferredModuleNames];
     return items;
 }
@@ -202,7 +202,6 @@ static NSMutableArray        *_preferredModuleNames;
     NSMutableArray *items = [NSMutableArray array];
     
     [items addObjectsFromArray:[self names]];
-    [items addObject:NSToolbarSeparatorItemIdentifier];
     [items addObject:NSToolbarSpaceItemIdentifier];
     [items addObject:NSToolbarFlexibleSpaceItemIdentifier];
     

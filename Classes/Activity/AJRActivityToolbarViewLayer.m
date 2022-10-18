@@ -255,9 +255,14 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (void)drawInContext:(CGContextRef)context {
     [NSGraphicsContext drawInContext:context withBlock:^{
-        NSAppearance.currentAppearance = AJRObjectIfKindOfClass(self.delegate, NSView).effectiveAppearance;
-        NSImage *borderImage = [NSApp isActive] ? [AJRImages viewBorderImageFocused] : [AJRImages viewBorderImageUnfocused];
-        [borderImage drawInRect:[self bounds]];
+        NSAppearance *appearance = AJRObjectIfKindOfClass(self.delegate, NSView).effectiveAppearance;
+        if (appearance == nil) {
+            appearance = NSAppearance.currentDrawingAppearance;
+        }
+        [appearance performAsCurrentDrawingAppearance:^{
+            NSImage *borderImage = [NSApp isActive] ? [AJRImages viewBorderImageFocused] : [AJRImages viewBorderImageUnfocused];
+            [borderImage drawInRect:[self bounds]];
+        }];
     }];
 }
 

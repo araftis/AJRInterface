@@ -107,7 +107,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSDictionary *attributes;
     
     attributes = [[NSDictionary allocWithZone:nil] initWithObjectsAndKeys:
-                  [NSColor controlHighlightColor], NSForegroundColorAttributeName,
+                  [NSColor selectedControlColor], NSForegroundColorAttributeName,
                   font, NSFontAttributeName,
                   nil];
     

@@ -74,7 +74,7 @@ const CGFloat AJRMinHaloWidth = 3.0;
     }
     color = [color colorWithAlphaComponent:1.0];
     
-    [path setLineJoinStyle:NSRoundLineJoinStyle];
+    [path setLineJoinStyle:NSLineJoinStyleRound];
     for (x = width; x >= 2; x--) {
         [path setLineWidth:x];
         [[color colorWithAlphaComponent:1.1 - x / width] set];

@@ -35,6 +35,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import "NSBundle+Extensions.h"
 
 #import <AJRFoundation/AJRFoundation.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 @interface AJRImageSaveAccessory ()
 
@@ -109,7 +110,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     if (_savePanel) {
         NSString *extension = [[[sender selectedItem] representedObject] extension];
         
-        [_savePanel setAllowedFileTypes:[NSArray arrayWithObject:extension]];
+        [_savePanel setAllowedContentTypes:@[[UTType typeWithFilenameExtension:extension]]];
         _savePanel.nameFieldStringValue = [[_savePanel.nameFieldStringValue stringByDeletingPathExtension] stringByAppendingPathExtension:extension];
         
         [[NSUserDefaults standardUserDefaults] setInteger:[[self currentImageFormat] imageType] forKey:@"AJRImageFormat"];

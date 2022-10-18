@@ -55,14 +55,12 @@ NSString *AJRViewDidChangePageCount = @"AJRViewDidChangePageCount";
 
 @implementation AJRScrollView
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
     _hasAwakened = YES;
     [[[super documentView] subview] addObserver:self forKeyPath:@"pages" options:0 context:NULL];
 }
 
-+ (NSImage *)_pagesImage
-{
++ (NSImage *)_pagesImage {
     static NSImage        *image = nil;
     
     if (!image) {
@@ -75,8 +73,7 @@ NSString *AJRViewDidChangePageCount = @"AJRViewDidChangePageCount";
     return image;
 }
 
-+ (NSImage *)_pagesImageD
-{
++ (NSImage *)_pagesImageD {
     static NSImage        *image = nil;
     
     if (!image) {
@@ -89,8 +86,7 @@ NSString *AJRViewDidChangePageCount = @"AJRViewDidChangePageCount";
     return image;
 }
 
-- (NSPopUpButton *)_createPagesMatrix
-{
+- (NSPopUpButton *)_createPagesMatrix {
     NSInteger        x;
     NSMenuItem        *subitem;
     NSPopUpButton    *popUpButton;
@@ -114,23 +110,21 @@ NSString *AJRViewDidChangePageCount = @"AJRViewDidChangePageCount";
     return popUpButton;
 }
 
-- (id)_test
-{
+- (id)_test {
     return [super documentView];
 }
 
-- (void)_setup
-{
+- (void)_setup {
     if (!_hasSetup && [super documentView]) {
-        AJRCenteringView        *center;
-        id                    documentView;
+        AJRCenteringView *center;
+        id documentView;
         
         _hasSetup = YES;
         
         documentView = [super documentView];
         //center = [[AJRFlippedCenteringView alloc] initWithFrame:[self documentVisibleRect]];
         center = [[AJRCenteringView alloc] initWithFrame:[self documentVisibleRect]];
-        [center setBackgroundColor:[NSColor controlShadowColor]];
+        [center setBackgroundColor:[NSColor underPageBackgroundColor]];
         [super setDocumentView:center];
         [center addSubview:documentView];
         
@@ -166,8 +160,7 @@ NSString *AJRViewDidChangePageCount = @"AJRViewDidChangePageCount";
     }
 }
 
-- (id)initWithFrame:(NSRect)aFrame
-{
+- (id)initWithFrame:(NSRect)aFrame {
     self = [super initWithFrame:aFrame];
     
     [self _setup];
@@ -175,14 +168,12 @@ NSString *AJRViewDidChangePageCount = @"AJRViewDidChangePageCount";
     return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[[super documentView] subview] removeObserver:self forKeyPath:@"pages"];
 }
 
-- (void)addHorizontalAccessory:(NSView *)anAccessory position:(AJRAccessoryPosition)aPosition
-{
+- (void)addHorizontalAccessory:(NSView *)anAccessory position:(AJRAccessoryPosition)aPosition {
     switch (aPosition) {
         case AJRAccessoriesLeft:
             [horizontalAccessoriesLeft addObject:anAccessory];
@@ -203,8 +194,7 @@ NSString *AJRViewDidChangePageCount = @"AJRViewDidChangePageCount";
 }
 
 - (void)addVerticalAccessory:(NSView *)anAccessory
-                    position:(AJRAccessoryPosition)aPosition
-{
+                    position:(AJRAccessoryPosition)aPosition {
     switch (aPosition) {
         case AJRAccessoriesLeft:
         case AJRAccessoriesRight:
@@ -224,8 +214,7 @@ NSString *AJRViewDidChangePageCount = @"AJRViewDidChangePageCount";
     [self setNeedsDisplay:YES];
 }
 
-- (void)removeAccessory:(NSView *)accessory
-{
+- (void)removeAccessory:(NSView *)accessory {
     BOOL        found = NO;
     NSUInteger    index;
     
@@ -285,13 +274,11 @@ NSString *AJRViewDidChangePageCount = @"AJRViewDidChangePageCount";
     return delegate;
 }
 
-- (NSRange)visiblePageRange
-{
+- (NSRange)visiblePageRange {
     return [(AJRCenteringView *)[self documentView] pageRangeForRect:[self documentVisibleRect]];
 }
 
-- (void)_updatePageText
-{
+- (void)_updatePageText {
     NSRange        range = [self visiblePageRange];
     NSString    *string;
     
@@ -304,8 +291,7 @@ NSString *AJRViewDidChangePageCount = @"AJRViewDidChangePageCount";
     [pageText setStringValue:string];
 }
 
-- (void)_setupAccessory
-{
+- (void)_setupAccessory {
     if (!pageAccessory) {
         [NSBundle ajr_loadNibNamed:@"AJRScrollViewPageAccessory" owner:self];
         [pageText removeFromSuperview];
@@ -322,8 +308,7 @@ NSString *AJRViewDidChangePageCount = @"AJRViewDidChangePageCount";
     [self _updatePageText];
 }
 
-- (void)_setupPages
-{
+- (void)_setupPages {
     NSView        *documentView = [[super documentView] subview];
     NSRange        temp;
     
@@ -452,8 +437,7 @@ NSString *AJRViewDidChangePageCount = @"AJRViewDidChangePageCount";
     }
 }
 
-- (void)_insertPercent:(NSInteger)percent intoPopUpButton:(NSPopUpButton *)aButton
-{
+- (void)_insertPercent:(NSInteger)percent intoPopUpButton:(NSPopUpButton *)aButton {
     NSArray        *items = [aButton itemArray];
     NSInteger    x, max;
     NSMenuItem    *item;
@@ -471,8 +455,7 @@ NSString *AJRViewDidChangePageCount = @"AJRViewDidChangePageCount";
     }
 }
 
-- (void)setScale:(float)percent
-{
+- (void)setScale:(float)percent {
     [(AJRCenteringView *)[super documentView] setScale:percent];
     [self setNeedsDisplay:YES];
     
@@ -480,8 +463,7 @@ NSString *AJRViewDidChangePageCount = @"AJRViewDidChangePageCount";
     [zoomButton setTitle:[NSString stringWithFormat:@"%ld%%", oldScalePercent]];
 }
 
-- (void)setZoom:(id)sender
-{
+- (void)setZoom:(id)sender {
     NSString        *title = [[sender selectedItem] title];
     NSInteger        size;
     float            percent;
@@ -528,8 +510,7 @@ NSString *AJRViewDidChangePageCount = @"AJRViewDidChangePageCount";
     }
 }
 
-- (void)setDocumentView:(NSView *)aView
-{
+- (void)setDocumentView:(NSView *)aView {
     AJRCenteringView    *center;
     
     if (!_hasAwakened) return;
@@ -559,60 +540,50 @@ NSString *AJRViewDidChangePageCount = @"AJRViewDidChangePageCount";
     }
 }
 
-- (NSView *)documentView
-{
+- (NSView *)documentView {
     if (!_hasSetup) [self _setup];
     
     return [super documentView];
 }
 
-- (void)documentViewDidChangePageCount:(NSNotification *)notification
-{
+- (void)documentViewDidChangePageCount:(NSNotification *)notification {
     [self _setupPages];
 }
 
-- (void)reflectScrolledClipView:(NSClipView *)aClipView
-{
+- (void)reflectScrolledClipView:(NSClipView *)aClipView {
     [super reflectScrolledClipView:aClipView];
     [self _updatePageText];
 }
 
-- (void)setPagePosition:(AJRPagePosition)pagePosition
-{
+- (void)setPagePosition:(AJRPagePosition)pagePosition {
     _pagePosition = pagePosition;
     [[super documentView] tile];
     [[super documentView] setNeedsDisplay:YES];
     [self setNeedsDisplay:YES];
 }
 
-- (AJRPagePosition)pagePosition
-{
+- (AJRPagePosition)pagePosition {
     return _pagePosition;
 }
 
-- (NSInteger)pageCount
-{
+- (NSInteger)pageCount {
     return (lastPage - firstPage) + 1;
 }
 
-- (NSInteger)firstPage
-{
+- (NSInteger)firstPage {
     return firstPage;
 }
 
-- (NSInteger)lastPage
-{
+- (NSInteger)lastPage {
     return lastPage;
 }
 
-- (void)selectPageNumber:(id)sender
-{
+- (void)selectPageNumber:(id)sender {
     [[pageText cell] setRepresentedObject:[NSNumber numberWithInt:[sender intValue]]];
     [self setPageNumber:[sender intValue]];
 }
 
-- (void)setPageNumber:(NSInteger)aPageNumber
-{
+- (void)setPageNumber:(NSInteger)aPageNumber {
     if (aPageNumber < firstPage) aPageNumber = firstPage;
     if (aPageNumber > lastPage) aPageNumber = lastPage;
     
@@ -621,19 +592,16 @@ NSString *AJRViewDidChangePageCount = @"AJRViewDidChangePageCount";
     [self _updatePageText];
 }
 
-- (NSInteger)pageNumber
-{
+- (NSInteger)pageNumber {
     return [[super documentView] activePage];
 }
 
-- (IBAction)selectPagePosition:(NSMenuItem *)sender
-{
+- (IBAction)selectPagePosition:(NSMenuItem *)sender {
     [self setPagePosition:(AJRPagePosition)[sender tag]];
     [[super documentView] setActivePage:[[[pageText cell] representedObject] intValue]];
 }
 
-- (IBAction)takePageNumberFrom:(id)sender
-{
+- (IBAction)takePageNumberFrom:(id)sender {
     NSInteger aPageNumber;
     
     if ([sender isKindOfClass:[NSMatrix class]]) {
@@ -654,35 +622,29 @@ NSString *AJRViewDidChangePageCount = @"AJRViewDidChangePageCount";
     [[super documentView] setActivePage:aPageNumber];
 }
 
-- (void)pageForward:(id)sender
-{
+- (void)pageForward:(id)sender {
     [self setPageNumber:[self pageNumber] + 1];
 }
 
-- (void)pageBackward:(id)sender
-{
+- (void)pageBackward:(id)sender {
     [self setPageNumber:[self pageNumber] - 1];
 }
 
-- (void)print:(id)sender
-{
+- (void)print:(id)sender {
     [[super documentView] print:sender];
 }
 
 static Class RulerViewClass;
 
-+ (void)setRulerViewClass:(Class)aClass
-{
++ (void)setRulerViewClass:(Class)aClass {
     RulerViewClass = aClass;
 }
 
-+ (Class)rulerViewClass
-{
++ (Class)rulerViewClass {
     return RulerViewClass;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"pages"]) {
         [self _setupPages];
     }

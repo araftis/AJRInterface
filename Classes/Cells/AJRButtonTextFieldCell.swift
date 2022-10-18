@@ -54,7 +54,7 @@ open class AJRButtonTextFieldCell : NSTextFieldCell {
     internal var _alternateImage : NSImage?
     open var alternateImage : NSImage! {
         get {
-            return _alternateImage ?? NSImage(named: NSImage.followLinkFreestandingTemplateName)?.ajr_templateImage(with: .alternateSelectedControlColor)
+            return _alternateImage ?? NSImage(named: NSImage.followLinkFreestandingTemplateName)?.ajr_templateImage(with: .selectedContentBackgroundColor)
         }
         set {
             _alternateImage = newValue

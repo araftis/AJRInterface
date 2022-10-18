@@ -43,6 +43,7 @@
 #import <AJRFoundation/AJRFoundation.h>
 #import <AJRInterface/AJRInterface-Swift.h>
 #import <objc/runtime.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 static BOOL AJR_UNUSED _graphicalExceptions = YES;
 
@@ -148,7 +149,7 @@ NSString *AJRApplicationExceptionKey = @"AJRApplicationExceptionKey";
 
         directory = [[NSUserDefaults standardUserDefaults] URLForKey:@"AJRExportWindowPath"];
         if (!directory) directory = [NSURL fileURLWithPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]];
-        [savePanel setAllowedFileTypes:[NSArray arrayWithObject:[[accessory currentImageFormat] extension]]];
+        [savePanel setAllowedContentTypes:@[[UTType typeWithFilenameExtension:accessory.currentImageFormat.extension]]];
         [savePanel setCanSelectHiddenExtension:YES];
         [savePanel setAccessoryView:[accessory view]];
         [savePanel setDirectoryURL:directory];
@@ -174,7 +175,7 @@ NSString *AJRApplicationExceptionKey = @"AJRApplicationExceptionKey";
     NSSavePanel *savePanel = [NSSavePanel savePanel];
     NSURL *directory = [[NSUserDefaults standardUserDefaults] URLForKey:@"AJRExportWindowPath"];
 
-    [savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"pdf"]];
+    [savePanel setAllowedContentTypes:@[[UTType typeWithFilenameExtension:@"pdf"]]];
     [savePanel setCanSelectHiddenExtension:YES];
     [savePanel setDirectoryURL:directory];
     [savePanel setNameFieldStringValue:[[window title] lastPathComponent]];
