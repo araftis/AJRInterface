@@ -17,6 +17,7 @@
     <ajr_inspector_slice type="string" class="AJRInterface.AJRInspectorSliceString" />
     <ajr_inspector_slice type="attributedString" class="AJRInterface.AJRInspectorSliceAttributedString" />
     <ajr_inspector_slice type="table" class="AJRInterface.AJRInspectorSliceTable" />
+    <ajr_inspector_slice type="store" class="AJRInterface.AJRInspectorSliceStore" />
     <ajr_inspector_slice type="font" class="AJRInterface.AJRInspectorSliceFont" />
     <ajr_inspector_slice type="size" class="AJRInterface.AJRInspectorSliceGeometry" />
     <ajr_inspector_slice type="point" class="AJRInterface.AJRInspectorSliceGeometry" />

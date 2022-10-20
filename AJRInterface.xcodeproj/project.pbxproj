@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		217160712900C6AD001F2D4C /* AJRInspectorSliceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217160702900C6AD001F2D4C /* AJRInspectorSliceStore.swift */; };
+		2171607A2900D3EF001F2D4C /* AJRInterfaceExpressions.ajrplugindata in Resources */ = {isa = PBXBuildFile; fileRef = 217160792900D3EF001F2D4C /* AJRInterfaceExpressions.ajrplugindata */; };
+		2171607C2900D427001F2D4C /* AJRVariableTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2171607B2900D427001F2D4C /* AJRVariableTypes.swift */; };
 		218F4F402728768A00BD92BD /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218F4F3F2728768A00BD92BD /* UserDefaults+Extensions.swift */; };
 		21FCD9D627161B640049E558 /* AJRInspectorSliceFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FCD9D527161B640049E558 /* AJRInspectorSliceFile.swift */; };
 		21FCD9D8271626F00049E558 /* AJRInspectorSliceFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21FCD9D727161CC10049E558 /* AJRInspectorSliceFile.xib */; };
@@ -632,6 +635,9 @@
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		089C1667FE841158C02AAC07 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		217160702900C6AD001F2D4C /* AJRInspectorSliceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorSliceStore.swift; sourceTree = "<group>"; };
+		217160792900D3EF001F2D4C /* AJRInterfaceExpressions.ajrplugindata */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AJRInterfaceExpressions.ajrplugindata; sourceTree = "<group>"; };
+		2171607B2900D427001F2D4C /* AJRVariableTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRVariableTypes.swift; sourceTree = "<group>"; };
 		218F4F3F2728768A00BD92BD /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		21FCD9D527161B640049E558 /* AJRInspectorSliceFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorSliceFile.swift; sourceTree = "<group>"; };
 		21FCD9D727161CC10049E558 /* AJRInspectorSliceFile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRInspectorSliceFile.xib; sourceTree = "<group>"; };
@@ -1360,6 +1366,7 @@
 				FA4EFAD20F7431F700287F1B /* Colored Text */,
 				FA4EB2520ECE5F04002BE2D1 /* Controllers */,
 				FA8925B121FAB96400246D46 /* Controls */,
+				217160782900D383001F2D4C /* Expressions */,
 				FA631A9A0EC89C54002F3DD5 /* Extensions */,
 				FAFE49950EC4F30900AE17D0 /* Fills */,
 				FACEF6270F38D59A00401F2D /* Image Formats */,
@@ -1391,6 +1398,23 @@
 				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
 			);
 			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		2171606F2900C540001F2D4C /* AJRInspectorSliceStore */ = {
+			isa = PBXGroup;
+			children = (
+				217160702900C6AD001F2D4C /* AJRInspectorSliceStore.swift */,
+			);
+			path = AJRInspectorSliceStore;
+			sourceTree = "<group>";
+		};
+		217160782900D383001F2D4C /* Expressions */ = {
+			isa = PBXGroup;
+			children = (
+				217160792900D3EF001F2D4C /* AJRInterfaceExpressions.ajrplugindata */,
+				2171607B2900D427001F2D4C /* AJRVariableTypes.swift */,
+			);
+			path = Expressions;
 			sourceTree = "<group>";
 		};
 		21FCD9D427161B3B0049E558 /* AJRInspectorSliceFile */ = {
@@ -1767,6 +1791,7 @@
 				FA53D65C2242013E003E02B1 /* AJRInspectorSliceNumber */,
 				FA95DE4A22B464AA005EC953 /* AJRInspectorSliceGeometry */,
 				FA53D65B22420120003E02B1 /* AJRInspectorSliceString */,
+				2171606F2900C540001F2D4C /* AJRInspectorSliceStore */,
 				FAD61D252259D972004CDD37 /* AJRInspectorSliceTable */,
 				FA103995225DD1B9005B0D3B /* AJRInspectorSliceTest */,
 			);
@@ -2992,6 +3017,7 @@
 				FAC4DF5A0ED49E4800897E9B /* StopSmallGraphite.tiff in Resources */,
 				FAD61D2B225D3B66004CDD37 /* AJRInspectorSliceTable.xib in Resources */,
 				FA95DE6922B74D5D005EC953 /* AJRInspectorSliceInsets.strings in Resources */,
+				2171607A2900D3EF001F2D4C /* AJRInterfaceExpressions.ajrplugindata in Resources */,
 				FA103997225DD1D7005B0D3B /* AJRInspectorSliceTest.xib in Resources */,
 				FAC4E14E0ED4C82200897E9B /* AJRPreferencesPanel.xib in Resources */,
 				FA53D6382240EB63003E02B1 /* AJRInspectorSliceChoiceMenu.xib in Resources */,
@@ -3068,12 +3094,14 @@
 			files = (
 				FA2F99680E93EE6D004F1A14 /* AJRExpansionView.m in Sources */,
 				FA2F996A0E93EE6D004F1A14 /* AJRExpansionViewItem.m in Sources */,
+				2171607C2900D427001F2D4C /* AJRVariableTypes.swift in Sources */,
 				FAA82A47272B8CFB009CAB51 /* NSView+Extensions.swift in Sources */,
 				FA2F99730E93EF5D004F1A14 /* AJRSourceIconCell.m in Sources */,
 				FA0014DF226804EB001DFB69 /* AJRAlternateHighlightButtonCell.swift in Sources */,
 				FA2F99750E93EF5D004F1A14 /* AJRSourceOutlineView.m in Sources */,
 				FAD61D162256AD7B004CDD37 /* AJRInspectable.m in Sources */,
 				FA2F99770E93EF5D004F1A14 /* AJRSourceSplitView.m in Sources */,
+				217160712900C6AD001F2D4C /* AJRInspectorSliceStore.swift in Sources */,
 				FA6FFEA92202E7450083357D /* AJRActivityToolbarProgressLayer.m in Sources */,
 				FAC861D724BD20F7001C3850 /* NSImage+Extensions.swift in Sources */,
 				FA2F9DC40E953D35004F1A14 /* AJRImages.m in Sources */,

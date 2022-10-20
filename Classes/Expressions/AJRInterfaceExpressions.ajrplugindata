@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<plugindata owner="com.ajr.framework.AJRInterface" version="1">
+    <ajrvariabletype class="AJRInterface.AJRVariableTypeColor" name="Bool" />
+    <ajrvariabletype class="AJRInterface.AJRVariableTypeGradient" name="Integer" />
+    <ajrvariabletype class="AJRInterface.AJRVariableTypeFont" name="Floating Point" />
+    <ajrvariabletype class="AJRInterface.AJRVariableTypePoint" name="String" />
+    <ajrvariabletype class="AJRInterface.AJRVariableTypeSize" name="Array" />
+    <ajrvariabletype class="AJRInterface.AJRVariableTypeRect" name="Set" />
+    <ajrvariabletype class="AJRInterface.AJRVariableTypePath" name="Dictionary" />
+</plugindata>
+
