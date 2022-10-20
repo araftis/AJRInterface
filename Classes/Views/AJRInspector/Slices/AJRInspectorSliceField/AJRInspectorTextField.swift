@@ -49,17 +49,25 @@ class AJRInspectorTextFieldCell: NSTextFieldCell, NSTextDelegate {
     weak var textDidChangeObserverToken : AnyObject? = nil
     
     deinit {
-        stopObserving(token: &selectionDidChangeObserverToken)
-        stopObserving(token: &didEndEditingObserverToken)
-        stopObserving(token: &typingAttributesDidChangeObserverToken)
-        stopObserving(token: &textDidChangeObserverToken)
+        if let selectionDidChangeObserverToken {
+            NotificationCenter.default.removeObserver(selectionDidChangeObserverToken)
+        }
+        if let didEndEditingObserverToken {
+            NotificationCenter.default.removeObserver(didEndEditingObserverToken)
+        }
+        if let typingAttributesDidChangeObserverToken {
+            NotificationCenter.default.removeObserver(typingAttributesDidChangeObserverToken)
+        }
+        if let textDidChangeObserverToken {
+            NotificationCenter.default.removeObserver(textDidChangeObserverToken)
+        }
     }
 
     internal func stopObserving(token: inout AnyObject?) {
-        if token != nil {
-            NotificationCenter.default.removeObserver(token!)
-            token = nil
+        if let token {
+            NotificationCenter.default.removeObserver(token)
         }
+        token = nil
     }
 
     open override func setUpFieldEditorAttributes(_ textObj: NSText) -> NSText {

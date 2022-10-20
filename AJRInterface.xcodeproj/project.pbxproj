@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		217160712900C6AD001F2D4C /* AJRInspectorSliceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217160702900C6AD001F2D4C /* AJRInspectorSliceStore.swift */; };
 		2171607A2900D3EF001F2D4C /* AJRInterfaceExpressions.ajrplugindata in Resources */ = {isa = PBXBuildFile; fileRef = 217160792900D3EF001F2D4C /* AJRInterfaceExpressions.ajrplugindata */; };
-		2171607C2900D427001F2D4C /* AJRVariableTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2171607B2900D427001F2D4C /* AJRVariableTypes.swift */; };
 		218F4F402728768A00BD92BD /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218F4F3F2728768A00BD92BD /* UserDefaults+Extensions.swift */; };
 		21FCD9D627161B640049E558 /* AJRInspectorSliceFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FCD9D527161B640049E558 /* AJRInspectorSliceFile.swift */; };
 		21FCD9D8271626F00049E558 /* AJRInspectorSliceFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21FCD9D727161CC10049E558 /* AJRInspectorSliceFile.xib */; };
@@ -329,6 +328,13 @@
 		FA8925B921FAB98400246D46 /* AJRPopUpTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8925B521FAB98400246D46 /* AJRPopUpTextField.m */; };
 		FA8925BE21FABB6D00246D46 /* AJRStarsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8925BA21FABB6D00246D46 /* AJRStarsCell.swift */; };
 		FA8925C121FABB6D00246D46 /* AJRStars.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8925BD21FABB6D00246D46 /* AJRStars.swift */; };
+		FA8B8FFB290101B100650F23 /* AJRVariableTypeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B8FFA290101B000650F23 /* AJRVariableTypeColor.swift */; };
+		FA8B8FFD290101BD00650F23 /* AJRVariableTypeGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B8FFC290101BD00650F23 /* AJRVariableTypeGradient.swift */; };
+		FA8B8FFF290101C800650F23 /* AJRVariableTypeFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B8FFE290101C800650F23 /* AJRVariableTypeFont.swift */; };
+		FA8B9001290101D300650F23 /* AJRVariableTypePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B9000290101D300650F23 /* AJRVariableTypePoint.swift */; };
+		FA8B9003290101DD00650F23 /* AJRVariableTypeSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B9002290101DD00650F23 /* AJRVariableTypeSize.swift */; };
+		FA8B9005290101E700650F23 /* AJRVariableTypeRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B9004290101E700650F23 /* AJRVariableTypeRect.swift */; };
+		FA8B9007290101F200650F23 /* AJRVariableTypeBezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B9006290101F200650F23 /* AJRVariableTypeBezierPath.swift */; };
 		FA8F832C0F45E7F40033815D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8F832B0F45E7F40033815D /* QuartzCore.framework */; };
 		FA95DE4C22B46529005EC953 /* AJRInspectorSliceGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA95DE4B22B46529005EC953 /* AJRInspectorSliceGeometry.swift */; };
 		FA95DE4E22B466CD005EC953 /* AJRInspectorSliceGeometryTwoFields.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA95DE4D22B466CD005EC953 /* AJRInspectorSliceGeometryTwoFields.xib */; };
@@ -637,7 +643,6 @@
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		217160702900C6AD001F2D4C /* AJRInspectorSliceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorSliceStore.swift; sourceTree = "<group>"; };
 		217160792900D3EF001F2D4C /* AJRInterfaceExpressions.ajrplugindata */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AJRInterfaceExpressions.ajrplugindata; sourceTree = "<group>"; };
-		2171607B2900D427001F2D4C /* AJRVariableTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRVariableTypes.swift; sourceTree = "<group>"; };
 		218F4F3F2728768A00BD92BD /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		21FCD9D527161B640049E558 /* AJRInspectorSliceFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorSliceFile.swift; sourceTree = "<group>"; };
 		21FCD9D727161CC10049E558 /* AJRInspectorSliceFile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRInspectorSliceFile.xib; sourceTree = "<group>"; };
@@ -966,6 +971,13 @@
 		FA8925B521FAB98400246D46 /* AJRPopUpTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRPopUpTextField.m; sourceTree = "<group>"; };
 		FA8925BA21FABB6D00246D46 /* AJRStarsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJRStarsCell.swift; sourceTree = "<group>"; };
 		FA8925BD21FABB6D00246D46 /* AJRStars.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJRStars.swift; sourceTree = "<group>"; };
+		FA8B8FFA290101B000650F23 /* AJRVariableTypeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRVariableTypeColor.swift; sourceTree = "<group>"; };
+		FA8B8FFC290101BD00650F23 /* AJRVariableTypeGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRVariableTypeGradient.swift; sourceTree = "<group>"; };
+		FA8B8FFE290101C800650F23 /* AJRVariableTypeFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRVariableTypeFont.swift; sourceTree = "<group>"; };
+		FA8B9000290101D300650F23 /* AJRVariableTypePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRVariableTypePoint.swift; sourceTree = "<group>"; };
+		FA8B9002290101DD00650F23 /* AJRVariableTypeSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRVariableTypeSize.swift; sourceTree = "<group>"; };
+		FA8B9004290101E700650F23 /* AJRVariableTypeRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRVariableTypeRect.swift; sourceTree = "<group>"; };
+		FA8B9006290101F200650F23 /* AJRVariableTypeBezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRVariableTypeBezierPath.swift; sourceTree = "<group>"; };
 		FA8E36C425C0C48400EB554F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FA8F832B0F45E7F40033815D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		FA95DE4B22B46529005EC953 /* AJRInspectorSliceGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorSliceGeometry.swift; sourceTree = "<group>"; };
@@ -1412,7 +1424,13 @@
 			isa = PBXGroup;
 			children = (
 				217160792900D3EF001F2D4C /* AJRInterfaceExpressions.ajrplugindata */,
-				2171607B2900D427001F2D4C /* AJRVariableTypes.swift */,
+				FA8B9006290101F200650F23 /* AJRVariableTypeBezierPath.swift */,
+				FA8B8FFA290101B000650F23 /* AJRVariableTypeColor.swift */,
+				FA8B8FFE290101C800650F23 /* AJRVariableTypeFont.swift */,
+				FA8B8FFC290101BD00650F23 /* AJRVariableTypeGradient.swift */,
+				FA8B9000290101D300650F23 /* AJRVariableTypePoint.swift */,
+				FA8B9004290101E700650F23 /* AJRVariableTypeRect.swift */,
+				FA8B9002290101DD00650F23 /* AJRVariableTypeSize.swift */,
 			);
 			path = Expressions;
 			sourceTree = "<group>";
@@ -3094,9 +3112,9 @@
 			files = (
 				FA2F99680E93EE6D004F1A14 /* AJRExpansionView.m in Sources */,
 				FA2F996A0E93EE6D004F1A14 /* AJRExpansionViewItem.m in Sources */,
-				2171607C2900D427001F2D4C /* AJRVariableTypes.swift in Sources */,
 				FAA82A47272B8CFB009CAB51 /* NSView+Extensions.swift in Sources */,
 				FA2F99730E93EF5D004F1A14 /* AJRSourceIconCell.m in Sources */,
+				FA8B9007290101F200650F23 /* AJRVariableTypeBezierPath.swift in Sources */,
 				FA0014DF226804EB001DFB69 /* AJRAlternateHighlightButtonCell.swift in Sources */,
 				FA2F99750E93EF5D004F1A14 /* AJRSourceOutlineView.m in Sources */,
 				FAD61D162256AD7B004CDD37 /* AJRInspectable.m in Sources */,
@@ -3106,6 +3124,7 @@
 				FAC861D724BD20F7001C3850 /* NSImage+Extensions.swift in Sources */,
 				FA2F9DC40E953D35004F1A14 /* AJRImages.m in Sources */,
 				FA1D8F2519395BB6008690DD /* NSShadow+Extensions.m in Sources */,
+				FA8B9003290101DD00650F23 /* AJRVariableTypeSize.swift in Sources */,
 				FA95DE5022B4700B005EC953 /* AJRGeometryInspectorConformance.swift in Sources */,
 				FA4426640E9846B300545311 /* AJRButtonBar.m in Sources */,
 				FA1819FC2271325700BA7E06 /* AJRInspectorSliceDate.swift in Sources */,
@@ -3132,6 +3151,7 @@
 				FA07190B22AC960500C2C409 /* NSFont+Extensions.m in Sources */,
 				FA4E7C98191DBD0A006B6F3B /* NSAlert+Extensions.m in Sources */,
 				FA67B0DB0EBA256800D87B76 /* AJRPreferences.m in Sources */,
+				FA8B8FFF290101C800650F23 /* AJRVariableTypeFont.swift in Sources */,
 				FA67B0DD0EBA256800D87B76 /* AJRPreferencesModule.m in Sources */,
 				FAFE48EC0EC4F15A00AE17D0 /* AJRBox.m in Sources */,
 				FAFE496A0EC4F24000AE17D0 /* AJRBezelInBorder.m in Sources */,
@@ -3158,6 +3178,7 @@
 				FA89259621FAA12C00246D46 /* NSEvent+Extensions.m in Sources */,
 				FAFE49AB0EC4F30900AE17D0 /* AJRFillInspector.m in Sources */,
 				FAFE49AD0EC4F30900AE17D0 /* AJRFillInspectorModule.m in Sources */,
+				FA8B8FFD290101BD00650F23 /* AJRVariableTypeGradient.swift in Sources */,
 				FAFE49AF0EC4F30900AE17D0 /* AJRSolidFill.m in Sources */,
 				FAFE49B10EC4F30900AE17D0 /* AJRSolidFillInspectorModule.m in Sources */,
 				FAFE49B30EC4F30900AE17D0 /* AJRGradientFill.m in Sources */,
@@ -3233,6 +3254,7 @@
 				FA29F734263129BA002B953A /* NSObject+Extensions.swift in Sources */,
 				FABB66C60F2E907D00FBFEEB /* AJRExceptionPanel.m in Sources */,
 				FACEF6410F38D59A00401F2D /* AJRBMPImageFormat.m in Sources */,
+				FA8B9005290101E700650F23 /* AJRVariableTypeRect.swift in Sources */,
 				FA5862411925C25A001F041A /* AJRColorWell.m in Sources */,
 				FAD61D0222556132004CDD37 /* AJRInspectorTextField.swift in Sources */,
 				FACEF6430F38D59A00401F2D /* AJRGIFImageFormat.m in Sources */,
@@ -3306,6 +3328,7 @@
 				FA76ABCC221D46DC008FA786 /* NSControl+Extensions.swift in Sources */,
 				FAAAD9552231EBD9002CA09C /* AJRBookmarksBarViewController.swift in Sources */,
 				FAD78185104D8E340040EAD5 /* AJRProgressView.m in Sources */,
+				FA8B9001290101D300650F23 /* AJRVariableTypePoint.swift in Sources */,
 				FA6D23F3105AA56100345E82 /* AJRSectionView.m in Sources */,
 				FA6D23F7105AA5AE00345E82 /* AJRSectionViewItem.m in Sources */,
 				FA6D2AB8105EFACD00345E82 /* AJRToggleButton.m in Sources */,
@@ -3317,6 +3340,7 @@
 				FA53D5F8223F084A003E02B1 /* AJRInspectorGroup.swift in Sources */,
 				FAC4EEF21090B15C00444A2C /* AJRLineNumberMarker.m in Sources */,
 				FA16035E10C498F100A1E97D /* AJRCenteringView.m in Sources */,
+				FA8B8FFB290101B100650F23 /* AJRVariableTypeColor.swift in Sources */,
 				FA16036010C498F100A1E97D /* AJRFlippedCenteringView.m in Sources */,
 				FA53D63A224191FD003E02B1 /* AJRInspectorSliceBoolean.swift in Sources */,
 				FA16036210C498F100A1E97D /* AJRScrollView.m in Sources */,
