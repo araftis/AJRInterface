@@ -81,6 +81,13 @@ NSColor *AJRColorFromString(NSString *string) {
                     components[x] = 1.0;
                 } else {
                     components[x] = [[parts objectAtIndex:x + 1] doubleValue];
+                    // This may seam strange, but we only store colors (in strings) to five places of accuracy, which is sufficient that no one would be able to tell the difference, but it's common for colors to be 1/3 or 2/3, which produce repeating decimals. As such, if we detect these out to five places, convert to the repeating value.
+                    if (AJRApproximateEquals(components[x], 1.0 / 3.0, 5)) {
+                        components[x] = 1.0 / 3.0;
+                    }
+                    if (AJRApproximateEquals(components[x], 2.0 / 3.0, 5)) {
+                        components[x] = 2.0 / 3.0;
+                    }
                 }
             }
             color = [NSColor colorWithColorSpace:colorSpace components:components count:count + 1];

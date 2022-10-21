@@ -335,6 +335,8 @@
 		FA8B9003290101DD00650F23 /* AJRVariableTypeSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B9002290101DD00650F23 /* AJRVariableTypeSize.swift */; };
 		FA8B9005290101E700650F23 /* AJRVariableTypeRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B9004290101E700650F23 /* AJRVariableTypeRect.swift */; };
 		FA8B9007290101F200650F23 /* AJRVariableTypeBezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B9006290101F200650F23 /* AJRVariableTypeBezierPath.swift */; };
+		FA8B900C29020D4300650F23 /* AJRColorExpressions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B900B29020D4300650F23 /* AJRColorExpressions.swift */; };
+		FA8B900E29020E8900650F23 /* AJRExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B900D29020E8900650F23 /* AJRExpressionTests.swift */; };
 		FA8F832C0F45E7F40033815D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8F832B0F45E7F40033815D /* QuartzCore.framework */; };
 		FA95DE4C22B46529005EC953 /* AJRInspectorSliceGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA95DE4B22B46529005EC953 /* AJRInspectorSliceGeometry.swift */; };
 		FA95DE4E22B466CD005EC953 /* AJRInspectorSliceGeometryTwoFields.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA95DE4D22B466CD005EC953 /* AJRInspectorSliceGeometryTwoFields.xib */; };
@@ -978,6 +980,8 @@
 		FA8B9002290101DD00650F23 /* AJRVariableTypeSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRVariableTypeSize.swift; sourceTree = "<group>"; };
 		FA8B9004290101E700650F23 /* AJRVariableTypeRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRVariableTypeRect.swift; sourceTree = "<group>"; };
 		FA8B9006290101F200650F23 /* AJRVariableTypeBezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRVariableTypeBezierPath.swift; sourceTree = "<group>"; };
+		FA8B900B29020D4300650F23 /* AJRColorExpressions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRColorExpressions.swift; sourceTree = "<group>"; };
+		FA8B900D29020E8900650F23 /* AJRExpressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRExpressionTests.swift; sourceTree = "<group>"; };
 		FA8E36C425C0C48400EB554F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FA8F832B0F45E7F40033815D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		FA95DE4B22B46529005EC953 /* AJRInspectorSliceGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorSliceGeometry.swift; sourceTree = "<group>"; };
@@ -1424,13 +1428,8 @@
 			isa = PBXGroup;
 			children = (
 				217160792900D3EF001F2D4C /* AJRInterfaceExpressions.ajrplugindata */,
-				FA8B9006290101F200650F23 /* AJRVariableTypeBezierPath.swift */,
-				FA8B8FFA290101B000650F23 /* AJRVariableTypeColor.swift */,
-				FA8B8FFE290101C800650F23 /* AJRVariableTypeFont.swift */,
-				FA8B8FFC290101BD00650F23 /* AJRVariableTypeGradient.swift */,
-				FA8B9000290101D300650F23 /* AJRVariableTypePoint.swift */,
-				FA8B9004290101E700650F23 /* AJRVariableTypeRect.swift */,
-				FA8B9002290101DD00650F23 /* AJRVariableTypeSize.swift */,
+				FA8B900A29020D2300650F23 /* Functions */,
+				FA8B900929020D1D00650F23 /* Variable Types */,
 			);
 			path = Expressions;
 			sourceTree = "<group>";
@@ -1489,6 +1488,7 @@
 			children = (
 				FA53D60F223F1766003E02B1 /* AJRInspectorTests.swift */,
 				FA57AF5E231DFEF50020C1E5 /* AJRAlternateHighlightButtonCellTests.swift */,
+				FA8B900D29020E8900650F23 /* AJRExpressionTests.swift */,
 				FA53D611223F17D5003E02B1 /* AJRTestInspector.inspector */,
 				FABFEF7A145286FE008CE3FE /* AJRTrigonometryTests.m */,
 				FA1D8EFB19391C57008690DD /* AJRXMLCodingTests.m */,
@@ -2170,6 +2170,28 @@
 				FA890FD6221F73570012B0F2 /* AJRForwardingSearchField.swift */,
 			);
 			path = Controls;
+			sourceTree = "<group>";
+		};
+		FA8B900929020D1D00650F23 /* Variable Types */ = {
+			isa = PBXGroup;
+			children = (
+				FA8B9006290101F200650F23 /* AJRVariableTypeBezierPath.swift */,
+				FA8B8FFA290101B000650F23 /* AJRVariableTypeColor.swift */,
+				FA8B8FFE290101C800650F23 /* AJRVariableTypeFont.swift */,
+				FA8B8FFC290101BD00650F23 /* AJRVariableTypeGradient.swift */,
+				FA8B9000290101D300650F23 /* AJRVariableTypePoint.swift */,
+				FA8B9004290101E700650F23 /* AJRVariableTypeRect.swift */,
+				FA8B9002290101DD00650F23 /* AJRVariableTypeSize.swift */,
+			);
+			path = "Variable Types";
+			sourceTree = "<group>";
+		};
+		FA8B900A29020D2300650F23 /* Functions */ = {
+			isa = PBXGroup;
+			children = (
+				FA8B900B29020D4300650F23 /* AJRColorExpressions.swift */,
+			);
+			path = Functions;
 			sourceTree = "<group>";
 		};
 		FA95DE4A22B464AA005EC953 /* AJRInspectorSliceGeometry */ = {
@@ -3261,6 +3283,7 @@
 				FA07C8F32212C9370077A0B5 /* AJRSegmentedCell.m in Sources */,
 				218F4F402728768A00BD92BD /* UserDefaults+Extensions.swift in Sources */,
 				FA76AB9D221CC1FE008FA786 /* AJRWebView.m in Sources */,
+				FA8B900C29020D4300650F23 /* AJRColorExpressions.swift in Sources */,
 				FA53D669224347B0003E02B1 /* AJRInspectorSliceButton.swift in Sources */,
 				FA8061822224C79300D6D59F /* NSColor+Extensions.swift in Sources */,
 				FACEF6450F38D59A00401F2D /* AJRImageFormat.m in Sources */,
@@ -3384,6 +3407,7 @@
 				FA1D8EFC19391C57008690DD /* AJRXMLCodingTests.m in Sources */,
 				FAA133E2237CDE0A00F0DF60 /* NSColor+ExtensionsTests.m in Sources */,
 				FA53D610223F1766003E02B1 /* AJRInspectorTests.swift in Sources */,
+				FA8B900E29020E8900650F23 /* AJRExpressionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
