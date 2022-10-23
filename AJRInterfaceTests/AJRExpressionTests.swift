@@ -62,28 +62,29 @@ final class AJRExpressionTests: XCTestCase {
     }
 
     func testBasic() throws {
+        // Just a quickie to make sure everything loaded correctly.
         test(expression: "5 + 5", expectedResult: 10)
     }
 
     func testColors() throws {
-        test(expression: "black", expectedResult: NSColor.black)
-        test(expression: "darkGray", expectedResult: NSColor.darkGray)
-        test(expression: "darkGrey", expectedResult: NSColor.darkGray)
-        test(expression: "lightGray", expectedResult: NSColor.lightGray)
-        test(expression: "lightGrey", expectedResult: NSColor.lightGray)
-        test(expression: "white", expectedResult: NSColor.white)
-        test(expression: "gray", expectedResult: NSColor.gray)
-        test(expression: "grey", expectedResult: NSColor.gray)
-        test(expression: "red", expectedResult: NSColor.red)
-        test(expression: "green", expectedResult: NSColor.green)
-        test(expression: "blue", expectedResult: NSColor.blue)
-        test(expression: "cyan", expectedResult: NSColor.cyan)
-        test(expression: "yellow", expectedResult: NSColor.yellow)
-        test(expression: "magenta", expectedResult: NSColor.magenta)
-        test(expression: "orange", expectedResult: NSColor.orange)
-        test(expression: "purple", expectedResult: NSColor.purple)
-        test(expression: "brown", expectedResult: NSColor.brown)
-        test(expression: "clear", expectedResult: NSColor.clear)
+        test(expression: "colors.black", expectedResult: NSColor.black)
+        test(expression: "colors.darkGray", expectedResult: NSColor.darkGray)
+        test(expression: "colors.darkGrey", expectedResult: NSColor.darkGray)
+        test(expression: "colors.lightGray", expectedResult: NSColor.lightGray)
+        test(expression: "colors.lightGrey", expectedResult: NSColor.lightGray)
+        test(expression: "colors.white", expectedResult: NSColor.white)
+        test(expression: "colors.gray", expectedResult: NSColor.gray)
+        test(expression: "colors.grey", expectedResult: NSColor.gray)
+        test(expression: "colors.red", expectedResult: NSColor.red)
+        test(expression: "colors.green", expectedResult: NSColor.green)
+        test(expression: "colors.blue", expectedResult: NSColor.blue)
+        test(expression: "colors.cyan", expectedResult: NSColor.cyan)
+        test(expression: "colors.yellow", expectedResult: NSColor.yellow)
+        test(expression: "colors.magenta", expectedResult: NSColor.magenta)
+        test(expression: "colors.orange", expectedResult: NSColor.orange)
+        test(expression: "colors.purple", expectedResult: NSColor.purple)
+        test(expression: "colors.brown", expectedResult: NSColor.brown)
+        test(expression: "colors.clear", expectedResult: NSColor.clear)
     }
 
 }

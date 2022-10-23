@@ -13,53 +13,8 @@
     <!-- Color Support -->
     <ajrfunction class="AJRInterface.AJRColorFunction" name="color" prototype="color(name) or color(colorSpace, ...)" />
 
-    <ajrconstant type="color" value="kCGColorSpaceGenericGrayGamma2_2 0.000000 1.000000">
-        <token name="black" />
-    </ajrconstant>
-    <ajrconstant type="color" value="kCGColorSpaceGenericGrayGamma2_2 0.333333 1.000000">
-        <token name="darkGray" />
-        <token name="darkGrey" />
-    </ajrconstant>
-    <ajrconstant type="color" value="kCGColorSpaceGenericGrayGamma2_2 0.666667 1.000000">
-        <token name="lightGray" />
-        <token name="lightGrey" />
-    </ajrconstant>
-    <ajrconstant type="color" value="kCGColorSpaceGenericGrayGamma2_2 1.000000 1.000000">
-        <token name="white" />
-    </ajrconstant>
-    <ajrconstant type="color" value="kCGColorSpaceGenericGrayGamma2_2 0.500000 1.000000">
-        <token name="gray" />
-        <token name="grey" />
-    </ajrconstant>
-    <ajrconstant type="color" value="kCGColorSpaceSRGB 1.000000 0.000000 0.000000 1.000000">
-        <token name="red" />
-    </ajrconstant>
-    <ajrconstant type="color" value="kCGColorSpaceSRGB 0.000000 1.000000 0.000000 1.000000">
-        <token name="green" />
-    </ajrconstant>
-    <ajrconstant type="color" value="kCGColorSpaceSRGB 0.000000 0.000000 1.000000 1.000000">
-        <token name="blue" />
-    </ajrconstant>
-    <ajrconstant type="color" value="kCGColorSpaceSRGB 0.000000 1.000000 1.000000 1.000000">
-        <token name="cyan" />
-    </ajrconstant>
-    <ajrconstant type="color" value="kCGColorSpaceSRGB 1.000000 1.000000 0.000000 1.000000">
-        <token name="yellow" />
-    </ajrconstant>
-    <ajrconstant type="color" value="kCGColorSpaceSRGB 1.000000 0.000000 1.000000 1.000000">
-        <token name="magenta" />
-    </ajrconstant>
-    <ajrconstant type="color" value="kCGColorSpaceSRGB 1.000000 0.500000 0.000000 1.000000">
-        <token name="orange" />
-    </ajrconstant>
-    <ajrconstant type="color" value="kCGColorSpaceSRGB 0.500000 0.000000 0.500000 1.000000">
-        <token name="purple" />
-    </ajrconstant>
-    <ajrconstant type="color" value="kCGColorSpaceSRGB 0.600000 0.400000 0.200000 1.000000">
-        <token name="brown" />
-    </ajrconstant>
-    <ajrconstant type="color" value="kCGColorSpaceGenericGrayGamma2_2 0.000000 0.000000">
-        <token name="clear" />
+    <ajrconstant type="object" value="AJRInterface.AJRVariableTypeColor">
+        <token name="colors" />
     </ajrconstant>
 
 </plugindata>
