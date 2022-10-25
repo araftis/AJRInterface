@@ -1486,9 +1486,9 @@
 		FA0587BE192FE152002913B6 /* AJRInterfaceTests */ = {
 			isa = PBXGroup;
 			children = (
-				FA53D60F223F1766003E02B1 /* AJRInspectorTests.swift */,
 				FA57AF5E231DFEF50020C1E5 /* AJRAlternateHighlightButtonCellTests.swift */,
 				FA8B900D29020E8900650F23 /* AJRExpressionTests.swift */,
+				FA53D60F223F1766003E02B1 /* AJRInspectorTests.swift */,
 				FA53D611223F17D5003E02B1 /* AJRTestInspector.inspector */,
 				FABFEF7A145286FE008CE3FE /* AJRTrigonometryTests.m */,
 				FA1D8EFB19391C57008690DD /* AJRXMLCodingTests.m */,
