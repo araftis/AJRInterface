@@ -40,7 +40,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 + (void)translateXBy:(CGFloat)deltaX yBy:(CGFloat)deltaY;
 + (void)rotateByDegrees:(CGFloat)angle;
 + (void)rotateByRadians:(CGFloat)angle;
-+ (CGFloat)currentScale;
+@property (nonatomic,readonly,class) CGFloat currentScale;
 + (void)getCurrentXScale:(CGFloat *)xScale yScale:(CGFloat *)yScale;
 
 + (void)flipCoordinateSystemInRect:(NSRect)frame;
