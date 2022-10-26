@@ -2,13 +2,13 @@
 <plugindata owner="com.ajr.framework.AJRInterface" version="1">
 
     <!-- Our variable types -->
-    <ajrvariabletype class="AJRInterface.AJRVariableTypeColor" name="Color" />
-    <ajrvariabletype class="AJRInterface.AJRVariableTypeGradient" name="Gradient" />
-    <ajrvariabletype class="AJRInterface.AJRVariableTypeFont" name="Font" />
-    <ajrvariabletype class="AJRInterface.AJRVariableTypePoint" name="Point" />
-    <ajrvariabletype class="AJRInterface.AJRVariableTypeSize" name="Size" />
-    <ajrvariabletype class="AJRInterface.AJRVariableTypeRect" name="Rect" />
-    <ajrvariabletype class="AJRInterface.AJRVariableTypeBezierPath" name="Bezier Path" />
+    <ajrvariabletype class="AJRInterface.AJRVariableTypeColor" name="color" />
+    <ajrvariabletype class="AJRInterface.AJRVariableTypeGradient" name="gradient" />
+    <ajrvariabletype class="AJRInterface.AJRVariableTypeFont" name="font" />
+    <ajrvariabletype class="AJRInterface.AJRVariableTypePoint" name="point" />
+    <ajrvariabletype class="AJRInterface.AJRVariableTypeSize" name="size" />
+    <ajrvariabletype class="AJRInterface.AJRVariableTypeRect" name="rect" />
+    <ajrvariabletype class="AJRInterface.AJRVariableTypeBezierPath" name="bezierPath" availableInUI="false" />
 
     <!-- Color Support -->
     <ajrfunction class="AJRInterface.AJRColorFunction" name="color" prototype="color(name) or color(colorSpace, ...)" />

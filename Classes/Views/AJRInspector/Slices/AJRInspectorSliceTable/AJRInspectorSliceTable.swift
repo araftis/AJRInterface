@@ -218,7 +218,15 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
         hasTitlesKey?.addObserver {
             if let strongSelf = weakSelf {
                 if strongSelf.hasTitlesKey?.value ?? true {
-                    strongSelf.tableView.headerView = NSTableHeaderView()
+                    strongSelf.tableView.headerView = AJRInspectorTableHeader()
+                    if let headerView = strongSelf.tableView.headerView {
+                        var frame = headerView.frame
+                        frame.size.height = 21
+                        headerView.frame = frame
+                        strongSelf.tableView.tile()
+                        strongSelf.topAnchor.constant = headerView.frame.size.height
+                    }
+                    strongSelf.tableView.headerView = AJRInspectorTableHeader()
                     strongSelf.tableView.tile()
                     strongSelf.topAnchor.constant = strongSelf.tableView.headerView?.frame.size.height ?? 0.0
                 } else {
@@ -548,9 +556,9 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
     
     @IBAction open func popAddMenu(_ sender: Any?) -> Void {
         if addMenuKeyPath?.selectionType == .single,
-            let menu = addMenuKeyPath?.value,
-            menu.items.count > 0,
-            let addButton = addButton {
+           let menu = addMenuKeyPath?.value,
+           menu.items.count > 0,
+           let addButton = addButton {
             let bounds = addButton.bounds
             let point = NSPoint(x: bounds.origin.x, y: bounds.maxY)
             menu.popUp(positioning: menu.items[0], at: point, in: addButton)

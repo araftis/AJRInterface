@@ -45,3 +45,15 @@ open class AJRInspectorSliceTableScrollView: NSScrollView {
 open class AJRInspectorTableView : NSTableView {
 
 }
+
+@objcMembers
+open class AJRInspectorTableHeader : NSTableHeaderView {
+    
+    open override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
+        
+        NSColor.separatorColor.set()
+        AJRBezierPath.strokeLine(from: CGPoint(x: bounds.minX, y: bounds.maxY), to: CGPoint(x: bounds.maxX, y: bounds.maxY))
+    }
+    
+}

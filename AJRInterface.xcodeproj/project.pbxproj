@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		217160712900C6AD001F2D4C /* AJRInspectorSliceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217160702900C6AD001F2D4C /* AJRInspectorSliceStore.swift */; };
 		2171607A2900D3EF001F2D4C /* AJRInterfaceExpressions.ajrplugindata in Resources */ = {isa = PBXBuildFile; fileRef = 217160792900D3EF001F2D4C /* AJRInterfaceExpressions.ajrplugindata */; };
+		2171608629089FAB001F2D4C /* AJRInspectorSliceStore.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2171608529089FAB001F2D4C /* AJRInspectorSliceStore.xib */; };
+		217160C52908C132001F2D4C /* AJRVariableTypeColor.strings in Resources */ = {isa = PBXBuildFile; fileRef = 217160C72908C132001F2D4C /* AJRVariableTypeColor.strings */; };
+		217160CD2908C16C001F2D4C /* AJRVariableTypeFont.strings in Resources */ = {isa = PBXBuildFile; fileRef = 217160CF2908C16C001F2D4C /* AJRVariableTypeFont.strings */; };
+		217160D32908C1AF001F2D4C /* AJRVariableTypeGradient.strings in Resources */ = {isa = PBXBuildFile; fileRef = 217160D52908C1AF001F2D4C /* AJRVariableTypeGradient.strings */; };
+		217160D92908C1F2001F2D4C /* AJRVariableTypePoint.strings in Resources */ = {isa = PBXBuildFile; fileRef = 217160DB2908C1F2001F2D4C /* AJRVariableTypePoint.strings */; };
+		217160DF2908C229001F2D4C /* AJRVariableTypeRect.strings in Resources */ = {isa = PBXBuildFile; fileRef = 217160E12908C229001F2D4C /* AJRVariableTypeRect.strings */; };
+		217160E52908C262001F2D4C /* AJRVariableTypeSize.strings in Resources */ = {isa = PBXBuildFile; fileRef = 217160E72908C262001F2D4C /* AJRVariableTypeSize.strings */; };
 		218F4F402728768A00BD92BD /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218F4F3F2728768A00BD92BD /* UserDefaults+Extensions.swift */; };
 		21FCD9D627161B640049E558 /* AJRInspectorSliceFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FCD9D527161B640049E558 /* AJRInspectorSliceFile.swift */; };
 		21FCD9D8271626F00049E558 /* AJRInspectorSliceFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21FCD9D727161CC10049E558 /* AJRInspectorSliceFile.xib */; };
@@ -645,6 +652,19 @@
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		217160702900C6AD001F2D4C /* AJRInspectorSliceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorSliceStore.swift; sourceTree = "<group>"; };
 		217160792900D3EF001F2D4C /* AJRInterfaceExpressions.ajrplugindata */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AJRInterfaceExpressions.ajrplugindata; sourceTree = "<group>"; };
+		2171608529089FAB001F2D4C /* AJRInspectorSliceStore.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRInspectorSliceStore.xib; sourceTree = "<group>"; };
+		217160C62908C132001F2D4C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AJRVariableTypeColor.strings; sourceTree = "<group>"; };
+		217160C82908C133001F2D4C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/AJRVariableTypeColor.strings; sourceTree = "<group>"; };
+		217160CE2908C16C001F2D4C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AJRVariableTypeFont.strings; sourceTree = "<group>"; };
+		217160D02908C16E001F2D4C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/AJRVariableTypeFont.strings; sourceTree = "<group>"; };
+		217160D42908C1AF001F2D4C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AJRVariableTypeGradient.strings; sourceTree = "<group>"; };
+		217160D62908C1B1001F2D4C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/AJRVariableTypeGradient.strings; sourceTree = "<group>"; };
+		217160DA2908C1F2001F2D4C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AJRVariableTypePoint.strings; sourceTree = "<group>"; };
+		217160DC2908C1F4001F2D4C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/AJRVariableTypePoint.strings; sourceTree = "<group>"; };
+		217160E02908C229001F2D4C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AJRVariableTypeRect.strings; sourceTree = "<group>"; };
+		217160E22908C22A001F2D4C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/AJRVariableTypeRect.strings; sourceTree = "<group>"; };
+		217160E62908C262001F2D4C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AJRVariableTypeSize.strings; sourceTree = "<group>"; };
+		217160E82908C263001F2D4C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/AJRVariableTypeSize.strings; sourceTree = "<group>"; };
 		218F4F3F2728768A00BD92BD /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		21FCD9D527161B640049E558 /* AJRInspectorSliceFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorSliceFile.swift; sourceTree = "<group>"; };
 		21FCD9D727161CC10049E558 /* AJRInspectorSliceFile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRInspectorSliceFile.xib; sourceTree = "<group>"; };
@@ -1420,6 +1440,7 @@
 			isa = PBXGroup;
 			children = (
 				217160702900C6AD001F2D4C /* AJRInspectorSliceStore.swift */,
+				2171608529089FAB001F2D4C /* AJRInspectorSliceStore.xib */,
 			);
 			path = AJRInspectorSliceStore;
 			sourceTree = "<group>";
@@ -2177,11 +2198,17 @@
 			children = (
 				FA8B9006290101F200650F23 /* AJRVariableTypeBezierPath.swift */,
 				FA8B8FFA290101B000650F23 /* AJRVariableTypeColor.swift */,
+				217160C72908C132001F2D4C /* AJRVariableTypeColor.strings */,
 				FA8B8FFE290101C800650F23 /* AJRVariableTypeFont.swift */,
+				217160CF2908C16C001F2D4C /* AJRVariableTypeFont.strings */,
 				FA8B8FFC290101BD00650F23 /* AJRVariableTypeGradient.swift */,
+				217160D52908C1AF001F2D4C /* AJRVariableTypeGradient.strings */,
 				FA8B9000290101D300650F23 /* AJRVariableTypePoint.swift */,
+				217160DB2908C1F2001F2D4C /* AJRVariableTypePoint.strings */,
 				FA8B9004290101E700650F23 /* AJRVariableTypeRect.swift */,
+				217160E12908C229001F2D4C /* AJRVariableTypeRect.strings */,
 				FA8B9002290101DD00650F23 /* AJRVariableTypeSize.swift */,
+				217160E72908C262001F2D4C /* AJRVariableTypeSize.strings */,
 			);
 			path = "Variable Types";
 			sourceTree = "<group>";
@@ -3049,6 +3076,7 @@
 				FAE8AD830EC926420016505C /* RingTop.tiff in Resources */,
 				FAC4DF330ED49E1200897E9B /* AJRActivity.xib in Resources */,
 				FAC4DF560ED49E4800897E9B /* AJRActivityViewer.xib in Resources */,
+				217160D92908C1F2001F2D4C /* AJRVariableTypePoint.strings in Resources */,
 				FA08611D22C827FC0021CCC5 /* AJRObjectInspectorViewController.strings in Resources */,
 				FAC4DF570ED49E4800897E9B /* Stop.tiff in Resources */,
 				FAC4DF580ED49E4800897E9B /* StopGraphite.tiff in Resources */,
@@ -3059,12 +3087,15 @@
 				FA95DE6922B74D5D005EC953 /* AJRInspectorSliceInsets.strings in Resources */,
 				2171607A2900D3EF001F2D4C /* AJRInterfaceExpressions.ajrplugindata in Resources */,
 				FA103997225DD1D7005B0D3B /* AJRInspectorSliceTest.xib in Resources */,
+				217160C52908C132001F2D4C /* AJRVariableTypeColor.strings in Resources */,
 				FAC4E14E0ED4C82200897E9B /* AJRPreferencesPanel.xib in Resources */,
 				FA53D6382240EB63003E02B1 /* AJRInspectorSliceChoiceMenu.xib in Resources */,
 				FA3CF9670EFBFFE0000F4669 /* AJRReportView.css in Resources */,
 				FABB66CA0F2E92B800FBFEEB /* AJRExceptionPanel.xib in Resources */,
 				FAF8503F0F2F7B9E003A06D4 /* AJRExceptionReport.osmreport in Resources */,
+				217160D32908C1AF001F2D4C /* AJRVariableTypeGradient.strings in Resources */,
 				FACEF6600F38D5B900401F2D /* AJRGIFImageFormat.xib in Resources */,
+				217160DF2908C229001F2D4C /* AJRVariableTypeRect.strings in Resources */,
 				FA53D6562241DDC4003E02B1 /* AJRInspectorSliceColor.xib in Resources */,
 				FACEF6640F38D5CA00401F2D /* AJRImageSaveAccessory.xib in Resources */,
 				FACEF6680F38D5DB00401F2D /* AJRJPEGImageFormat.xib in Resources */,
@@ -3081,11 +3112,13 @@
 				FA95DE5722B47FC8005EC953 /* AJRInspectorSliceGeometryFourFields.xib in Resources */,
 				FA16036A10C498F100A1E97D /* AJRPagesSingle.tiff in Resources */,
 				21FCD9DB27162C330049E558 /* AJRInspectorSliceFile.strings in Resources */,
+				217160E52908C262001F2D4C /* AJRVariableTypeSize.strings in Resources */,
 				FA16036B10C498F100A1E97D /* AJRPagesTwoUpOddLeft.tiff in Resources */,
 				FA16036C10C498F100A1E97D /* AJRPagesTwoUpOddRight.tiff in Resources */,
 				FA16036D10C498F100A1E97D /* AJRPagesVertical.tiff in Resources */,
 				FA16036E10C498F100A1E97D /* Scroll View Pop Up D.tiff in Resources */,
 				FA2876FE2610281F00F5BBE8 /* LICENSE.md in Resources */,
+				2171608629089FAB001F2D4C /* AJRInspectorSliceStore.xib in Resources */,
 				FACEC40D22D3F7BA008AA6DB /* AJRInspectorSliceAttributedField.xib in Resources */,
 				FAD61D0D2255958E004CDD37 /* AJRInspectorViewController.strings in Resources */,
 				FA16036F10C498F100A1E97D /* Scroll View Pop Up Paper D.tiff in Resources */,
@@ -3101,6 +3134,7 @@
 				FA16037510C498F100A1E97D /* Well Middle.tiff in Resources */,
 				FA16037610C498F100A1E97D /* Well Right H.tif in Resources */,
 				FA16037710C498F100A1E97D /* Well Right Master.tiff in Resources */,
+				217160CD2908C16C001F2D4C /* AJRVariableTypeFont.strings in Resources */,
 				FA16037810C498F100A1E97D /* Well Right.tiff in Resources */,
 				FAEF4A181135E1FE00E49BA3 /* AJRCalendarDateChooser.strings in Resources */,
 				FAEF4A1B1135E25900E49BA3 /* AJRCalendarDateChooser.xib in Resources */,
@@ -3460,6 +3494,60 @@
 				089C1667FE841158C02AAC07 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		217160C72908C132001F2D4C /* AJRVariableTypeColor.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				217160C62908C132001F2D4C /* en */,
+				217160C82908C133001F2D4C /* es */,
+			);
+			name = AJRVariableTypeColor.strings;
+			sourceTree = "<group>";
+		};
+		217160CF2908C16C001F2D4C /* AJRVariableTypeFont.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				217160CE2908C16C001F2D4C /* en */,
+				217160D02908C16E001F2D4C /* es */,
+			);
+			name = AJRVariableTypeFont.strings;
+			sourceTree = "<group>";
+		};
+		217160D52908C1AF001F2D4C /* AJRVariableTypeGradient.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				217160D42908C1AF001F2D4C /* en */,
+				217160D62908C1B1001F2D4C /* es */,
+			);
+			name = AJRVariableTypeGradient.strings;
+			sourceTree = "<group>";
+		};
+		217160DB2908C1F2001F2D4C /* AJRVariableTypePoint.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				217160DA2908C1F2001F2D4C /* en */,
+				217160DC2908C1F4001F2D4C /* es */,
+			);
+			name = AJRVariableTypePoint.strings;
+			sourceTree = "<group>";
+		};
+		217160E12908C229001F2D4C /* AJRVariableTypeRect.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				217160E02908C229001F2D4C /* en */,
+				217160E22908C22A001F2D4C /* es */,
+			);
+			name = AJRVariableTypeRect.strings;
+			sourceTree = "<group>";
+		};
+		217160E72908C262001F2D4C /* AJRVariableTypeSize.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				217160E62908C262001F2D4C /* en */,
+				217160E82908C263001F2D4C /* es */,
+			);
+			name = AJRVariableTypeSize.strings;
 			sourceTree = "<group>";
 		};
 		21FCD9DD27162C330049E558 /* AJRInspectorSliceFile.strings */ = {
