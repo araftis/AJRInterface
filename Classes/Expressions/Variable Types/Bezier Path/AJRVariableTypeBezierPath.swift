@@ -9,4 +9,10 @@ import AJRFoundation
 
 @objcMembers
 open class AJRVariableTypeBezierPath : AJRVariableType {
+
+    open override func createDefaultValue() -> Any? {
+        return AJRBezierPath()
+    }
+
+
 }

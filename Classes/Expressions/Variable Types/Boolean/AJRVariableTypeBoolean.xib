@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21225" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21225"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <tableCellView identifier="booleanEditor" translatesAutoresizingMaskIntoConstraints="NO" id="LXu-hH-bkn" customClass="AJRVariableBooleanCellView" customModule="AJRInterface" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="16"/>
+            <subviews>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="p6k-W1-d0o">
+                    <rect key="frame" x="43" y="0.0" width="14" height="16"/>
+                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="VBT-Do-FRM">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="toggle:" target="LXu-hH-bkn" id="Baq-wH-Vhw"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="p6k-W1-d0o" firstAttribute="centerY" secondItem="LXu-hH-bkn" secondAttribute="centerY" id="HhY-Ho-HZO"/>
+                <constraint firstItem="p6k-W1-d0o" firstAttribute="top" relation="greaterThanOrEqual" secondItem="LXu-hH-bkn" secondAttribute="top" id="Kor-L6-LlL"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="p6k-W1-d0o" secondAttribute="bottom" id="Nu5-W5-8En"/>
+                <constraint firstItem="p6k-W1-d0o" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LXu-hH-bkn" secondAttribute="leading" id="Pwy-Da-Tms"/>
+                <constraint firstItem="p6k-W1-d0o" firstAttribute="centerX" secondItem="LXu-hH-bkn" secondAttribute="centerX" id="SlI-yH-gy7"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="p6k-W1-d0o" secondAttribute="trailing" id="dRk-At-Nlc"/>
+            </constraints>
+            <connections>
+                <outlet property="checkBox" destination="p6k-W1-d0o" id="fLn-zB-M7I"/>
+            </connections>
+            <point key="canvasLocation" x="1" y="50"/>
+        </tableCellView>
+    </objects>
+</document>

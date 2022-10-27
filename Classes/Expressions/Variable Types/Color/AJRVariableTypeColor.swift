@@ -12,6 +12,10 @@ open class AJRVariableTypeColor : AJRVariableType, AJRVariableObjectCreation {
 
     // MARK: - Conversion
 
+    open override func createDefaultValue() -> Any? {
+        return NSColor.white
+    }
+
     open override func value(from string: String) throws -> Any? {
         return AJRColorFromString(string)
     }
@@ -42,5 +46,26 @@ open class AJRVariableTypeColor : AJRVariableType, AJRVariableObjectCreation {
     open var purple : AJRColor { return AJRColor.purple }
     open var brown : AJRColor { return AJRColor.brown }
     open var clear : AJRColor { return AJRColor.clear }
+
+}
+
+open class AJRVariableColorCellView : NSTableCellView {
+
+    @IBOutlet open var colorWell: NSColorWell!
+
+    open override var objectValue: Any? {
+        didSet {
+            if let variable = objectValue as? AJRVariable,
+               let color = variable.value as? AJRColor {
+                colorWell.color = color
+            }
+        }
+    }
+
+    @IBAction open func takeColorFrom(_ sender: NSColorWell) -> Void {
+        if let variable = objectValue as? AJRVariable {
+            variable.value = colorWell.color
+        }
+    }
 
 }

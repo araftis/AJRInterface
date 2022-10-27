@@ -9,4 +9,11 @@ import AJRFoundation
 
 @objcMembers
 open class AJRVariableTypeGradient : AJRVariableType {
+
+    // MARK: - Conversion
+
+    open override func createDefaultValue() -> Any? {
+        return NSGradient(colors: [NSColor.black, NSColor.white])
+    }
+
 }

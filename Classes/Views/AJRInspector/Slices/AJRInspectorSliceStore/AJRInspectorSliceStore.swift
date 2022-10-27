@@ -7,6 +7,12 @@
 
 import Cocoa
 
+extension NSUserInterfaceItemIdentifier {
+    static var variableColumn = NSUserInterfaceItemIdentifier("variableColumn")
+    static var typeColumn = NSUserInterfaceItemIdentifier("typeColumn")
+    static var valueColumn = NSUserInterfaceItemIdentifier("valueColumn")
+}
+
 extension AJRStore : AJRInspectorValue {
     
     public static func inspectorValue(from string: String) -> Any? {
@@ -20,6 +26,21 @@ extension AJRStore : AJRInspectorValue {
     
 }
 
+internal extension NSMenu {
+
+    func menuItem(with variableType: AJRVariableType) -> NSMenuItem? {
+        for menuItem in self.items {
+            if let possible = menuItem.representedObject as? AJRVariableType {
+                if possible === variableType {
+                    return menuItem
+                }
+            }
+        }
+        return nil
+    }
+
+}
+
 @objcMembers
 open class AJRInspectorSliceStore: AJRInspectorSlice, NSTableViewDelegate, NSTableViewDataSource {
 
@@ -29,16 +50,17 @@ open class AJRInspectorSliceStore: AJRInspectorSlice, NSTableViewDelegate, NSTab
     open var usesAlternatingRowBackgroundColorsKey : AJRInspectorKey<Bool>!
     open var hasVerticalGridKey : AJRInspectorKey<Bool>!
     open var valueKeyPath : AJRInspectorKey<AJRStore>!
+    open var storeObserverToken : AJRInvalidation? = nil
 
     open var topAnchor : NSLayoutConstraint!
     open var bottomAnchor : NSLayoutConstraint!
     
     open var addButton : NSButton?
     open var removeButton : NSButton?
-    
-    lazy open var menu : NSMenu = {
+
+    internal func createMenu() -> NSMenu {
         let menu = NSMenu(title: "Variables")
-        
+
         for variableType in AJRVariableType.types {
             if variableType.availableInUI {
                 let menuItem = menu.addItem(withTitle: variableType.localizedDisplayName, action: #selector(add(_:)), keyEquivalent: "")
@@ -46,9 +68,11 @@ open class AJRInspectorSliceStore: AJRInspectorSlice, NSTableViewDelegate, NSTab
                 menuItem.target = self
             }
         }
-        
+
         return menu
-    }()
+    }
+
+    lazy open var menu : NSMenu = createMenu()
 
     // MARK: - AJRInspectorSlice
     
@@ -87,6 +111,20 @@ open class AJRInspectorSliceStore: AJRInspectorSlice, NSTableViewDelegate, NSTab
         }
         valueKeyPath?.addObserver {
             if let strongSelf = weakSelf {
+                if let token = strongSelf.storeObserverToken {
+                    AJRLog.info("token: \(token)")
+                    token.invalidate()
+                    strongSelf.storeObserverToken = nil
+                }
+                if let newStore = self.valueKeyPath?.value {
+                    strongSelf.storeObserverToken = newStore.addObserver(newStore, forKeyPath: "symbols", block: { object, key, changes in
+                        if let kind = changes?[.kindKey] as? Int {
+                            if kind > 1 {
+                                strongSelf.tableView?.reloadData()
+                            }
+                        }
+                    })
+                }
                 strongSelf.tableView.reloadData()
                 strongSelf.updateButtons()
             }
@@ -184,12 +222,51 @@ open class AJRInspectorSliceStore: AJRInspectorSlice, NSTableViewDelegate, NSTab
     open func numberOfRows(in tableView: NSTableView) -> Int {
         return valueKeyPath.value?.count ?? 0
     }
-    
+
+    internal func name(at index: Int) -> String? {
+        if let store = valueKeyPath?.value {
+            return store.orderedName(at: index)
+        }
+        return nil
+    }
+
+    internal func variable(at index: Int) -> AJRVariable? {
+        if let store = valueKeyPath?.value {
+            return store.orderedSymbol(at: index) as? AJRVariable
+        }
+        return nil
+    }
+
     open func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let columnIndex = tableView.tableColumns.index(ofObjectIdenticalTo: tableColumn!) ?? -1
+        var view : NSView? = nil
+
+        if let variable = variable(at: row) {
+            if columnIndex == 0 {
+                view = tableView.makeView(withIdentifier: .variableColumn, owner: nil)
+                if let view = view as? NSTableCellView {
+                    view.textField?.stringValue = variable.name
+                }
+            } else if columnIndex == 1 {
+                view = tableView.makeView(withIdentifier: .typeColumn, owner: nil)
+                if let view = view as? AJRVariableTypeTableCellView {
+                    if let popUp = view.typePopUpButton {
+                        popUp.menu = createMenu()
+                        if let item = popUp.menu?.menuItem(with: variable.variableType) {
+                            popUp.select(item)
+                        }
+                    }
+                }
+            } else if columnIndex == 2 {
+                let identifier = variable.variableType.editorViewIdentifer(for: tableView)
+                view = tableView.makeView(withIdentifier: identifier, owner: nil)
+                if let view = view as? NSTableCellView {
+                    view.objectValue = variable
+                }
+            }
+        }
         
-        
-        return nil
+        return view
     }
     
     open func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
@@ -254,7 +331,12 @@ open class AJRInspectorSliceStore: AJRInspectorSlice, NSTableViewDelegate, NSTab
     
     @IBAction open func add(_ sender: NSMenuItem?) -> Void {
         if let variableType = sender?.representedObject as? AJRVariableType {
-            AJRLog.info("add: \(variableType.name)")
+            if let store = valueKeyPath?.value {
+                let value = variableType.createDefaultValue()
+                if let variable = store.createVariable(named: variableType.name, type: variableType, value: value) {
+                    AJRLog.info("added: \(variable)")
+                }
+            }
         }
     }
 
@@ -262,4 +344,10 @@ open class AJRInspectorSliceStore: AJRInspectorSlice, NSTableViewDelegate, NSTab
         AJRLog.info("remove!")
     }
     
+}
+
+internal class AJRVariableTypeTableCellView : NSTableCellView {
+
+    @IBOutlet var typePopUpButton : NSPopUpButton!
+
 }
