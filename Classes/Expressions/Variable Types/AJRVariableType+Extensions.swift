@@ -41,7 +41,9 @@ public extension AJRVariableType {
     func editorViewIdentifer(for tableView: NSTableView) -> NSUserInterfaceItemIdentifier {
         let identifier = editorIdentifier
         if tableView.registeredNibsByIdentifier?[identifier] == nil {
-            tableView.register(editorNib, forIdentifier: identifier)
+            let nib = editorNib
+            AJRLog.debug("\(identifier.rawValue): \(nib)")
+            tableView.register(nib, forIdentifier: identifier)
         }
         return identifier
     }

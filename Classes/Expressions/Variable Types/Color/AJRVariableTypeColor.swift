@@ -49,16 +49,13 @@ open class AJRVariableTypeColor : AJRVariableType, AJRVariableObjectCreation {
 
 }
 
-open class AJRVariableColorCellView : NSTableCellView {
+open class AJRVariableColorCellView : AJRVariableValueTableCellView {
 
     @IBOutlet open var colorWell: NSColorWell!
 
-    open override var objectValue: Any? {
-        didSet {
-            if let variable = objectValue as? AJRVariable,
-               let color = variable.value as? AJRColor {
-                colorWell.color = color
-            }
+    open override func variableDidChangeValue(_ variable: AJRVariable) {
+        if let color = variable.value as? AJRColor {
+            colorWell.color = color
         }
     }
 

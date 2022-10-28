@@ -209,6 +209,15 @@
 		FA54DB930F433BFE008DF3F7 /* NSWindow+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA54DB910F433BFE008DF3F7 /* NSWindow+Extensions.m */; };
 		FA54DC4F0F435DB0008DF3F7 /* AJRCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = FA54DC4D0F435DB0008DF3F7 /* AJRCollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA54DC500F435DB0008DF3F7 /* AJRCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA54DC4E0F435DB0008DF3F7 /* AJRCollectionView.m */; };
+		FA54F216290C7FB5003DAEEF /* AJRVariableTypeInteger.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA54F215290C7FB5003DAEEF /* AJRVariableTypeInteger.xib */; };
+		FA54F218290C8085003DAEEF /* AJRVariableIntegerCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA54F217290C8085003DAEEF /* AJRVariableIntegerCellView.swift */; };
+		FA54F21B290C87CF003DAEEF /* AJRVariableTypeFloatingPoint.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA54F21A290C87CF003DAEEF /* AJRVariableTypeFloatingPoint.xib */; };
+		FA54F21D290C87F0003DAEEF /* AJRVariableFloatingPointCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA54F21C290C87F0003DAEEF /* AJRVariableFloatingPointCellView.swift */; };
+		FA54F220290C89FF003DAEEF /* AJRVariableTypeString.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA54F21F290C89FF003DAEEF /* AJRVariableTypeString.xib */; };
+		FA54F222290C8A10003DAEEF /* AJRVariableStringCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA54F221290C8A10003DAEEF /* AJRVariableStringCellView.swift */; };
+		FA54F225290C8B3B003DAEEF /* AJRVariableTypeDate.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA54F224290C8B3B003DAEEF /* AJRVariableTypeDate.xib */; };
+		FA54F227290C8B45003DAEEF /* AJRVariableDateCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA54F226290C8B45003DAEEF /* AJRVariableDateCellView.swift */; };
+		FA54F229290C8C2E003DAEEF /* NSTextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA54F228290C8C2E003DAEEF /* NSTextField+Extensions.swift */; };
 		FA57AF5F231DFEF50020C1E5 /* AJRAlternateHighlightButtonCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA57AF5E231DFEF50020C1E5 /* AJRAlternateHighlightButtonCellTests.swift */; };
 		FA58623E1925C25A001F041A /* AJRColorSwatchView.h in Headers */ = {isa = PBXBuildFile; fileRef = FA58623A1925C25A001F041A /* AJRColorSwatchView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA58623F1925C25A001F041A /* AJRColorSwatchView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA58623B1925C25A001F041A /* AJRColorSwatchView.m */; };
@@ -872,6 +881,15 @@
 		FA54DB910F433BFE008DF3F7 /* NSWindow+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindow+Extensions.m"; sourceTree = "<group>"; };
 		FA54DC4D0F435DB0008DF3F7 /* AJRCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRCollectionView.h; sourceTree = "<group>"; };
 		FA54DC4E0F435DB0008DF3F7 /* AJRCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRCollectionView.m; sourceTree = "<group>"; };
+		FA54F215290C7FB5003DAEEF /* AJRVariableTypeInteger.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AJRVariableTypeInteger.xib; sourceTree = "<group>"; };
+		FA54F217290C8085003DAEEF /* AJRVariableIntegerCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRVariableIntegerCellView.swift; sourceTree = "<group>"; };
+		FA54F21A290C87CF003DAEEF /* AJRVariableTypeFloatingPoint.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRVariableTypeFloatingPoint.xib; sourceTree = "<group>"; };
+		FA54F21C290C87F0003DAEEF /* AJRVariableFloatingPointCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRVariableFloatingPointCellView.swift; sourceTree = "<group>"; };
+		FA54F21F290C89FF003DAEEF /* AJRVariableTypeString.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRVariableTypeString.xib; sourceTree = "<group>"; };
+		FA54F221290C8A10003DAEEF /* AJRVariableStringCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRVariableStringCellView.swift; sourceTree = "<group>"; };
+		FA54F224290C8B3B003DAEEF /* AJRVariableTypeDate.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRVariableTypeDate.xib; sourceTree = "<group>"; };
+		FA54F226290C8B45003DAEEF /* AJRVariableDateCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRVariableDateCellView.swift; sourceTree = "<group>"; };
+		FA54F228290C8C2E003DAEEF /* NSTextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextField+Extensions.swift"; sourceTree = "<group>"; };
 		FA57AF5E231DFEF50020C1E5 /* AJRAlternateHighlightButtonCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRAlternateHighlightButtonCellTests.swift; sourceTree = "<group>"; };
 		FA58623A1925C25A001F041A /* AJRColorSwatchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRColorSwatchView.h; sourceTree = "<group>"; };
 		FA58623B1925C25A001F041A /* AJRColorSwatchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRColorSwatchView.m; sourceTree = "<group>"; };
@@ -1914,6 +1932,33 @@
 			path = ../AJRCollectionView;
 			sourceTree = "<group>";
 		};
+		FA54F219290C87BB003DAEEF /* Floating Point */ = {
+			isa = PBXGroup;
+			children = (
+				FA54F21A290C87CF003DAEEF /* AJRVariableTypeFloatingPoint.xib */,
+				FA54F21C290C87F0003DAEEF /* AJRVariableFloatingPointCellView.swift */,
+			);
+			path = "Floating Point";
+			sourceTree = "<group>";
+		};
+		FA54F21E290C89EE003DAEEF /* String */ = {
+			isa = PBXGroup;
+			children = (
+				FA54F21F290C89FF003DAEEF /* AJRVariableTypeString.xib */,
+				FA54F221290C8A10003DAEEF /* AJRVariableStringCellView.swift */,
+			);
+			path = String;
+			sourceTree = "<group>";
+		};
+		FA54F223290C8B2B003DAEEF /* Date */ = {
+			isa = PBXGroup;
+			children = (
+				FA54F224290C8B3B003DAEEF /* AJRVariableTypeDate.xib */,
+				FA54F226290C8B45003DAEEF /* AJRVariableDateCellView.swift */,
+			);
+			path = Date;
+			sourceTree = "<group>";
+		};
 		FA5862391925C25A001F041A /* AJRColorWell */ = {
 			isa = PBXGroup;
 			children = (
@@ -2018,6 +2063,7 @@
 				FA61C09C0FEAEE96003B09B8 /* NSTextFieldCell+Extensions.m */,
 				FAAF3B4E0F8AA40C00BA6419 /* NSTextView+Extensions.h */,
 				FAAF3B4F0F8AA40C00BA6419 /* NSTextView+Extensions.m */,
+				FA54F228290C8C2E003DAEEF /* NSTextField+Extensions.swift */,
 				FA685A5D0F571DFF00123839 /* NSToolbar+Extensions.h */,
 				FA685A5E0F571DFF00123839 /* NSToolbar+Extensions.m */,
 				FAC65CBB0EAE470700CAAD3C /* NSTreeController+Extensions.h */,
@@ -2211,11 +2257,15 @@
 				FA8B9020290A357E00650F23 /* Boolean */,
 				FA8B901D290A353A00650F23 /* Bezier Path */,
 				FA8B9018290A341A00650F23 /* Color */,
+				FA54F223290C8B2B003DAEEF /* Date */,
+				FA54F219290C87BB003DAEEF /* Floating Point */,
 				FA8B901E290A354800650F23 /* Font */,
 				FA8B901B290A352100650F23 /* Gradient */,
+				FA8B9025290C7F2200650F23 /* Integer */,
 				FA8B9019290A34FD00650F23 /* Point */,
 				FA8B901A290A350900650F23 /* Rect */,
 				FA8B901C290A352E00650F23 /* Size */,
+				FA54F21E290C89EE003DAEEF /* String */,
 			);
 			path = "Variable Types";
 			sourceTree = "<group>";
@@ -2298,6 +2348,15 @@
 				FA8B9023290A36CA00650F23 /* AJRVariableBooleanCellView.swift */,
 			);
 			path = Boolean;
+			sourceTree = "<group>";
+		};
+		FA8B9025290C7F2200650F23 /* Integer */ = {
+			isa = PBXGroup;
+			children = (
+				FA54F215290C7FB5003DAEEF /* AJRVariableTypeInteger.xib */,
+				FA54F217290C8085003DAEEF /* AJRVariableIntegerCellView.swift */,
+			);
+			path = Integer;
 			sourceTree = "<group>";
 		};
 		FA95DE4A22B464AA005EC953 /* AJRInspectorSliceGeometry */ = {
@@ -3117,6 +3176,7 @@
 				FA4426690E98492400545311 /* AJRButtonBar.xib in Resources */,
 				FA53D5F4223F04D9003E02B1 /* AJRInspector.xib in Resources */,
 				FA95DE6C22B74D69005EC953 /* AJRInspectorSlicePoint.strings in Resources */,
+				FA54F21B290C87CF003DAEEF /* AJRVariableTypeFloatingPoint.xib in Resources */,
 				FA76ABA0221D3CF9008FA786 /* AJRWebFindBar.xib in Resources */,
 				FA76ABDB221EB115008FA786 /* AJRWebViewSearch.js in Resources */,
 				FA76ABDE221F668C008FA786 /* AJRWebView.strings in Resources */,
@@ -3125,6 +3185,7 @@
 				FA53D66022420162003E02B1 /* AJRInspectorSliceNumber.xib in Resources */,
 				FA53D66B224347BC003E02B1 /* AJRInspectorSliceButton.xib in Resources */,
 				FAFE4A7F0EC5000600AE17D0 /* AJRInspectorIcon.eps in Resources */,
+				FA54F225290C8B3B003DAEEF /* AJRVariableTypeDate.xib in Resources */,
 				FAFE4A800EC5000600AE17D0 /* AJRInspectorIcon.tiff in Resources */,
 				FA181A0E227647BB00BA7E06 /* AJRInspectorSliceStars.xib in Resources */,
 				FA53D60A223F1423003E02B1 /* AJRInspectorSlices.ajrplugindata in Resources */,
@@ -3165,6 +3226,7 @@
 				FAC4DF5A0ED49E4800897E9B /* StopSmallGraphite.tiff in Resources */,
 				FAD61D2B225D3B66004CDD37 /* AJRInspectorSliceTable.xib in Resources */,
 				FA95DE6922B74D5D005EC953 /* AJRInspectorSliceInsets.strings in Resources */,
+				FA54F220290C89FF003DAEEF /* AJRVariableTypeString.xib in Resources */,
 				2171607A2900D3EF001F2D4C /* AJRInterfaceExpressions.ajrplugindata in Resources */,
 				FA103997225DD1D7005B0D3B /* AJRInspectorSliceTest.xib in Resources */,
 				217160C52908C132001F2D4C /* AJRVariableTypeColor.strings in Resources */,
@@ -3208,6 +3270,7 @@
 				FA16037110C498F100A1E97D /* Scroll View Pop Up.tiff in Resources */,
 				FA16037210C498F100A1E97D /* Well Left H.tiff in Resources */,
 				FA95DE6F22B74D71005EC953 /* AJRInspectorSliceRect.strings in Resources */,
+				FA54F216290C7FB5003DAEEF /* AJRVariableTypeInteger.xib in Resources */,
 				FA181A0C227259C900BA7E06 /* AJRInspectorSliceLevel.xib in Resources */,
 				FA16037310C498F100A1E97D /* Well Left Master.tiff in Resources */,
 				FA16037410C498F100A1E97D /* Well Left.tiff in Resources */,
@@ -3276,6 +3339,7 @@
 				FA7D57590EA3FF1D00F0C220 /* AJRTerritoryViewer.m in Sources */,
 				FAD61D27225B0504004CDD37 /* AJRInspectorSliceTable.swift in Sources */,
 				FAF9D729191ED195001D9FD9 /* EKRecurrenceRule+Extensions.m in Sources */,
+				FA54F227290C8B45003DAEEF /* AJRVariableDateCellView.swift in Sources */,
 				FA9EC0D10EA65FAB0032BA16 /* NSColor+Extensions.m in Sources */,
 				FA4F57852183C2D8004C0A8C /* AJRRulerView.m in Sources */,
 				FA9EC26F0EA6809E0032BA16 /* AJRButtonTextFieldCell.swift in Sources */,
@@ -3303,6 +3367,7 @@
 				FAFE49760EC4F24000AE17D0 /* AJRDropShadowBorderInspectorModule.m in Sources */,
 				FAFE49790EC4F24000AE17D0 /* AJRGrooveBorder.m in Sources */,
 				FAFE497B0EC4F24000AE17D0 /* AJRLineBorder.m in Sources */,
+				FA54F218290C8085003DAEEF /* AJRVariableIntegerCellView.swift in Sources */,
 				FAFE497D0EC4F24000AE17D0 /* AJRLineBorderInspectorModule.m in Sources */,
 				FAFE49800EC4F24000AE17D0 /* AJRPipeBorder.m in Sources */,
 				FAFE49820EC4F24000AE17D0 /* AJRPipeBorderInspectorModule.m in Sources */,
@@ -3364,6 +3429,7 @@
 				FA6FFE6821FFDDF30083357D /* NSWorkspace+Extensions.m in Sources */,
 				FA6A6BAF0EE8AA800094F769 /* AJRToolbarPopUpButton.m in Sources */,
 				FA6A6BB30EE8AAB00094F769 /* AJRToolbarPopUpButtonCell.m in Sources */,
+				FA54F21D290C87F0003DAEEF /* AJRVariableFloatingPointCellView.swift in Sources */,
 				FA7E45FC0EF1C88700899D4D /* AJRTimestampToDateTransformer.m in Sources */,
 				FA7E46220EF1C8D900899D4D /* AJRBoxController.m in Sources */,
 				FA7E46240EF1C8D900899D4D /* AJRMultiViewController.m in Sources */,
@@ -3417,6 +3483,7 @@
 				FA64592B0F4DD3B0009C90DD /* NSView+Extensions.m in Sources */,
 				FA89259321FAA07700246D46 /* NSColorSpace+Extensions.m in Sources */,
 				FA685A600F571DFF00123839 /* NSToolbar+Extensions.m in Sources */,
+				FA54F229290C8C2E003DAEEF /* NSTextField+Extensions.swift in Sources */,
 				FA4EFA8B0F742F5800287F1B /* NSDictionary+Extensions.m in Sources */,
 				FA89259F21FAAA8900246D46 /* NSSegmentedControl+Extensions.m in Sources */,
 				FA4F57832183C2D8004C0A8C /* AJRRulerMarker.m in Sources */,
@@ -3466,6 +3533,7 @@
 				C34C0BA710112E80004D2653 /* AJRSpeechBorder.m in Sources */,
 				FAD38A3125B133D600383EA3 /* NSPrinter+Extensions.m in Sources */,
 				C9DB3531103394A90039E752 /* AJRFadingWindowController.m in Sources */,
+				FA54F222290C8A10003DAEEF /* AJRVariableStringCellView.swift in Sources */,
 				FA76ABCC221D46DC008FA786 /* NSControl+Extensions.swift in Sources */,
 				FAAAD9552231EBD9002CA09C /* AJRBookmarksBarViewController.swift in Sources */,
 				FAD78185104D8E340040EAD5 /* AJRProgressView.m in Sources */,

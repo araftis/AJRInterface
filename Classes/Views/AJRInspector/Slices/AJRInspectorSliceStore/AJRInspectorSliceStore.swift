@@ -249,6 +249,9 @@ open class AJRInspectorSliceStore: AJRInspectorSlice, NSTableViewDelegate, NSTab
             } else if columnIndex == 2 {
                 let identifier = variable.variableType.editorViewIdentifer(for: tableView)
                 view = tableView.makeView(withIdentifier: identifier, owner: nil)
+                if view == nil {
+                    AJRLog.warning("Failed to load nib for variable type: \(variable.variableType.name). Make sure you've set the Identity -> Identifier of your NSTableViewCell subclass in your xib, as that's one of the more common reasons for this to happen.")
+                }
             }
 
             if let view = view as? NSTableCellView {
@@ -355,15 +358,32 @@ internal extension NSTableCellView {
     
 }
 
-internal class AJRVariableTypeNameTableCellView : NSTableCellView, NSTextFieldDelegate {
+internal class AJRVariableTypeNameTableCellView : NSTableCellView, NSTextFieldDelegate, AJRVariableListener {
 
     open override var objectValue: Any? {
+        willSet {
+            if let variable = objectValue as? AJRVariable {
+                variable.removeListener(self)
+            }
+        }
         didSet {
-            if let objectValue = objectValue as? AJRVariable {
-                textField?.stringValue = objectValue.name
+            if let variable = objectValue as? AJRVariable {
+                textField?.stringValue = variable.name
                 textField?.isEditable = true
                 textField?.delegate = self
+                variable.addListener(self)
             }
+        }
+    }
+
+    open func variable(_ variable: AJRVariable, willChange change: AJRVariable.ChangeType) {
+    }
+
+    open func variable(_ variable: AJRVariable, didChange change: AJRVariable.ChangeType) {
+        if change == .name,
+           let variable = objectValue as? AJRVariable,
+           let textField {
+            textField.stringValue = variable.name
         }
     }
 
@@ -386,11 +406,61 @@ internal class AJRVariableTypeNameTableCellView : NSTableCellView, NSTextFieldDe
     }
 }
 
-internal class AJRVariableTypeTableCellView : NSTableCellView {
+@objcMembers
+open class AJRVariableValueTableCellView : NSTableCellView, AJRVariableListener {
+
+    /// Retypes `objectValue` as an `AJRVariable`.
+    open var variable : AJRVariable? {
+        get {
+            return objectValue as? AJRVariable
+        }
+        set {
+            objectValue = newValue
+        }
+    }
+
+    open override var objectValue: Any? {
+        willSet {
+            variable?.removeListener(self)
+        }
+        didSet {
+            if let variable {
+                variable.addListener(self)
+                variableDidChangeValue(variable)
+            }
+        }
+    }
+
+    open func variable(_ variable: AJRVariable, willChange change: AJRVariable.ChangeType) {
+        if change == .value {
+            variableWillChangeValue(variable)
+        }
+    }
+
+    open func variable(_ variable: AJRVariable, didChange change: AJRVariable.ChangeType) {
+        if change == .value {
+            variableDidChangeValue(variable)
+        }
+    }
+
+    open func variableWillChangeValue(_ variable: AJRVariable) {
+    }
+
+    open func variableDidChangeValue(_ variable: AJRVariable) {
+    }
+
+}
+
+internal class AJRVariableTypeTableCellView : NSTableCellView, AJRVariableListener {
 
     @IBOutlet var typePopUpButton : NSPopUpButton!
 
     open override var objectValue: Any? {
+        willSet {
+            if let variable = objectValue as? AJRVariable {
+                variable.removeListener(self)
+            }
+        }
         didSet {
             if let popUp = typePopUpButton,
                let variable = objectValue as? AJRVariable {
@@ -398,6 +468,7 @@ internal class AJRVariableTypeTableCellView : NSTableCellView {
                 if let item = popUp.menu?.menuItem(with: variable.variableType) {
                     popUp.select(item)
                 }
+                variable.addListener(self)
             }
         }
     }
@@ -409,6 +480,19 @@ internal class AJRVariableTypeTableCellView : NSTableCellView {
             // For now, we're not going to try and do any conversion here. We'll just revert to the default value.
             variable.value = variableType.createDefaultValue()
             reloadDataSavingSelection()
+        }
+    }
+
+    open func variable(_ variable: AJRVariable, willChange change: AJRVariable.ChangeType) {
+    }
+
+    open func variable(_ variable: AJRVariable, didChange change: AJRVariable.ChangeType) {
+        if change == .variableType,
+           let variable = objectValue as? AJRVariable,
+           let popUp = typePopUpButton {
+            if let item = popUp.menu?.menuItem(with: variable.variableType) {
+                popUp.select(item)
+            }
         }
     }
 

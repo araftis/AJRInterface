@@ -5,18 +5,15 @@
 //  Created by AJ Raftis on 10/26/22.
 //
 
-import Foundation
+import AJRFoundation
 
-open class AJRVariableBooleanCellView : NSTableCellView {
+open class AJRVariableBooleanCellView : AJRVariableValueTableCellView {
 
     @IBOutlet var checkBox : NSButton!
 
-    override open var objectValue: Any? {
-        didSet {
-            if let objectValue = objectValue as? AJRVariable,
-               let value = objectValue.value as? Bool {
-                    checkBox.state = value ? .on : .off
-            }
+    open override func variableDidChangeValue(_ variable: AJRVariable) {
+        if let value = variable.value as? Bool {
+            checkBox.state = value ? .on : .off
         }
     }
 
