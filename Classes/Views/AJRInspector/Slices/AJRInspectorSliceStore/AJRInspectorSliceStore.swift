@@ -58,21 +58,21 @@ open class AJRInspectorSliceStore: AJRInspectorSlice, NSTableViewDelegate, NSTab
     open var addButton : NSButton?
     open var removeButton : NSButton?
 
-    internal func createMenu() -> NSMenu {
+    internal static func createMenu(target: AnyObject, action: Selector) -> NSMenu {
         let menu = NSMenu(title: "Variables")
 
         for variableType in AJRVariableType.types {
             if variableType.availableInUI {
-                let menuItem = menu.addItem(withTitle: variableType.localizedDisplayName, action: #selector(add(_:)), keyEquivalent: "")
+                let menuItem = menu.addItem(withTitle: variableType.localizedDisplayName, action: action, keyEquivalent: "")
                 menuItem.representedObject = variableType
-                menuItem.target = self
+                menuItem.target = target
             }
         }
 
         return menu
     }
 
-    lazy open var menu : NSMenu = createMenu()
+    lazy open var menu : NSMenu = AJRInspectorSliceStore.createMenu(target: self, action: #selector(add(_:)))
 
     // MARK: - AJRInspectorSlice
     
@@ -244,46 +244,23 @@ open class AJRInspectorSliceStore: AJRInspectorSlice, NSTableViewDelegate, NSTab
         if let variable = variable(at: row) {
             if columnIndex == 0 {
                 view = tableView.makeView(withIdentifier: .variableColumn, owner: nil)
-                if let view = view as? NSTableCellView {
-                    view.textField?.stringValue = variable.name
-                }
             } else if columnIndex == 1 {
                 view = tableView.makeView(withIdentifier: .typeColumn, owner: nil)
-                if let view = view as? AJRVariableTypeTableCellView {
-                    if let popUp = view.typePopUpButton {
-                        popUp.menu = createMenu()
-                        if let item = popUp.menu?.menuItem(with: variable.variableType) {
-                            popUp.select(item)
-                        }
-                    }
-                }
             } else if columnIndex == 2 {
                 let identifier = variable.variableType.editorViewIdentifer(for: tableView)
                 view = tableView.makeView(withIdentifier: identifier, owner: nil)
-                if let view = view as? NSTableCellView {
-                    view.objectValue = variable
-                }
+            }
+
+            if let view = view as? NSTableCellView {
+                view.objectValue = variable
             }
         }
-        
+
         return view
     }
     
-    open func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
-        print("edit!")
-    }
-    
-    open func tableView(_ tableView: NSTableView, shouldEdit tableColumn: NSTableColumn?, row: Int) -> Bool {
-        if let tableColumn = tableColumn,
-           let columnIndex = tableView.tableColumns.index(ofObjectIdenticalTo: tableColumn) {
-            return true
-        }
-        return false
-    }
-    
     open func tableViewSelectionDidChange(_ notification: Notification) {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime(secondsFromNow: 0.01)) { [self] in
-        }
+        updateButtons()
     }
 
     // MARK: - Utilities
@@ -335,19 +312,104 @@ open class AJRInspectorSliceStore: AJRInspectorSlice, NSTableViewDelegate, NSTab
                 let value = variableType.createDefaultValue()
                 if let variable = store.createVariable(named: variableType.name, type: variableType, value: value) {
                     AJRLog.info("added: \(variable)")
+                    if let index = store.orderedIndex(for: variable) {
+                        tableView.selectRowIndexes(IndexSet(integer: index), byExtendingSelection: false)
+                        updateButtons()
+                    }
                 }
             }
         }
     }
 
     @IBAction open func remove(_ sender: Any?) -> Void {
-        AJRLog.info("remove!")
+        if let store = valueKeyPath?.value {
+            let indexes = tableView.selectedRowIndexes
+
+            for index in indexes {
+                let name = store.orderedName(at: index)
+                store.removeSymbol(named: name)
+            }
+
+            if let firstIndex = indexes.first {
+                if firstIndex < tableView.numberOfRows {
+                    tableView.selectRowIndexes(IndexSet(integer: firstIndex), byExtendingSelection: false)
+                } else if tableView.numberOfRows  > 0 {
+                    tableView.selectRowIndexes(IndexSet(integer: tableView.numberOfRows - 1), byExtendingSelection: false)
+                }
+            }
+            updateButtons()
+        }
+    }
+
+}
+
+internal extension NSTableCellView {
+    
+    func reloadDataSavingSelection() {
+        if let tableView = enclosingView(type: NSTableView.self) {
+            let selection = tableView.selectedRowIndexes
+            tableView.reloadData()
+            tableView.selectRowIndexes(selection, byExtendingSelection: false)
+        }
     }
     
+}
+
+internal class AJRVariableTypeNameTableCellView : NSTableCellView, NSTextFieldDelegate {
+
+    open override var objectValue: Any? {
+        didSet {
+            if let objectValue = objectValue as? AJRVariable {
+                textField?.stringValue = objectValue.name
+                textField?.isEditable = true
+                textField?.delegate = self
+            }
+        }
+    }
+
+    @IBAction open func nameDidEdit(_ sender: NSTextField?) -> Void {
+        if let textField,
+           let variable = objectValue as? AJRVariable {
+            let newName = textField.stringValue
+            if newName.isEmpty {
+                textField.stringValue = variable.name
+            } else {
+                if variable.name != newName {
+                    variable.name = newName
+                }
+            }
+        }
+    }
+
+    open func controlTextDidEndEditing(_ obj: Notification) {
+        nameDidEdit(textField)
+    }
 }
 
 internal class AJRVariableTypeTableCellView : NSTableCellView {
 
     @IBOutlet var typePopUpButton : NSPopUpButton!
+
+    open override var objectValue: Any? {
+        didSet {
+            if let popUp = typePopUpButton,
+               let variable = objectValue as? AJRVariable {
+                popUp.menu = AJRInspectorSliceStore.createMenu(target: self, action: #selector(changeVariableType(_:)))
+                if let item = popUp.menu?.menuItem(with: variable.variableType) {
+                    popUp.select(item)
+                }
+            }
+        }
+    }
+
+    @IBAction func changeVariableType(_ sender: NSMenuItem?) -> Void {
+        if let variableType = sender?.representedObject as? AJRVariableType,
+           let variable = objectValue as? AJRVariable {
+            variable.variableType = variableType
+            // For now, we're not going to try and do any conversion here. We'll just revert to the default value.
+            variable.value = variableType.createDefaultValue()
+            reloadDataSavingSelection()
+        }
+    }
 
 }

@@ -41,7 +41,7 @@
                                 </textFieldCell>
                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                 <prototypeCellViews>
-                                    <tableCellView id="CrZ-x0-nfL">
+                                    <tableCellView id="CrZ-x0-nfL" customClass="AJRVariableTypeNameTableCellView" customModule="AJRInterface" customModuleProvider="target">
                                         <rect key="frame" x="8" y="0.0" width="69" height="24"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
