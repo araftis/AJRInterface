@@ -37,4 +37,10 @@ public extension NSImage {
         return cgImage(forProposedRect: nil, context: nil, hints: nil)
     }
     
+    class var imageUTTypes : [UTType] {
+        return imageTypes.compactMap { uti in
+            return UTType(uti)
+        }
+    }
+
 }
