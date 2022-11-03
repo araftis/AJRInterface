@@ -149,6 +149,9 @@ typedef NSRect (*AJRTitleRectForBoundsIMP)(id, SEL, NSRect);
         }
         
         [self drawSegment:x inFrame:[self rectForSegment:x inFrame:cellFrame] withView:controlView];
+        
+        //[NSColor.redColor set];
+        //NSFrameRect([self rectForSegment:x inFrame:cellFrame]);
     }
 }
 
