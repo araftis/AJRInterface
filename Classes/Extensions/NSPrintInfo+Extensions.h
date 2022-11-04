@@ -30,9 +30,11 @@
  */
 
 #import <AppKit/AppKit.h>
-#import <AJRFoundation/AJRFoundation.h>
+#import <AJRInterfaceFoundation/AJRInterfaceFoundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+@class AJRPaper;
 
 extern NSString *NSUnitsOfMeasure;
 
@@ -40,19 +42,9 @@ extern NSString *AJRStringFromPaginationMode(NSPrintingPaginationMode mode);
 extern NSPrintingPaginationMode AJRPaginationModeFromString(NSString *mode);
 extern NSPrintInfoAttributeKey const AJRIsPrintingKey;
 
-@interface AJRPaper : NSObject
-
-+ (instancetype)paperForSize:(NSSize)size;
-
-@property (nonatomic,strong) NSString *name;
-@property (nonatomic,readonly) NSString *localizedName;
-@property (nonatomic,assign) NSSize size;
-
-- (NSSize)sizeForOrientation:(NSPaperOrientation)orientation;
-
-@end
-
 @interface NSPrintInfo (Extensions) <AJRXMLCoding>
+
+@property (nonatomic) AJRPaper *paper; // Maps back and forth between an AJRPaper and the paperName property.
 
 // Maping coordinates to units and visa-versa
 - (CGFloat)pointsToMeasure:(CGFloat)points;
@@ -64,8 +56,6 @@ extern NSPrintInfoAttributeKey const AJRIsPrintingKey;
 
 @property (nonatomic,strong) NSString *unitsOfMeasure;
 @property (nonatomic,assign) BOOL isPrinting;
-
-+ (NSArray<AJRPaper *> *)allPapers;
 
 @end
 

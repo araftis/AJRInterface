@@ -31,6 +31,9 @@
 
 #import "NSPrintInfo+Extensions.h"
 
+#import "AJRPaper.h"
+#import "NSPrinter+Extensions.h"
+
 #import <AJRFoundation/AJRFoundation.h>
 #import <AJRInterfaceFoundation/AJRInterfaceFoundation.h>
 
@@ -71,45 +74,17 @@ NSPrintingPaginationMode AJRPaginationModeFromString(NSString *mode) {
 
 @end
 
-@interface AJRPaper ()
-
-@property (nonatomic,strong) NSString *localizedName;
-
-@end
-
-@implementation AJRPaper
-
-+ (AJRPaper *)paperForSize:(NSSize)size {
-    AJRPaper *paper;
-
-    for (AJRPaper *paper in [NSPrintInfo allPapers]) {
-        if ((paper.size.width == size.width && paper.size.height == size.height)
-            || (paper.size.width == size.height && paper.size.height == size.width)) {
-            return paper;
-        }
-    }
-
-    paper = [[AJRPaper alloc] init];
-    paper.name = @"Custom";
-    paper.size = size;
-
-    return paper;
-}
-
-- (NSSize)sizeForOrientation:(NSPaperOrientation)orientation {
-    if (orientation == NSPaperOrientationPortrait) {
-        return _size;
-    }
-    return (NSSize){_size.height, _size.width};
-}
-
-- (NSString *)description {
-    return AJRFormat(@"<%C: %p: %@: %Z>", self, self, _name, _size);
-}
-
-@end
-
 @implementation NSPrintInfo (Extensions)
+
+- (AJRPaper *)paper {
+    return [self.printer.allPapers ajr_firstObjectPassingTest:^BOOL(AJRPaper * _Nonnull object) {
+        return object.paperId == self.paperName;
+    }];
+}
+
+- (void)setPaper:(AJRPaper *)paper {
+    self.paperName = paper.paperId;
+}
 
 - (CGFloat)pointConversionFactor {
     NSString *conversion = [[self dictionary] objectForKey:NSUnitsOfMeasure];
@@ -181,49 +156,6 @@ NSPrintingPaginationMode AJRPaginationModeFromString(NSString *mode) {
 
 - (void)setUnitsOfMeasure:(NSString *)value {
     [[self dictionary] setObject:value forKey:NSUnitsOfMeasure];
-}
-
-static NSMutableArray<AJRPaper *> *_papers = nil;
-
-+ (NSArray<AJRPaper *> *)allPapers {
-    if (_papers == nil) {
-        PMPrinter printer;
-        _papers = [NSMutableArray array];
-        if (PMCreateGenericPrinter(&printer) == kPMNoError) {
-            CFArrayRef pageFormatList;
-            if (PMSessionCreatePageFormatList([[NSPrintInfo sharedPrintInfo] PMPrintSession], printer, &pageFormatList) == kPMNoError) {
-                for (NSInteger index = 0; index < CFArrayGetCount(pageFormatList); index++) {
-                    PMPageFormat currentPage = (PMPageFormat)CFArrayGetValueAtIndex(pageFormatList, index);
-                    PMPaper paper;
-                    if (PMGetPageFormatPaper(currentPage, &paper) == kPMNoError) {
-                        AJRPaper *newPaper = [[AJRPaper alloc] init];
-                        CFStringRef paperName;
-                        if (PMPaperGetPPDPaperName(paper, &paperName) == kPMNoError) {
-                            newPaper.name = (__bridge NSString *)paperName;
-                            double width, height;
-                            PMPaperGetWidth(paper, &width);
-                            PMPaperGetHeight(paper, &height);
-                            newPaper.size = (NSSize){width, height};
-
-                            CFStringRef localizedName;
-                            if (PMPaperCreateLocalizedName(paper, printer, &localizedName) == kPMNoError) {
-                                newPaper.localizedName = (NSString *)CFBridgingRelease(localizedName);
-                            } else {
-                                newPaper.localizedName = newPaper.name;
-                            }
-
-                            [_papers addObject:newPaper];
-                        }
-                    }
-                }
-            }
-        }
-        [_papers sortUsingComparator:^NSComparisonResult(AJRPaper *left, AJRPaper *right) {
-            return [left.localizedName caseInsensitiveCompare:right.localizedName];
-        }];
-    }
-
-    return _papers;
 }
 
 - (void)setIsPrinting:(BOOL)isPrinting {

@@ -388,6 +388,8 @@
 		FAAB406E1385BD9F006DFB1F /* AJRPagedView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAB406C1385BD9E006DFB1F /* AJRPagedView.m */; };
 		FAAF3B500F8AA40C00BA6419 /* NSTextView+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = FAAF3B4E0F8AA40C00BA6419 /* NSTextView+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAAF3B510F8AA40C00BA6419 /* NSTextView+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAF3B4F0F8AA40C00BA6419 /* NSTextView+Extensions.m */; };
+		FABB133E29158EF1002DD56B /* AJRPaper.h in Headers */ = {isa = PBXBuildFile; fileRef = FABB133C29158EF1002DD56B /* AJRPaper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FABB133F29158EF1002DD56B /* AJRPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = FABB133D29158EF1002DD56B /* AJRPaper.m */; };
 		FABB66C50F2E907D00FBFEEB /* AJRExceptionPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = FABB66C30F2E907D00FBFEEB /* AJRExceptionPanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FABB66C60F2E907D00FBFEEB /* AJRExceptionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = FABB66C40F2E907D00FBFEEB /* AJRExceptionPanel.m */; };
 		FABB66CA0F2E92B800FBFEEB /* AJRExceptionPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = FABB66C90F2E92B800FBFEEB /* AJRExceptionPanel.xib */; };
@@ -1083,6 +1085,8 @@
 		FAB0F2FA219649E700BF2804 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AJRPreferencesPanel.xib; sourceTree = "<group>"; };
 		FAB0F2FB219649E700BF2804 /* Base */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Base; path = Base.lproj/AJRScrollViewAccessories.nib; sourceTree = "<group>"; };
 		FAB0F2FC219649E800BF2804 /* Base */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Base; path = Base.lproj/AJRScrollViewPageAccessory.nib; sourceTree = "<group>"; };
+		FABB133C29158EF1002DD56B /* AJRPaper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AJRPaper.h; sourceTree = "<group>"; };
+		FABB133D29158EF1002DD56B /* AJRPaper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AJRPaper.m; sourceTree = "<group>"; };
 		FABB66C30F2E907D00FBFEEB /* AJRExceptionPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRExceptionPanel.h; sourceTree = "<group>"; };
 		FABB66C40F2E907D00FBFEEB /* AJRExceptionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRExceptionPanel.m; sourceTree = "<group>"; };
 		FABB66C90F2E92B800FBFEEB /* AJRExceptionPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRExceptionPanel.xib; sourceTree = "<group>"; };
@@ -1421,6 +1425,8 @@
 				FAFE49CB0EC4F42000AE17D0 /* AJRInterfaceDefines.h */,
 				FAFE4A1B0EC4FC4300AE17D0 /* AJRInterfaceFunctions.h */,
 				FAFE4A1C0EC4FC4300AE17D0 /* AJRInterfaceFunctions.m */,
+				FABB133C29158EF1002DD56B /* AJRPaper.h */,
+				FABB133D29158EF1002DD56B /* AJRPaper.m */,
 				FA0EEC5B152634EB00A7BF86 /* AJRWindow.h */,
 				FA0EEC5C152634EB00A7BF86 /* AJRWindow.m */,
 				FAF6323B13EE38BF00EAE4E5 /* Base */,
@@ -2970,6 +2976,7 @@
 				FA2F99760E93EF5D004F1A14 /* AJRSourceSplitView.h in Headers */,
 				C34C0BA610112E80004D2653 /* AJRSpeechBorder.h in Headers */,
 				FA07C856220C26D60077A0B5 /* NSTableView+Extensions.h in Headers */,
+				FABB133E29158EF1002DD56B /* AJRPaper.h in Headers */,
 				FAFE49860EC4F24000AE17D0 /* AJRSpiralBoundBorder.h in Headers */,
 				FAFE49880EC4F24000AE17D0 /* AJRSpiralBoundBorderInspectorModule.h in Headers */,
 				FAFE4AE90EC5012F00AE17D0 /* AJRStrokeRenderer.h in Headers */,
@@ -3417,6 +3424,7 @@
 				FA0D2298227FB3C8001169F5 /* AJRInspectorSliceTableScrollView.swift in Sources */,
 				FAFE4BA00EC5070F00AE17D0 /* NSUserDefaults+Extensions.m in Sources */,
 				FAFE4BB80EC50B2C00AE17D0 /* AJROptionalAlertPanel.m in Sources */,
+				FABB133F29158EF1002DD56B /* AJRPaper.m in Sources */,
 				D204354F0EC4D351000A6475 /* AJRWhiteBox.m in Sources */,
 				FA07C857220C26D60077A0B5 /* NSTableView+Extensions.m in Sources */,
 				FAC212080EC8FB2C00470124 /* AJRProView.m in Sources */,

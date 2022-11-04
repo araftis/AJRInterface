@@ -31,11 +31,18 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import <AJRFoundation/AJRFoundation.h>
+#import <AJRInterfaceFoundation/AJRInterfaceFoundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class AJRPaper;
+
+extern NSString * const AJRGenericPrinterName;
+
 @interface NSPrinter (Extensions) <AJRXMLCoding>
+
+@property (nonatomic,class,readonly) NSPrinter *genericPrinter;
+@property (nonatomic,readonly) NSArray<AJRPaper *> *allPapers;
 
 @end
 

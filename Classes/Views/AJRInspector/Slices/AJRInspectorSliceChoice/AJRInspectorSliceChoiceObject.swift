@@ -52,7 +52,7 @@ open class AJRInspectorChoiceObject : AJRInspectorChoiceVariable<Any> {
     
     open var object : AnyObject?
     
-    public init(object: AnyObject, slice: AJRInspectorSlice, viewController: AJRObjectInspectorViewController, bundle: Bundle = Bundle.main) throws {
+    public init(object: AnyObject?, slice: AJRInspectorSlice, viewController: AJRObjectInspectorViewController, bundle: Bundle = Bundle.main) throws {
         self.object = object
         try super.init(slice: slice)
     }
@@ -93,6 +93,10 @@ open class AJRInspectorChoiceObject : AJRInspectorChoiceVariable<Any> {
         } else {
             if let object = object as? AJRInspectorChoiceTitleProvider {
                 return object.titleForInspector ?? ""
+            } else if let slice = slice as? AJRInspectorSliceChoiceObject,
+                      let keyPath = slice.choiceTitleKeyPath,
+                      let title = keyPath.value(from: object) {
+                return title
             } else if let object = object {
                 return String(describing: object)
             } else {
@@ -117,6 +121,7 @@ open class AJRInspectorSliceChoiceObject : AJRInspectorSliceChoice {
     open var objectsKeyPath : AJRInspectorKeyPath<[AnyObject]>!
     open var valueKeyPath : AJRInspectorKeyPath<AnyObject>!
     open var choiceTitleKeyPath : AJRInspectorKey<String>?
+    open var titleWhenNilKeyPath : AJRInspectorKey<String>?
     open var choicesAreExplicit = false // If true, the choices were specified in the XML, otherwise they're expected to come from the objectsKeyPath.
     
     var objects : [AnyObject] = [] {
@@ -153,6 +158,7 @@ open class AJRInspectorSliceChoiceObject : AJRInspectorSliceChoice {
         keys.insert("objects")
         keys.insert("value")
         keys.insert("choiceTitle")
+        keys.insert("titleWhenNil")
     }
     
     // MARK: - Build View
@@ -161,14 +167,15 @@ open class AJRInspectorSliceChoiceObject : AJRInspectorSliceChoice {
         objectsKeyPath = try AJRInspectorKeyPath(key: "objects", xmlElement: element, inspectorElement: self)
         valueKeyPath = try AJRInspectorKeyPath(key: "value", xmlElement: element, inspectorElement: self)
         choiceTitleKeyPath = try AJRInspectorKey(key: "choiceTitle", xmlElement: element, inspectorElement: self)
-        
+        titleWhenNilKeyPath = try AJRInspectorKey(key: "titleWhenNil", xmlElement: element, inspectorElement: self)
+
         if objectsKeyPath == nil {
             throw NSError(domain: AJRInspectorErrorDomain, message: "choice slices of type \"object\" must defined the \"objectsKeyPath\" attribute.")
         }
         if valueKeyPath == nil {
             throw NSError(domain: AJRInspectorErrorDomain, message: "choice slices of type \"object\" must defined the \"valueKeyPath\" attribute.")
         }
-        
+
         if let children = element.children {
             for childNode in children {
                 if let childNode = childNode as? XMLElement {
@@ -185,7 +192,12 @@ open class AJRInspectorSliceChoiceObject : AJRInspectorSliceChoice {
         }
         
         try super.buildView(from: element)
-        
+
+        // Make sure that if we're allowing nil, we also created the key to get nil's title.
+        if allowsNilKey != nil && (allowsNilKey!.value!)  && titleWhenNilKeyPath == nil {
+            throw NSError(domain: AJRInspectorErrorDomain, message: "choice slices of type \"object\" must define the \"titleWhenNil\" when \"allowsNil\" is true.")
+        }
+
         weak var weakSelf = self
         objectsKeyPath?.addObserver {
             if let strongSelf = weakSelf {
@@ -213,6 +225,12 @@ open class AJRInspectorSliceChoiceObject : AJRInspectorSliceChoice {
     internal func updateMenu(menu: NSMenu?) -> NSMenu {
         let newMenu = menu ?? NSMenu(title: "")
         newMenu.removeAllItems()
+        if allowsNilKey?.value ?? false {
+            let title = titleWhenNilKeyPath?.value ?? "*nil*"
+            let menuItem = newMenu.addItem(withTitle: title, action: #selector(AJRInspectorSliceChoice.selectChoice(_:)), keyEquivalent: "")
+            menuItem.target = self
+            menuItem.representedObject = try? AJRInspectorChoiceObject(object: nil, slice: self, viewController: self.viewController!)
+        }
         for choice in choices {
             if let choice = choice as? AJRInspectorChoiceObject, choice.type == .object {
                 newMenu.addItem(choice.menuItem)
@@ -269,11 +287,12 @@ open class AJRInspectorSliceChoiceObject : AJRInspectorSliceChoice {
             let value = valueKeyPath?.value
 
             for menuItem in popUpButton.menu?.items ?? [] {
+                menuItem.state = .off
                 if let choice = menuItem.representedObject as? AJRInspectorChoiceObject {
                     if AJREqual(value, choice.object) {
                         foundItem = menuItem
                         newChoice = choice
-                        break
+                        menuItem.state = .on
                     }
                 }
             }

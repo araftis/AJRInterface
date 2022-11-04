@@ -481,7 +481,8 @@ open class AJRInspectorSliceChoice: AJRInspectorSlice {
     @IBOutlet var segments : NSSegmentedControl?
     @IBOutlet var comboBox : AJRPopUpTextField?
     open var styleKey : AJRInspectorKey<AJRSliceChoiceStyle>?
-    var enabledKey : AJRInspectorKey<Bool>?
+    open var enabledKey : AJRInspectorKey<Bool>?
+    open var allowsNilKey : AJRInspectorKey<Bool>?
     open var contentView : NSView?
     open var choices = [AJRInspectorChoice]()
     open var choicesHaveSubcontent : Bool {
@@ -523,6 +524,7 @@ open class AJRInspectorSliceChoice: AJRInspectorSlice {
         keys.insert("enabled")
         keys.insert("valueType")
         keys.insert("mergeWithRight")
+        keys.insert("allowsNil")
     }
     
     // MARK: - AJRInspectorSlice
@@ -546,6 +548,7 @@ open class AJRInspectorSliceChoice: AJRInspectorSlice {
         styleKey = try AJRInspectorKey(key: "style", xmlElement: element, inspectorElement: self, defaultValue: .popUp)
         enabledKey = try AJRInspectorKey(key: "enabled", xmlElement: element, inspectorElement: self)
         mergeWithRightKey = try AJRInspectorKey(key: "mergeWithRight", xmlElement: element, inspectorElement: self, defaultValue: false)
+        allowsNilKey = try AJRInspectorKey(key: "allowsNil", xmlElement: element, inspectorElement: self, defaultValue: false)
 
         try super.buildView(from: element)
         

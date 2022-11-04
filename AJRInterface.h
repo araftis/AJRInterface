@@ -120,6 +120,7 @@
 #import <AJRInterface/AJRPagedScrollView.h>
 #import <AJRInterface/AJRPagedView.h>
 #import <AJRInterface/AJRPageLayout.h>
+#import <AJRInterface/AJRPaper.h>
 #import <AJRInterface/AJRPathRenderer.h>
 #import <AJRInterface/AJRPathRendererInspector.h>
 #import <AJRInterface/AJRPathRendererInspectorModule.h>

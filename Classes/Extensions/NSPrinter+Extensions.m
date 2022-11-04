@@ -31,22 +31,52 @@
 
 #import "NSPrinter+Extensions.h"
 
+#import "AJRPaper.h"
+#import "NSPrintInfo+Extensions.h"
+
 @interface AJRPrinterPlaceHolder : NSObject <AJRXMLDecoding>
 
+@property (nonatomic,assign) BOOL isGeneric;
 @property (nonatomic,strong,nullable) NSString *name;
 @property (nonatomic,strong,nullable) NSString *type;
 
 @end
 
+// Not sure why this is so, but it's what seems to be so.
+NSString * const AJRGenericPrinterName = @" ";
+
 @implementation NSPrinter (Extensions)
+
+static NSPrinter *genericPrinter;
+
++ (NSPrinter *)genericPrinter {
+    if (genericPrinter == nil) {
+        PMPrinter printer;
+
+        if (PMCreateGenericPrinter(&printer) == kPMNoError) {
+            genericPrinter = [[NSPrinter alloc] init];
+            [genericPrinter setValue:@" " forKey:@"printerName"];
+            Class printerClass = [NSPrinter class];
+            Ivar variable = class_getInstanceVariable(printerClass, "_printer");
+            if (variable) {
+                object_setIvar(genericPrinter, variable, (__bridge id _Nullable)(printer));
+            }
+        }
+    }
+    return genericPrinter;
+}
 
 + (id)instantiateWithXMLCoder:(AJRXMLCoder *)coder {
     return [[AJRPrinterPlaceHolder alloc] init];
 }
 
 - (void)encodeWithXMLCoder:(AJRXMLCoder *)coder {
-    [coder encodeObject:self.name forKey:@"name"];
-    [coder encodeObject:self.type forKey:@"type"];
+    if ([self.name isEqualToString:AJRGenericPrinterName]) {
+        [coder encodeBool:YES forKey:@"generic"];
+    } else {
+        [coder encodeObject:self.name forKey:@"name"];
+        [coder encodeObject:self.type forKey:@"type"];
+    }
 }
 
 @end
@@ -54,6 +84,9 @@
 @implementation AJRPrinterPlaceHolder
 
 - (void)decodeWithXMLCoder:(AJRXMLCoder *)coder {
+    [coder decodeBoolForKey:@"generic" setter:^(BOOL value) {
+        self->_isGeneric = YES;
+    }];
     [coder decodeObjectForKey:@"name" setter:^(id  _Nullable object) {
         self->_name = object;
     }];
@@ -65,11 +98,15 @@
 - (id)finalizeXMLDecodingWithError:(NSError * _Nullable __autoreleasing *)error {
     NSPrinter *printer = nil;
 
-    if (_name != nil) {
-        printer = [NSPrinter printerWithName:_name];
-    }
-    if (_type != nil) {
-        printer = [NSPrinter printerWithType:_type];
+    if (_isGeneric) {
+        printer = NSPrinter.genericPrinter;
+    } else {
+        if (_name != nil) {
+            printer = [NSPrinter printerWithName:_name];
+        }
+        if (printer == nil && _type != nil) {
+            printer = [NSPrinter printerWithType:_type];
+        }
     }
 
     return printer;
