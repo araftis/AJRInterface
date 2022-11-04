@@ -56,9 +56,13 @@ class AJRInspectorSliceColor: AJRInspectorSlice {
 
     // MARK: - Actions
     
-    @IBAction open func takeColor(from sender: NSColorWell?) -> Void {
+    @IBAction open func takeColor(from sender: AJRColorWell?) -> Void {
         if let colorWell = sender {
-            valueKey?.value = colorWell.color
+            if colorWell.displayMode == .none {
+                valueKey?.value = nil
+            } else {
+                valueKey?.value = colorWell.color
+            }
         }
     }
     
