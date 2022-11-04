@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21225" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21225"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner"/>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <tableCellView translatesAutoresizingMaskIntoConstraints="NO" id="cbT-b6-hMb" customClass="AJRVariableColorCellView" customModule="AJRInterface" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="100" height="17"/>
+        <tableCellView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cbT-b6-hMb" customClass="AJRVariableColorCellView" customModule="AJRInterface" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
             <subviews>
                 <colorWell bordered="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iEs-03-MLZ" customClass="AJRColorWell">
-                    <rect key="frame" x="0.0" y="1" width="100" height="15"/>
+                    <rect key="frame" x="-1" y="1" width="102" height="28"/>
                     <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="takeColorFrom:" target="cbT-b6-hMb" id="atu-NW-rB1"/>
@@ -21,10 +20,10 @@
                 </colorWell>
             </subviews>
             <constraints>
-                <constraint firstItem="iEs-03-MLZ" firstAttribute="top" secondItem="cbT-b6-hMb" secondAttribute="top" constant="1" id="7YC-kn-iPY"/>
-                <constraint firstItem="iEs-03-MLZ" firstAttribute="leading" secondItem="cbT-b6-hMb" secondAttribute="leading" id="87o-lW-bAg"/>
-                <constraint firstAttribute="bottom" secondItem="iEs-03-MLZ" secondAttribute="bottom" constant="1" id="Sqt-8s-qlV"/>
-                <constraint firstAttribute="trailing" secondItem="iEs-03-MLZ" secondAttribute="trailing" id="p5A-ve-gQc"/>
+                <constraint firstItem="iEs-03-MLZ" firstAttribute="top" secondItem="cbT-b6-hMb" secondAttribute="top" constant="3" id="7YC-kn-iPY"/>
+                <constraint firstItem="iEs-03-MLZ" firstAttribute="leading" secondItem="cbT-b6-hMb" secondAttribute="leading" constant="2" id="87o-lW-bAg"/>
+                <constraint firstAttribute="bottom" secondItem="iEs-03-MLZ" secondAttribute="bottom" constant="3" id="Sqt-8s-qlV"/>
+                <constraint firstAttribute="trailing" secondItem="iEs-03-MLZ" secondAttribute="trailing" constant="2" id="p5A-ve-gQc"/>
             </constraints>
             <connections>
                 <outlet property="colorWell" destination="iEs-03-MLZ" id="5lP-Kp-mCo"/>
