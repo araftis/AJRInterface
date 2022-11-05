@@ -37,7 +37,6 @@
 #import <AJRFoundation/AJRFoundation.h>
 #import <AJRInterfaceFoundation/AJRInterfaceFoundation.h>
 
-NSString *NSUnitsOfMeasure = @"NSUnitsOfMeasure";
 NSPrintInfoAttributeKey const AJRIsPrintingKey = @"AJRIsPrinting";
 
 NSString *AJRStringFromPaginationMode(NSPrintingPaginationMode mode) {
@@ -84,78 +83,6 @@ NSPrintingPaginationMode AJRPaginationModeFromString(NSString *mode) {
 
 - (void)setPaper:(AJRPaper *)paper {
     self.paperName = paper.paperId;
-}
-
-- (CGFloat)pointConversionFactor {
-    NSString *conversion = [[self dictionary] objectForKey:NSUnitsOfMeasure];
-
-    if (!conversion) return 72.0;
-
-    if ([conversion isEqualToString:@"Inches"]) {
-        return 72.0;
-    } else if ([conversion isEqualToString:@"Centimeters"]) {
-        return 72.0 / 2.54;
-    } else if ([conversion isEqualToString:@"Points"]) {
-        return 1.0;
-    } else if ([conversion isEqualToString:@"Picas"]) {
-        return 12.0;
-    }
-
-    return 72.0;
-}
-
-- (NSString *)measureAbbreviation {
-    NSString *conversion = [[self dictionary] objectForKey:NSUnitsOfMeasure];
-
-    if (!conversion) return @"\"";
-
-    if ([conversion isEqualToString:@"Inches"]) {
-        return @"\"";
-    } else if ([conversion isEqualToString:@"Centimeters"]) {
-        return @"cm.";
-    } else if ([conversion isEqualToString:@"Points"]) {
-        return @"pts.";
-    } else if ([conversion isEqualToString:@"Picas"]) {
-        return @"picas";
-    }
-
-    return @"\"";
-}
-
-- (CGFloat)pointsToMeasure:(CGFloat)points {
-    return points / [self pointConversionFactor];
-}
-
-- (CGFloat)measureToPoints:(CGFloat)measure {
-    return measure * [self pointConversionFactor];
-}
-
-- (NSString *)pointsAsMeasureString:(CGFloat)points {
-    return [self pointsAsMeasureString:points places:3];
-}
-
-- (NSString *)pointsAsMeasureString:(CGFloat)points places:(NSInteger)places {
-    return [NSString stringWithFormat:@"%1.*f %@", (int)places, [self pointsToMeasure:points], [self measureAbbreviation]];
-}
-
-- (NSString *)measureAsString:(CGFloat)measure {
-    return [self measureAsString:measure places:3];;
-}
-
-- (NSString *)measureAsString:(CGFloat)measure places:(NSInteger)places {
-    return [NSString stringWithFormat:@"%1.*f %@", (int)places, measure, [self measureAbbreviation]];
-}
-
-- (NSString *)unitsOfMeasure {
-    NSString *value = [[self dictionary] objectForKey:NSUnitsOfMeasure];
-
-    if (value == nil) return @"Inches";
-
-    return value;
-}
-
-- (void)setUnitsOfMeasure:(NSString *)value {
-    [[self dictionary] setObject:value forKey:NSUnitsOfMeasure];
 }
 
 - (void)setIsPrinting:(BOOL)isPrinting {

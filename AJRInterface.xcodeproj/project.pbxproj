@@ -390,6 +390,9 @@
 		FAAF3B510F8AA40C00BA6419 /* NSTextView+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAF3B4F0F8AA40C00BA6419 /* NSTextView+Extensions.m */; };
 		FABB133E29158EF1002DD56B /* AJRPaper.h in Headers */ = {isa = PBXBuildFile; fileRef = FABB133C29158EF1002DD56B /* AJRPaper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FABB133F29158EF1002DD56B /* AJRPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = FABB133D29158EF1002DD56B /* AJRPaper.m */; };
+		FABB13422915BCFA002DD56B /* AJRInspectorSlicePaperOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB13412915BCFA002DD56B /* AJRInspectorSlicePaperOrientation.swift */; };
+		FABB13442915BF43002DD56B /* AJRPaperOrientationChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB13432915BF43002DD56B /* AJRPaperOrientationChooser.swift */; };
+		FABB134B2915C54B002DD56B /* AJRInspectorSlicePaperOrientation.xib in Resources */ = {isa = PBXBuildFile; fileRef = FABB134A2915C54B002DD56B /* AJRInspectorSlicePaperOrientation.xib */; };
 		FABB66C50F2E907D00FBFEEB /* AJRExceptionPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = FABB66C30F2E907D00FBFEEB /* AJRExceptionPanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FABB66C60F2E907D00FBFEEB /* AJRExceptionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = FABB66C40F2E907D00FBFEEB /* AJRExceptionPanel.m */; };
 		FABB66CA0F2E92B800FBFEEB /* AJRExceptionPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = FABB66C90F2E92B800FBFEEB /* AJRExceptionPanel.xib */; };
@@ -1087,6 +1090,9 @@
 		FAB0F2FC219649E800BF2804 /* Base */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Base; path = Base.lproj/AJRScrollViewPageAccessory.nib; sourceTree = "<group>"; };
 		FABB133C29158EF1002DD56B /* AJRPaper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AJRPaper.h; sourceTree = "<group>"; };
 		FABB133D29158EF1002DD56B /* AJRPaper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AJRPaper.m; sourceTree = "<group>"; };
+		FABB13412915BCFA002DD56B /* AJRInspectorSlicePaperOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorSlicePaperOrientation.swift; sourceTree = "<group>"; };
+		FABB13432915BF43002DD56B /* AJRPaperOrientationChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRPaperOrientationChooser.swift; sourceTree = "<group>"; };
+		FABB134A2915C54B002DD56B /* AJRInspectorSlicePaperOrientation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRInspectorSlicePaperOrientation.xib; sourceTree = "<group>"; };
 		FABB66C30F2E907D00FBFEEB /* AJRExceptionPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRExceptionPanel.h; sourceTree = "<group>"; };
 		FABB66C40F2E907D00FBFEEB /* AJRExceptionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRExceptionPanel.m; sourceTree = "<group>"; };
 		FABB66C90F2E92B800FBFEEB /* AJRExceptionPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRExceptionPanel.xib; sourceTree = "<group>"; };
@@ -1856,13 +1862,14 @@
 				FA53D66722434799003E02B1 /* AJRInspectorSliceButton */,
 				FA53D6592242010B003E02B1 /* AJRInspectorSliceColor */,
 				FA53D65A22420115003E02B1 /* AJRInspectorSliceChoice */,
+				FA1819FA2271323B00BA7E06 /* AJRInspectorSliceDate */,
 				FA1819FD2271334700BA7E06 /* AJRInspectorSliceField */,
 				21FCD9D427161B3B0049E558 /* AJRInspectorSliceFile */,
 				FA95DE5A22B69779005EC953 /* AJRInspectorSliceFont */,
-				FA1819FA2271323B00BA7E06 /* AJRInspectorSliceDate */,
+				FA95DE4A22B464AA005EC953 /* AJRInspectorSliceGeometry */,
 				FA181A082272597400BA7E06 /* AJRInspectorSliceLevel */,
 				FA53D65C2242013E003E02B1 /* AJRInspectorSliceNumber */,
-				FA95DE4A22B464AA005EC953 /* AJRInspectorSliceGeometry */,
+				FABB13402915BC8F002DD56B /* AJRInspectorSlicePaperOrientation */,
 				FA53D65B22420120003E02B1 /* AJRInspectorSliceString */,
 				2171606F2900C540001F2D4C /* AJRInspectorSliceStore */,
 				FAD61D252259D972004CDD37 /* AJRInspectorSliceTable */,
@@ -2408,6 +2415,16 @@
 				FA3EDA24139019C300B3367E /* AJRVerticalPageLayout.m */,
 			);
 			path = AJRPagedView;
+			sourceTree = "<group>";
+		};
+		FABB13402915BC8F002DD56B /* AJRInspectorSlicePaperOrientation */ = {
+			isa = PBXGroup;
+			children = (
+				FABB13412915BCFA002DD56B /* AJRInspectorSlicePaperOrientation.swift */,
+				FABB134A2915C54B002DD56B /* AJRInspectorSlicePaperOrientation.xib */,
+				FABB13432915BF43002DD56B /* AJRPaperOrientationChooser.swift */,
+			);
+			path = AJRInspectorSlicePaperOrientation;
 			sourceTree = "<group>";
 		};
 		FABFEF6A145286FE008CE3FE /* Frameworks */ = {
@@ -3186,6 +3203,7 @@
 				FA54F21B290C87CF003DAEEF /* AJRVariableTypeFloatingPoint.xib in Resources */,
 				FA76ABA0221D3CF9008FA786 /* AJRWebFindBar.xib in Resources */,
 				FA76ABDB221EB115008FA786 /* AJRWebViewSearch.js in Resources */,
+				FABB134B2915C54B002DD56B /* AJRInspectorSlicePaperOrientation.xib in Resources */,
 				FA76ABDE221F668C008FA786 /* AJRWebView.strings in Resources */,
 				FA7D49DB0EA3F82A00F0C220 /* AJRTerritoryViewer.xib in Resources */,
 				FA6FA4770EA56F7F00B5989D /* Territories in Resources */,
@@ -3357,6 +3375,7 @@
 				FACEC40B22D3F713008AA6DB /* AJRInspectorSliceAttributedString.swift in Sources */,
 				FAC65CBE0EAE470700CAAD3C /* NSTreeController+Extensions.m in Sources */,
 				FA95DE4C22B46529005EC953 /* AJRInspectorSliceGeometry.swift in Sources */,
+				FABB13422915BCFA002DD56B /* AJRInspectorSlicePaperOrientation.swift in Sources */,
 				FA1580DB0EB620080094664B /* AJRPieChart.m in Sources */,
 				FA07190B22AC960500C2C409 /* NSFont+Extensions.m in Sources */,
 				FA4E7C98191DBD0A006B6F3B /* NSAlert+Extensions.m in Sources */,
@@ -3491,6 +3510,7 @@
 				FA64592B0F4DD3B0009C90DD /* NSView+Extensions.m in Sources */,
 				FA89259321FAA07700246D46 /* NSColorSpace+Extensions.m in Sources */,
 				FA685A600F571DFF00123839 /* NSToolbar+Extensions.m in Sources */,
+				FABB13442915BF43002DD56B /* AJRPaperOrientationChooser.swift in Sources */,
 				FA54F229290C8C2E003DAEEF /* NSTextField+Extensions.swift in Sources */,
 				FA4EFA8B0F742F5800287F1B /* NSDictionary+Extensions.m in Sources */,
 				FA89259F21FAAA8900246D46 /* NSSegmentedControl+Extensions.m in Sources */,

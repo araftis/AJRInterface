@@ -232,7 +232,10 @@ NSString *AJRApplicationExceptionKey = @"AJRApplicationExceptionKey";
 + (id)ajr_sharedApplication {
     id result = [self ajr_sharedApplication];
     [AJRInterfaceBootstrap bootstrap];
-    [AJRPlugInManager sharedPlugInManager];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [AJRPlugInManager sharedPlugInManager];
+    });
     return result;
 }
 

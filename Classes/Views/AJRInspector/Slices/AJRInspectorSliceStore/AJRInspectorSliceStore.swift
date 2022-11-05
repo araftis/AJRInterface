@@ -136,7 +136,6 @@ open class AJRInspectorSliceStore: AJRInspectorSlice, NSTableViewDelegate, NSTab
         valueKeyPath?.addObserver {
             if let strongSelf = weakSelf {
                 if let token = strongSelf.storeObserverToken {
-                    AJRLog.info("token: \(token)")
                     token.invalidate()
                     strongSelf.storeObserverToken = nil
                 }
@@ -338,7 +337,6 @@ open class AJRInspectorSliceStore: AJRInspectorSlice, NSTableViewDelegate, NSTab
             if let store = valueKeyPath?.value {
                 let value = variableType.createDefaultValue()
                 if let variable = store.createVariable(named: variableType.name, type: variableType, value: value) {
-                    AJRLog.info("added: \(variable)")
                     if let index = store.orderedIndex(for: variable) {
                         tableView.selectRowIndexes(IndexSet(integer: index), byExtendingSelection: false)
                         updateButtons()

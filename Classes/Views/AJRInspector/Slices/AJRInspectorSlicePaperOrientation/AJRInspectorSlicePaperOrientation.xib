@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="AJRInspectorSlicePaperOrientation" customModule="AJRInterface" customModuleProvider="target">
+            <connections>
+                <outlet property="baselineAnchorView" destination="01F-Em-uB7" id="zrG-ou-1Kj"/>
+                <outlet property="orientationChooser" destination="01F-Em-uB7" id="1na-YB-l1k"/>
+                <outlet property="view" destination="01F-Em-uB7" id="Sl3-uE-Zg6"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="01F-Em-uB7" customClass="AJRPaperOrientationChooser" customModule="AJRInterface" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="163" height="100"/>
+            <constraints>
+                <constraint firstAttribute="height" constant="100" id="x0R-W4-d9X"/>
+            </constraints>
+            <connections>
+                <action selector="takeOrientationFrom:" target="-2" id="hvJ-Am-aj4"/>
+            </connections>
+            <point key="canvasLocation" x="-3" y="-7"/>
+        </customView>
+    </objects>
+</document>

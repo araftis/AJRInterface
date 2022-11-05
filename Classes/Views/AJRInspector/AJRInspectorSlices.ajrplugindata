@@ -24,6 +24,7 @@
     <ajr_inspector_slice type="rect" class="AJRInterface.AJRInspectorSliceGeometry" />
     <ajr_inspector_slice type="insets" class="AJRInterface.AJRInspectorSliceGeometry" />
     <ajr_inspector_slice type="file" class="AJRInterface.AJRInspectorSliceFile" />
+    <ajr_inspector_slice type="paperOrientation" class="AJRInterface.AJRInspectorSlicePaperOrientation" />
     <ajr_inspector_slice type="test" class="AJRInterface.AJRInspectorSliceTest" />
 
     <extension-point name="ajr_inspector" class="AJRInterface.AJRInspectorViewController" registrySelector="registerInspector:properties:">

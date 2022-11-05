@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AJRPaper : NSObject
+@interface AJRPaper : NSObject <AJRXMLCoding>
 
 + (instancetype)paperForSize:(NSSize)size;
 

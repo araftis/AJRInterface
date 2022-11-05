@@ -17,8 +17,21 @@
 
 @end
 
+@interface AJRPaperPlaceholder : NSObject <AJRXMLDecoding>
+
+@property (nonatomic,strong) NSString *paperId;
+
+@end
+
 
 @implementation AJRPaper
+
++ (void)initialize {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self allGenericPapers];
+    });
+}
 
 static NSArray<AJRPaper *> *customPapers;
 
@@ -165,6 +178,31 @@ static NSMutableDictionary<NSString *, AJRPaper *> *papersByPaperId = nil;
         return [_paperId isEqualToString:other->_paperId];
     }
     return NO;
+}
+
+// MARK: - AJRXMLCoding
+
++ (id)instantiateWithXMLCoder:(AJRXMLCoder *)coder {
+    return [[AJRPaperPlaceholder alloc] init];
+}
+
+- (void)encodeWithXMLCoder:(AJRXMLCoder *)coder {
+    [coder encodeString:_paperId forKey:@"paperId"];
+}
+
+@end
+
+
+@implementation AJRPaperPlaceholder
+
+- (void)decodeWithXMLCoder:(AJRXMLCoder *)coder {
+    [coder decodeStringForKey:@"paperId" setter:^(NSString *string) {
+        self->_paperId = string;
+    }];
+}
+
+- (id)finalizeXMLDecodingWithError:(NSError * _Nullable __autoreleasing *)error {
+    return [AJRPaper paperForPaperId:_paperId];
 }
 
 @end

@@ -43,6 +43,12 @@ public protocol AJRInspectorValue : CustomStringConvertible {
     
 }
 
+public protocol AJRInspectedRawEnum {
+
+    var rawValueForKVO : Int { get }
+
+}
+
 public protocol AJRInspectorValueAsValue {
     
     func toValue() -> NSValue
@@ -399,4 +405,16 @@ extension Array : AJRInspectorValue where Element == String {
         nil
     }
     
+}
+
+extension Unit : AJRInspectorValue {
+    
+    public static func inspectorValue(from string: String) -> Any? {
+        return Unit(forIdentifier: string);
+    }
+
+    public static func inspectorValue(from value: NSValue) -> Any? {
+        return nil
+    }
+
 }

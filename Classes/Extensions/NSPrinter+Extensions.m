@@ -109,6 +109,9 @@ static NSPrinter *genericPrinter;
         }
     }
 
+    // Force the faulting of our papers, because we're going to want that when we decode our paper.
+    [printer allPapers];
+
     return printer;
 }
 
