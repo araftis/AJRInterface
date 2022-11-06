@@ -53,6 +53,10 @@ open class  AJRInspectorSliceGeometry: AJRInspectorSlice {
     @IBOutlet open var linkedButton2 : NSButton!
     
     open var enabledKey : AJRInspectorKey<Bool>?
+    open var unitsKey : AJRInspectorKey<Unit>?
+    open var displayUnitsKey : AJRInspectorKey<Unit>?
+    open var displayInchesAsFractionsKey : AJRInspectorKey<Bool>?
+    open var incrementKey : AJRInspectorKey<CGFloat>?
 
     open override class func createSlice(from element: XMLElement, parent: AJRInspectorElement, viewController: AJRObjectInspectorViewController, bundle: Bundle = Bundle.main) throws -> AJRInspectorSlice {
         let valueType = element.attribute(forName: "type")?.stringValue
@@ -65,6 +69,8 @@ open class  AJRInspectorSliceGeometry: AJRInspectorSlice {
             return try AJRInspectorSliceRect(element: element, parent: parent, viewController: viewController, bundle: bundle)
         case "insets":
             return try AJRInspectorSliceInsets(element: element, parent: parent, viewController: viewController, bundle: bundle)
+        case nil:
+            throw NSError(domain: AJRInspectorErrorDomain, message: "Geometry based slices must have a \"type\" field, which should currently be one of \"point\", \"size\", \"rect\", or \"insets\".")
         default:
             throw NSError(domain: AJRInspectorErrorDomain, message: "Unknown geometry type: \(valueType!)")
         }
@@ -73,18 +79,37 @@ open class  AJRInspectorSliceGeometry: AJRInspectorSlice {
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)
         keys.insert("enabled")
+        keys.insert("units")
+        keys.insert("displayUnits")
+        keys.insert("displayInchesAsFractions")
+        keys.insert("valueType")
+        keys.insert("increment")
     }
     
     open override func buildView(from element: XMLElement) throws {
         enabledKey = try AJRInspectorKey(key: "enabled", xmlElement: element, inspectorElement: self)
-        
+        unitsKey = try AJRInspectorKey(key: "units", xmlElement: element, inspectorElement: self)
+        displayUnitsKey = try AJRInspectorKey(key: "displayUnits", xmlElement: element, inspectorElement: self)
+        displayInchesAsFractionsKey = try AJRInspectorKey(key: "displayInchesAsFractions", xmlElement: element, inspectorElement: self)
+        incrementKey = try AJRInspectorKey(key: "increment", xmlElement: element, inspectorElement: self, defaultValue: 1.0)
+
         try super.buildView(from: element)
         
         weak var weakSelf = self
         enabledKey?.addObserver {
-            if let strongSelf = weakSelf {
-                _ = strongSelf.configureFields()
-            }
+            weakSelf?.configureFields()
+        }
+        unitsKey?.addObserver {
+            weakSelf?.configureFields()
+        }
+        displayUnitsKey?.addObserver {
+            weakSelf?.configureFields()
+        }
+        displayInchesAsFractionsKey?.addObserver {
+            weakSelf?.configureFields()
+        }
+        incrementKey?.addObserver {
+            weakSelf?.configureFields()
         }
     }
     
@@ -94,11 +119,36 @@ open class  AJRInspectorSliceGeometry: AJRInspectorSlice {
     open var steppers : [NSStepper] { return [] }
     open var toggles : [NSButton] { return [] }
     
+    @discardableResult
     open func configureFields() -> Bool {
         return false
     }
     
     open func updateFields() -> Void {
+    }
+    
+    open var units : Unit? {
+        // Since we're "geometry", we assume units of points, which is likely to be right the vast majority of the time, if not always.
+        return unitsKey?.value ?? Unit(forIdentifier: "points")
+    }
+    
+    open var displayUnits : Unit? {
+        return displayUnitsKey?.value
+    }
+    
+    open var formatter : Formatter? {
+        let units = self.units
+        let displayUnits = self.displayUnits
+        
+        if let units {
+            let formatter = AJRUnitsFormatter(units: units, displayUnits: displayUnits)
+            formatter.displayInchesAsFrations = displayInchesAsFractionsKey?.value ?? false
+
+            return formatter
+        }
+
+        // If both units and displayUnits are nil, then we don't format in any special way.
+        return nil
     }
     
     // MARK: - Overridable Actions
@@ -142,9 +192,7 @@ open class AJRInspectorSliceGeometryTyped<T:AJRInspectorValue> : AJRInspectorSli
         
         weak var weakSelf = self
         valueKey?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.updateFields()
-            }
+            weakSelf?.updateFields()
         }
     }
     
@@ -152,14 +200,18 @@ open class AJRInspectorSliceGeometryTyped<T:AJRInspectorValue> : AJRInspectorSli
     open override var steppers : [NSStepper] { return [stepper1, stepper2] }
     open override var toggles : [NSButton] { return [linkedButton1] }
 
+    @discardableResult
     open override func configureFields() -> Bool {
+        let increment = incrementKey?.value ?? 1.0
         switch valueKey?.selectionType ?? .none {
         case .none:
             for (index, field) in fields.enumerated() {
                 field.stringValue = ""
                 field.placeholderString = isMerged ? "—" : AJRObjectInspectorViewController.translator["No Selection"]
                 field.isEditable = false
+                field.formatter = formatter
                 steppers[index].isEnabled = false
+                steppers[index].increment = increment
             }
             return false
         case .multiple:
@@ -167,14 +219,18 @@ open class AJRInspectorSliceGeometryTyped<T:AJRInspectorValue> : AJRInspectorSli
                 field.stringValue = ""
                 field.placeholderString = isMerged ? "—" : AJRObjectInspectorViewController.translator["Multiple Selection"]
                 field.isEditable = enabledKey?.value ?? true
+                field.formatter = formatter
                 steppers[index].isEnabled = false
+                steppers[index].increment = increment
             }
             return false
         case .single:
             for (index, field) in fields.enumerated() {
                 field.placeholderString = ""
                 field.isEditable = enabledKey?.value ?? true
+                field.formatter = formatter
                 steppers[index].isEnabled = enabledKey?.value ?? true
+                steppers[index].increment = increment
             }
             return true
         }

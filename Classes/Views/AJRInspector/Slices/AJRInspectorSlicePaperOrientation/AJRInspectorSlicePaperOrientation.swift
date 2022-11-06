@@ -54,6 +54,7 @@ class AJRInspectorSlicePaperOrientation: AJRInspectorSlice {
     open var paperValueKey : AJRInspectorKey<AJRPaper>?
     open var enabledKey : AJRInspectorKey<Bool>?
     open var unitsKey : AJRInspectorKey<Unit>?
+    open var displayInchesAsFractionsKey : AJRInspectorKey<Bool>?
 
     // MARK: - Actions
 
@@ -67,6 +68,7 @@ class AJRInspectorSlicePaperOrientation: AJRInspectorSlice {
         keys.insert("paperValue")
         keys.insert("enabled")
         keys.insert("units")
+        keys.insert("displayInchesAsFractions")
     }
 
     // MARK: - View
@@ -76,6 +78,7 @@ class AJRInspectorSlicePaperOrientation: AJRInspectorSlice {
         paperValueKey = try AJRInspectorKey(key: "paperValue", xmlElement: element, inspectorElement: self)
         unitsKey = try AJRInspectorKey(key: "units", xmlElement: element, inspectorElement: self)
         enabledKey = try AJRInspectorKey(key: "enabled", xmlElement: element, inspectorElement: self)
+        displayInchesAsFractionsKey = try AJRInspectorKey(key: "displayInchesAsFractions", xmlElement: element, inspectorElement: self, defaultValue: false)
 
         try super.buildView(from: element)
 
@@ -123,6 +126,11 @@ class AJRInspectorSlicePaperOrientation: AJRInspectorSlice {
         enabledKey?.addObserver {
             if let strongSelf = weakSelf {
                 strongSelf.orientationChooser.isEnabled = strongSelf.enabledKey?.value ?? true
+            }
+        }
+        displayInchesAsFractionsKey?.addObserver {
+            if let strongSelf = weakSelf {
+                strongSelf.orientationChooser.displayInchesAsFractions = strongSelf.displayInchesAsFractionsKey?.value ?? false
             }
         }
     }

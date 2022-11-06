@@ -57,15 +57,25 @@ open class AJRPaperOrientationChooser: NSControl {
     }
     open var units : UnitLength = UnitLength.defaultShortUnitForLocale {
         didSet {
+            _unitFormatter = nil
             updateStringValue()
         }
     }
-    lazy open var unitFormatter : MeasurementFormatter = {
-        let formatter = MeasurementFormatter()
-        formatter.unitOptions = .providedUnit
-        return formatter
-    }()
-
+    open var displayInchesAsFractions : Bool = false {
+        didSet {
+            _unitFormatter = nil
+            updateStringValue()
+        }
+    }
+    internal var _unitFormatter : AJRUnitsFormatter? = nil
+    open var unitFormatter : AJRUnitsFormatter {
+        if _unitFormatter == nil {
+            _unitFormatter = AJRUnitsFormatter(units: UnitLength.points, displayUnits: units)
+            _unitFormatter?.displayInchesAsFrations = displayInchesAsFractions
+        }
+        return _unitFormatter!
+    }
+    
     internal class var defaultShadow : NSShadow {
         let shadow = NSShadow()
         shadow.shadowColor = NSColor(calibratedWhite: 0.0, alpha: 0.25)
@@ -99,16 +109,15 @@ open class AJRPaperOrientationChooser: NSControl {
     // MARK: - NSView
 
     internal func updateStringValue() {
-        let width = Measurement(value: paper.size.width, unit: UnitLength.points).converted(to: units)
-        let height = Measurement(value: paper.size.height, unit: UnitLength.points).converted(to: units)
-        let widthString = unitFormatter.string(from: width)
-        let heightString = unitFormatter.string(from: height)
+        let widthString = unitFormatter.string(for: paper.size.width) ?? "ERR"
+        let heightString = unitFormatter.string(for: paper.size.height) ?? "ERR"
 
         if orientation == .portrait {
             stringValue = "\(widthString) x \(heightString)"
         } else {
             stringValue = "\(heightString) x \(widthString)"
         }
+        needsDisplay = true
     }
 
     internal func compute(portrait portraitRect: inout NSRect,
