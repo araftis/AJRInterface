@@ -20,6 +20,10 @@ extension NSPrintInfo.PaperOrientation : AJRInspectorValue, AJRXMLEncodableEnum,
     public func toValue() -> NSValue { return NSNumber(integerLiteral: rawValue) }
 
     public static func inspectorValue(from value: NSValue) -> Any? {
+        if let value = value as? NSNumber {
+            // This should be the case for us.
+            return NSPrintInfo.PaperOrientation(rawValue: value.intValue)
+        }
         return nil
     }
 
@@ -92,6 +96,7 @@ class AJRInspectorSlicePaperOrientation: AJRInspectorSlice {
                     strongSelf.orientationChooser.isEnabled = strongSelf.enabledKey?.value ?? true
                 case .single:
                     strongSelf.orientationChooser.isEnabled = strongSelf.enabledKey?.value ?? true
+                    strongSelf.orientationChooser.orientation = strongSelf.valueKey?.value ?? .portrait
                 }
             }
         }
