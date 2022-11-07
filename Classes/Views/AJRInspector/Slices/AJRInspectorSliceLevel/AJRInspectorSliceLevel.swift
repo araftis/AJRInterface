@@ -64,6 +64,9 @@ extension NSLevelIndicator.Style : CustomStringConvertible, AJRInspectorValue {
     }
     
     public static func inspectorValue(from value: NSValue) -> Any? {
+        if let value = value as? NSNumber {
+            return NSLevelIndicator.Style(rawValue: value.uintValue)
+        }
         return nil
     }
     
@@ -98,6 +101,9 @@ extension NSLevelIndicator.PlaceholderVisibility : CustomStringConvertible, AJRI
     }
 
     public static func inspectorValue(from value: NSValue) -> Any? {
+        if let value = value as? NSNumber {
+            return NSLevelIndicator.PlaceholderVisibility(rawValue: value.intValue)
+        }
         return nil
     }
     

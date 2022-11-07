@@ -273,9 +273,12 @@ extension Bool : AJRInspectorValue {
     }
     
     public static func inspectorValue(from value: NSValue) -> Any? {
+        if let value = value as? NSNumber {
+            return value.boolValue
+        }
         return nil
     }
-    
+
 }
 
 extension Date : AJRInspectorValue {
@@ -331,9 +334,12 @@ extension NSTextAlignment : AJRInspectorValue {
     }
     
     public static func inspectorValue(from value: NSValue) -> Any? {
+        if let value = value as? NSNumber {
+            return NSTextAlignment(rawValue: value.intValue)
+        }
         return nil
     }
-    
+
 }
 
 extension NSFont : AJRInspectorValue {
