@@ -74,7 +74,10 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
     open var maxValueKey : AJRInspectorKey<T>?
     open var incrementKey : AJRInspectorKey<T>?
     open var formatKey : AJRInspectorKey<String>?
-    
+    open var unitsKey : AJRInspectorKey<Unit>?
+    open var displayUnitsKey : AJRInspectorKey<Unit>?
+    open var displayInchesAsFractionsKey : AJRInspectorKey<Bool>?
+
     open override var isMerged: Bool {
         didSet {
             //updateDisplayedValue()
@@ -99,6 +102,9 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
         keys.insert("valueWhenNil")
         keys.insert("mergeWithRight")
         keys.insert("format")
+        keys.insert("units")
+        keys.insert("displayUnits")
+        keys.insert("displayInchesAsFractions")
     }
     
     // MARK: - Generation
@@ -117,6 +123,9 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
         valueWhenNilKey = try AJRInspectorKey(key: "valueWhenNil", xmlElement: element, inspectorElement: self, defaultValue: "")
         mergeWithRightKey = try AJRInspectorKey(key: "mergeWithRight", xmlElement: element, inspectorElement: self, defaultValue: false)
         formatKey = try AJRInspectorKey(key: "format", xmlElement: element, inspectorElement: self)
+        unitsKey = try AJRInspectorKey(key: "units", xmlElement: element, inspectorElement: self)
+        displayUnitsKey = try AJRInspectorKey(key: "displayUnits", xmlElement: element, inspectorElement: self)
+        displayInchesAsFractionsKey = try AJRInspectorKey(key: "displayInchesAsFractions", xmlElement: element, inspectorElement: self)
 
         try super.buildView(from: element)
         
@@ -165,16 +174,16 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
             // Do we do anything here? We don't actually expect this to change during run time.
         }
         formatKey?.addObserver {
-            if let strongSelf = weakSelf {
-                let formatter : NumberFormatter
-                if let format = strongSelf.formatKey?.value {
-                    formatter = NumberFormatter()
-                    formatter.format = format
-                } else {
-                    formatter = strongSelf.defaultFormatter
-                }
-                strongSelf.numberField.formatter = formatter
-            }
+            weakSelf?.updateFormatter()
+        }
+        unitsKey?.addObserver {
+            weakSelf?.updateFormatter()
+        }
+        displayUnitsKey?.addObserver {
+            weakSelf?.updateFormatter()
+        }
+        displayInchesAsFractionsKey?.addObserver {
+            weakSelf?.updateFormatter()
         }
     }
     
@@ -209,6 +218,32 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         return formatter
+    }
+    
+    open var formatter : Formatter {
+        let units = unitsKey?.value
+        let displayUnits = displayUnitsKey?.value
+        
+        if let units {
+            let formatter = AJRUnitsFormatter(units: units, displayUnits: displayUnits)
+            formatter.displayInchesAsFrations = displayInchesAsFractionsKey?.value ?? false
+
+            return formatter
+        }
+
+        // If both units and displayUnits are nil, then we'll just display with a plain old number formatter.
+        return defaultFormatter
+    }
+    
+    open func updateFormatter() {
+        let formatter : Formatter
+        if let format = formatKey?.value {
+            formatter = NumberFormatter()
+            (formatter as! NumberFormatter).format = format
+        } else {
+            formatter = self.formatter
+        }
+        numberField.formatter = formatter
     }
     
 }
