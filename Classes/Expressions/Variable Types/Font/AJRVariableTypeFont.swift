@@ -52,3 +52,9 @@ open class AJRVariableTypeFont : AJRVariableType {
     }
 
 }
+
+public extension AJRVariableType {
+
+    static let font = AJRVariableType.variableType(for: AJRVariableTypeFont.self)!
+
+}

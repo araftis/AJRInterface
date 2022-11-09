@@ -52,3 +52,9 @@ open class AJRVariableTypeRect : AJRVariableType {
     }
 
 }
+
+public extension AJRVariableType {
+
+    static let rect = AJRVariableType.variableType(for: AJRVariableTypeRect.self)!
+
+}

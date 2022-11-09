@@ -52,3 +52,9 @@ open class AJRVariableTypePoint : AJRVariableType {
     }
 
 }
+
+public extension AJRVariableType {
+
+    static let point = AJRVariableType.variableType(for: AJRVariableTypePoint.self)!
+
+}

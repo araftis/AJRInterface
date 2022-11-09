@@ -52,3 +52,9 @@ open class AJRVariableTypeSize : AJRVariableType {
     }
 
 }
+
+public extension AJRVariableType {
+
+    static let size = AJRVariableType.variableType(for: AJRVariableTypeSize.self)!
+
+}

@@ -41,3 +41,9 @@ open class AJRVariableTypeGradient : AJRVariableType {
     }
 
 }
+
+public extension AJRVariableType {
+
+    static let gradient = AJRVariableType.variableType(for: AJRVariableTypeGradient.self)!
+
+}

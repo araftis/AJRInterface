@@ -38,5 +38,10 @@ open class AJRVariableTypeBezierPath : AJRVariableType {
         return AJRBezierPath()
     }
 
+}
+
+public extension AJRVariableType {
+
+    static let bezierPath = AJRVariableType.variableType(for: AJRVariableTypeBezierPath.self)!
 
 }
