@@ -113,7 +113,7 @@ open class AJRObjectInspectorViewController: NSViewController {
         } else {
             let warning = "Unable to find inspector \(xmlName ?? "") in \(bundle)";
             AJRLog.warning(warning)
-            self.view = AJRInspectorViewController.createView(withLabel: warning)
+            self.view = AJRInspectorViewController.createView(withLabel: warning, use: .warning)
         }
         
         if let inspectorContentView = inspectorContent?.view {

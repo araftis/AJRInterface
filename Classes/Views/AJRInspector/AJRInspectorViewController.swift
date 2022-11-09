@@ -203,18 +203,46 @@ open class AJRInspectorViewController: NSViewController {
 
     // MARK: - Creation
 
-    open class func createView(withLabel label: String) -> NSView {
+    public enum LabelUse {
+        case info
+        case warning
+        case error
+    }
+
+    open class func createView(withLabel label: String, use: LabelUse = .info) -> NSView {
         let view = NSView()
         view.translatesAutoresizingMaskIntoConstraints = false
         let label = NSTextField(labelWithString: translator[label])
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .regular) + 8.0, weight: .semibold)
-        label.textColor = NSColor.disabledControlTextColor
+        let fontSize : CGFloat
+        switch use {
+        case .info:
+            fontSize = NSFont.systemFontSize(for: .regular) + 8.0
+            label.textColor = NSColor.disabledControlTextColor
+        case .error:
+            fallthrough
+        case .warning:
+            fontSize = NSFont.systemFontSize(for: .regular)
+            label.textColor = NSColor.red
+        }
+        label.font = NSFont.systemFont(ofSize: fontSize, weight: .semibold)
         view.addSubview(label)
         view.addConstraints([
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             label.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            view.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 10),
+        ])
+        if use != .info {
+            label.lineBreakStrategy = .standard
+            label.lineBreakMode = .byCharWrapping
+            label.isSelectable = true
+            label.preferredMaxLayoutWidth = 200
+            view.addConstraints([
+                label.leftAnchor.constraint(greaterThanOrEqualTo: view.leftAnchor, constant: 10),
+                view.rightAnchor.constraint(greaterThanOrEqualTo: label.rightAnchor, constant: 10),
             ])
+        }
         return view
     }
     
