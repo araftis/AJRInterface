@@ -48,23 +48,29 @@ open class AJRInspectorSection: AJRInspectorElement {
         try super.init(element: element, parent: parent, viewController: viewController, bundle: bundle, userInfo: userInfo)
         if let element = element as? XMLElement {
             try buildView(from: element)
-            if let children = element.children {
-                for childNode in children {
-                    if childNode.kind == .element, let childNode = childNode as? XMLElement {
-                        add(child: try createChild(from: childNode))
-                    }
-                }
-                if let childToAdd = self.childToAdd {
-                    add(child: childToAdd)
-                }
-                for child in self.children {
-                    child.didAddAllChildren()
-                }
-            }
+            try buildChildren(from: element)
         }
     }
     
     // MARK: - View
+    
+    open func buildChildren(from element: XMLElement, inspector: AJRInspectorElement? = nil) throws -> Void {
+        if let children = element.children {
+            for childNode in children {
+                if childNode.kind == .element, let childNode = childNode as? XMLElement {
+                    add(child: try createChild(from: childNode, parent: inspector))
+                }
+            }
+            if let childToAdd = self.childToAdd {
+                add(child: childToAdd)
+            }
+            for child in self.children {
+                child.didAddAllChildren()
+            }
+        }
+        // Since we may create our content more than once, make sure we clear this out.
+        childToAdd = nil
+    }
     
     open var borderRenderer : AJRDrawingBlock? {
         if let parent = parent as? AJRInspectorSection, parent.childToAdd != nil {
@@ -122,10 +128,10 @@ open class AJRInspectorSection: AJRInspectorElement {
         return 0.0
     }
     
-    open func createChild(from element: XMLElement) throws -> AJRInspectorElement {
+    open func createChild(from element: XMLElement, parent: AJRInspectorElement? = nil) throws -> AJRInspectorElement {
         switch element.name {
         case "slice":
-            return try AJRInspectorSlice.slice(from: element, parent: self, viewController: viewController!)
+            return try AJRInspectorSlice.slice(from: element, parent: parent ?? self, viewController: viewController!)
         default:
             throw NSError(domain: AJRInspectorErrorDomain, message: "Invalid child in section: \(element)")
         }

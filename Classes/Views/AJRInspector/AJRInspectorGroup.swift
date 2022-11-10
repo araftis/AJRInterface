@@ -35,6 +35,9 @@ import Cocoa
 open class AJRInspectorGroup: AJRInspectorSection {
 
     open var titleKey : AJRInspectorKey<String>?
+    open var forEachKey : AJRInspectorKeyPath<[AnyObject]>?
+    /// The element used to create this group. This will be `nil` if `forEachKey` is `nil`.
+    open var element : XMLElement? = nil
     open var visualEffectView : NSVisualEffectView!
     open var titleLabel : NSTextField!
     open var separatorView : AJRBlockDrawingView? = nil
@@ -59,17 +62,26 @@ open class AJRInspectorGroup: AJRInspectorSection {
 
     open override var defaultTopMargin : CGFloat { return 7.0 }
     open override var defaultBottomMargin : CGFloat { return 11.0 }
+    
+    open var stackView : NSStackView? {
+        return view as? NSStackView
+    }
 
     open override func buildView(from element: XMLElement) throws -> Void {
         titleKey = try AJRInspectorKey(key: "title", xmlElement: element, inspectorElement: self)
+        forEachKey = try AJRInspectorKeyPath(key: "forEach", xmlElement: element, inspectorElement: self)
         
         try super.buildView(from: element)
+        if forEachKey != nil {
+            self.element = element
+        }
 
+        weak var weakSelf = self
         if let titleKey = titleKey {
             visualEffectView = NSVisualEffectView(frame: NSRect.zero)
             visualEffectView.translatesAutoresizingMaskIntoConstraints = false
 
-            (view as? NSStackView)?.addView(visualEffectView, in: .top)
+            stackView?.addView(visualEffectView, in: .top)
             view.addConstraints([
                 visualEffectView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0.0),
                 visualEffectView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0.0),
@@ -80,6 +92,9 @@ open class AJRInspectorGroup: AJRInspectorSection {
             titleLabel.controlSize = .mini
             updateTitleLabel()
             visualEffectView.addSubview(titleLabel)
+            if forEachKey != nil {
+                print("titleLabel: \(visualEffectView!)")
+            }
 
             visualEffectView.addConstraints([
                 titleLabel.leftAnchor.constraint(equalTo: visualEffectView.leftAnchor, constant: 5.0),
@@ -89,7 +104,6 @@ open class AJRInspectorGroup: AJRInspectorSection {
                 titleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant:50.0),
             ])
 
-            weak var weakSelf = self
             titleKey.addObserver {
                 weakSelf?.titleLabel?.stringValue = weakSelf?.titleKey?.value ?? ""
             }
@@ -98,9 +112,50 @@ open class AJRInspectorGroup: AJRInspectorSection {
                 weakSelf?.separatorView?.needsDisplay = true
             }
         }
+        forEachKey?.addObserver {
+            if let strongSelf = weakSelf,
+                let forEachKey = strongSelf.forEachKey {
+                switch forEachKey.selectionType {
+                case .multiple:
+                    break
+                case .none:
+                    break;
+                case .single:
+                    strongSelf.updateRepeatingChildren()
+                }
+            }
+        }
     }
 
     // MARK: - Utilities
+    
+    open func updateRepeatingChildren() -> Void {
+        if let stackView {
+            let skipFirst = titleKey != nil
+            let arrangedViews = stackView.arrangedSubviews
+            for (index, view) in arrangedViews.enumerated() {
+                if skipFirst && index == 0 {
+                    continue
+                }
+                view.removeFromSuperview()
+            }
+        }
+        if let element,
+           let allObjects = forEachKey?.value as? [[AnyObject]],
+           allObjects.count > 0 {
+            let objects = allObjects[0]
+            for object in objects {
+                // NOTE: element is basically ignored here.
+                let viewController = AJRObjectInspectorViewController(parent: nil, name: nil, xmlName: nil, bundle: nil)
+                let phantomParent = try? AJRInspectorElement(element: element, parent: self, viewController: viewController)
+                viewController.controller?.content = [object]
+                // TODO: Catch this exception and handle it gracefully.
+                try? buildChildren(from: element, inspector: phantomParent)
+            }
+        } else {
+            print("no objects")
+        }
+    }
 
     /**
      Returns the nesting level of the group within other groups. This is useful for determining how to format the title. For example, the groups at level 1 have a stronger appearance than lower groups. Currently, only two title styles are used, those at depth 1 and greater than 1.
@@ -143,15 +198,15 @@ open class AJRInspectorGroup: AJRInspectorSection {
         return view == titleLabel ? 2.0 : super.verticalSpacing(fromView: view)
     }
     
-    open override func createChild(from element: XMLElement) throws -> AJRInspectorElement {
+    open override func createChild(from element: XMLElement, parent: AJRInspectorElement? = nil) throws -> AJRInspectorElement {
         if let viewController = viewController {
             switch element.name {
             case "section":
-                return try AJRInspectorSection(element: element, parent: self, viewController: viewController)
+                return try AJRInspectorSection(element: element, parent: parent ?? self, viewController: viewController)
             case "slice":
-                return try AJRInspectorSlice.slice(from: element, parent: self, viewController: viewController)
+                return try AJRInspectorSlice.slice(from: element, parent: parent ?? self, viewController: viewController)
             case "group":
-                return try AJRInspectorGroup(element: element, parent: self, viewController: viewController)
+                return try AJRInspectorGroup(element: element, parent: parent ?? self, viewController: viewController)
             default:
                 throw NSError(domain: AJRInspectorErrorDomain, message: "Invalid child in group: \(element)")
             }

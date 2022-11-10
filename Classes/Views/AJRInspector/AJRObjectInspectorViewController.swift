@@ -89,7 +89,7 @@ open class AJRObjectInspectorViewController: NSViewController {
         super.init(coder: coder)
     }
     
-    public required init(parent: AJRInspectorViewController, name: String?, xmlName: String?, bundle: Bundle?) {
+    public required init(parent: AJRInspectorViewController?, name: String?, xmlName: String?, bundle: Bundle?) {
         self.name = name
         self._xmlName = xmlName
         self._bundle = bundle
