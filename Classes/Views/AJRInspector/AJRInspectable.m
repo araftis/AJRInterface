@@ -42,4 +42,8 @@ AJRInspectorIdentifier const AJRInspectorContentIdentifierAny = @"any";
     return @[];
 }
 
+- (NSArray<AJRInspectorIdentifier> *)inspectorIdentifiersForInspectorContent:(nullable AJRInspectorContentIdentifier)inspectorContentIdentifier {
+    return self.inspectorIdentifiers;
+}
+
 @end

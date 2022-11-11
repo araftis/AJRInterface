@@ -52,6 +52,13 @@ extern AJRInspectorIdentifier const AJRInspectorContentIdentifierAny;
  */
 @property (nonatomic,readonly) NSArray<AJRInspectorIdentifier> *inspectorIdentifiers;
 
+/*!
+ Some UIs will want more than one inspector controller. When that happens, objects may need to return a different set of inspector identifiers, which this method allows. By default, this just calls inspectorIdentifiers.
+
+ @param inspectorControllerIndentifier A string to identify the inspector controller doing the inspection.
+ */
+- (NSArray<AJRInspectorIdentifier> *)inspectorIdentifiersForInspectorContent:(nullable AJRInspectorContentIdentifier)inspectorContentIdentifier;
+
 @end
 
 @interface NSObject (AJRInspectable) <AJRInspectable>
