@@ -75,7 +75,13 @@ open class AJRInspectorElement: NSObject {
         return keys
     }()
     
-    open weak var viewController : AJRObjectInspectorViewController?
+    open weak var viewController : AJRObjectInspectorViewController? {
+        didSet {
+            if viewController == nil {
+                print("hum... set viewController to nil")
+            }
+        }
+    }
     
     @IBOutlet open var view : NSView!
     

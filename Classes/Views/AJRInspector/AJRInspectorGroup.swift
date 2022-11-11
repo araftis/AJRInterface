@@ -35,9 +35,6 @@ import Cocoa
 open class AJRInspectorGroup: AJRInspectorSection {
 
     open var titleKey : AJRInspectorKey<String>?
-    open var forEachKey : AJRInspectorKeyPath<[AnyObject]>?
-    /// The element used to create this group. This will be `nil` if `forEachKey` is `nil`.
-    open var element : XMLElement? = nil
     open var visualEffectView : NSVisualEffectView!
     open var titleLabel : NSTextField!
     open var separatorView : AJRBlockDrawingView? = nil
@@ -63,18 +60,10 @@ open class AJRInspectorGroup: AJRInspectorSection {
     open override var defaultTopMargin : CGFloat { return 7.0 }
     open override var defaultBottomMargin : CGFloat { return 11.0 }
     
-    open var stackView : NSStackView? {
-        return view as? NSStackView
-    }
-
     open override func buildView(from element: XMLElement) throws -> Void {
         titleKey = try AJRInspectorKey(key: "title", xmlElement: element, inspectorElement: self)
-        forEachKey = try AJRInspectorKeyPath(key: "forEach", xmlElement: element, inspectorElement: self)
         
         try super.buildView(from: element)
-        if forEachKey != nil {
-            self.element = element
-        }
 
         weak var weakSelf = self
         if let titleKey = titleKey {
@@ -92,9 +81,6 @@ open class AJRInspectorGroup: AJRInspectorSection {
             titleLabel.controlSize = .mini
             updateTitleLabel()
             visualEffectView.addSubview(titleLabel)
-            if forEachKey != nil {
-                print("titleLabel: \(visualEffectView!)")
-            }
 
             visualEffectView.addConstraints([
                 titleLabel.leftAnchor.constraint(equalTo: visualEffectView.leftAnchor, constant: 5.0),
@@ -112,48 +98,22 @@ open class AJRInspectorGroup: AJRInspectorSection {
                 weakSelf?.separatorView?.needsDisplay = true
             }
         }
-        forEachKey?.addObserver {
-            if let strongSelf = weakSelf,
-                let forEachKey = strongSelf.forEachKey {
-                switch forEachKey.selectionType {
-                case .multiple:
-                    break
-                case .none:
-                    break;
-                case .single:
-                    strongSelf.updateRepeatingChildren()
-                }
-            }
-        }
     }
 
     // MARK: - Utilities
-    
-    open func updateRepeatingChildren() -> Void {
+
+    // We have to override this meathod, because we don't want to remove our title, if we have one.
+    open override func removeRepeatingChildren() -> Void {
         if let stackView {
-            let skipFirst = titleKey != nil
-            let arrangedViews = stackView.arrangedSubviews
-            for (index, view) in arrangedViews.enumerated() {
-                if skipFirst && index == 0 {
-                    continue
+            if titleKey != nil {
+                for (index, view) in stackView.arrangedSubviews.enumerated() {
+                    if index > 0 {
+                        view.removeFromSuperview()
+                    }
                 }
-                view.removeFromSuperview()
+            } else {
+                super.removeRepeatingChildren()
             }
-        }
-        if let element,
-           let allObjects = forEachKey?.value as? [[AnyObject]],
-           allObjects.count > 0 {
-            let objects = allObjects[0]
-            for object in objects {
-                // NOTE: element is basically ignored here.
-                let viewController = AJRObjectInspectorViewController(parent: nil, name: nil, xmlName: nil, bundle: nil)
-                let phantomParent = try? AJRInspectorElement(element: element, parent: self, viewController: viewController)
-                viewController.controller?.content = [object]
-                // TODO: Catch this exception and handle it gracefully.
-                try? buildChildren(from: element, inspector: phantomParent)
-            }
-        } else {
-            print("no objects")
         }
     }
 
@@ -199,14 +159,15 @@ open class AJRInspectorGroup: AJRInspectorSection {
     }
     
     open override func createChild(from element: XMLElement, parent: AJRInspectorElement? = nil) throws -> AJRInspectorElement {
-        if let viewController = viewController {
+        let parentToAssign = parent ?? self
+        if let viewController = parentToAssign.viewController {
             switch element.name {
             case "section":
-                return try AJRInspectorSection(element: element, parent: parent ?? self, viewController: viewController)
+                return try AJRInspectorSection(element: element, parent: parentToAssign, viewController: viewController)
             case "slice":
-                return try AJRInspectorSlice.slice(from: element, parent: parent ?? self, viewController: viewController)
+                return try AJRInspectorSlice.slice(from: element, parent: parentToAssign, viewController: viewController)
             case "group":
-                return try AJRInspectorGroup(element: element, parent: parent ?? self, viewController: viewController)
+                return try AJRInspectorGroup(element: element, parent: parentToAssign, viewController: viewController)
             default:
                 throw NSError(domain: AJRInspectorErrorDomain, message: "Invalid child in group: \(element)")
             }
@@ -216,11 +177,6 @@ open class AJRInspectorGroup: AJRInspectorSection {
     }
 
     open override func didAddAllChildren() {
-        // TODO: Remove this debug code, once I'm sure everything is working.
-//        print("title: \(groupDepth): \(titleKey?.value ?? "")")
-//        if titleKey?.value == "Graphic" {
-//            print("break here")
-//        }
         updateTitleLabel()
 
         if let view = view as? NSStackView {

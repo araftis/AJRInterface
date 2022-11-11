@@ -41,6 +41,9 @@ open class AJRInspectorSection: AJRInspectorElement {
     open var borderColorTopKey : AJRInspectorKey<NSColor>?
     open var borderColorBottomKey : AJRInspectorKey<NSColor>?
     open var hiddenKey : AJRInspectorKey<Bool>?
+    open var forEachKey : AJRInspectorKeyPath<[AnyObject]>?
+    /// The element used to create this group. This will be `nil` if `forEachKey` is `nil`.
+    open var element : XMLElement? = nil
 
     // MARK: - Creation
     
@@ -48,7 +51,10 @@ open class AJRInspectorSection: AJRInspectorElement {
         try super.init(element: element, parent: parent, viewController: viewController, bundle: bundle, userInfo: userInfo)
         if let element = element as? XMLElement {
             try buildView(from: element)
-            try buildChildren(from: element)
+            if forEachKey == nil {
+                // Only build our children if the forEachKey is nil, otherwise, we'll build are children shortly based off the number of children.
+                try buildChildren(from: element)
+            }
         }
     }
     
@@ -96,12 +102,17 @@ open class AJRInspectorSection: AJRInspectorElement {
     open var topMargin : CGFloat { return borderMarginTopKey.value! }
     open var bottomMargin : CGFloat { return borderMarginBottomKey.value! }
 
+    open var stackView : NSStackView? {
+        return view as? NSStackView
+    }
+
     open func buildView(from element: XMLElement) throws -> Void {
         borderMarginTopKey = try AJRInspectorKey(key: "borderMarginTop", xmlElement: element, inspectorElement: self, defaultValue: defaultTopMargin)
         borderMarginBottomKey = try AJRInspectorKey(key: "borderMarginBottom", xmlElement: element, inspectorElement: self, defaultValue: defaultBottomMargin)
         borderColorTopKey = try AJRInspectorKey(key: "borderColorTop", xmlElement: element, inspectorElement: self, defaultValue: NSColor(named: .inspectorDividerColor, bundle:Bundle(for: Self.self)))
         borderColorBottomKey = try AJRInspectorKey(key: "borderColorBottom", xmlElement: element, inspectorElement: self)
         hiddenKey = try AJRInspectorKey(key: "hidden", xmlElement: element, inspectorElement: self, defaultValue: false)
+        forEachKey = try AJRInspectorKeyPath(key: "forEach", xmlElement: element, inspectorElement: self)
 
         let view = NSStackView(frame: NSRect.zero)
         view.orientation = .vertical
@@ -109,6 +120,10 @@ open class AJRInspectorSection: AJRInspectorElement {
         view.spacing = 2.0
         //view.contentRenderer = borderRenderer
         self.view = view
+
+        if forEachKey != nil {
+            self.element = element
+        }
 
         weak var weakSelf = self
         hiddenKey?.addObserver {
@@ -120,10 +135,51 @@ open class AJRInspectorSection: AJRInspectorElement {
                 }
             }
         }
+        forEachKey?.addObserver {
+            if let strongSelf = weakSelf,
+                let forEachKey = strongSelf.forEachKey {
+                switch forEachKey.selectionType {
+                case .multiple:
+                    break
+                case .none:
+                    break;
+                case .single:
+                    strongSelf.updateRepeatingChildren()
+                }
+            }
+        }
     }
     
     // MARK: - Children
+
+    open func removeRepeatingChildren() -> Void {
+        if let stackView {
+            for view in stackView.arrangedSubviews {
+                view.removeFromSuperview()
+            }
+        }
+    }
     
+    open func updateRepeatingChildren() -> Void {
+        self.removeRepeatingChildren()
+        if let element,
+           let allObjects = forEachKey?.value as? [[AnyObject]],
+           allObjects.count > 0 {
+            let objects = allObjects[0]
+            for object in objects {
+                // NOTE: element is basically ignored here.
+                let viewController = AJRObjectInspectorViewController(parent: nil, name: nil, xmlName: nil, bundle: nil)
+                let phantomParent = try? AJRInspectorElement(element: element, parent: self, viewController: viewController)
+                viewController.controller = NSArrayController()
+                viewController.controller?.content = [object]
+                // TODO: Catch this exception and handle it gracefully.
+                try? buildChildren(from: element, inspector: phantomParent)
+            }
+        } else {
+            print("no objects")
+        }
+    }
+
     open func verticalSpacing(fromView view: NSView) -> CGFloat {
         return 0.0
     }
