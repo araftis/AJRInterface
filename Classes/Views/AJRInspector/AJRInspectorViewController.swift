@@ -212,7 +212,7 @@ open class AJRInspectorViewController: NSViewController {
     open class func createView(withLabel label: String, use: LabelUse = .info) -> NSView {
         let view = NSView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        let label = NSTextField(labelWithString: translator[label])
+        let label = NSTextField(labelWithString: translator[label, label])
         label.translatesAutoresizingMaskIntoConstraints = false
         let fontSize : CGFloat
         switch use {

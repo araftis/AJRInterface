@@ -159,37 +159,55 @@ open class AJRInspectorSection: AJRInspectorElement {
             }
         }
     }
-    
+
+    // So, we're doing an oddish thing in that we're create a "subviewController" in order to give each object in the repetition its own viewController. The problem is that the only thing holding onto this view controller is the AJRInspectorElement, but that only maintains a weak reference, which is normally what we want. To keep our object from being released, we'll need to root it, which we do with this variable.
+    internal var repetitionViewControllers = [AJRObjectInspectorViewController]()
+
     open func updateRepeatingChildren() -> Void {
         self.removeRepeatingChildren()
+        repetitionViewControllers.removeAll()
         if let element,
-           let allObjects = forEachKey?.value as? [[AnyObject]],
-           allObjects.count > 0 {
-            let objects = allObjects[0]
-            for object in objects {
+           let objects = forEachKey?.value as? [AnyObject],
+           objects.count > 0 {
+            for (index, object) in objects.enumerated() {
                 // NOTE: element is basically ignored here.
                 let viewController = AJRObjectInspectorViewController(parent: nil, name: nil, xmlName: nil, bundle: nil)
                 let phantomParent = try? AJRInspectorElement(element: element, parent: self, viewController: viewController)
-                viewController.controller = NSArrayController()
-                viewController.controller?.content = [object]
+                viewController.controller = NSObjectController()
+                viewController.controller?.content = object
+                repetitionViewControllers.append(viewController)
                 // TODO: Catch this exception and handle it gracefully.
                 try? buildChildren(from: element, inspector: phantomParent)
+                if index < objects.count - 1 {
+                    if let separatorView = createSeparatorView() {
+                        stackView?.addView(separatorView, in: .top)
+                    }
+                }
             }
-        } else {
-            print("no objects")
+        } else if element != nil {
+            stackView?.addView(AJRInspectorViewController.createView(withLabel: "No Objects", use: .info), in: .top)
         }
     }
 
     open func verticalSpacing(fromView view: NSView) -> CGFloat {
         return 0.0
     }
+
+    open func createSeparatorView() -> NSView? {
+        return nil
+    }
     
     open func createChild(from element: XMLElement, parent: AJRInspectorElement? = nil) throws -> AJRInspectorElement {
-        switch element.name {
-        case "slice":
-            return try AJRInspectorSlice.slice(from: element, parent: parent ?? self, viewController: viewController!)
-        default:
-            throw NSError(domain: AJRInspectorErrorDomain, message: "Invalid child in section: \(element)")
+        let parentToAssign = parent ?? self
+        if let viewController = parentToAssign.viewController {
+            switch element.name {
+            case "slice":
+                return try AJRInspectorSlice.slice(from: element, parent: parentToAssign, viewController: viewController)
+            default:
+                throw NSError(domain: AJRInspectorErrorDomain, message: "Invalid child in section: \(element)")
+            }
+        } else {
+            throw NSError(domain: AJRInspectorErrorDomain, message: "viewController in nil")
         }
     }
     

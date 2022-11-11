@@ -75,14 +75,8 @@ open class AJRInspectorElement: NSObject {
         return keys
     }()
     
-    open weak var viewController : AJRObjectInspectorViewController? {
-        didSet {
-            if viewController == nil {
-                print("hum... set viewController to nil")
-            }
-        }
-    }
-    
+    open weak var viewController : AJRObjectInspectorViewController?
+
     @IBOutlet open var view : NSView!
     
     public required init(element: XMLNode, parent: AJRInspectorElement?, viewController: AJRObjectInspectorViewController, bundle: Bundle = Bundle.main, userInfo: [AnyHashable:Any]? = nil) throws {

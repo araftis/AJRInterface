@@ -78,11 +78,19 @@ open class AJRInspectorKeyPath<T> : NSObject {
     }
     
     public var selectionType : AJRValueSelectionType {
-        if let keyPath = keyPath, let raw = inspectorElement?.viewController?.value(forKeyPath: keyPath) {
-            if (raw as? NSBindingSelectionMarker) == .multipleValues {
-                return .multiple
+        if let keyPath {
+            if let viewController = inspectorElement?.viewController {
+                if let raw = viewController.value(forKeyPath: keyPath) {
+                    if (raw as? NSBindingSelectionMarker) == .multipleValues {
+                        return .multiple
+                    }
+                    if (raw as? NSBindingSelectionMarker) == .noSelection {
+                        return .none
+                    }
+                }
+                // Basically, we return "single" in this case, because everything else was not nil, so if raw was nil, then it was because teh value returned was nil, in which case we do have a single selection of nil.
+                return .single
             }
-            return NSIsControllerMarker(raw) ? .none : .single
         }
         return .none
     }

@@ -123,7 +123,7 @@ open class AJRInspectorSliceChoiceObject : AJRInspectorSliceChoice {
     open var choiceTitleKeyPath : AJRInspectorKey<String>?
     open var titleWhenNilKeyPath : AJRInspectorKey<String>?
     open var choicesAreExplicit = false // If true, the choices were specified in the XML, otherwise they're expected to come from the objectsKeyPath.
-    
+
     var objects : [AnyObject] = [] {
         didSet {
             if choicesAreExplicit {

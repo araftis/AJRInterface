@@ -32,13 +32,20 @@
 import AppKit
 
 @objc
-public enum AJRBindingSelectionType : Int {
-
+public enum AJRBindingSelectionType : Int, AJRXMLEncodableEnum {
     case unknown
     case none
     case single
     case multiple
 
+    public var description: String {
+        switch self {
+        case .unknown: return "unknown"
+        case .none: return "none"
+        case .single: return "single"
+        case .multiple: return "multiple"
+        }
+    }
 }
 
 @objc

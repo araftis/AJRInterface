@@ -37,7 +37,7 @@ open class AJRInspectorGroup: AJRInspectorSection {
     open var titleKey : AJRInspectorKey<String>?
     open var visualEffectView : NSVisualEffectView!
     open var titleLabel : NSTextField!
-    open var separatorView : AJRBlockDrawingView? = nil
+    open var separatorView : NSView? = nil
     
     // MARK: - View
 
@@ -70,7 +70,7 @@ open class AJRInspectorGroup: AJRInspectorSection {
             visualEffectView = NSVisualEffectView(frame: NSRect.zero)
             visualEffectView.translatesAutoresizingMaskIntoConstraints = false
 
-            stackView?.addView(visualEffectView, in: .top)
+            stackView?.insertView(visualEffectView, at: 0, in: .top)
             view.addConstraints([
                 visualEffectView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0.0),
                 visualEffectView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0.0),
@@ -176,6 +176,28 @@ open class AJRInspectorGroup: AJRInspectorSection {
         }
     }
 
+    open override func createSeparatorView() -> NSView? {
+        let separatorView = AJRBlockDrawingView(frame: NSRect.zero)
+        separatorView.addConstraint(separatorView.heightAnchor.constraint(equalToConstant: 5.0))
+        weak var weakSelf = self
+        separatorView.contentRenderer = { (context, bounds) in
+            if let self = weakSelf {
+                // Useful for debugging: var color : NSColor? = depth == 1 ? NSColor.red : NSColor.blue
+                var color : NSColor? = self.borderColorBottomKey?.value
+                if color == nil {
+                    color = NSColor.separatorColor
+                }
+                color?.set()
+                var rect = CGRect(x: bounds.minX, y: bounds.minY + bounds.height / 2.0, width: bounds.width, height: 1.0)
+                // TODO: Use margins
+                rect.origin.x += 5.0
+                rect.size.width -= 10.0
+                rect.frame()
+            }
+        }
+        return separatorView
+    }
+
     open override func didAddAllChildren() {
         updateTitleLabel()
 
@@ -195,25 +217,8 @@ open class AJRInspectorGroup: AJRInspectorSection {
             }
 
             if addBorder && separatorView == nil {
-                separatorView = AJRBlockDrawingView(frame: NSRect.zero)
-                if let separatorView = separatorView {
-                    separatorView.addConstraint(separatorView.heightAnchor.constraint(equalToConstant: 5.0))
-                    weak var weakSelf = self
-                    separatorView.contentRenderer = { (context, bounds) in
-                        if let self = weakSelf {
-                            // Useful for debugging: var color : NSColor? = depth == 1 ? NSColor.red : NSColor.blue
-                            var color : NSColor? = self.borderColorBottomKey?.value
-                            if color == nil {
-                                color = NSColor.separatorColor
-                            }
-                            color?.set()
-                            var rect = CGRect(x: bounds.minX, y: bounds.minY + bounds.height / 2.0, width: bounds.width, height: 1.0)
-                            // TODO: Use margins
-                            rect.origin.x += 5.0
-                            rect.size.width -= 10.0
-                            rect.frame()
-                        }
-                    }
+                separatorView = createSeparatorView()
+                if let separatorView {
                     view.addView(separatorView, in: .top)
                 }
             } else if !addBorder, let separatorView = separatorView {
