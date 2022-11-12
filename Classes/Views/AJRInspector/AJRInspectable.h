@@ -47,15 +47,10 @@ extern AJRInspectorIdentifier const AJRInspectorContentIdentifierAny;
  By default, this just returns super's contents as well as inspectorIdentifier, assuming inspectorIdentifier doesn't return AJRInspectorIdentifierNone.
 
  This method may return an empty array, but not nil.
+ 
+ @param inspectorContentIdentifier Identifies the inspector view controller that is asking for inspectors. Many object's won't actually care about this, and can just ignore it, but some objects may have multiple inspectors, and should check this value to return the correct set of inspectors.
 
  @return An array of AJRInspectorIdentifiers or an empty array.
- */
-@property (nonatomic,readonly) NSArray<AJRInspectorIdentifier> *inspectorIdentifiers;
-
-/*!
- Some UIs will want more than one inspector controller. When that happens, objects may need to return a different set of inspector identifiers, which this method allows. By default, this just calls inspectorIdentifiers.
-
- @param inspectorControllerIndentifier A string to identify the inspector controller doing the inspection.
  */
 - (NSArray<AJRInspectorIdentifier> *)inspectorIdentifiersForInspectorContent:(nullable AJRInspectorContentIdentifier)inspectorContentIdentifier;
 

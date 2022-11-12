@@ -230,8 +230,8 @@ open class AJRInspectorViewController: NSViewController {
         view.addConstraints([
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             label.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            view.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 10),
+            label.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor, constant: 10),
+            view.bottomAnchor.constraint(greaterThanOrEqualTo: label.bottomAnchor, constant: 10),
         ])
         if use != .info {
             label.lineBreakStrategy = .standard

@@ -20,6 +20,7 @@
 		21FCD9D627161B640049E558 /* AJRInspectorSliceFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FCD9D527161B640049E558 /* AJRInspectorSliceFile.swift */; };
 		21FCD9D8271626F00049E558 /* AJRInspectorSliceFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21FCD9D727161CC10049E558 /* AJRInspectorSliceFile.xib */; };
 		21FCD9DB27162C330049E558 /* AJRInspectorSliceFile.strings in Resources */ = {isa = PBXBuildFile; fileRef = 21FCD9DD27162C330049E558 /* AJRInspectorSliceFile.strings */; };
+		21FFE30F291F277B00A79F8F /* AJRInspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FFE30E291F277B00A79F8F /* AJRInspectable.swift */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		C34C0BA610112E80004D2653 /* AJRSpeechBorder.h in Headers */ = {isa = PBXBuildFile; fileRef = C34C0BA410112E80004D2653 /* AJRSpeechBorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -689,6 +690,7 @@
 		21FCD9D727161CC10049E558 /* AJRInspectorSliceFile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRInspectorSliceFile.xib; sourceTree = "<group>"; };
 		21FCD9DC27162C330049E558 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AJRInspectorSliceFile.strings; sourceTree = "<group>"; };
 		21FCD9DE27162C370049E558 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/AJRInspectorSliceFile.strings; sourceTree = "<group>"; };
+		21FFE30E291F277B00A79F8F /* AJRInspectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectable.swift; sourceTree = "<group>"; };
 		32DBCF5E0370ADEE00C91783 /* AJRInterface_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRInterface_Prefix.pch; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* AJRInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AJRInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2793,6 +2795,7 @@
 				FA53D60B223F148F003E02B1 /* Slices */,
 				FAD61D132256AD7B004CDD37 /* AJRInspectable.h */,
 				FAD61D142256AD7B004CDD37 /* AJRInspectable.m */,
+				21FFE30E291F277B00A79F8F /* AJRInspectable.swift */,
 				FA53D5F5223F0752003E02B1 /* AJRInspectorContent.swift */,
 				FA53D6172240C2F4003E02B1 /* AJRInspectorElement.swift */,
 				FA53D5F7223F084A003E02B1 /* AJRInspectorGroup.swift */,
@@ -3356,6 +3359,7 @@
 				FA4426640E9846B300545311 /* AJRButtonBar.m in Sources */,
 				FA1819FC2271325700BA7E06 /* AJRInspectorSliceDate.swift in Sources */,
 				FA6C232A0E9A8570003F2540 /* AJRImageCell.m in Sources */,
+				21FFE30F291F277B00A79F8F /* AJRInspectable.swift in Sources */,
 				FA6C24E60E9AAC4B003F2540 /* NSImage+Extensions.m in Sources */,
 				FAA37EE30E9D26B1004AEECF /* AJRURLField.m in Sources */,
 				FA7D49E00EA3FAA700F0C220 /* AJRTerritoryCanvas.m in Sources */,

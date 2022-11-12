@@ -38,12 +38,8 @@ AJRInspectorIdentifier const AJRInspectorContentIdentifierAny = @"any";
 
 @implementation NSObject (AJRInspectable)
 
-- (NSArray<AJRInspectorIdentifier> *)inspectorIdentifiers {
-    return @[];
-}
-
 - (NSArray<AJRInspectorIdentifier> *)inspectorIdentifiersForInspectorContent:(nullable AJRInspectorContentIdentifier)inspectorContentIdentifier {
-    return self.inspectorIdentifiers;
+    return @[];
 }
 
 @end
