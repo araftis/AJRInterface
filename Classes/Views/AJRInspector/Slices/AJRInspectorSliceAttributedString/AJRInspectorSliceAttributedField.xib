@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -69,10 +68,10 @@
                         <font key="font" metaFont="cellTitle"/>
                         <segments>
                             <segment image="segmentedCell:Glf-JE-jZC:image" width="30"/>
-                            <segment image="DB8DFCA1-3515-407E-8F65-BE7557158F22" width="30" tag="1"/>
-                            <segment image="43B06B30-49D6-451E-994B-4424781571E0" width="30"/>
-                            <segment image="F49CA54B-8311-43BB-9147-00EE3DA727EB" width="29"/>
-                            <segment image="49E9D9CD-0C3C-4330-871A-8CF51952F521" width="29"/>
+                            <segment image="8C9A3953-C90D-475B-B0D0-A38B61B6B7DD" width="30" tag="1"/>
+                            <segment image="275B110C-5ADD-4EB1-BAF9-E6002689180D" width="30"/>
+                            <segment image="FF996C79-E05A-479E-96AC-2FF164A2BBE9" width="29"/>
+                            <segment image="2CC52250-169F-4802-B706-774357D02C3E" width="29"/>
                         </segments>
                     </segmentedCell>
                     <connections>
@@ -97,7 +96,7 @@
         </customView>
     </objects>
     <resources>
-        <image name="43B06B30-49D6-451E-994B-4424781571E0" width="16" height="16">
+        <image name="275B110C-5ADD-4EB1-BAF9-E6002689180D" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05T
 S2V5ZWRBcmNoaXZlctEICVRyb290gAGvEBcLDBscIxkoLS41OD1AQUZJSk1XX2BkZ1UkbnVsbNcNDg8Q
@@ -601,7 +600,7 @@ YgRiBmIPYhRiGmIiYiRiJmIoYipzynPPc9xz33Psc/Fz+XP8dAF0CQAAAAAAAAIBAAAAAAAAAGoAAAAA
 AAAAAAAAAAAAAHQMA
 </mutableData>
         </image>
-        <image name="49E9D9CD-0C3C-4330-871A-8CF51952F521" width="16" height="16">
+        <image name="2CC52250-169F-4802-B706-774357D02C3E" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05T
 S2V5ZWRBcmNoaXZlctEICVRyb290gAGvEBcLDBscIxkoLS41OD1AQUZJSk1XX2BkZ1UkbnVsbNcNDg8Q
@@ -1105,14 +1104,7 @@ YgRiBmIPYhRiGmIiYiRiJmIoYipzynPPc9xz33Psc/Fz+XP8dAF0CQAAAAAAAAIBAAAAAAAAAGoAAAAA
 AAAAAAAAAAAAAHQMA
 </mutableData>
         </image>
-        <image name="AJRBoldToggle" width="16" height="16"/>
-        <image name="AJRColorPanelInSegments" width="16" height="16"/>
-        <image name="AJRFontPanelInSegments" width="16" height="16"/>
-        <image name="AJRItalicsToggle" width="16" height="16"/>
-        <image name="AJROutlineToggle" width="16" height="16"/>
-        <image name="AJRStrikethroughToggle" width="16" height="16"/>
-        <image name="AJRUnderlineToggle" width="16" height="16"/>
-        <image name="DB8DFCA1-3515-407E-8F65-BE7557158F22" width="16" height="16">
+        <image name="8C9A3953-C90D-475B-B0D0-A38B61B6B7DD" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05T
 S2V5ZWRBcmNoaXZlctEICVRyb290gAGvEBcLDBscIxkoLS41OD1AQUZJSk1XX2BkZ1UkbnVsbNcNDg8Q
@@ -1616,7 +1608,14 @@ YgRiBmIPYhRiGmIiYiRiJmIoYipzynPPc9xz33Psc/Fz+XP8dAF0CQAAAAAAAAIBAAAAAAAAAGoAAAAA
 AAAAAAAAAAAAAHQMA
 </mutableData>
         </image>
-        <image name="F49CA54B-8311-43BB-9147-00EE3DA727EB" width="16" height="16">
+        <image name="AJRBoldToggle" width="16" height="16"/>
+        <image name="AJRColorPanelInSegments" width="16" height="16"/>
+        <image name="AJRFontPanelInSegments" width="16" height="16"/>
+        <image name="AJRItalicsToggle" width="16" height="16"/>
+        <image name="AJROutlineToggle" width="16" height="16"/>
+        <image name="AJRStrikethroughToggle" width="16" height="16"/>
+        <image name="AJRUnderlineToggle" width="16" height="16"/>
+        <image name="FF996C79-E05A-479E-96AC-2FF164A2BBE9" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05T
 S2V5ZWRBcmNoaXZlctEICVRyb290gAGvEBcLDBscIxkoLS41OD1AQUZJSk1XX2BkZ1UkbnVsbNcNDg8Q
