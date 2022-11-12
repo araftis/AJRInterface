@@ -133,15 +133,15 @@ open class AJRInspectorViewController: NSViewController {
             }
         }
         contentStack.append(AJRContentNode(content: content, identifier: identifier))
-        updateDisplay(withNewContent: content)
+        updateDisplay(withNewContent: content, identifier: identifier)
     }
     
     internal func pop(contentAt index: Int) -> Void {
         contentStack.remove(at: index)
         if let newContent = contentStack.last {
-            updateDisplay(withNewContent: newContent.content)
+            updateDisplay(withNewContent: newContent.content, identifier: newContent.identifier)
         } else {
-            updateDisplay(withNewContent: [])
+            updateDisplay(withNewContent: [], identifier: nil)
         }
     }
     
@@ -295,7 +295,7 @@ open class AJRInspectorViewController: NSViewController {
         }
     }
     
-    open func updateDisplay(withNewContent content: [AnyObject]) -> Void {
+    open func updateDisplay(withNewContent content: [AnyObject], identifier: AJRInspectorContentIdentifier?) -> Void {
         var view : NSView? = nil
         var newInspectors = [AJRObjectInspectorViewController]()
         
@@ -308,11 +308,11 @@ open class AJRInspectorViewController: NSViewController {
                 if let object = object as? AJRInspectable {
                     if first {
                         // The first time we get inspectors, just append those inspectors
-                        inspectors.append(contentsOf: object.inspectorIdentifiers)
+                        inspectors.append(contentsOf: object.inspectorIdentifiers(forInspectorContent: identifier))
                         first = false
                     } else {
                         // The on the subsequent inspectors, we just want to have the intersection.
-                        inspectors.formIntersection(object.inspectorIdentifiers)
+                        inspectors.formIntersection(object.inspectorIdentifiers(forInspectorContent: identifier))
                     }
                 }
             }
@@ -443,7 +443,11 @@ open class AJRInspectorViewController: NSViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         // OK. So our view has loaded, which means we now need to update to our content, if we've already been given content.
-        updateDisplay(withNewContent: content)
+        if let content = contentStack.last {
+            updateDisplay(withNewContent: content.content, identifier: content.identifier)
+        } else {
+            updateDisplay(withNewContent: [], identifier: nil)
+        }
     }
     
 }
