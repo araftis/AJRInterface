@@ -394,6 +394,7 @@
 		FABB13422915BCFA002DD56B /* AJRInspectorSlicePaperOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB13412915BCFA002DD56B /* AJRInspectorSlicePaperOrientation.swift */; };
 		FABB13442915BF43002DD56B /* AJRPaperOrientationChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB13432915BF43002DD56B /* AJRPaperOrientationChooser.swift */; };
 		FABB134B2915C54B002DD56B /* AJRInspectorSlicePaperOrientation.xib in Resources */ = {isa = PBXBuildFile; fileRef = FABB134A2915C54B002DD56B /* AJRInspectorSlicePaperOrientation.xib */; };
+		FABB135B292084E3002DD56B /* NSMutableAttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB135A292084E3002DD56B /* NSMutableAttributedString+Extensions.swift */; };
 		FABB66C50F2E907D00FBFEEB /* AJRExceptionPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = FABB66C30F2E907D00FBFEEB /* AJRExceptionPanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FABB66C60F2E907D00FBFEEB /* AJRExceptionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = FABB66C40F2E907D00FBFEEB /* AJRExceptionPanel.m */; };
 		FABB66CA0F2E92B800FBFEEB /* AJRExceptionPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = FABB66C90F2E92B800FBFEEB /* AJRExceptionPanel.xib */; };
@@ -1095,6 +1096,7 @@
 		FABB13412915BCFA002DD56B /* AJRInspectorSlicePaperOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorSlicePaperOrientation.swift; sourceTree = "<group>"; };
 		FABB13432915BF43002DD56B /* AJRPaperOrientationChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRPaperOrientationChooser.swift; sourceTree = "<group>"; };
 		FABB134A2915C54B002DD56B /* AJRInspectorSlicePaperOrientation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRInspectorSlicePaperOrientation.xib; sourceTree = "<group>"; };
+		FABB135A292084E3002DD56B /* NSMutableAttributedString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extensions.swift"; sourceTree = "<group>"; };
 		FABB66C30F2E907D00FBFEEB /* AJRExceptionPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRExceptionPanel.h; sourceTree = "<group>"; };
 		FABB66C40F2E907D00FBFEEB /* AJRExceptionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRExceptionPanel.m; sourceTree = "<group>"; };
 		FABB66C90F2E92B800FBFEEB /* AJRExceptionPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRExceptionPanel.xib; sourceTree = "<group>"; };
@@ -2052,6 +2054,7 @@
 				FA1603F710C5C8A300A1E97D /* NSLayoutManager+Extensions.m */,
 				FAEF49681135D2CE00E49BA3 /* NSMenu+Extensions.h */,
 				FAEF49691135D2CE00E49BA3 /* NSMenu+Extensions.m */,
+				FABB135A292084E3002DD56B /* NSMutableAttributedString+Extensions.swift */,
 				FA4EFA8C0F742FF300287F1B /* NSMutableDictionary+Extensions.h */,
 				FA4EFA8D0F742FF300287F1B /* NSMutableDictionary+Extensions.m */,
 				FA29F733263129BA002B953A /* NSObject+Extensions.swift */,
@@ -3585,6 +3588,7 @@
 				FA16036010C498F100A1E97D /* AJRFlippedCenteringView.m in Sources */,
 				FA53D63A224191FD003E02B1 /* AJRInspectorSliceBoolean.swift in Sources */,
 				FA16036210C498F100A1E97D /* AJRScrollView.m in Sources */,
+				FABB135B292084E3002DD56B /* NSMutableAttributedString+Extensions.swift in Sources */,
 				FA53D65E22420157003E02B1 /* AJRInspectorSliceNumber.swift in Sources */,
 				FA8925BE21FABB6D00246D46 /* AJRStarsCell.swift in Sources */,
 				FA16036410C498F100A1E97D /* AJRScrollViewAccessories.m in Sources */,
