@@ -156,6 +156,14 @@ class AJRInspectorSliceAttributedString: AJRInspectorSliceField, AJRInspectorTex
                         strongSelf.updateDisplay(for: strongSelf.field.attributedStringValue.attributes(at: 0, effectiveRange: nil))
                     }
                 }
+                
+                if strongSelf.field.isEditable {
+                    strongSelf.attributeSegments.isHidden = false
+                    strongSelf.alignmentSegments.isHidden = false
+                } else {
+                    strongSelf.attributeSegments.isHidden = true
+                    strongSelf.alignmentSegments.isHidden = true
+                }
             }
         }
     }
@@ -302,8 +310,11 @@ class AJRInspectorSliceAttributedString: AJRInspectorSliceField, AJRInspectorTex
         case .none:
             alignment = .left
         }
-        let style = (attribute(.paragraphStyle, in: fieldEditor) as! NSParagraphStyle).mutableCopy() as! NSMutableParagraphStyle
-        style.alignment = alignment
+        var style = (attribute(.paragraphStyle, in: fieldEditor) as? NSParagraphStyle)?.mutableCopy() as? NSMutableParagraphStyle
+        if style == nil {
+            style = NSMutableParagraphStyle()
+        }
+        style?.alignment = alignment
         setAttribute(.paragraphStyle, to: style, in: fieldEditor)
         updateDisplay(forEditor: fieldEditor)
         valueKey?.value = field.attributedStringValue
