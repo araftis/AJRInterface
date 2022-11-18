@@ -53,21 +53,21 @@
 }
 
 - (void)ajr_drawAtPoint:(NSPoint)point context:(CGContextRef)context {
-	// See: http://stackoverflow.com/questions/715750/ugly-looking-text-when-drawing-nsattributedstring-in-cgcontext
-	[NSGraphicsContext saveGraphicsState];
-	NSGraphicsContext *graphics = [NSGraphicsContext graphicsContextWithCGContext:context flipped:NO];
-	[NSGraphicsContext setCurrentContext:graphics];
-	[self drawAtPoint:point];
-	[NSGraphicsContext restoreGraphicsState];
+    // See: http://stackoverflow.com/questions/715750/ugly-looking-text-when-drawing-nsattributedstring-in-cgcontext
+    [NSGraphicsContext saveGraphicsState];
+    NSGraphicsContext *graphics = [NSGraphicsContext graphicsContextWithCGContext:context flipped:NO];
+    [NSGraphicsContext setCurrentContext:graphics];
+    [self drawAtPoint:point];
+    [NSGraphicsContext restoreGraphicsState];
 }
 
 - (void)ajr_drawInRect:(NSRect)rect context:(CGContextRef)context {
-	// See: http://stackoverflow.com/questions/715750/ugly-looking-text-when-drawing-nsattributedstring-in-cgcontext
-	[NSGraphicsContext saveGraphicsState];
-	NSGraphicsContext *graphics = [NSGraphicsContext graphicsContextWithCGContext:context flipped:NO];
-	[NSGraphicsContext setCurrentContext:graphics];
-	[self drawInRect:rect];
-	[NSGraphicsContext restoreGraphicsState];
+    // See: http://stackoverflow.com/questions/715750/ugly-looking-text-when-drawing-nsattributedstring-in-cgcontext
+    [NSGraphicsContext saveGraphicsState];
+    NSGraphicsContext *graphics = [NSGraphicsContext graphicsContextWithCGContext:context flipped:NO];
+    [NSGraphicsContext setCurrentContext:graphics];
+    [self drawInRect:rect];
+    [NSGraphicsContext restoreGraphicsState];
 }
 
 
