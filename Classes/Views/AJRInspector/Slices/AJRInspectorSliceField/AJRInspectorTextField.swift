@@ -90,9 +90,9 @@ class AJRInspectorTextFieldCell: NSTextFieldCell, NSTextDelegate {
             weak var weakSelf = self
             selectionDidChangeObserverToken = NotificationCenter.default.addObserver(forName: NSTextView.didChangeSelectionNotification, object: text, queue: nil, using: { (notification) in
                 if let text = notification.object as? NSTextView,
-                    let strongSelf = weakSelf,
-                    let textField = strongSelf.controlView as? AJRInspectorTextField,
-                    let delegate = textField.delegate as? AJRInspectorTextFieldDelegate {
+                   let strongSelf = weakSelf,
+                   let textField = strongSelf.controlView as? AJRInspectorTextField,
+                   let delegate = textField.delegate as? AJRInspectorTextFieldDelegate {
                     delegate.textField?(textField, selectionDidChangeInFieldEditor: text)
                 }
             })

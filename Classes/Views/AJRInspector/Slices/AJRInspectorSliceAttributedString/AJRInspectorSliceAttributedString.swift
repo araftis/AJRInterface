@@ -323,7 +323,9 @@ class AJRInspectorSliceAttributedString: AJRInspectorSliceField, AJRInspectorTex
     // MARK: - AJRInspectorTextFieldDelegate
     
     open func textField(_ textField: AJRInspectorTextField, selectionDidChangeInFieldEditor text: NSTextView) {
-        updateDisplay(forEditor: text)
+        if editableKey?.value ?? true {
+            updateDisplay(forEditor: text)
+        }
     }
     
     open func textField(_ textField: AJRInspectorTextField, willBeginEditingInFieldEditor text: NSTextView) -> Void {
@@ -410,7 +412,9 @@ class AJRInspectorSliceAttributedString: AJRInspectorSliceField, AJRInspectorTex
     }
     
     open func updateDisplay(forEditor editor : NSTextView?) -> Void {
-        updateDisplay(for: attributes(in: editor))
+        if editableKey?.value ?? true {
+            updateDisplay(for: attributes(in: editor))
+        }
     }
     
     open func updateDisplay(for attributes: [NSAttributedString.Key:Any]) -> Void {
