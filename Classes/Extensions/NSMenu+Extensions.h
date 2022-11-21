@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSMenuItem *)itemWithRepresentedObject:(id)object;
 
-- (NSMenuItem *)addItemWithImage:(NSImage *)image action:(SEL _Nullable)selector keyEquivalent:(NSString *)charCode;
+- (NSMenuItem *)addItemWithImage:(NSImage *)image action:(SEL _Nullable)selector keyEquivalent:(NSString *)charCode NS_SWIFT_NAME(addItem(withImage:action:keyEquivalent:));
 
 - (void)translateWithTranslator:(AJRTranslator *)translator andRecurse:(BOOL)flag;
 
