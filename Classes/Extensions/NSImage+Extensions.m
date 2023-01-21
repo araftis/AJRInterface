@@ -343,7 +343,6 @@ static char * const DrawNaturalSizeKey = "naturalSize";
     NSString *utiType;
     
     utiType = [[UTType typeWithFilenameExtension:extension.lowercaseString] preferredMIMEType];
-    //utiType = (__bridge NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)[extension lowercaseString], NULL);
     
     return [[NSImage imageTypes] containsObject:utiType];
 }

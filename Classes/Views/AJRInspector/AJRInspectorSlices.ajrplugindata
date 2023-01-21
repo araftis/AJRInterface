@@ -27,6 +27,16 @@
     <ajr_inspector_slice type="paperOrientation" class="AJRInterface.AJRInspectorSlicePaperOrientation" />
     <ajr_inspector_slice type="test" class="AJRInterface.AJRInspectorSliceTest" />
 
+    <extension-point name="ajr_inspector_geometry_slice" class="AJRInterface.AJRInspectorSliceGeometry" registrySelector="registerSlice:properties:">
+        <attribute name="type" type="string" required="YES" />
+        <attribute name="class" type="class" required="YES" />
+    </extension-point>
+
+    <ajr_inspector_geometry_slice type="size" class="AJRInterface.AJRInspectorSliceSize" />
+    <ajr_inspector_geometry_slice type="point" class="AJRInterface.AJRInspectorSlicePoint" />
+    <ajr_inspector_geometry_slice type="rect" class="AJRInterface.AJRInspectorSliceRect" />
+    <ajr_inspector_geometry_slice type="insets" class="AJRInterface.AJRInspectorSliceInsets" />
+
     <extension-point name="ajr_inspector" class="AJRInterface.AJRInspectorViewController" registrySelector="registerInspector:properties:">
         <attribute name="class" type="class" defaultValue="AJRInterface.AJRObjectInspectorViewController" />
         <attribute name="xml" type="string" />

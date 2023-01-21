@@ -395,6 +395,7 @@
 		FABB13442915BF43002DD56B /* AJRPaperOrientationChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB13432915BF43002DD56B /* AJRPaperOrientationChooser.swift */; };
 		FABB134B2915C54B002DD56B /* AJRInspectorSlicePaperOrientation.xib in Resources */ = {isa = PBXBuildFile; fileRef = FABB134A2915C54B002DD56B /* AJRInspectorSlicePaperOrientation.xib */; };
 		FABB135B292084E3002DD56B /* NSMutableAttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB135A292084E3002DD56B /* NSMutableAttributedString+Extensions.swift */; };
+		FABB13C6293F0403002DD56B /* AJRInspectorSliceGeometryThreeFields.xib in Resources */ = {isa = PBXBuildFile; fileRef = FABB13C5293F0403002DD56B /* AJRInspectorSliceGeometryThreeFields.xib */; };
 		FABB66C50F2E907D00FBFEEB /* AJRExceptionPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = FABB66C30F2E907D00FBFEEB /* AJRExceptionPanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FABB66C60F2E907D00FBFEEB /* AJRExceptionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = FABB66C40F2E907D00FBFEEB /* AJRExceptionPanel.m */; };
 		FABB66CA0F2E92B800FBFEEB /* AJRExceptionPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = FABB66C90F2E92B800FBFEEB /* AJRExceptionPanel.xib */; };
@@ -1097,6 +1098,7 @@
 		FABB13432915BF43002DD56B /* AJRPaperOrientationChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRPaperOrientationChooser.swift; sourceTree = "<group>"; };
 		FABB134A2915C54B002DD56B /* AJRInspectorSlicePaperOrientation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRInspectorSlicePaperOrientation.xib; sourceTree = "<group>"; };
 		FABB135A292084E3002DD56B /* NSMutableAttributedString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extensions.swift"; sourceTree = "<group>"; };
+		FABB13C5293F0403002DD56B /* AJRInspectorSliceGeometryThreeFields.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AJRInspectorSliceGeometryThreeFields.xib; sourceTree = "<group>"; };
 		FABB66C30F2E907D00FBFEEB /* AJRExceptionPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRExceptionPanel.h; sourceTree = "<group>"; };
 		FABB66C40F2E907D00FBFEEB /* AJRExceptionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRExceptionPanel.m; sourceTree = "<group>"; };
 		FABB66C90F2E92B800FBFEEB /* AJRExceptionPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRExceptionPanel.xib; sourceTree = "<group>"; };
@@ -2384,6 +2386,7 @@
 				FA95DE4B22B46529005EC953 /* AJRInspectorSliceGeometry.swift */,
 				FA95DE5622B47FC8005EC953 /* AJRInspectorSliceGeometryFourFields.xib */,
 				FA95DE4D22B466CD005EC953 /* AJRInspectorSliceGeometryTwoFields.xib */,
+				FABB13C5293F0403002DD56B /* AJRInspectorSliceGeometryThreeFields.xib */,
 				FA95DE6B22B74D5D005EC953 /* AJRInspectorSliceInsets.strings */,
 				FA95DE6E22B74D69005EC953 /* AJRInspectorSlicePoint.strings */,
 				FA95DE7122B74D71005EC953 /* AJRInspectorSliceRect.strings */,
@@ -3298,6 +3301,7 @@
 				FA16036F10C498F100A1E97D /* Scroll View Pop Up Paper D.tiff in Resources */,
 				FA16037010C498F100A1E97D /* Scroll View Pop Up Paper.tiff in Resources */,
 				FA181A05227133D700BA7E06 /* AJRInspectorSliceField.xib in Resources */,
+				FABB13C6293F0403002DD56B /* AJRInspectorSliceGeometryThreeFields.xib in Resources */,
 				FA16037110C498F100A1E97D /* Scroll View Pop Up.tiff in Resources */,
 				FA16037210C498F100A1E97D /* Well Left H.tiff in Resources */,
 				FA95DE6F22B74D71005EC953 /* AJRInspectorSliceRect.strings in Resources */,
@@ -4143,6 +4147,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "@rpath";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -4186,6 +4191,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "@rpath";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;

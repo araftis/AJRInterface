@@ -199,6 +199,10 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
     }
     
     // MARK: - Actions
+
+    open var isEnabled : Bool {
+        return enabledKey?.value ?? true
+    }
     
     @IBAction open func takeNumber(from sender: Any?) -> Void {
     }
@@ -254,18 +258,20 @@ open class AJRInspectorSliceInteger : AJRInspectorSliceNumberTyped<Int> {
     // MARK: - Actions
     
     @IBAction override open func takeNumber(from sender: Any?) -> Void {
-        var value = numberField.integerValue
-        if let minValue = minValueKey?.value {
-            if value < minValue {
-                value = minValue
+        if isEnabled {
+            var value = numberField.integerValue
+            if let minValue = minValueKey?.value {
+                if value < minValue {
+                    value = minValue
+                }
             }
-        }
-        if let maxValue = maxValueKey?.value {
-            if value > maxValue {
-                value = maxValue
+            if let maxValue = maxValueKey?.value {
+                if value > maxValue {
+                    value = maxValue
+                }
             }
+            valueKey?.value = value
         }
-        valueKey?.value = value
     }
     
     @IBAction override open func step(_ sender: NSStepper?) -> Void {
@@ -291,18 +297,20 @@ open class AJRInspectorSliceFloat : AJRInspectorSliceNumberTyped<Double> {
     // MARK: - Actions
     
     @IBAction override open func takeNumber(from sender: Any?) -> Void {
-        var value = numberField.doubleValue
-        if let minValue = minValueKey?.value {
-            if value < minValue {
-                value = minValue
+        if isEnabled {
+            var value = numberField.doubleValue
+            if let minValue = minValueKey?.value {
+                if value < minValue {
+                    value = minValue
+                }
             }
-        }
-        if let maxValue = maxValueKey?.value {
-            if value > maxValue {
-                value = maxValue
+            if let maxValue = maxValueKey?.value {
+                if value > maxValue {
+                    value = maxValue
+                }
             }
+            self.valueKey?.value = value
         }
-        self.valueKey?.value = value
     }
     
     @IBAction override open func step(_ sender: NSStepper?) -> Void {
@@ -328,24 +336,26 @@ open class AJRInspectorSliceTimeInterval : AJRInspectorSliceNumberTyped<TimeInte
     // MARK: - Actions
     
     @IBAction override open func takeNumber(from sender: Any?) -> Void {
-        guard let sender = sender as? NSTextField else {
-            return
-        }
-        guard var value = try? AJRTimeIntervalFormatter.timeInterval(from: sender.stringValue) else {
-            return
-        }
-        
-        if let minValue = minValueKey?.value {
-            if value < minValue {
-                value = minValue
+        if isEnabled {
+            guard let sender = sender as? NSTextField else {
+                return
             }
-        }
-        if let maxValue = maxValueKey?.value {
-            if value > maxValue {
-                value = maxValue
+            guard var value = try? AJRTimeIntervalFormatter.timeInterval(from: sender.stringValue) else {
+                return
             }
+
+            if let minValue = minValueKey?.value {
+                if value < minValue {
+                    value = minValue
+                }
+            }
+            if let maxValue = maxValueKey?.value {
+                if value > maxValue {
+                    value = maxValue
+                }
+            }
+            self.valueKey?.value = value
         }
-        self.valueKey?.value = value
     }
     
     @IBAction override open func step(_ sender: NSStepper?) -> Void {

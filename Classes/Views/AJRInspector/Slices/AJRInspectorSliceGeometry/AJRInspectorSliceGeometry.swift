@@ -58,21 +58,27 @@ open class  AJRInspectorSliceGeometry: AJRInspectorSlice {
     open var displayInchesAsFractionsKey : AJRInspectorKey<Bool>?
     open var incrementKey : AJRInspectorKey<CGFloat>?
 
+    // MARK: - Factory
+
+    private static var sliceClassesByType = [String:AJRInspectorSliceGeometry.Type]()
+
+    open override class func registerSlice(_ sliceClass: AJRInspectorSlice.Type, properties: [String:Any]) -> Void {
+        if let type = properties["type"] as? String {
+            if let sliceClass = sliceClass as? AJRInspectorSliceGeometry.Type {
+                sliceClassesByType[type] = sliceClass
+            }
+        }
+    }
+
     open override class func createSlice(from element: XMLElement, parent: AJRInspectorElement, viewController: AJRObjectInspectorViewController, bundle: Bundle = Bundle.main) throws -> AJRInspectorSlice {
-        let valueType = element.attribute(forName: "type")?.stringValue
-        switch valueType {
-        case "size":
-            return try AJRInspectorSliceSize(element: element, parent: parent, viewController: viewController, bundle: bundle)
-        case "point":
-            return try AJRInspectorSlicePoint(element: element, parent: parent, viewController: viewController, bundle: bundle)
-        case "rect":
-            return try AJRInspectorSliceRect(element: element, parent: parent, viewController: viewController, bundle: bundle)
-        case "insets":
-            return try AJRInspectorSliceInsets(element: element, parent: parent, viewController: viewController, bundle: bundle)
-        case nil:
-            throw NSError(domain: AJRInspectorErrorDomain, message: "Geometry based slices must have a \"type\" field, which should currently be one of \"point\", \"size\", \"rect\", or \"insets\".")
-        default:
-            throw NSError(domain: AJRInspectorErrorDomain, message: "Unknown geometry type: \(valueType!)")
+        if let valueType = element.attribute(forName: "type")?.stringValue {
+            if let valueClass = sliceClassesByType[valueType] {
+                return try valueClass.init(element: element, parent: parent, viewController: viewController, bundle: bundle)
+            } else {
+                throw NSError(domain: AJRInspectorErrorDomain, message: "Unknown geometry type: \(valueType)")
+            }
+        } else {
+            throw NSError(domain: AJRInspectorErrorDomain, message: "Geometry slices must define the \"type\" property.")
         }
     }
     
@@ -251,7 +257,7 @@ open class AJRInspectorSliceTwoValues<T:AJRInspectorValue> : AJRInspectorSliceGe
 
     open var valuesRatio : CGFloat? = nil
     open var valuesAreLinked : Bool {
-        return linkedButton2?.state == .on
+        return linkedButton1?.state == .on
     }
     open var valuesCanLinkKey : AJRInspectorKey<Bool>?
     open var defaultValuesCanLink : Bool { return false }
@@ -332,6 +338,107 @@ open class AJRInspectorSliceTwoValues<T:AJRInspectorValue> : AJRInspectorSliceGe
     
 }
 
+// MARK: - AJRInspectorSliceThreeValues -
+
+@objcMembers
+open class AJRInspectorSliceThreeValues<T:AJRInspectorValue> : AJRInspectorSliceGeometryTyped<T> {
+
+    open var subtitle1Key : AJRInspectorKey<String>?
+    open var subtitle2Key : AJRInspectorKey<String>?
+    open var subtitle3Key : AJRInspectorKey<String>?
+
+    open var defaultLabel1Value : String { return "Label 1" }
+    open var defaultLabel2Value : String { return "Label 2" }
+    open var defaultLabel3Value : String { return "Label 3" }
+
+    open override var fields : [NSTextField] { return [numberField1, numberField2, numberField3] }
+    open override var steppers : [NSStepper] { return [stepper1, stepper2, stepper3] }
+
+    open var valuesRatio : CGFloat? = nil
+    open var valuesAreLinked : Bool {
+        return linkedButton1?.state == .on
+    }
+    open var valuesCanLinkKey : AJRInspectorKey<Bool>?
+    open var defaultValuesCanLink : Bool { return false }
+
+    open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
+        super.populateKnownKeys(&keys)
+        keys.insert("subtitle1")
+        keys.insert("subtitle2")
+        keys.insert("subtitle3")
+        keys.insert("valuesCanLink")
+    }
+
+    open override func buildView(from element: XMLElement) throws {
+        subtitle1Key = try AJRInspectorKey(key: "subtitle1", xmlElement: element, inspectorElement: self, defaultValue: defaultLabel1Value)
+        subtitle2Key = try AJRInspectorKey(key: "subtitle2", xmlElement: element, inspectorElement: self, defaultValue: defaultLabel2Value)
+        subtitle3Key = try AJRInspectorKey(key: "subtitle3", xmlElement: element, inspectorElement: self, defaultValue: defaultLabel3Value)
+        valuesCanLinkKey = try AJRInspectorKey(key: "valuesCanLink", xmlElement: element, inspectorElement: self, defaultValue: defaultValuesCanLink)
+
+        try super.buildView(from: element)
+
+        weak var weakSelf = self
+        subtitle1Key?.addObserver {
+            if let strongSelf = weakSelf {
+                strongSelf.label1.stringValue = strongSelf.subtitle1Key!.value!
+            }
+        }
+        subtitle2Key?.addObserver {
+            if let strongSelf = weakSelf {
+                strongSelf.label2.stringValue = strongSelf.subtitle2Key!.value!
+            }
+        }
+        subtitle3Key?.addObserver {
+            if let strongSelf = weakSelf {
+                strongSelf.label3.stringValue = strongSelf.subtitle3Key!.value!
+            }
+        }
+        valuesCanLinkKey?.addObserver {
+            if let strongSelf = weakSelf {
+                let canLink = strongSelf.valuesCanLinkKey!.value!
+                strongSelf.linkedButton1.isHidden = !canLink
+                if !canLink && strongSelf.valuesAreLinked {
+                    strongSelf.linkedButton1.state = .off
+                    strongSelf.toggleLinked1(strongSelf.linkedButton1)
+                }
+            }
+        }
+    }
+
+    open override var nibName: String? {
+        return "AJRInspectorSliceGeometryThreeFields"
+    }
+
+    open func computeValuesRatio() -> CGFloat? {
+        return nil
+    }
+
+    open override func updateFields() -> Void {
+        if !(valuesCanLinkKey?.value ?? false)  {
+            valuesRatio = nil
+        } else {
+            if linkedButton1.state == .on && valuesRatio == nil {
+                valuesRatio = computeValuesRatio()
+            } else if linkedButton1.state == .off && valuesRatio != nil {
+                valuesRatio = nil
+            }
+        }
+    }
+
+    open func configureFieldsAndFetchSingleValue() -> T? {
+        if configureFields() {
+            return valueKey?.value
+        }
+        return nil
+    }
+
+    @IBAction override open func toggleLinked1(_ sender: NSButton?) -> Void {
+        super.toggleLinked1(sender)
+        updateFields()
+    }
+
+}
+
 // MARK: - AJRInspectorSliceSize -
 
 @objcMembers
@@ -367,7 +474,8 @@ open class AJRInspectorSliceSize : AJRInspectorSliceTwoValues<CGSize> {
             let newValue = CGFloat(sender?.doubleValue ?? 0.0)
             if size.width != newValue {
                 size.width = newValue
-                if let valuesRatio = valuesRatio {
+                if linkedButton1.state == .on,
+                   let valuesRatio = valuesRatio {
                     size.height = size.width / valuesRatio
                 }
                 valueKey?.value = size
@@ -381,7 +489,8 @@ open class AJRInspectorSliceSize : AJRInspectorSliceTwoValues<CGSize> {
             let newValue = CGFloat(sender?.doubleValue ?? 0.0)
             if size.height != newValue {
                 size.height = newValue
-                if let valuesRatio = valuesRatio {
+                if linkedButton1.state == .on,
+                   let valuesRatio = valuesRatio {
                     size.height = size.width * valuesRatio
                 }
                 valueKey?.value = size

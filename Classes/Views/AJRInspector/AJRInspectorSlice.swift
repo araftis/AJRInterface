@@ -150,7 +150,11 @@ open class AJRInspectorSlice: AJRInspectorElement {
     }
     
     // MARK: - View
-    
+
+    open var nibBundle : Bundle {
+        return Bundle(for: Self.self)
+    }
+
     open var nibName : String? {
         var name = NSStringFromClass(Self.self)
         if let index = name.firstIndex(of: ".") {
@@ -181,9 +185,9 @@ open class AJRInspectorSlice: AJRInspectorElement {
         if let nibName = nibName {
             fullWidthKey = try AJRInspectorKey(key: "fullWidth", xmlElement: element, inspectorElement: self)
             
-            let bundle = Bundle(for: Self.self)
+            let bundle = nibBundle
             if !bundle.loadNibNamed(nibName, owner: self, topLevelObjects: nil) {
-                AJRLog.warning("Failed to load: \(nibName)")
+                AJRLog.warning("Failed to load: \(nibName) from bundle: \(bundle). You might need to override nibBundle if your nib isn't located in the same framework as your slice class.")
             }
             self.loadedView = self.view
             if let loadedView = loadedView {

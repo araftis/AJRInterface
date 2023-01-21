@@ -110,9 +110,6 @@ open class AJRInspectorKey<T: AJRInspectorValue> : NSObject {
             return value
         }
         if let keyPath = keyPath {
-            if keyPath == "controller.selectedObjects.destination.title" {
-                print("break here!")
-            }
             let rawValue = object?.value(forKeyPath: keyPath)
             if let raw = rawValue as? T {
                 return raw
