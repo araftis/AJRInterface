@@ -32,14 +32,8 @@
 #import <AJRInterface/AJRPathRenderer.h>
 
 @interface AJRStrokeRenderer : AJRPathRenderer
-{
-   NSColor        *strokeColor;
-   float        width;
-}
 
-- (void)setStrokeColor:(NSColor *)aColor;
-- (NSColor *)strokeColor;
-- (void)setWidth:(float)width;
-- (float)width;
+@property (nonatomic,strong,null_resettable) NSColor *strokeColor;
+@property (nonatomic,assign) CGFloat width;
 
 @end

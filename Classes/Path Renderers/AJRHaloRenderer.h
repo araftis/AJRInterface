@@ -32,14 +32,10 @@
 #import <AJRInterface/AJRPathRenderer.h>
 
 @interface AJRHaloRenderer : AJRPathRenderer
-{
-   NSColor        *haloColor;
-   CGFloat        width;
-}
 
-- (void)setHaloColor:(NSColor *)aColor;
-- (NSColor *)haloColor;
-- (void)setWidth:(CGFloat)aWidth;
-- (CGFloat)width;
+@property (nonatomic,class,readonly) NSColor *defaultColor;
+
+@property (nonatomic,strong) NSColor *color;
+@property (nonatomic,assign) CGFloat width;
 
 @end

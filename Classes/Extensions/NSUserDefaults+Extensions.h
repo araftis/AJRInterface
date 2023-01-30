@@ -51,6 +51,7 @@ extern NSFont *AJRFontFromString(NSString *font);
 - (NSFont *)fontForKey:(NSString *)key defaultFont:(NSFont *)defaultFont;
 
 - (NSSize)sizeForKey:(NSString *)key;
+- (NSSize)sizeForKey:(NSString *)key defaultValue:(CGSize)defaultValue;
 - (void)setSize:(NSSize)size forKey:(NSString *)key;
 
 @end

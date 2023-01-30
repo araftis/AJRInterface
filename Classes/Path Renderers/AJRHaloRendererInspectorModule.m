@@ -35,19 +35,16 @@
 
 @implementation AJRHaloRendererInspectorModule
 
-- (void)update
-{
-   [colorWell setColor:[(AJRHaloRenderer *)renderer haloColor]];
+- (void)update {
+   [colorWell setColor:[(AJRHaloRenderer *)renderer color]];
    [widthField setFloatValue:[(AJRHaloRenderer *)renderer width]];
 }
 
-- (void)setColor:(id)sender
-{
-   [(AJRHaloRenderer *)renderer setHaloColor:[sender color]];
+- (void)setColor:(id)sender {
+   [(AJRHaloRenderer *)renderer setColor:[sender color]];
 }
 
-- (void)setWidth:(id)sender
-{
+- (void)setWidth:(id)sender {
    [(AJRHaloRenderer *)renderer setWidth:[sender floatValue]];
 }
 

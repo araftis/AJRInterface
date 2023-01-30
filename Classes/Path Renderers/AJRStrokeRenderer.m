@@ -9,13 +9,13 @@
  are permitted provided that the following conditions are met:
 
  * Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
+ list of conditions and the following disclaimer.
  * Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
  * Neither the name of AJRInterface nor the names of its contributors may be
-   used to endorse or promote products derived from this software without
-   specific prior written permission.
+ used to endorse or promote products derived from this software without
+ specific prior written permission.
 
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -31,113 +31,99 @@
 
 #import "AJRStrokeRenderer.h"
 
-@implementation AJRStrokeRenderer
+@implementation AJRStrokeRenderer {
+    NSColor *_strokeColor; // Because we implement set and get.
+}
 
-+ (void)load
-{
++ (void)load {
     [AJRPathRenderer registerRenderer:self];
 }
 
-+ (NSString *)name
-{
-   return @"Stroke";
++ (NSString *)name {
+    return @"Stroke";
 }
 
-- (id)init
-{
-   self = [super init];
-
-   strokeColor = [NSColor blackColor];
-   width = 1.0;
-
-   return self;
+- (id)init {
+    if ((self = [super init])) {
+        _strokeColor = [NSColor blackColor];
+        _width = 1.0;
+    }
+    return self;
 }
 
 
-- (void)renderPath:(NSBezierPath *)path
-{
-   float        widthSave;
-   
-   if (strokeColor) {
-      [strokeColor set];
-   } else {
-      [[NSColor blackColor] set];
-   }
-   if (width != 0.0) {
-      widthSave = [path lineWidth];
-      [path setLineWidth:width];
-   }
-   [path stroke];
-   if (width != 0.0) {
-      [path setLineWidth:width];
-   }
+- (void)renderPath:(NSBezierPath *)path {
+    float widthSave;
+
+    if (_strokeColor) {
+        [_strokeColor set];
+    } else {
+        [[NSColor blackColor] set];
+    }
+    if (_width != 0.0) {
+        widthSave = [path lineWidth];
+        [path setLineWidth:_width];
+    }
+    [path stroke];
+    if (_width != 0.0) {
+        [path setLineWidth:_width];
+    }
 }
 
-- (void)setStrokeColor:(NSColor *)aColor
-{
-   if (strokeColor != aColor) {
-      strokeColor = aColor;
-      [self didChange];
-   }
+- (void)setStrokeColor:(NSColor *)color {
+    if (_strokeColor != color) {
+        _strokeColor = color;
+        [self didChange];
+    }
 }
 
-- (NSColor *)strokeColor
-{
-   if (strokeColor) {
-      return strokeColor;
-   }
-   return [NSColor blackColor];
+- (NSColor *)strokeColor {
+    if (_strokeColor) {
+        return _strokeColor;
+    }
+    return [NSColor blackColor];
 }
 
-- (void)setWidth:(float)aWidth
-{
-   if (width != aWidth) {
-      width = aWidth;
-      [self didChange];
-   }
+- (void)setWidth:(CGFloat)aWidth {
+    if (_width != aWidth) {
+        _width = aWidth;
+        [self didChange];
+    }
 }
 
-- (float)width
-{
-   return width;
+- (id)initWithCoder:(NSCoder *)coder {
+    if ((self = [super initWithCoder:coder])) {
+        if ([coder allowsKeyedCoding] && [coder containsValueForKey:@"strokeColor"]) {
+            _strokeColor = [coder decodeObjectForKey:@"strokeColor"];
+            _width = [coder decodeFloatForKey:@"width"];
+        } else {
+            _strokeColor = [coder decodeObject];
+            [coder decodeValueOfObjCType:@encode(float) at:&_width];
+        }
+    }
+
+    return self;
 }
 
-- (id)initWithCoder:(NSCoder *)coder
-{
-   self = [super initWithCoder:coder];
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [super encodeWithCoder:coder];
 
-   if ([coder allowsKeyedCoding] && [coder containsValueForKey:@"strokeColor"]) {
-      strokeColor = [coder decodeObjectForKey:@"strokeColor"];
-      width = [coder decodeFloatForKey:@"width"];
-   } else {
-      strokeColor = [coder decodeObject];
-      [coder decodeValueOfObjCType:@encode(float) at:&width];
-   }
-
-   return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)coder
-{
-   [super encodeWithCoder:coder];
-
-   if ([coder allowsKeyedCoding]) {
-      [coder encodeObject:strokeColor forKey:@"strokeColor"];
-      [coder encodeFloat:width forKey:@"width"];
-   } else {
-      [coder encodeObject:strokeColor];
-      [coder encodeValueOfObjCType:@encode(float) at:&width];
-   }
+    if ([coder allowsKeyedCoding]) {
+        [coder encodeObject:_strokeColor forKey:@"strokeColor"];
+        [coder encodeFloat:_width forKey:@"width"];
+    } else {
+        [coder encodeObject:_strokeColor];
+        [coder encodeValueOfObjCType:@encode(float) at:&_width];
+    }
 }
 
 #pragma mark NSCopying
 
-- (id)copyWithZone:(NSZone *)zone
-{
-    AJRStrokeRenderer    *copy = [super copyWithZone:zone];
+- (id)copyWithZone:(NSZone *)zone {
+    AJRStrokeRenderer *copy = [super copyWithZone:zone];
     
-    copy->strokeColor = [strokeColor copyWithZone:zone];
-    copy->width = width;
+    copy->_strokeColor = [_strokeColor copyWithZone:zone];
+    copy->_width = _width;
     
     return copy;
 }

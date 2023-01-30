@@ -44,13 +44,11 @@
 }
 
 - (NSString *)name {
-    return [[[[AJRPlugInManager sharedPlugInManager] extensionPointForName:@"ajrpreferencesmodule"] valueForProperty:@"name" onExtensionForClass:[self class]] valueForKey:@"name"];
-    //return [[AJRPlugInManager sharedPlugInManager] valueForProperty:@"name" inExtension:[self class] andFactory:@"ajrpreferencesmodule"];
+    return [[[AJRPlugInManager sharedPlugInManager] extensionPointForName:@"ajrpreferencesmodule"] valueForProperty:@"name" onExtensionForClass:[self class]];
 }
 
 - (NSString *)toolTip {
-    NSString *toolTip = [[[[AJRPlugInManager sharedPlugInManager] extensionPointForName:@"ajrpreferencesmodule"] valueForProperty:@"tooltip" onExtensionForClass:[self class]] valueForKey:@"name"];
-//    NSString *toolTip = [[AJRPlugInManager sharedPlugInManager] valueForProperty:@"tooltip" inExtension:[self class] andFactory:@"ajrpreferencesmodule"];
+    NSString *toolTip = [[[AJRPlugInManager sharedPlugInManager] extensionPointForName:@"ajrpreferencesmodule"] valueForProperty:@"tooltip" onExtensionForClass:[self class]];
 
     return toolTip ?: [self name];
 }
@@ -58,9 +56,8 @@
 - (NSImage *)image {
     if (!_image) {
         NSSize size;
-        NSString *imageName = [[[[AJRPlugInManager sharedPlugInManager] extensionPointForName:@"ajrpreferencesmodule"] valueForProperty:@"image" onExtensionForClass:[self class]] valueForKey:@"name"];
-//        NSString    *imageName = [[AJRPlugInManager sharedPlugInManager] valueForProperty:@"image" inExtension:[self class] andFactory:@"ajrpreferencesmodule"];
-        
+        NSString *imageName = [[[AJRPlugInManager sharedPlugInManager] extensionPointForName:@"ajrpreferencesmodule"] valueForProperty:@"image" onExtensionForClass:[self class]];
+
         if (imageName == nil) imageName = [self name];
         
         _image = [AJRImages imageNamed:imageName forObject:self];
@@ -79,8 +76,7 @@
 }
 
 - (BOOL)isPreferred {
-    return [[[[[AJRPlugInManager sharedPlugInManager] extensionPointForName:@"ajrpreferencesmodule"] valueForProperty:@"preferred" onExtensionForClass:[self class]] valueForKey:@"name"] boolValue];
-//    return [[[AJRPlugInManager sharedPlugInManager] valueForProperty:@"preferred" inExtension:[self class] andFactory:@"ajrpreferencesmodule"] boolValue];
+    return [[[[AJRPlugInManager sharedPlugInManager] extensionPointForName:@"ajrpreferencesmodule"] valueForProperty:@"preferred" onExtensionForClass:[self class]] boolValue];
 }
 
 - (void)update {

@@ -35,22 +35,23 @@ const CGFloat AJRMinHaloWidth = 3.0;
 
 @implementation AJRHaloRenderer
 
-+ (void)load
-{
++ (void)load {
     [AJRPathRenderer registerRenderer:self];
 }
 
-+ (NSString *)name
-{
++ (NSString *)name {
     return @"Halo";
 }
 
-- (id)init
-{
-    self = [super init];
-    
-    width = AJRMinHaloWidth;
-    haloColor = [NSColor colorWithCalibratedRed:1.0 green:0.85 blue:0.1 alpha:1.0 / width];
++ (NSColor *)defaultColor {
+    return [NSColor controlAccentColor];
+}
+
+- (id)init {
+    if ((self = [super init])) {
+        _width = AJRMinHaloWidth;
+        _color = [[self class] defaultColor];
+    }
     
     return self;
 }
@@ -58,26 +59,26 @@ const CGFloat AJRMinHaloWidth = 3.0;
 
 #pragma mark AJRPathRenderer
 
-- (void)renderPath:(NSBezierPath *)path
-{
-    CGFloat            lineWidth = [path lineWidth];
-    NSInteger        lineJoin = [path lineJoinStyle];
-    NSInteger        x;
-    NSColor            *color;
+- (void)renderPath:(NSBezierPath *)path {
+    CGFloat lineWidth = [path lineWidth];
+    NSInteger lineJoin = [path lineJoinStyle];
+    NSColor *color;
     
-    if (width <= 3) width = 3;
+    if (_width <= 3) {
+        _width = 3;
+    }
     
-    if (haloColor) {
-        color = haloColor;
+    if (_color) {
+        color = _color;
     } else {
-        color = [NSColor colorWithCalibratedRed:1.0 green:0.85 blue:0.1 alpha:1.0 / (CGFloat)width];
+        color = [NSColor colorWithCalibratedRed:1.0 green:0.85 blue:0.1 alpha:1.0];
     }
     color = [color colorWithAlphaComponent:1.0];
     
     [path setLineJoinStyle:NSLineJoinStyleRound];
-    for (x = width; x >= 2; x--) {
+    for (NSInteger x = _width; x >= 2; x--) {
         [path setLineWidth:x];
-        [[color colorWithAlphaComponent:1.1 - x / width] set];
+        [[color colorWithAlphaComponent:1.1 - x / _width] set];
         [path stroke];
     }
     [path setLineWidth:lineWidth];
@@ -86,73 +87,58 @@ const CGFloat AJRMinHaloWidth = 3.0;
 
 #pragma mark Properties
 
-- (void)setHaloColor:(NSColor *)aColor
-{
-    if (haloColor != aColor) {
-        haloColor = aColor;
+- (void)setColor:(NSColor *)color {
+    if (_color != color) {
+        _color = color;
         [self didChange];
     }
 }
 
-- (NSColor *)haloColor
-{
-    return haloColor;
-}
-
-- (void)setWidth:(CGFloat)aWidth
-{
-    if (width != aWidth) {
-        width = aWidth;
-        if (width < AJRMinHaloWidth) {
-            width = AJRMinHaloWidth;
+- (void)setWidth:(CGFloat)width {
+    if (_width != width) {
+        _width = width;
+        if (_width < AJRMinHaloWidth) {
+            _width = AJRMinHaloWidth;
         }
         [self didChange];
     }
 }
 
-- (CGFloat)width
-{
-    return width;
-}
-
 #pragma mark NSCoding
 
-- (id)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    
-    if ([coder allowsKeyedCoding] && [coder containsValueForKey:@"haloColor"]) {
-        haloColor = [coder decodeObjectForKey:@"haloColor"];
-        width = [coder decodeFloatForKey:@"width"];
-    } else {
-        haloColor = [coder decodeObject];
-        [coder decodeValueOfObjCType:@encode(CGFloat) at:&width];
+- (id)initWithCoder:(NSCoder *)coder {
+    if ((self = [super initWithCoder:coder])) {
+        if ([coder allowsKeyedCoding] && [coder containsValueForKey:@"color"]) {
+            _color = [coder decodeObjectForKey:@"color"];
+            _width = [coder decodeFloatForKey:@"width"];
+        } else {
+            _color = [coder decodeObject];
+            [coder decodeValueOfObjCType:@encode(CGFloat) at:&_width];
+        }
     }
     
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder
-{
+- (void)encodeWithCoder:(NSCoder *)coder {
     [super encodeWithCoder:coder];
     
     if ([coder allowsKeyedCoding]) {
-        [coder encodeObject:haloColor forKey:@"haloColor"];
-        [coder encodeFloat:width forKey:@"width"];
+        [coder encodeObject:_color forKey:@"color"];
+        [coder encodeFloat:_width forKey:@"width"];
     } else {
-        [coder encodeObject:haloColor];
-        [coder encodeValueOfObjCType:@encode(CGFloat) at:&width];
+        [coder encodeObject:_color];
+        [coder encodeValueOfObjCType:@encode(CGFloat) at:&_width];
     }
 }
 
 #pragma mark NSCopying
 
-- (id)copyWithZone:(NSZone *)zone
-{
-    AJRHaloRenderer    *copy = [super copyWithZone:zone];
+- (id)copyWithZone:(NSZone *)zone {
+    AJRHaloRenderer *copy = [super copyWithZone:zone];
     
-    copy->haloColor = [haloColor copyWithZone:zone];
-    copy->width = width;
+    copy->_color = [_color copyWithZone:zone];
+    copy->_width = _width;
     
     return copy;
 }

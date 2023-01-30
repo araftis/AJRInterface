@@ -665,6 +665,13 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = AJRInterface;
 		};
+		FABE4D242984619900921110 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FABE4D202984619900921110 /* Rulers.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FABE4CA92984606F00921110;
+			remoteInfo = Rulers;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -932,7 +939,7 @@
 		FA6459290F4DD3B0009C90DD /* NSView+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+Extensions.m"; sourceTree = "<group>"; };
 		FA66400E2222977300EFD830 /* WKBackForwardList+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKBackForwardList+Extensions.swift"; sourceTree = "<group>"; };
 		FA67B0D40EBA256800D87B76 /* AJRPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRPreferences.h; sourceTree = "<group>"; };
-		FA67B0D50EBA256800D87B76 /* AJRPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRPreferences.m; sourceTree = "<group>"; usesTabs = 1; };
+		FA67B0D50EBA256800D87B76 /* AJRPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRPreferences.m; sourceTree = "<group>"; usesTabs = 0; };
 		FA67B0D60EBA256800D87B76 /* AJRPreferencesModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRPreferencesModule.h; sourceTree = "<group>"; };
 		FA67B0D70EBA256800D87B76 /* AJRPreferencesModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRPreferencesModule.m; sourceTree = "<group>"; };
 		FA6857C80F55A9CD00123839 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
@@ -1102,6 +1109,7 @@
 		FABB66C30F2E907D00FBFEEB /* AJRExceptionPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRExceptionPanel.h; sourceTree = "<group>"; };
 		FABB66C40F2E907D00FBFEEB /* AJRExceptionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRExceptionPanel.m; sourceTree = "<group>"; };
 		FABB66C90F2E92B800FBFEEB /* AJRExceptionPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRExceptionPanel.xib; sourceTree = "<group>"; };
+		FABE4D202984619900921110 /* Rulers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rulers.xcodeproj; path = ../../Applications/Rulers/Rulers.xcodeproj; sourceTree = "<group>"; };
 		FABF842F13B2D7E40032D0F4 /* AJRPagedScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRPagedScrollView.h; sourceTree = "<group>"; usesTabs = 1; };
 		FABF843013B2D7E40032D0F4 /* AJRPagedScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRPagedScrollView.m; sourceTree = "<group>"; usesTabs = 0; };
 		FABFEF6B145286FE008CE3FE /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -1384,6 +1392,7 @@
 		0867D691FE84028FC02AAC07 /* AJRInterface */ = {
 			isa = PBXGroup;
 			children = (
+				FABE4D202984619900921110 /* Rulers.xcodeproj */,
 				FA2876FD2610281F00F5BBE8 /* LICENSE.md */,
 				FA8E36C425C0C48400EB554F /* README.md */,
 				FA2F99880E93F0AA004F1A14 /* AJRInterface.h */,
@@ -2435,6 +2444,14 @@
 			path = AJRInspectorSlicePaperOrientation;
 			sourceTree = "<group>";
 		};
+		FABE4D212984619900921110 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FABE4D252984619900921110 /* Rulers.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		FABFEF6A145286FE008CE3FE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -3190,6 +3207,12 @@
 			mainGroup = 0867D691FE84028FC02AAC07 /* AJRInterface */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = FABE4D212984619900921110 /* Products */;
+					ProjectRef = FABE4D202984619900921110 /* Rulers.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8DC2EF4F0486A6940098B216 /* AJRInterface */,
@@ -3198,6 +3221,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		FABE4D252984619900921110 /* Rulers.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Rulers.app;
+			remoteRef = FABE4D242984619900921110 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8DC2EF520486A6940098B216 /* Resources */ = {

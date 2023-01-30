@@ -9,13 +9,13 @@
  are permitted provided that the following conditions are met:
 
  * Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
+ list of conditions and the following disclaimer.
  * Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
  * Neither the name of AJRInterface nor the names of its contributors may be
-   used to endorse or promote products derived from this software without
-   specific prior written permission.
+ used to endorse or promote products derived from this software without
+ specific prior written permission.
 
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -36,11 +36,11 @@
 
 #import <AJRFoundation/AJRFoundation.h>
 
-static NSMutableDictionary    *_modules;
-static NSMutableArray        *_preferredModuleNames;
+static NSMutableDictionary *_modules;
+static NSMutableArray *_preferredModuleNames;
 
 @implementation AJRPreferences {
-    NSToolbar    *_toolbar;
+    NSToolbar *_toolbar;
 }
 
 #pragma mark - Initialization
@@ -84,7 +84,7 @@ static NSMutableArray        *_preferredModuleNames;
             }
         }
         
-        AJRLogDebug(@"Registered Preferences: %@", moduleClass);
+        AJRLogDebug(@"AJRPreferencesModule: %@", moduleClass);
     }
 }
 
@@ -170,8 +170,7 @@ static NSMutableArray        *_preferredModuleNames;
 
 #pragma mark - NSToolbarDelegate
 
-- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar
-     itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
+- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
     NSToolbarItem *item;
     AJRPreferencesModule *module = [_modules objectForKey:itemIdentifier];
     
@@ -193,18 +192,18 @@ static NSMutableArray        *_preferredModuleNames;
 }
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)toolbar {
-    NSMutableArray *items = [NSMutableArray arrayWithObjects:@"Show All", nil];
+    NSMutableArray *items = [NSMutableArray arrayWithObjects:@"Show All", NSToolbarFlexibleSpaceItemIdentifier, nil];
     [items addObjectsFromArray:_preferredModuleNames];
     return items;
 }
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar {
     NSMutableArray *items = [NSMutableArray array];
-    
+
     [items addObjectsFromArray:[self names]];
     [items addObject:NSToolbarSpaceItemIdentifier];
     [items addObject:NSToolbarFlexibleSpaceItemIdentifier];
-    
+
     return items;
 }
 
@@ -227,7 +226,7 @@ static NSMutableArray        *_preferredModuleNames;
 - (void)selectModuleNamed:(NSString *)name {
     NSView *view;
     NSRect frame;
-    
+
     frame = [self.panel frame];
     if ([name isEqualToString:@"Show All"]) {
         view = self.allView;
@@ -238,18 +237,18 @@ static NSMutableArray        *_preferredModuleNames;
         [self.panel setDelegate:[_modules objectForKey:name]];
         [self.panel setTitle:AJRFormat(@"Preferences — %@", name)];
     }
-    
+
     if (view != [self.panel contentView]) {
         NSRect newViewFrame = [view frame];
         NSRect oldViewFrame = [(NSView *)[self.panel contentView] frame];
         float differenceY = newViewFrame.size.height - oldViewFrame.size.height;
         float differenceX;
-        
+
         if (newViewFrame.size.width < 400) {
             newViewFrame.size.width = 400;
         }
         differenceX = newViewFrame.size.width - oldViewFrame.size.width;
-        
+
         if (differenceY != 0.0 || differenceX != 0.0) {
             frame.origin.y -= differenceY;
             frame.size.height += differenceY;
@@ -261,12 +260,13 @@ static NSMutableArray        *_preferredModuleNames;
         }
         [[_modules objectForKey:name] update];
     }
-    
+
     [self.panel makeFirstResponder:[view nextKeyView]];
 }
 
 @end
 
+// MARK: -
 
 @implementation NSResponder (AJRPreferences)
 

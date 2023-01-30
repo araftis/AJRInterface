@@ -91,7 +91,7 @@ open class AJRInspectorElement: NSObject {
     /**
      Checks to see if the receivers contents can be merged into `slice`'s content. The default implementation simply returns `false`.
      
-     - parameter slice: The slice to examine to see if the receive can merge into it.
+     - parameter element: The slice to examine to see if the receive can merge into it.
      */
     open func canMergeWithElement(_ element: AJRInspectorElement) -> Bool {
         return false

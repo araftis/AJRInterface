@@ -194,6 +194,16 @@ NSFont *AJRFontFromString(NSString *value) {
     return size;
 }
 
+- (NSSize)sizeForKey:(NSString *)key defaultValue:(CGSize)defaultValue {
+    NSString *sizeString = [self stringForKey:key];
+
+    if (sizeString) {
+        return NSSizeFromString(sizeString);
+    }
+
+    return defaultValue;
+}
+
 - (void)setSize:(NSSize)size forKey:(NSString *)key {
     [self setObject:NSStringFromSize(size) forKey:key];
 }

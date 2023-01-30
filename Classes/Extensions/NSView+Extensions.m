@@ -48,8 +48,8 @@
 @implementation AJRViewLoader
 
 + (void)load {
-    AJRSwizzleMethods(self, @selector(viewWillMoveToWindow:), self, @selector(ajr_viewWillMoveToWindow:));
-    AJRSwizzleMethods(self, @selector(viewDidMoveToWindow), self, @selector(ajr_viewDidMoveToWindow));
+    AJRSwizzleMethods(objc_getClass("NSView"), @selector(viewWillMoveToWindow:), self, @selector(ajr_viewWillMoveToWindow:));
+    AJRSwizzleMethods(objc_getClass("NSView"), @selector(viewDidMoveToWindow), self, @selector(ajr_viewDidMoveToWindow));
 }
 
 @end
