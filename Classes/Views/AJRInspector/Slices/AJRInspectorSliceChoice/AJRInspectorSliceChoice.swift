@@ -513,7 +513,7 @@ open class AJRInspectorSliceChoice: AJRInspectorSlice {
             if let valueType = valueType {
                 throw NSError(domain: AJRInspectorErrorDomain, message: "Unknown valueType: \(valueType)")
             } else {
-                throw NSError(domain: AJRInspectorErrorDomain, message: "Missing key valueType")
+                throw NSError(domain: AJRInspectorErrorDomain, message: "Missing key valueType in \(element)")
             }
         }
     }
