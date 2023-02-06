@@ -168,6 +168,36 @@ open class AJRInspectorContent: AJRInspectorElement {
     
     // MARK: - Includes
     
+    open class func loadXMLDocument(for file: String?, bundleID: String?, callback: AJRInspectorXMLReadCallback? = nil) throws -> XMLDocument {
+        var bundle : Bundle? = nil
+        
+        if let bundleID = bundleID {
+            if let foundBundle = Bundle(identifier: bundleID) {
+                bundle = foundBundle
+            } else {
+                throw NSError(domain: AJRInspectorErrorDomain, message: "No bundle with identifier: \(bundleID)")
+            }
+        }
+        
+        return try loadXMLDocument(for: file, bundle: bundle, callback: callback)
+    }
+    
+    open class func loadXMLDocument(for file: String?, bundle bundleIn: Bundle?, callback: AJRInspectorXMLReadCallback? = nil) throws -> XMLDocument {
+        let bundle = bundleIn ?? Bundle(for: self)
+        
+        if let file = file {
+            if let xmlURL = bundle.url(forResource: file, withExtension: "inspector") {
+                let document = try XMLDocument(contentsOf: xmlURL, options: [])
+                callback?(xmlURL)
+                return document
+            } else {
+                throw NSError(domain: AJRInspectorErrorDomain, message: "Failed to find inspector include with name: \(file).inspector.")
+            }
+        } else {
+            throw NSError(domain: AJRInspectorErrorDomain, message: "Include elements must define a \"file\" attribute.")
+        }
+    }
+    
     open func resolveIncludes(in node: XMLNode) throws -> Void {
         var children = node.children ?? []
         var index = 0
@@ -188,40 +218,31 @@ open class AJRInspectorContent: AJRInspectorElement {
                     bundle = self.bundle
                 }
                 
-                if let file = file {
-                    if let xmlURL = bundle.url(forResource: file, withExtension: "inspector") {
-                        let document = try XMLDocument(contentsOf: xmlURL, options: [])
-                        self.xmlReadCallback?(xmlURL)
-                        var includeNode : XMLNode? = nil
-                        for documentChild in document.children ?? [] {
-                            if documentChild.name == "inspector-include" {
-                                if includeNode == nil {
-                                    includeNode = documentChild
-                                } else {
-                                    throw NSError(domain: AJRInspectorErrorDomain, message: "The included inspector document must at one and only one \"inspector-include\" node at the top level.")
-                                }
-                            }
-                        }
-                        if let includeNode = includeNode as? XMLElement, let parent = child.parent as? XMLElement {
-                            parent.removeChild(at: index)
-                            if let includeChildren = includeNode.children {
-                                for childToRemove in includeChildren {
-                                    includeNode.removeChild(childToRemove)
-                                }
-                                parent.insertChildren(includeChildren, at: index)
-                            }
-                            children = parent.children!
-                            
-                            // We continue, because we don't want to increment index, since we want to now process the child(ren) we just added.
-                            continue
+                let document = try AJRInspectorContent.loadXMLDocument(for: file, bundle: bundle, callback: xmlReadCallback)
+                var includeNode : XMLNode? = nil
+                for documentChild in document.children ?? [] {
+                    if documentChild.name == "inspector-include" {
+                        if includeNode == nil {
+                            includeNode = documentChild
                         } else {
-                            throw NSError(domain: AJRInspectorErrorDomain, message: "The included inspector document must have one \"inspector-include\" node at the top level.")
+                            throw NSError(domain: AJRInspectorErrorDomain, message: "The included inspector document must have one and only one \"inspector-include\" node at the top level.")
                         }
-                    } else {
-                        throw NSError(domain: AJRInspectorErrorDomain, message: "Failed to find inspector include with name: \(file)")
                     }
+                }
+                if let includeNode = includeNode as? XMLElement, let parent = child.parent as? XMLElement {
+                    parent.removeChild(at: index)
+                    if let includeChildren = includeNode.children {
+                        for childToRemove in includeChildren {
+                            includeNode.removeChild(childToRemove)
+                        }
+                        parent.insertChildren(includeChildren, at: index)
+                    }
+                    children = parent.children!
+                    
+                    // We continue, because we don't want to increment index, since we want to now process the child(ren) we just added.
+                    continue
                 } else {
-                    throw NSError(domain: AJRInspectorErrorDomain, message: "Include elements must define a \"file\" attribute.")
+                    throw NSError(domain: AJRInspectorErrorDomain, message: "The included inspector document must have one \"inspector-include\" node at the top level.")
                 }
             } else {
                 try resolveIncludes(in: child)

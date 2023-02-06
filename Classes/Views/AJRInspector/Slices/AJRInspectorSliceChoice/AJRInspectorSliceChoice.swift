@@ -552,7 +552,8 @@ open class AJRInspectorSliceChoice: AJRInspectorSlice {
 
         try super.buildView(from: element)
         
-        if choicesHaveSubcontent {
+        // TODO: (Resume) OK, always doing true "works", but I only want to do it for object type choices, because the other choice types can figure this out dynamically.
+        if true /*choicesHaveSubcontent*/ {
             let contentView = AJRBlockDrawingView(frame: NSRect.zero)
             contentView.translatesAutoresizingMaskIntoConstraints = false
             if viewController?.debugFrames ?? false {

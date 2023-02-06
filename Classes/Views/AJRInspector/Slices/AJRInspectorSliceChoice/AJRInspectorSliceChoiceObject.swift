@@ -115,6 +115,14 @@ open class AJRInspectorChoiceObject : AJRInspectorChoiceVariable<Any> {
 }
 
 
+public protocol AJRInspectorContentProvider {
+    
+    var inspectorFilename : String? { get }
+    var inspectorBundle : Bundle? { get }
+    
+}
+
+
 @objcMembers
 open class AJRInspectorSliceChoiceObject : AJRInspectorSliceChoice {
     
@@ -144,6 +152,24 @@ open class AJRInspectorSliceChoiceObject : AJRInspectorSliceChoice {
                 var newChoices = [AJRInspectorChoiceObject]()
                 for object in objects {
                     if let choice = try? AJRInspectorChoiceObject(object: object, slice: self, viewController: viewController!, bundle: bundle) {
+                        if let object = object as? AJRInspectorContentProvider,
+                           let filename = object.inspectorFilename,
+                           let viewController = self.viewController {
+                            print("load filename: \(filename)")
+                            do {
+                                let document = try AJRInspectorContent.loadXMLDocument(for: filename, bundle: object.inspectorBundle)
+                                if document.childCount == 1,
+                                   let include = document.child(at: 0),
+                                   include.name == "inspector-include" {
+                                    let content = try AJRInspectorContent(element: include, parent: self, viewController: viewController)
+                                    choice.content = content
+                                } else {
+                                    AJRLog.error("Included document must contain one child with the name \"inspector-include\".")
+                                }
+                            } catch {
+                                AJRLog.error("Failed to load \(filename).inspector: \(error.localizedDescription)")
+                            }
+                        }
                         newChoices.append(choice)
                     }
                 }
