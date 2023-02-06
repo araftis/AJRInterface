@@ -41,6 +41,7 @@ open class AJRInspectorSection: AJRInspectorElement {
     open var borderColorTopKey : AJRInspectorKey<NSColor>?
     open var borderColorBottomKey : AJRInspectorKey<NSColor>?
     open var hiddenKey : AJRInspectorKey<Bool>?
+    open var visibleKey : AJRInspectorKey<Bool>?
     open var forEachKey : AJRInspectorKeyPath<[AnyObject]>?
     /// The element used to create this group. This will be `nil` if `forEachKey` is `nil`.
     open var element : XMLElement? = nil
@@ -107,13 +108,18 @@ open class AJRInspectorSection: AJRInspectorElement {
     }
 
     open func buildView(from element: XMLElement) throws -> Void {
+        if element.attribute(forName: "hidden") != nil && element.attribute(forName: "visible") != nil {
+            throw NSError(domain: AJRInspectorErrorDomain, message: "XML defined both 'hidden' and 'visible' keys, but they are mutually exclusive. Please define one, the other, or neither. Element: \(element)")
+        }
+
         borderMarginTopKey = try AJRInspectorKey(key: "borderMarginTop", xmlElement: element, inspectorElement: self, defaultValue: defaultTopMargin)
         borderMarginBottomKey = try AJRInspectorKey(key: "borderMarginBottom", xmlElement: element, inspectorElement: self, defaultValue: defaultBottomMargin)
         borderColorTopKey = try AJRInspectorKey(key: "borderColorTop", xmlElement: element, inspectorElement: self, defaultValue: NSColor(named: .inspectorDividerColor, bundle:Bundle(for: Self.self)))
         borderColorBottomKey = try AJRInspectorKey(key: "borderColorBottom", xmlElement: element, inspectorElement: self)
         hiddenKey = try AJRInspectorKey(key: "hidden", xmlElement: element, inspectorElement: self, defaultValue: false)
+        visibleKey = try AJRInspectorKey(key: "visible", xmlElement: element, inspectorElement: self, defaultValue: true)
         forEachKey = try AJRInspectorKeyPath(key: "forEach", xmlElement: element, inspectorElement: self)
-
+        
         let view = NSStackView(frame: NSRect.zero)
         view.orientation = .vertical
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -132,6 +138,15 @@ open class AJRInspectorSection: AJRInspectorElement {
                     strongSelf.view.isHidden = true
                 } else {
                     strongSelf.view.isHidden = false
+                }
+            }
+        }
+        visibleKey?.addObserver {
+            if let strongSelf = weakSelf {
+                if strongSelf.visibleKey?.value ?? false {
+                    strongSelf.view.isHidden = false
+                } else {
+                    strongSelf.view.isHidden = true
                 }
             }
         }
