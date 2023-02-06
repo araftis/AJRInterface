@@ -77,6 +77,7 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
     open var unitsKey : AJRInspectorKey<Unit>?
     open var displayUnitsKey : AJRInspectorKey<Unit>?
     open var displayInchesAsFractionsKey : AJRInspectorKey<Bool>?
+    open var placeholderStringKey : AJRInspectorKey<String>?
 
     open override var isMerged: Bool {
         didSet {
@@ -105,6 +106,7 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
         keys.insert("units")
         keys.insert("displayUnits")
         keys.insert("displayInchesAsFractions")
+        keys.insert("placeholderString")
     }
     
     // MARK: - Generation
@@ -126,6 +128,7 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
         unitsKey = try AJRInspectorKey(key: "units", xmlElement: element, inspectorElement: self)
         displayUnitsKey = try AJRInspectorKey(key: "displayUnits", xmlElement: element, inspectorElement: self)
         displayInchesAsFractionsKey = try AJRInspectorKey(key: "displayInchesAsFractions", xmlElement: element, inspectorElement: self)
+        placeholderStringKey = try AJRInspectorKey(key: "placeholderString", xmlElement: element, inspectorElement: self, defaultValue: "")
 
         try super.buildView(from: element)
         
@@ -148,7 +151,7 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
                     strongSelf.numberField.isEditable = strongSelf.enabledKey?.value ?? true
                     strongSelf.stepper.isEnabled = false
                 case .single:
-                    strongSelf.numberField.placeholderString = ""
+                    strongSelf.numberField.placeholderString = strongSelf.placeholderStringKey?.value ?? ""
                     strongSelf.numberField.isEditable = strongSelf.enabledKey?.value ?? true
                     strongSelf.stepper.isEnabled = strongSelf.enabledKey?.value ?? true
                     strongSelf.updateSingleDisplayedValue()
