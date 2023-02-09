@@ -51,9 +51,41 @@ open class AJRInspectorChoice : NSObject {
     
     weak var slice : AJRInspectorSlice?
 
-    open var content : AJRInspectorContent?
+    /// This is the actual backing store for `content`.
+    internal var _content :  AJRInspectorContent? = nil
+    /// If we generate an error, this is initialized to `true` and then used from reporting the error over and over again.
+    internal var _generatedCreationError : Bool = false
+    /// Holds the actual inspector content, if the choice has content. This may be `nil`.
+    open var content : AJRInspectorContent? {
+        get {
+            if _content == nil,
+               let element {
+                // We'll create the content on demand here.
+                do {
+                    if let slice,
+                       let viewController = slice.viewController {
+                        _content = try AJRInspectorContent(element: element, parent: slice, viewController: viewController)
+                    } else if !_generatedCreationError {
+                        _generatedCreationError = true
+                        AJRLog.warning("We were asked to create inspector content for a choice, but the choice has no associated parent slice.")
+                    }
+                } catch {
+                    if !_generatedCreationError {
+                        _generatedCreationError = true
+                        AJRLog.error("We failed to create the content for an inspector choice based on the element: \(element). The following error was generated: \(error.localizedDescription)")
+                    }
+                }
+            }
+            return _content
+        }
+        set {
+            _content = newValue
+        }
+    }
+    /// Holds the element used to create `content`. This may be `nil`, but if it's not `nil`, and `content` is `nil`, then `content` will be created on demand.
+    open var element : XMLElement? = nil
     open var hasContent : Bool {
-        return content != nil
+        return content != nil || element != nil
     }
 
     open var isSeparator = false // Can't change dynamically, and never really changes conditionally, so just get and set

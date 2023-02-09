@@ -162,6 +162,15 @@ open class AJRInspectorSlice: AJRInspectorElement {
         }
         return name
     }
+
+    internal var labelString : NSAttributedString {
+        if let value = labelKey?.value,
+           let attributedValue = (try? NSAttributedString(markdown: value))?.mutableCopy() as? NSMutableAttributedString {
+            attributedValue.addAttributes([.font: NSFont.systemFont(ofSize: viewController!.fontSize)], range: attributedValue.allRange)
+            return attributedValue
+        }
+        return NSAttributedString("")
+    }
     
     open func addLabel(to view: NSView) -> Void {
         if labelKey != nil {
@@ -177,7 +186,7 @@ open class AJRInspectorSlice: AJRInspectorElement {
                 labelField!.firstBaselineAnchor.constraint(equalTo: baselineAnchorView.firstBaselineAnchor, constant: baseLineOffset),
                 ])
             
-            labelField!.stringValue = labelKey?.value ?? ""
+            labelField!.attributedStringValue = labelString
         }
     }
     
@@ -215,7 +224,9 @@ open class AJRInspectorSlice: AJRInspectorElement {
                 addLabel(to: self.view)
                 weak var weakSelf = self
                 labelKey?.addObserver {
-                    weakSelf?.labelField?.stringValue = weakSelf?.labelKey?.value ?? ""
+                    if let strongSelf = weakSelf {
+                        strongSelf.labelField?.attributedStringValue = strongSelf.labelString
+                    }
                 }
             } else {
                 AJRLog.warning("The view outlet didn't resolve on nib load. Please make sure it's connected: \(nibName)")
