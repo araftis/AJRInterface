@@ -47,7 +47,7 @@ open class AJRInspectorContent: AJRInspectorElement {
     private var _url : URL?
     
     // MARK: - Creation
-    
+
     public init?(url: URL, inspectorViewController: AJRObjectInspectorViewController, bundle: Bundle = Bundle.main, xmlReadCallback: AJRInspectorXMLReadCallback? = nil) throws {
         let document = try XMLDocument(contentsOf: url, options: [])
         var userInfo : [AnyHashable:Any]? = nil

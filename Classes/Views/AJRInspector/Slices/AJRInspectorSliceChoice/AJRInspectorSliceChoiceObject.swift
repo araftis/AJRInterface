@@ -155,14 +155,12 @@ open class AJRInspectorSliceChoiceObject : AJRInspectorSliceChoice {
                         if let object = object as? AJRInspectorContentProvider,
                            let filename = object.inspectorFilename/*,
                            let viewController = self.viewController */ {
-                            print("load filename: \(filename)")
                             do {
                                 let document = try AJRInspectorContent.loadXMLDocument(for: filename, bundle: object.inspectorBundle)
                                 if document.childCount == 1,
                                    let include = document.child(at: 0) as? XMLElement,
                                    include.name == "inspector-include" {
                                     // This means we're good, but we'll defer creating the content, because creating th content causes it to bind, which may not be valid with the current selection.
-//                                    let content = try AJRInspectorContent(element: include, parent: self, viewController: viewController)
                                     choice.element = include
                                 } else {
                                     AJRLog.error("Included document must contain one child with the name \"inspector-include\".")
