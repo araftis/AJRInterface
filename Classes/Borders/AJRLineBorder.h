@@ -2,7 +2,7 @@
  AJRLineBorder.h
  AJRInterface
 
- Copyright © 2022, AJ Raftis and AJRInterface authors
+ Copyright © 2023, AJ Raftis and AJRInterface authors
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without modification,
