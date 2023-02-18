@@ -77,13 +77,25 @@ open class AJRInspectorElement: NSObject {
     
     open weak var viewController : AJRObjectInspectorViewController?
 
-    @IBOutlet open var view : NSView!
+    @IBOutlet open var view : NSView! {
+        didSet {
+            if view == nil {
+                NotificationCenter.default.removeObserver(self)
+            }
+        }
+    }
     
     public required init(element: XMLNode, parent: AJRInspectorElement?, viewController: AJRObjectInspectorViewController, bundle: Bundle = Bundle.main, userInfo: [AnyHashable:Any]? = nil) throws {
         self.parent = parent
         self.viewController = viewController
         self.bundle = bundle
         self.userInfo = userInfo
+    }
+    
+    deinit {
+        print("\(type(of:self)).deinit")
+        // We need to force this to collect immediately, rather than waiting.
+        children.removeAll()
     }
     
     // MARK: - View Generation

@@ -65,6 +65,19 @@ open class AJRInspectorSlice: AJRInspectorElement {
     open var isMerged = false
     open var bottomConstraint : NSLayoutConstraint?
     
+    open override var view: NSView! {
+        didSet {
+            if view == nil {
+                baselineAnchorView = nil
+                loadedView = nil
+                labelField = nil
+                bottomConstraint = nil
+                labelKey?.stopObservering()
+                fullWidthKey?.stopObservering()
+            }
+        }
+    }
+    
     open var isFullWidth : Bool {
         return fullWidthKey?.value ?? false && labelKey?.value == nil
     }

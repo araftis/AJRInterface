@@ -34,6 +34,14 @@ import Cocoa
 @objcMembers
 open class AJRInspectorSliceString: AJRInspectorSliceField {
     
+    open override var view: NSView! {
+        didSet {
+            if view == nil {
+                valueKey?.stopObservering()
+            }
+        }
+    }
+    
     open var valueKey : AJRInspectorKey<String>?
 
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {

@@ -37,6 +37,26 @@ open class AJRInspectorSliceField: AJRInspectorSlice, NSTextFieldDelegate {
     @IBOutlet open var heightConstraint : NSLayoutConstraint!
     @IBOutlet open var field : NSTextField!
     
+    // Break ownership references when our view goes to nil.
+    open override var view: NSView! {
+        didSet {
+            if view == nil {
+                field?.delegate = nil
+                heightConstraint = nil
+                field = nil
+                editableKey?.stopObservering()
+                selectableKey?.stopObservering()
+                enabledKey?.stopObservering()
+                isContinuous?.stopObservering()
+                emptyIsNull?.stopObservering()
+                nullPlaceholder?.stopObservering()
+                alignmentKey?.stopObservering()
+                colorKey?.stopObservering()
+                backgroundColorKey?.stopObservering()
+            }
+        }
+    }
+    
     open var editableKey : AJRInspectorKey<Bool>?
     open var selectableKey : AJRInspectorKey<Bool>?
     open var enabledKey : AJRInspectorKey<Bool>?

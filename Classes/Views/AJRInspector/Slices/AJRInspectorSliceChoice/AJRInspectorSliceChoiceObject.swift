@@ -153,8 +153,7 @@ open class AJRInspectorSliceChoiceObject : AJRInspectorSliceChoice {
                 for object in objects {
                     if let choice = try? AJRInspectorChoiceObject(object: object, slice: self, viewController: viewController!, bundle: bundle) {
                         if let object = object as? AJRInspectorContentProvider,
-                           let filename = object.inspectorFilename/*,
-                           let viewController = self.viewController */ {
+                           let filename = object.inspectorFilename {
                             do {
                                 let document = try AJRInspectorContent.loadXMLDocument(for: filename, bundle: object.inspectorBundle)
                                 if document.childCount == 1,
@@ -378,8 +377,17 @@ open class AJRInspectorSliceChoiceObject : AJRInspectorSliceChoice {
     
     @IBAction open override func selectChoice(_ sender: Any?) -> Void {
         if let menuItem = sender as? NSMenuItem, let choice = menuItem.representedObject as? AJRInspectorChoiceObject {
+            if let activeChoice = activeChoice {
+                if let choiceView = activeChoice.content?.view {
+                    choiceView.removeFromSuperview()
+                }
+                activeChoice.content = nil
+                // Make sure to set this to nil here, because otherwise will fault the view back in just to remove it.
+                self.activeChoice = nil
+            }
             self.valueKeyPath.value = choice.object
-            displayChoice(choice)
+            // TODO: Shouldn't be necessary, because we update when we observe the above set.
+            //displayChoice(choice)
         } else {
             displayChoice(nil)
         }

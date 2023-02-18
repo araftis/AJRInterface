@@ -38,6 +38,14 @@ public typealias AJRInspectorXMLReadCallback = (_ url: URL) -> Void
 @objcMembers
 open class AJRInspectorContent: AJRInspectorElement {
 
+    deinit {
+        for child in children {
+            child.view = nil
+        }
+        self.view = nil
+        print("\(type(of:self)).deinit")
+    }
+    
     // MARK: - Properties
     
     private var xmlReadCallback : AJRInspectorXMLReadCallback? {
@@ -113,6 +121,7 @@ open class AJRInspectorContent: AJRInspectorElement {
         }
         if let childToAdd = self.childToAdd {
             add(child: childToAdd)
+            self.childToAdd = nil
         }
         if let view = self.view, let lastChildView = lastChild?.view {
             view.addConstraints([

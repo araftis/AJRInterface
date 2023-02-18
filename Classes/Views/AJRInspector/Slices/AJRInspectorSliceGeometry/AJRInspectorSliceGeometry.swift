@@ -35,6 +35,43 @@ import Cocoa
 
 @objcMembers
 open class  AJRInspectorSliceGeometry: AJRInspectorSlice {
+    
+    open override var view: NSView! {
+        didSet {
+            if view == nil {
+                numberField1?.target = nil
+                numberField1 = nil
+                numberField2?.target = nil
+                numberField2 = nil
+                numberField3?.target = nil
+                numberField3 = nil
+                numberField4?.target = nil
+                numberField4 = nil
+                stepper1?.target = nil
+                stepper1 = nil
+                stepper2?.target = nil
+                stepper2 = nil
+                stepper3?.target = nil
+                stepper3 = nil
+                stepper4?.target = nil
+                stepper4 = nil
+                label1 = nil
+                label2 = nil
+                label3 = nil
+                label4 = nil
+                linkedButton1?.target = nil
+                linkedButton1 = nil
+                linkedButton2?.target = nil
+                linkedButton2 = nil
+                
+                enabledKey?.stopObservering()
+                unitsKey?.stopObservering()
+                displayUnitsKey?.stopObservering()
+                displayInchesAsFractionsKey?.stopObservering()
+                incrementKey?.stopObservering()
+            }
+        }
+    }
 
     @IBOutlet open var numberField1 : NSTextField!
     @IBOutlet open var stepper1 : NSStepper!
@@ -43,7 +80,6 @@ open class  AJRInspectorSliceGeometry: AJRInspectorSlice {
     @IBOutlet open var stepper2 : NSStepper!
     @IBOutlet open var label2 : NSTextField!
     @IBOutlet open var linkedButton1 : NSButton!
-
     @IBOutlet open var numberField3 : NSTextField!
     @IBOutlet open var stepper3 : NSStepper!
     @IBOutlet open var label3 : NSTextField!
@@ -183,6 +219,14 @@ open class  AJRInspectorSliceGeometry: AJRInspectorSlice {
 
 @objcMembers
 open class AJRInspectorSliceGeometryTyped<T:AJRInspectorValue> : AJRInspectorSliceGeometry {
+    
+    open override var view: NSView! {
+        didSet {
+            if view == nil {
+                valueKey?.stopObservering()
+            }
+        }
+    }
     
     open var valueKey : AJRInspectorKey<T>?
     
@@ -343,6 +387,17 @@ open class AJRInspectorSliceTwoValues<T:AJRInspectorValue> : AJRInspectorSliceGe
 @objcMembers
 open class AJRInspectorSliceThreeValues<T:AJRInspectorValue> : AJRInspectorSliceGeometryTyped<T> {
 
+    open override var view: NSView! {
+        didSet {
+            if view == nil {
+                subtitle1Key?.stopObservering()
+                subtitle2Key?.stopObservering()
+                subtitle3Key?.stopObservering()
+                valuesCanLinkKey?.stopObservering()
+            }
+        }
+    }
+    
     open var subtitle1Key : AJRInspectorKey<String>?
     open var subtitle2Key : AJRInspectorKey<String>?
     open var subtitle3Key : AJRInspectorKey<String>?

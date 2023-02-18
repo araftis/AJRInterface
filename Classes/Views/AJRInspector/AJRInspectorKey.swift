@@ -64,7 +64,7 @@ open class AJRInspectorKey<T: AJRInspectorValue> : NSObject {
     open var keyPath : String?
     open var staticValue : T?
     open var defaultValue : T?
-    open var inspectorElement : AJRInspectorElement?
+    open weak var inspectorElement : AJRInspectorElement?
     open var changeBlocks = [AJRInspectorKeyObserver]()
     
     public init?(key: String, xmlElement: XMLElement, inspectorElement: AJRInspectorElement, defaultValue: T? = nil) throws {
@@ -90,9 +90,15 @@ open class AJRInspectorKey<T: AJRInspectorValue> : NSObject {
     }
     
     deinit {
-        print("releasing: \(self)")
+        print("\(type(of: self)).deinit: key: \(key), keyPath: \(keyPath ?? "?")")
+    }
+    
+    public func stopObservering() -> Void {
         if observing, let keyPath = keyPath {
+            print("\(descriptionPrefix): stopObservering: key: \(key), keyPath: \(keyPath)")
             inspectorElement?.viewController?.removeObserver(self, forKeyPath: keyPath)
+            changeBlocks.removeAll()
+            observing = false
         }
     }
     
