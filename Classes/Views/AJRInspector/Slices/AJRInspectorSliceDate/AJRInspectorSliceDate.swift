@@ -40,7 +40,13 @@ class AJRInspectorSliceDate: AJRInspectorSliceField {
             field?.formatter = dateFormatter
         }
     }
-    
+
+    open override func tearDown() {
+        valueKey?.stopObserving()
+        formatKey?.stopObserving()
+        super.tearDown()
+    }
+
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)
         keys.insert("value")

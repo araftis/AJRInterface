@@ -39,7 +39,14 @@ class AJRInspectorSliceFont: AJRInspectorSlice {
     open var fontField : AJRButtonTextField {
         return self.baselineAnchorView as! AJRButtonTextField
     }
-    
+
+    open override func tearDown() {
+        (baselineAnchorView as? AJRButtonTextField)?.buttonTarget = nil
+        valueKey?.stopObserving()
+        enabledKey?.stopObserving()
+        super.tearDown()
+    }
+
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)
         keys.insert("value")

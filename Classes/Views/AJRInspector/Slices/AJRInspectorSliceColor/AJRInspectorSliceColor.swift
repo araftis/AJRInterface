@@ -54,18 +54,13 @@ class AJRInspectorSliceColor: AJRInspectorSlice {
     open var valueKey : AJRInspectorKey<NSColor>?
     open var enabledKey : AJRInspectorKey<Bool>?
 
-    // MARK: - Actions
-    
-    @IBAction open func takeColor(from sender: AJRColorWell?) -> Void {
-        if let colorWell = sender {
-            if colorWell.displayMode == .none {
-                valueKey?.value = nil
-            } else {
-                valueKey?.value = colorWell.color
-            }
-        }
+    open override func tearDown() {
+        colorWell = nil
+        valueKey = nil
+        enabledKey = nil
+        super.tearDown()
     }
-    
+
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)
         keys.insert("value")
@@ -116,4 +111,16 @@ class AJRInspectorSliceColor: AJRInspectorSlice {
         return false
     }
     
+    // MARK: - Actions
+
+    @IBAction open func takeColor(from sender: AJRColorWell?) -> Void {
+        if let colorWell = sender {
+            if colorWell.displayMode == .none {
+                valueKey?.value = nil
+            } else {
+                valueKey?.value = colorWell.color
+            }
+        }
+    }
+
 }

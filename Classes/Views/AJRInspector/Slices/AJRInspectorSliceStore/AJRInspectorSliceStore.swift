@@ -99,6 +99,14 @@ open class AJRInspectorSliceStore: AJRInspectorSlice, NSTableViewDelegate, NSTab
     lazy open var menu : NSMenu = AJRInspectorSliceStore.createMenu(target: self, action: #selector(add(_:)))
 
     // MARK: - AJRInspectorSlice
+
+    open override func tearDown() {
+        valueKeyPath?.stopObserving()
+        usesAlternatingRowBackgroundColorsKey?.stopObserving()
+        hasVerticalGridKey?.stopObserving()
+        storeObserverToken?.invalidate()
+        storeObserverToken = nil
+    }
     
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)

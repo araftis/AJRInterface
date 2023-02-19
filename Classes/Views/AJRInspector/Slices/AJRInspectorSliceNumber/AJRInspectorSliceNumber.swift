@@ -43,6 +43,30 @@ open class AJRInspectorSliceNumber: AJRInspectorSlice {
     open var valueWhenNilKey : AJRInspectorKey<String>!
     open var mergeWithRightKey : AJRInspectorKey<Bool>?
 
+    open override func tearDown() {
+        numberField?.delegate = nil
+        numberField?.target = nil
+        numberField = nil
+        stepper?.target = nil
+        stepper = nil
+        subtitleField?.delegate = nil
+        subtitleField?.target = nil
+        subtitleField = nil
+        enabledKey?.stopObserving()
+        subtitleKey?.stopObserving()
+        valueWhenNilKey.stopObserving()
+        mergeWithRightKey?.stopObserving()
+        super.tearDown()
+    }
+
+    open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
+        super.populateKnownKeys(&keys)
+        keys.insert("enabled")
+        keys.insert("subtitle")
+        keys.insert("valueWhenNil")
+        keys.insert("mergeWithRight")
+    }
+
     open override class func createSlice(from element: XMLElement, parent: AJRInspectorElement, viewController: AJRObjectInspectorViewController, bundle: Bundle = Bundle.main) throws -> AJRInspectorSlice {
         let valueType = element.attribute(forName: "type")?.stringValue
         switch valueType {
@@ -88,20 +112,27 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
     // Merging
     @IBOutlet open var trailingContraintToBreakOnMerge : NSLayoutConstraint?
 
-    deinit {
-        print("releasing: \(self)")
+    open override func tearDown() {
+        trailingContraintToBreakOnMerge = nil
+        
+        valueKey?.stopObserving()
+        minValueKey?.stopObserving()
+        maxValueKey?.stopObserving()
+        incrementKey?.stopObserving()
+        formatKey?.stopObserving()
+        unitsKey?.stopObserving()
+        displayUnitsKey?.stopObserving()
+        displayInchesAsFractionsKey?.stopObserving()
+        placeholderStringKey?.stopObserving()
+        super.tearDown()
     }
     
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)
         keys.insert("value")
-        keys.insert("enabled")
         keys.insert("minValue")
         keys.insert("maxValue")
-        keys.insert("subtitle")
         keys.insert("increment")
-        keys.insert("valueWhenNil")
-        keys.insert("mergeWithRight")
         keys.insert("format")
         keys.insert("units")
         keys.insert("displayUnits")

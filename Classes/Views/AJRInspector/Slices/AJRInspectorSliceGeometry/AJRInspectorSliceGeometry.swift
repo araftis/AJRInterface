@@ -35,43 +35,6 @@ import Cocoa
 
 @objcMembers
 open class  AJRInspectorSliceGeometry: AJRInspectorSlice {
-    
-    open override var view: NSView! {
-        didSet {
-            if view == nil {
-                numberField1?.target = nil
-                numberField1 = nil
-                numberField2?.target = nil
-                numberField2 = nil
-                numberField3?.target = nil
-                numberField3 = nil
-                numberField4?.target = nil
-                numberField4 = nil
-                stepper1?.target = nil
-                stepper1 = nil
-                stepper2?.target = nil
-                stepper2 = nil
-                stepper3?.target = nil
-                stepper3 = nil
-                stepper4?.target = nil
-                stepper4 = nil
-                label1 = nil
-                label2 = nil
-                label3 = nil
-                label4 = nil
-                linkedButton1?.target = nil
-                linkedButton1 = nil
-                linkedButton2?.target = nil
-                linkedButton2 = nil
-                
-                enabledKey?.stopObservering()
-                unitsKey?.stopObservering()
-                displayUnitsKey?.stopObservering()
-                displayInchesAsFractionsKey?.stopObservering()
-                incrementKey?.stopObservering()
-            }
-        }
-    }
 
     @IBOutlet open var numberField1 : NSTextField!
     @IBOutlet open var stepper1 : NSStepper!
@@ -117,7 +80,42 @@ open class  AJRInspectorSliceGeometry: AJRInspectorSlice {
             throw NSError(domain: AJRInspectorErrorDomain, message: "Geometry slices must define the \"type\" property.")
         }
     }
-    
+
+    open override func tearDown() {
+        numberField1?.target = nil
+        numberField1 = nil
+        numberField2?.target = nil
+        numberField2 = nil
+        numberField3?.target = nil
+        numberField3 = nil
+        numberField4?.target = nil
+        numberField4 = nil
+        stepper1?.target = nil
+        stepper1 = nil
+        stepper2?.target = nil
+        stepper2 = nil
+        stepper3?.target = nil
+        stepper3 = nil
+        stepper4?.target = nil
+        stepper4 = nil
+        label1 = nil
+        label2 = nil
+        label3 = nil
+        label4 = nil
+        linkedButton1?.target = nil
+        linkedButton1 = nil
+        linkedButton2?.target = nil
+        linkedButton2 = nil
+
+        enabledKey?.stopObserving()
+        unitsKey?.stopObserving()
+        displayUnitsKey?.stopObserving()
+        displayInchesAsFractionsKey?.stopObserving()
+        incrementKey?.stopObserving()
+
+        super.tearDown()
+    }
+
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)
         keys.insert("enabled")
@@ -220,15 +218,12 @@ open class  AJRInspectorSliceGeometry: AJRInspectorSlice {
 @objcMembers
 open class AJRInspectorSliceGeometryTyped<T:AJRInspectorValue> : AJRInspectorSliceGeometry {
     
-    open override var view: NSView! {
-        didSet {
-            if view == nil {
-                valueKey?.stopObservering()
-            }
-        }
-    }
-    
     open var valueKey : AJRInspectorKey<T>?
+
+    open override func tearDown() {
+        valueKey?.stopObserving()
+        super.tearDown()
+    }
     
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)
@@ -305,6 +300,13 @@ open class AJRInspectorSliceTwoValues<T:AJRInspectorValue> : AJRInspectorSliceGe
     }
     open var valuesCanLinkKey : AJRInspectorKey<Bool>?
     open var defaultValuesCanLink : Bool { return false }
+
+    open override func tearDown() {
+        subtitle1Key?.stopObserving()
+        subtitle2Key?.stopObserving()
+        valuesCanLinkKey?.stopObserving()
+        super.tearDown()
+    }
 
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)
@@ -387,17 +389,6 @@ open class AJRInspectorSliceTwoValues<T:AJRInspectorValue> : AJRInspectorSliceGe
 @objcMembers
 open class AJRInspectorSliceThreeValues<T:AJRInspectorValue> : AJRInspectorSliceGeometryTyped<T> {
 
-    open override var view: NSView! {
-        didSet {
-            if view == nil {
-                subtitle1Key?.stopObservering()
-                subtitle2Key?.stopObservering()
-                subtitle3Key?.stopObservering()
-                valuesCanLinkKey?.stopObservering()
-            }
-        }
-    }
-    
     open var subtitle1Key : AJRInspectorKey<String>?
     open var subtitle2Key : AJRInspectorKey<String>?
     open var subtitle3Key : AJRInspectorKey<String>?
@@ -415,6 +406,14 @@ open class AJRInspectorSliceThreeValues<T:AJRInspectorValue> : AJRInspectorSlice
     }
     open var valuesCanLinkKey : AJRInspectorKey<Bool>?
     open var defaultValuesCanLink : Bool { return false }
+
+    open override func tearDown() {
+        subtitle1Key?.stopObserving()
+        subtitle2Key?.stopObserving()
+        subtitle3Key?.stopObserving()
+        valuesCanLinkKey?.stopObserving()
+        super.tearDown()
+    }
 
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)
@@ -613,6 +612,13 @@ open class AJRInspectorSliceFourValues<T:AJRInspectorValue> : AJRInspectorSliceT
     }
     open var secondValuesCanLinkKey : AJRInspectorKey<Bool>?
     open var defaultSecondValuesCanLink : Bool { return false }
+
+    open override func tearDown() {
+        subtitle3Key?.stopObserving()
+        subtitle4Key?.stopObserving()
+        secondValuesCanLinkKey?.stopObserving()
+        super.tearDown()
+    }
     
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)

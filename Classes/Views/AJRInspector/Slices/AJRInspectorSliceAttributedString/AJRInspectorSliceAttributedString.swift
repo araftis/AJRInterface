@@ -95,7 +95,15 @@ class AJRInspectorSliceAttributedString: AJRInspectorSliceField, AJRInspectorTex
     @IBOutlet open var alignmentSegments : NSSegmentedControl!
 
     // MARK: - View
-    
+
+    open override func tearDown() {
+        valueKey?.stopObserving()
+        attributeSegments = nil
+        alignmentSegments = nil
+        fieldEditor = nil
+        super.tearDown()
+    }
+
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)
         keys.insert("value")

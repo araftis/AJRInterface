@@ -40,6 +40,15 @@ open class AJRInspectorSliceBoolean: AJRInspectorSlice {
     open var enabledKey : AJRInspectorKey<Bool>?
     open var titleKey : AJRInspectorKey<String>?
     open var negateKey : AJRInspectorKey<Bool>?
+
+    open override func tearDown() {
+        check = nil
+        valueKey?.stopObserving()
+        enabledKey?.stopObserving()
+        titleKey?.stopObserving()
+        negateKey?.stopObserving()
+        super.tearDown()
+    }
     
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)

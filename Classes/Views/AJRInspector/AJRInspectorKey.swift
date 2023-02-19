@@ -91,11 +91,12 @@ open class AJRInspectorKey<T: AJRInspectorValue> : NSObject {
     
     deinit {
         print("\(type(of: self)).deinit: key: \(key), keyPath: \(keyPath ?? "?")")
+        stopObserving()
     }
     
-    public func stopObservering() -> Void {
+    public func stopObserving() -> Void {
         if observing, let keyPath = keyPath {
-            print("\(descriptionPrefix): stopObservering: key: \(key), keyPath: \(keyPath)")
+            print("\(descriptionPrefix): stopObserving: key: \(key), keyPath: \(keyPath)")
             inspectorElement?.viewController?.removeObserver(self, forKeyPath: keyPath)
             changeBlocks.removeAll()
             observing = false

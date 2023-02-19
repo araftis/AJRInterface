@@ -58,11 +58,20 @@ open class AJRInspectorKeyPath<T> : NSObject {
     }
     
     deinit {
+        print("\(type(of: self)).deinit: key: \(key), keyPath: \(keyPath ?? "?")")
+        stopObserving()
+    }
+
+    open func stopObserving() -> Void {
         if observing, let keyPath = keyPath {
+            print("\(descriptionPrefix): stopObserving: key: \(key), keyPath: \(keyPath)")
             inspectorElement?.viewController?.removeObserver(self, forKeyPath: keyPath)
+            willChangeBlocks.removeAll()
+            didChangeBlocks.removeAll()
+            observing = false
         }
     }
-    
+
     public var value : T? {
         get {
             if keyPath == nil {

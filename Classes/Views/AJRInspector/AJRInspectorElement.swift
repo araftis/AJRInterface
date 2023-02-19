@@ -80,9 +80,24 @@ open class AJRInspectorElement: NSObject {
     @IBOutlet open var view : NSView! {
         didSet {
             if view == nil {
-                NotificationCenter.default.removeObserver(self)
+                tearDown()
             }
         }
+    }
+
+    /**
+     Called when the view is set to `nil`, which flags that the element should try to tear down any potentially circular references.
+
+     When tearing down the element, two things are important. First, you should break connections to IB objects. Theoretically this shouldn't be necessary, but it seems like IB objects often get left around with strong references, so nilling out these objects, prevents that.
+
+     Secondly, you should remove yourself from any notifications that're creating, especially during the build view method. You don't necessarily have to `nil` out your key properties, but you must at least call `stopObserving()` on them.
+
+     After `tearDown()` has been called, your slice should no longer be useable, unless `buildView()` is called again. As such, you shouldn't completely year yourself down, but rather leave yourself in a state where you can be rebuilt.
+
+     Note that you outlet to view will be `nil` at the time this method is called, and you should call `super.tearDown()`.
+     */
+    open func tearDown() -> Void {
+        NotificationCenter.default.removeObserver(self)
     }
     
     public required init(element: XMLNode, parent: AJRInspectorElement?, viewController: AJRObjectInspectorViewController, bundle: Bundle = Bundle.main, userInfo: [AnyHashable:Any]? = nil) throws {

@@ -39,6 +39,15 @@ class AJRInspectorSliceButton: AJRInspectorSlice {
     open var enabledKey : AJRInspectorKey<Bool>?
     open var actionKey : AJRInspectorKey<Selector>?
     open var targetKeyPath : String?
+
+    open override func tearDown() {
+        button?.target = nil
+        button = nil
+        titleKey?.stopObserving()
+        enabledKey?.stopObserving()
+        actionKey?.stopObserving()
+        super.tearDown()
+    }
     
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)

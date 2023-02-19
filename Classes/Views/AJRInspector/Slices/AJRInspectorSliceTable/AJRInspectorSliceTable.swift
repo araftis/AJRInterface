@@ -135,6 +135,32 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
 
     open var columns = [AJRInspectorTableColumn]()
 
+    open override func tearDown() {
+        // Break IB connections
+        tableView?.delegate = nil
+        tableView?.dataSource = nil
+        tableView?.target = nil
+        tableView = nil
+        buttonTemplate?.target = nil
+        buttonTemplate = nil
+
+        // Stop observations
+        dataSourceKeyPath?.stopObserving()
+        delegateKeyPath?.stopObserving()
+        valuesKeyPath?.stopObserving()
+        hasTitlesKey?.stopObserving()
+        usesAlternatingRowBackgroundColorsKey?.stopObserving()
+        hasVerticalGridKey?.stopObserving()
+        actionTargetKey?.stopObserving()
+        removeActionKey?.stopObserving()
+        addMenuKeyPath?.stopObserving()
+        selectedRowIndexesKeyPath?.stopObserving()
+        selectedObjectsKeyPath?.stopObserving()
+        selectedObjectKeyPath?.stopObserving()
+        
+        super.tearDown()
+    }
+
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)
         keys.insert("dataSource")

@@ -65,19 +65,6 @@ open class AJRInspectorSlice: AJRInspectorElement {
     open var isMerged = false
     open var bottomConstraint : NSLayoutConstraint?
     
-    open override var view: NSView! {
-        didSet {
-            if view == nil {
-                baselineAnchorView = nil
-                loadedView = nil
-                labelField = nil
-                bottomConstraint = nil
-                labelKey?.stopObservering()
-                fullWidthKey?.stopObservering()
-            }
-        }
-    }
-    
     open var isFullWidth : Bool {
         return fullWidthKey?.value ?? false && labelKey?.value == nil
     }
@@ -153,6 +140,16 @@ open class AJRInspectorSlice: AJRInspectorElement {
                 }
             }
         }
+    }
+
+    open override func tearDown() {
+        baselineAnchorView = nil
+        loadedView = nil
+        labelField = nil
+        bottomConstraint = nil
+        labelKey?.stopObserving()
+        fullWidthKey?.stopObserving()
+        super.tearDown()
     }
     
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {

@@ -138,6 +138,24 @@ open class AJRInspectorSliceLevel: AJRInspectorSlice {
         }
     }
 
+    open override func tearDown() {
+        valueKey?.stopObserving()
+        valueScaleKey?.stopObserving()
+        minValueKey?.stopObserving()
+        maxValueKey?.stopObserving()
+        warningValueKey?.stopObserving()
+        criticalValueKey?.stopObserving()
+        styleKey?.stopObserving()
+        placeholderVisibilityKey?.stopObserving()
+        editableKey?.stopObserving()
+        enabledKey?.stopObserving()
+        fillColorKey?.stopObserving()
+        warningColorKey?.stopObserving()
+        criticalColorKey?.stopObserving()
+        levelIndicator = nil
+        super.tearDown()
+    }
+
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)
         keys.insert("value")

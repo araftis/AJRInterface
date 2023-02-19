@@ -90,6 +90,17 @@ class AJRInspectorSlicePaperOrientation: AJRInspectorSlice {
         valueKey?.value = sender?.orientation ?? .portrait
     }
 
+    open override func tearDown() {
+        orientationChooser?.target = nil
+        orientationChooser = nil
+        valueKey?.stopObserving()
+        paperValueKey?.stopObserving()
+        enabledKey?.stopObserving()
+        unitsKey?.stopObserving()
+        displayInchesAsFractionsKey?.stopObserving()
+        super.tearDown()
+    }
+
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)
         keys.insert("value")

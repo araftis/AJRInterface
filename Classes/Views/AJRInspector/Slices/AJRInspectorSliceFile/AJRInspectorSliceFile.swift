@@ -46,7 +46,15 @@ open class AJRInspectorSliceFile: AJRInspectorSliceField {
     open override var nibName: String? {
         return "AJRInspectorSliceFile"
     }
-    
+
+    open override func tearDown() {
+        (baselineAnchorView as? AJRButtonTextField)?.buttonTarget = nil
+        urlKey?.stopObserving()
+        utisKey?.stopObserving()
+        defaultsKey?.stopObserving()
+        super.tearDown()
+    }
+
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)
         keys.insert("url")

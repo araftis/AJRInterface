@@ -46,6 +46,8 @@ import Cocoa
  ```
  */
 
+// MARK: - AJRInspectorChoice
+
 @objcMembers
 open class AJRInspectorChoice : NSObject {
     
@@ -123,6 +125,19 @@ open class AJRInspectorChoice : NSObject {
         return nil
     }
 
+    /**
+     This behaves much as the function on `AJRInspectorElement` and will be called when things like notifications should be torn down.
+
+     After this is called, out weak reference to `slice` will be nilled.
+     */
+    open func tearDown() -> Void {
+        content?.tearDown()
+        content = nil
+        slice = nil
+        element = nil
+        menuItem = nil
+    }
+
 }
 
 @objcMembers
@@ -134,6 +149,8 @@ open class AJRInspectorChoiceTyped<T> : AJRInspectorChoice {
 
 }
 
+// MARK: - AJRInspectorChoiceVariable<T>
+
 @objcMembers
 open class AJRInspectorChoiceVariable<T> : AJRInspectorChoiceTyped<T> {
 
@@ -141,6 +158,17 @@ open class AJRInspectorChoiceVariable<T> : AJRInspectorChoiceTyped<T> {
     var imageKey : AJRInspectorKeyPath<NSImage>?
     var imageNameKey : AJRInspectorKey<String>?
     var imageBundleKey : AJRInspectorKey<Bundle>?
+
+    // MARK: - Tear Down
+
+    open override func tearDown() {
+        titleKey?.stopObserving()
+        imageKey?.stopObserving()
+        imageNameKey?.stopObserving()
+        imageBundleKey?.stopObserving()
+    }
+
+    // MARK: - Creation
 
     public override init(slice: AJRInspectorSlice) throws {
         try super.init(slice: slice)
@@ -250,6 +278,13 @@ open class AJRInspectorChoiceVariableTyped<T: AJRInspectorValue> : AJRInspectorC
             menuItem.representedObject = self
         }
     }
+
+    // MARK: - Tear Down
+
+    open override func tearDown() {
+        valueKey?.stopObserving()
+        super.tearDown()
+    }
     
     // MARK: - Conveniences
     
@@ -264,7 +299,12 @@ private class AJRInspectorSliceChoiceTyped<T: AJRInspectorValue> : AJRInspectorS
 
     var valueKey : AJRInspectorKey<T>?
     var valuesKeyPath : AJRInspectorKeyPath<[T]>?
-    
+
+    open override func tearDown() {
+        valueKey?.stopObserving()
+        valuesKeyPath?.stopObserving()
+    }
+
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)
         keys.insert("value")
@@ -550,6 +590,22 @@ open class AJRInspectorSliceChoice: AJRInspectorSlice {
         }
     }
 
+    // MARK: - AJRInspectorSlice
+
+    open override func tearDown() {
+        styleKey?.stopObserving()
+        enabledKey?.stopObserving()
+        mergeWithRightKey?.stopObserving()
+        allowsNilKey?.stopObserving()
+        popUpButton?.target = nil
+        popUpButton = nil
+        segments?.target = nil
+        segments = nil
+        comboBox?.target = nil
+        comboBox = nil
+        super.tearDown()
+    }
+
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)
         keys.insert("style")
@@ -558,8 +614,6 @@ open class AJRInspectorSliceChoice: AJRInspectorSlice {
         keys.insert("mergeWithRight")
         keys.insert("allowsNil")
     }
-    
-    // MARK: - AJRInspectorSlice
     
     open var style : AJRSliceChoiceStyle {
         return styleKey?.value ?? .popUp
