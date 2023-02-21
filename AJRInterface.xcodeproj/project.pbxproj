@@ -90,6 +90,7 @@
 		FA16037810C498F100A1E97D /* Well Right.tiff in Resources */ = {isa = PBXBuildFile; fileRef = FA16035C10C498F000A1E97D /* Well Right.tiff */; };
 		FA1603F810C5C8A300A1E97D /* NSLayoutManager+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = FA1603F610C5C8A300A1E97D /* NSLayoutManager+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA1603F910C5C8A300A1E97D /* NSLayoutManager+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1603F710C5C8A300A1E97D /* NSLayoutManager+Extensions.m */; };
+		FA17FCAD29A463F8009118C0 /* Python.syntax in Resources */ = {isa = PBXBuildFile; fileRef = FA17FCAC29A463F8009118C0 /* Python.syntax */; };
 		FA1819F922698A7800BA7E06 /* AJRInspectorSliceChoiceObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1819F822698A7800BA7E06 /* AJRInspectorSliceChoiceObject.swift */; };
 		FA1819FC2271325700BA7E06 /* AJRInspectorSliceDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1819FB2271325700BA7E06 /* AJRInspectorSliceDate.swift */; };
 		FA1819FF2271335C00BA7E06 /* AJRInspectorSliceField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1819FE2271335C00BA7E06 /* AJRInspectorSliceField.swift */; };
@@ -766,6 +767,7 @@
 		FA16035C10C498F000A1E97D /* Well Right.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "Well Right.tiff"; sourceTree = "<group>"; };
 		FA1603F610C5C8A300A1E97D /* NSLayoutManager+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutManager+Extensions.h"; sourceTree = "<group>"; };
 		FA1603F710C5C8A300A1E97D /* NSLayoutManager+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutManager+Extensions.m"; sourceTree = "<group>"; };
+		FA17FCAC29A463F8009118C0 /* Python.syntax */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Python.syntax; sourceTree = "<group>"; usesTabs = 1; };
 		FA1819F822698A7800BA7E06 /* AJRInspectorSliceChoiceObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorSliceChoiceObject.swift; sourceTree = "<group>"; };
 		FA1819FB2271325700BA7E06 /* AJRInspectorSliceDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorSliceDate.swift; sourceTree = "<group>"; };
 		FA1819FE2271335C00BA7E06 /* AJRInspectorSliceField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorSliceField.swift; sourceTree = "<group>"; };
@@ -2881,6 +2883,7 @@
 			children = (
 				FAFFCEF60F869D8400EC7DDC /* Groovy.syntax */,
 				FAFFCEFA0F869DDD00EC7DDC /* HTML.syntax */,
+				FA17FCAC29A463F8009118C0 /* Python.syntax */,
 			);
 			path = "Syntax Definitions";
 			sourceTree = "<group>";
@@ -3246,6 +3249,7 @@
 				FADDA17F22A3094F00257007 /* AJRPairedNumberEditor.strings in Resources */,
 				FAC20F980EC8A65100470124 /* AJRStrokeRendererInspectorModule.xib in Resources */,
 				FAC20F9F0EC8A70100470124 /* AJRDropShadowBorderInspectorModule.xib in Resources */,
+				FA17FCAD29A463F8009118C0 /* Python.syntax in Resources */,
 				21FCD9D8271626F00049E558 /* AJRInspectorSliceFile.xib in Resources */,
 				FAC20FA20EC8A70E00470124 /* AJRLineBorderInspectorModule.xib in Resources */,
 				FA826D7723243A9800C4B53D /* AJRInspectorSliceChoiceComboBox.xib in Resources */,

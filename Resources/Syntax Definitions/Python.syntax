@@ -1,0 +1,81 @@
+{
+	components = (
+		{
+			color = "NSCalibratedRGBColorSpace 0.00 0.14 0.95 1.00";
+			end = "\"";
+			escapeChar = "";
+			name = Strings;
+			start = "\"";
+			type = String;
+		}, {
+			color = "NSCalibratedRGBColorSpace 0.00 0.14 0.95 1.00";
+			end = "'";
+			escapeChar = "";
+			name = "Single Strings";
+			start = "'";
+			type = String;
+		}, {
+			color = "NSCalibratedRGBColorSpace 0.10980392156862745098 0.0 0.81176470588235294117 1.0";
+			charset = "-+eEj1234567890.";
+			name = "Numbers";
+			type = "Number";
+		}, {
+			color = "NSCalibratedRGBColorSpace 0.64 0.24 0.00 1.0";
+			charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+			keywords = (
+				"and",
+				"as",
+				"assert",
+				"break",
+				"class",
+				"continue",
+				"def",
+				"del",
+				"elif",
+				"else",
+				"except",
+				"False",
+				"finally",
+				"for",
+				"from",
+				"global",
+				"if",
+				"import",
+				"in",
+				"is",
+				"lambda",
+				"None",
+				"nonlocal",
+				"not",
+				"or",
+				"pass",
+				"raise",
+				"return",
+				"True",
+				"try",
+				"while",
+				"with",
+				"yield",
+			);
+			name = Keywords;
+			type = Keywords;
+		}, {
+			color = "NSCalibratedRGBColorSpace 0.65882352941176470588 0.65882352941176470588 0.65882352941176470588 1.0";
+			name = "One Line Comments";
+			start = "%";
+			type = OneLineComment;
+		}, {
+			color = "NSCalibratedRGBColorSpace 0.00 0.44 0.12 1.0";
+			name = Comments;
+			start = "\"\"\"";
+			end = "\"\"\"";
+			type = BlockComment;
+		}, {
+			name = Text;
+			type = Text;
+			color = "NSNamedColorSpace System textColor";
+			backgroundColor = "NSNamedColorSpace System textBackgroundColor";
+			font = "Monaco 11.0";
+		},
+	);
+}
