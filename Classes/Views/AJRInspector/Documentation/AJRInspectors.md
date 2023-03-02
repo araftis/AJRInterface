@@ -148,7 +148,7 @@ This would create a simple inspector for the `x`, `y`, `width`, and `height` pro
 
 ![Sample of Slice Merging](Slice_Merging.png)
 
-### Slice Types
+## Slice Types
 
 As mentioned above, each slice must define a `type` attribute, and this attribute cannot have the `KeyPath` extension. Below we discuss all the various types and their attributes.
 
@@ -605,7 +605,7 @@ Inspects a basic string that may be `nil`. This is one of the most basic inspect
 #### `string` Attributes
 
 | Attribute | Type | Description |
-| :-- | :-- | :-- |a
+| :-- | :-- | :-- |
 | editable | Bool | Whether the field can be edited. This control access to the field and the button. You'll generally want file fields to be non-editable. |
 | selectable | Bool | Whether the text in the field can be selected. |
 | enabled | Bool | Whether the field is enabled. When not enabled, no interactions are allowed with the field. |
