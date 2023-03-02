@@ -73,7 +73,8 @@ extension AJRPaper : AJRInspectorValue {
 
 }
 
-class AJRInspectorSlicePaperOrientation: AJRInspectorSlice {
+@objcMembers
+open class AJRInspectorSlicePaperOrientation: AJRInspectorSlice {
 
     @IBOutlet open var orientationChooser : AJRPaperOrientationChooser!
     open override var baseLineOffset : CGFloat { return 13.0 }
