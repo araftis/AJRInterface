@@ -642,7 +642,7 @@ This inspector allows the user to create and remove variable from the store. The
 | usesAlternatingRowBackgroundColors | Bool  | If `true`, the displayed table will use alternating background colors for its rows. |
 | hasVerticalGrid | Bool | If `true`, the displayed table will show vertical lines between columns. |
 
-n#### `store` Example
+#### `store` Example
 
 ```xml
 <group title="Variables">
