@@ -1,4 +1,4 @@
-#  AJRInspectors
+# AJRInspectors
 
 ## Introduction
 
@@ -6,7 +6,7 @@ The AJRInspectors are a class of objects used to enable object inspection in you
 
 1. Set up an AJRInspectorViewController. This will create a view that holds the inspectors. It also maintains a stack of objects to be inspected, so you'll push and pop object's off its stack to see their inspectors appear.
 
-2. Prepare you views for inspection. You do this my implementing the method `inspectorIdentifiers(forInspectorContent:)`. This method will call `super` to get an array of inspectors, and then add it's own inspectors to the end of the array returned by `super`. The method returns an array of `AJRInspectorIdentifier`. 
+2. Prepare you views for inspection. You do this my implementing the method `inspectorIdentifiers(forInspectorContent:)`. This method will call `super` to get an array of inspectors, and then add it's own inspectors to the end of the array returned by `super`. The method returns an array of `AJRInspectorIdentifier`.
 
     You'll also need to add an entry in your `.ajrplugindata` file that maps the inspector identifier to an XML filename.
 
@@ -30,7 +30,7 @@ An attribute has a “base” name. For example:
 <group title="My Title">
 ```
 
-Here we see the `title` attribute. In this case, the value of the `title` attribute is defined as `My Title`, and cannot be affected by outside influences. 
+Here we see the `title` attribute. In this case, the value of the `title` attribute is defined as `My Title`, and cannot be affected by outside influences.
 
 Alternatively, we might expressess the above as:
 
@@ -94,13 +94,13 @@ At the top level, a group will get a title with a special background, as defined
 
 Here's a fairly complex example of an inspector:
 
-<img src="Groups.png" width="50%">
+![Nested Groups Example](Groups.png)
 
 Here you can see the top level groups for "AI Explorer" and "Document" and a number of subgroups: "Code Definition", "Paper", "Grid", "Guides", "Variables", "Units", "Printer & Paper Size", "Page Orientation", and "Document Margins". Note how the top level groups have a lighter color background while the subgroup titles have no background. Likewise, each subgroup, when followed by another subgroup, has a horizontal divider, but there's no horizontal divider when followed by a top level group.
 
 Also, while the groups will manage their spacing, there may be special instances when you want to have extra space for some reason. When this is case, the groups allow for adding additional values to their top or bottom margins.
 
-**Group Attributes**
+### `group` Attributes
 
 |Attribute|Type|Description|
 | :-- | :-- | :-- |
@@ -118,6 +118,8 @@ Also, while the groups will manage their spacing, there may be special instances
 The main work horse of the XML files are the slices, as these define the actual content, rather than the organization of the XML. All slices have one attribute.
 
 All slices have the following attributes in common:
+
+### `slice` Attributes
 
 | Attribute | Type | Description|
 | :-- | :-- | :-- |
@@ -144,7 +146,7 @@ For example:
 
 This would create a simple inspector for the `x`, `y`, `width`, and `height` properties of an object where `x` and `y` were on one line while `width` and `height` were on their own line.
 
-<img src="Slice_Merging.png" width="50%" alt="Sample of Slice Merging">
+![Sample of Slice Merging](Slice_Merging.png)
 
 ### Slice Types
 
@@ -153,6 +155,8 @@ As mentioned above, each slice must define a `type` attribute, and this attribut
 ### `attributedString` Type
 
 Defines a slice to editing an attributed strings. This has similar functionality to a plain string field, by adds additional controls for changing the text's attributes. The bound value should be a attributed string, otherwise and error is generated.
+
+#### `attributedString` Attributes
 
 | Attribute | Type | Description |
 | :-- | :-- | :-- |
@@ -164,7 +168,7 @@ Defines a slice to editing an attributed strings. This has similar functionality
 | nullPlaceholder | String | A string that will be displayed when the bound value is empty (see above) or `nil`. |
 | value | NSAttributedString | An attributed string to display and edit. Note that this currently only has limited functionality (if any) with Swift's `AttributedString` class, and expects an `NSAttributedString`.
 
-#### `attributedString` Sample
+#### `attributedString` Example
 
 ```xml
 <slice type="attributedString" 
@@ -172,11 +176,13 @@ Defines a slice to editing an attributed strings. This has similar functionality
        valueKeyPath="controller.selection.primaryText.attributedString" />
 ```
 
-<img src="Slice_Attributed_String.png" width="50%">
+![Attributed String Slice](Slice_Attributed_String.png)
 
 ### `boolean` Type
 
 This generally generates a check box.
+
+#### `boolean` Attributes
 
 | Attribute | Type | Description |
 | :-- | :-- | :-- |
@@ -185,7 +191,7 @@ This generally generates a check box.
 | title | String | The title of the control. This is different from the `label` attribute which generally appears to the left of the control, as `title` appears to the right of the control. |
 | negate | Bool | If `true`, negate the value with fetching or setting. |
 
-#### `boolean` Sample
+#### `boolean` Example
 
 ```xml
 <slice type="boolean" 
@@ -194,11 +200,13 @@ This generally generates a check box.
 
 ```
 
-<img src="Slice_Boolean.png" width="50%">
+![Boolean Slice](Slice_Boolean.png)
 
 ### `button` Type
 
 Create a basic Cocoa button. Note that the button cannot currently be styled. The button is also one of the few slices with out any kind of value as input, it simply just sends an action to the provided target when pressed.
+
+#### `button` Attributes
 
 | Attribute | Type | Description |
 | :-- | :-- | :-- |
@@ -211,12 +219,14 @@ Create a basic Cocoa button. Note that the button cannot currently be styled. Th
 
 Presents a color editor. Note that this is a modified color well that presents a menu of color choices when clicked.
 
+#### `color` Attributes
+
 | Attribute | Type | Description |
 | :-- | :-- | :-- |
 | value | NSColor | The bound value. |
 | enabled | Bool | Whether the control is active. |
 
-#### `color` Sample
+#### `color` Example
 
 ```xml
 <group title="Fill">
@@ -229,11 +239,11 @@ Presents a color editor. Note that this is a modified color well that presents a
 </group>
 ```
 
-<img src="Slice_Color.png" width="50%">
+![Color Slice](Slice_Color.png)
 
 ### `choice` Type
 
-This is probably the most complicated, but one of the most useful of the slice types. It's complicated, because it can present a number of different appearances, and also because it allows the dynamic presentation of the inspector segments. 
+This is probably the most complicated, but one of the most useful of the slice types. It's complicated, because it can present a number of different appearances, and also because it allows the dynamic presentation of the inspector segments.
 
 For example, say you have choice of three items, and each item has a different set of properties. With this slice, you can control dynamically show a different section of the inspector depending on the choice selected.
 
@@ -241,9 +251,11 @@ You currently have three basic appearances: Pop Up Menu, Segmented Control, or C
 
 Also, you have two methods for determining the values in the inspectors. The first option is this slice can have children of type `choice`. Each choice defines one value that can appear in the options. The second option is to provide a list of objects via a binding. Both have their uses.
 
-| Attribute | Type | Description | 
+#### `choice` Attributes
+
+| Attribute | Type | Description |
 | :-- | :-- | :-- |
-| style | string | Defines the style. Currently acceptable styles include: `popUp`, `segments`, and `comboBox`. |
+| style | string | Defines the style. Currently acceptable styles are: `popUp`, `segments`, and `comboBox`. |
 | enabled | Bool | If the primary control is active. |
 | allowsNil | Bool | If `true`, a placeholder value is created for `nil` and the user can view and set the bound value to `nil`. |
 | mergeWithRight | Bool | Normally this slice tries to avoid being merged with other controls, but if your chocies are narrow enough, you might desired this behavior, so set this to `true`. |
@@ -251,12 +263,16 @@ Also, you have two methods for determining the values in the inspectors. The fir
 
 When using the `valueType` `integer`, `bool`, `float`, or `string`, you can define the following keys:
 
+#### `choice` Attribtues for Basic Types
+
 | Attribute | Type | Description |
 | :-- | :-- | :-- |
 | value | &lt;T&gt; | Binds to a value of the typed defined by `valueType`. When present, `values` may not be present. |
 | values | [&lt;T&gt;] | Binds to array of values defined by `valueType`. When present, `value` may not be present. |
 
 If you're using the `object` value type, you may also define the following attributes:
+
+#### `choice` Attributes for Objects
 
 | Attribute | Type | Description |
 | :-- | :-- | :-- |
@@ -267,10 +283,11 @@ If you're using the `object` value type, you may also define the following attri
 
 As an alternative to `choiceTitle`, you can also have your objects define the `AJRInspectorChoiceTitleProvider` protocol, which allows them to return either a title string or an image. Note that a `choiceImage` attribute may be added in the future.
 
-
-#### `choice`
+#### `choice` Child Element
 
 The `choice` slice may have childre with the element name `choice`. Choices define the following attributes:
+
+##### `choice` Child Element Attribtues
 
 | Attribute | Type | Description |
 | :-- | :-- | :-- |
@@ -286,7 +303,9 @@ Remember that choices can have child content. This content will only be displaye
 
 ### `date` Type
 
-A field used for date display and input. It defines the following attribute:
+A field used for date display and input. This may one day get a calendar pop up, if I ever brush off some really old code.
+
+#### `date` Attributes
 
 | Attribute | Type | Description |
 | :-- | :-- | :-- |
@@ -302,7 +321,7 @@ A field used for date display and input. It defines the following attribute:
 | value | Date | The bound value. |
 | format | String | A valid date format. See Unicode's [documentation](http://www.unicode.org/reports/tr35/tr35-31/tr35-dates.html#Date_Format_Patterns) for details. |
 
-#### `date` Sample
+#### `date` Example
 
 ```xml
 <slice type="date" 
@@ -311,11 +330,13 @@ A field used for date display and input. It defines the following attribute:
        valueKeyPath="controller.selection.documentInfo.creationDate" />
 ```
 
-<img src="Slice_Date.png" width="50%">
+![Date Slice](Slice_Date.png)
 
 ### `file` Type
 
 Presents a field with a button that allows the user to select a file from the file system. This slice expects to be bound to a URL.
+
+#### `file` Attributes
 
 | Attribute | Type | Description |
 | :-- | :-- | :-- |
@@ -341,28 +362,27 @@ Presents a field with a button that allows the user to select a file from the fi
        editable="false" 
        utisKeyPath="controller.selection.selectedCodeDefinition.language.fileUTIs" defaultsKey="codeGeneratorSavePanelPath" />
 ```
-<img src="Slice_File.png" width="50%">
+
+![File Slice](Slice_File.png)
 
 ### `font` Type
 
 Allows inspecting and editing a font property.
+
+#### `font` Attributes
 
 | Attribute | Type | Description |
 | :-- | :-- | :-- |
 | value | NSFont | The inspected font. |
 | enabled | Bool | Whether the slice is active. |
 
-#### `font` Sample
-
-***TODO:*** *I need to create a sample of this.*
-
-### Geometry Type
+### Geometry Types
 
 **NOTE:** You will not create a geometry slice directly. Rather, subclasses will use this type to edit their values.
 
-The geometry type is the superclass of a number of slice types for editing various "multivalue" values. For example, points, sizes, rectangles, etc... 
+The geometry type is the superclass of a number of slice types for editing various "multivalue" values. For example, points, sizes, rectangles, etc...
 
-These types share these common keys:
+#### Common Geometry Attributes
 
 | Attribute | Type | Description |
 | :-- | :-- | :-- |
@@ -373,7 +393,7 @@ These types share these common keys:
 
 Beyond these, geometry subtypes will display two, three, or four values with some control on how these are displayed. See the subtypes for what keys are available to affect the keys.
 
-#### `point` Geometry Subtype
+#### `point` Geometry Attributes
 
 | Attribute | Type | Description |
 | :-- | :-- | :-- |
@@ -381,11 +401,11 @@ Beyond these, geometry subtypes will display two, three, or four values with som
 | subtitle1 | String | The title under the first value. By default, this is "X". |
 | subtitle2 | String | The title under the second value. By default, this is "Y". |
 
-#### `point` Geometry Sample
+#### `point` Geometry Example
 
-<img src="Slice_Point.png" width="50%">
+![Point Slice](Slice_Point.png)
 
-#### `size` Geometry Subtype
+#### `size` Geometry Attributes
 
 | Attribute | Type | Description |
 | :-- | :-- | :-- |
@@ -394,7 +414,7 @@ Beyond these, geometry subtypes will display two, three, or four values with som
 | subtitle2 | String | The title under the second value. By default, this is "Height". |
 | valuesCanLink | Bool | If `true`, the values are linked. This means that when you change one value, `width` or `height`, the other value will also change by the same amount. This can be useful for maintaining the aspect ratio of the size. |
 
-#### `size` Geometry Sample
+#### `size` Geometry Example
 
 ```xml
 <slice type="size" 
@@ -403,9 +423,9 @@ Beyond these, geometry subtypes will display two, three, or four values with som
        valueKeyPath="controller.selection.primaryShadow.offset"/>
 ```
 
-<img src="Slice_Size.png" width="50%">
+![Size Slice](Slice_Size.png)
 
-#### `rect` Geometry Subtype
+#### `rect` Geometry Attributes
 
 This is basically the `point` and `size` subtypes combined into one inspector slice.
 
@@ -418,7 +438,7 @@ This is basically the `point` and `size` subtypes combined into one inspector sl
 | subtitle4 | String | The title under the forth value. By default, this is "Height". |
 | secondValuesCanLink | Bool | If `true`, the third and forth (width/height) values are linked. This means that when you change one value, `width` or `height`, the other value will also change by the same amount. This can be useful for maintaining the aspect ratio of the size. |
 
-#### `rect` Geometry Sample
+#### `rect` Geometry Example
 
 ```xml
 <group title="Position" 
@@ -431,9 +451,9 @@ This is basically the `point` and `size` subtypes combined into one inspector sl
 </group>
 ```
 
-<img src="Slice_Rect.png" width="50%">
+![Rect Slice](Slice_Rect.png)
 
-#### `insets` Geometry Subtype
+#### `insets` Geometry Attributes
 
 This is used to edit the NSEdgeInsets structure.
 
@@ -445,7 +465,7 @@ This is used to edit the NSEdgeInsets structure.
 | subtitle3 | String | The title under the third value. By default, this is "Bottom". |
 | subtitle4 | String | The title under the forth value. By default, this is "Right". |
 
-#### `insets` Geometry Sample
+#### `insets` Geometry Example
 
 ```xml
 <group title="Document Margins">
@@ -458,11 +478,13 @@ This is used to edit the NSEdgeInsets structure.
 </group>
 ```
 
-<img src="Slice_Insets.png" width="50%">
+![Insets Slice](Slice_Insets.png)
 
 ### `level` Type
 
 The `level` type displays a "level" control. Basically, it's kind of like a slide that shows a percentage. It also has a mode that can display as "stars" to provide a ratings type control.
+
+#### `level` Attributes
 
 | Attribute | Type | Description |
 | :-- | :-- | :-- |
@@ -480,7 +502,7 @@ The `level` type displays a "level" control. Basically, it's kind of like a slid
 | warningColor | NSColor | The color of the control when `value` exceeds `warningValue`. |
 | criticalColor | NSColor | The color of the control when `value` exceeds `criticalValue`. |
 
-#### `level` Sample
+#### `level` Example
 
 ```xml
 <slice type="level" 
@@ -492,13 +514,15 @@ The `level` type displays a "level" control. Basically, it's kind of like a slid
        valueKeyPath="controller.selection.tags.starsRating"/>
 ```
 
-***NOTE:*** Note how the `valueScale` property is used to scale the value from 0 to 100, even though the display scale is 0 to 5. 
+***NOTE:*** Note how the `valueScale` property is used to scale the value from 0 to 100, even though the display scale is 0 to 5.
 
-<img src="Slice_Level.png" width="50%">
+![Level Slice](Slice_Level.png)
 
 ### `integer` and `float` Types
 
 These are grouped, because they behave identically with the only difference being the underlyning numeric type.
+
+#### `integer` and `float` Attributes
 
 | Attribute | Type | Description |
 | :-- | :-- | :-- |
@@ -529,7 +553,7 @@ These are grouped, because they behave identically with the only difference bein
     }
 ```
 
-#### `integer` and `float` Sample
+#### `integer` and `float` Example
 
 ```xml
 <slice type="float" 
@@ -543,11 +567,13 @@ These are grouped, because they behave identically with the only difference bein
        placeholderString="Unset"/>
 ```
 
-<img src="Slice_Number.png" width="50%">
+![Number Slice](Slice_Number.png)
 
 ### `paperOrientation` Type
 
 Allows the selection of a paper orientation, either "landscape" or "portrait". Obviously this is fairly specific to one use.
+
+#### `paperOrientation` Attributes
 
 | Attribute | Type | Description |
 | :-- | :-- | :-- |
@@ -570,14 +596,16 @@ Allows the selection of a paper orientation, either "landscape" or "portrait". O
 </group>
 ```
 
-<img src="Slice_Paper_Orientation.png" width="50%">
+![Paper Orientation Slice](Slice_Paper_Orientation.png)
 
 ### `string` Type
 
 Inspects a basic string that may be `nil`. This is one of the most basic inspectors, but one you're likely to use quite a bit. One useful thing to keep in mind is that when set to `editable`, you can use this slice to display static values.
 
+#### `string` Attributes
+
 | Attribute | Type | Description |
-| :-- | :-- | :-- |
+| :-- | :-- | :-- |a
 | editable | Bool | Whether the field can be edited. This control access to the field and the button. You'll generally want file fields to be non-editable. |
 | selectable | Bool | Whether the text in the field can be selected. |
 | enabled | Bool | Whether the field is enabled. When not enabled, no interactions are allowed with the field. |
@@ -589,7 +617,7 @@ Inspects a basic string that may be `nil`. This is one of the most basic inspect
 | continuous | Bool | When `true`, the bound value is updated as the user types. |
 | value | String | The value displayed in the field. |
 
-#### `string` Sample
+#### `string` Example
 
 ```xml
 <slice type="string" 
@@ -598,7 +626,7 @@ Inspects a basic string that may be `nil`. This is one of the most basic inspect
        nullPlaceholderKeyPath="controller.selection.defaultCodeName" />
 ```
 
-<img src="Slice_String.png" width="50%">
+![String Slice](Slice_String.png)
 
 ### `store` Type
 
@@ -606,13 +634,15 @@ This is another fairly specialized inspector slice. It's used to inspect an `AJR
 
 This inspector allows the user to create and remove variable from the store. The variables may be of any type supported by the expression classes, which may be extended via the plug-in model.
 
+#### `store` Attributes
+
 | Attribute | Type | Description |
 | :-- | :-- | :-- |
 | value | AJRStore | A variable store used by `AJRExpression`. |
 | usesAlternatingRowBackgroundColors | Bool  | If `true`, the displayed table will use alternating background colors for its rows. |
 | hasVerticalGrid | Bool | If `true`, the displayed table will show vertical lines between columns. |
 
-#### `store` Sample
+n#### `store` Example
 
 ```xml
 <group title="Variables">
@@ -624,7 +654,7 @@ This inspector allows the user to create and remove variable from the store. The
 
 ***NOTE:*** This also makes use of the `fullWidth` key, which is technically available to all slices, but especially useful when displaying tables.
 
-<img src="Slice_Store.png" width="50%">
+![Store Slice](Slice_Store.png)
 
 ### `table` Type
 
@@ -633,6 +663,8 @@ This allows the display of tables and the editing of data in the tables. While a
 ***NOTE:*** While very powerful, the table type isn't 100% fleshed out. It's useful for a number of things, but it should include better support for the various types in the columns. For example, numnber types currently don't have settings for things like min and max values. Likewise, there's no controls for changing things like the foreground or background colors of the cells, and it'd probably be nice to do that.
 
 Likewise, there's currently no way to expand the types found in the table. This should be accessible via the plug-in architecture like the types are for the geometry types. That's something that'll be added when needed.
+
+#### `table` Attributes
 
 | Attribute | Type | Description |
 | :-- | :-- | :-- |
@@ -650,7 +682,7 @@ Likewise, there's currently no way to expand the types found in the table. This 
 | selectedObjects | [Object] | This is an array of the currently selected objects. If bound, multiple selection will be permitted in the table. You should bind to `selectedRowIndexes`, `selectedObjects`, or `selectedObject`, but only one. |
 | selectedObject | Object | This is the currently selected object. If bound, the table will not support multiple selection. You should bind to `selectedRowIndexes`, `selectedObjects`, or `selectedObject`, but only one. |
 
-#### `column` Sub-element
+#### `column` Child Element Attributes
 
 In addition to the above properties, the slice may also have special child elements: `column`. The `column` may have the following properties:
 
@@ -662,7 +694,7 @@ In addition to the above properties, the slice may also have special child eleme
 | editable | Bool | If `true`, the table's cell will be editable. Note that for this to work, the objects in the table must be mutable. |
 | alignment | NSTextAlignment | The alignment of the values in the cells. This may be ignored for sometimes. Valid values are `left`, `center`, `right`, `natural`, and `justified`. |
 | width | Float | The width of the cell. This will fix the width of the column. If you want the column to be resizable, leave this unbound. When resizing, all columns without size will be resized evently. |
-| editOnAdd | Bool | When `true`, when the user clicks the <img src="Button_Plus.png" width="12"> button, the first column of the newly added object will be selected for editing. |
+| editOnAdd | Bool | When `true`, when the user clicks the ![+](Button_Plus.png) button, the first column of the newly added object will be selected for editing. |
 | font | NSFont | The font used to display the cell. |
 
 ***NOTE:*** Tables should always define at least one column.
@@ -677,7 +709,7 @@ In addition to the above properties, the slice may also have special child eleme
 | time | NSTimestamp| A time stamp. This will be displayed using "DD:HH:MM.SS", or two digits each of days, hours, minutes, and seconds. |
 | boolean | Bool | Displays as a check box. |
 
-#### `table` Sample 1
+#### `table` Example 1
 
 ```xml
 <group titleKeyPath="translator.Chapter Stops">
@@ -706,9 +738,9 @@ In addition to the above properties, the slice may also have special child eleme
 
 This is a fairly simple example showing the editing of chapter stops on a media file. It has basically two columns, "Start" and "Title", which are bound and displayed via the `column` elements.
 
-<img src="Slice_Table_1.png" width="50%">
+![Table Slice Example 1](Slice_Table_1.png)
 
-#### `table` Sample 2
+#### `table` Example 2
 
 ```xml
 <group title="Code Definition">
@@ -768,4 +800,4 @@ This is much more involved example. In this case, we're showing two things. Firs
 
 Also, while fairly involved, this shows a nice sampling of some of the other slice types and how they can be used.
 
-<img src="Slice_Table_2.png" width="50%">
+![Table Slice Example 2](Slice_Table_2.png)
