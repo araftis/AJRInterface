@@ -64,7 +64,7 @@ extension NSPrintInfo.PaperOrientation : AJRInspectorValue, AJRXMLEncodableEnum,
 extension AJRPaper : AJRInspectorValue {
 
     public static func inspectorValue(from string: String) -> Any? {
-        return AJRPaper(forPaperId: string)
+        return AJRPaper(forPaperId: AJRPaperId(rawValue: string))
     }
 
     public static func inspectorValue(from value: NSValue) -> Any? {

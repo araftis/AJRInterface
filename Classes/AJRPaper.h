@@ -33,6 +33,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NSString *AJRPaperId NS_TYPED_EXTENSIBLE_ENUM;
+
+extern const AJRPaperId AJRPaperIdA3 NS_SWIFT_NAME(a3);
+extern const AJRPaperId AJRPaperIdA4 NS_SWIFT_NAME(a4);
+extern const AJRPaperId AJRPaperIdA5 NS_SWIFT_NAME(a5);
+extern const AJRPaperId AJRPaperIdB5 NS_SWIFT_NAME(b5);
+extern const AJRPaperId AJRPaperIdEnvelope;
+extern const AJRPaperId AJRPaperIdISODesignated;
+extern const AJRPaperId AJRPaperIdJISB5;
+extern const AJRPaperId AJRPaperIdSuperB;
+extern const AJRPaperId AJRPaperIdTabloid;
+extern const AJRPaperId AJRPaperIdArchB;
+extern const AJRPaperId AJRPaperIdLegal;
+extern const AJRPaperId AJRPaperIdLetter;
+
 @interface AJRPaper : NSObject <AJRXMLCoding>
 
 + (instancetype)paperForSize:(NSSize)size;
@@ -40,9 +55,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,class,readonly) NSArray<AJRPaper *> *customPapers;
 @property (nonatomic,class,readonly) NSArray<AJRPaper *> *allGenericPapers;
 
-+ (nullable AJRPaper *)paperForPaperId:(NSString *)paperId;
++ (nullable AJRPaper *)paperForPaperId:(AJRPaperId)paperId;
 
-@property (nonatomic,readonly) NSString *paperId;
+@property (nonatomic,readonly) AJRPaperId paperId;
 @property (nonatomic,readonly) NSString *name;
 @property (nonatomic,readonly) NSString *localizedName;
 @property (nonatomic,readonly) NSSize size;

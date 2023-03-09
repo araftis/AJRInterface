@@ -31,9 +31,22 @@
 
 #import "AJRPaper.h"
 
+const AJRPaperId AJRPaperIdA3 = @"iso-a3";
+const AJRPaperId AJRPaperIdA4 = @"iso-a4";
+const AJRPaperId AJRPaperIdA5 = @"iso-a5";
+const AJRPaperId AJRPaperIdB5 = @"iso-b5";
+const AJRPaperId AJRPaperIdEnvelope = @"na-number-10-envelope";
+const AJRPaperId AJRPaperIdISODesignated = @"iso-designated";
+const AJRPaperId AJRPaperIdJISB5 = @"jis-b5";
+const AJRPaperId AJRPaperIdSuperB = @"super-b";
+const AJRPaperId AJRPaperIdTabloid = @"tabloid";
+const AJRPaperId AJRPaperIdArchB = @"arch-b";
+const AJRPaperId AJRPaperIdLegal = @"na-legal";
+const AJRPaperId AJRPaperIdLetter = @"na-letter";
+
 @interface AJRPaper ()
 
-@property (nonatomic,strong) NSString *paperId;
+@property (nonatomic,strong) AJRPaperId paperId;
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *localizedName;
 @property (nonatomic,assign) NSSize size;
@@ -43,7 +56,7 @@
 
 @interface AJRPaperPlaceholder : NSObject <AJRXMLDecoding>
 
-@property (nonatomic,strong) NSString *paperId;
+@property (nonatomic,strong) AJRPaperId paperId;
 
 @end
 
@@ -118,9 +131,9 @@ static NSArray<AJRPaper *> *genericPapers = nil;
     return paper;
 }
 
-static NSMutableDictionary<NSString *, AJRPaper *> *papersByPaperId = nil;
+static NSMutableDictionary<AJRPaperId, AJRPaper *> *papersByPaperId = nil;
 
-+ (AJRPaper *)paperForPaperId:(NSString *)paperId {
++ (AJRPaper *)paperForPaperId:(AJRPaperId)paperId {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         papersByPaperId = [NSMutableDictionary dictionary];

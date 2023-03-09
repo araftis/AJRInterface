@@ -44,7 +44,7 @@ open class AJRPaperOrientationChooser: NSControl {
 
     open var paperColor = AJRColor.white
     open var highlightColor = AJRColor(calibratedWhite: 0.9, alpha: 1.0)
-    open var paper = AJRPaper(forPaperId: "na-letter")! {
+    open var paper = AJRPaper(forPaperId: .letter)! {
         didSet {
             updateStringValue()
             needsDisplay = true
