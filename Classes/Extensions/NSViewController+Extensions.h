@@ -34,5 +34,6 @@
 @interface NSViewController (Extensions)
 
 - (NSViewController *)ajr_descendantViewControllerOfClass:(Class)viewControllerClass;
+@property (nonatomic,nullable,readonly) NSViewController *rootViewController;
 
 @end
