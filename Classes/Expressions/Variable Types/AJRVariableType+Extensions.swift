@@ -44,7 +44,7 @@ public extension AJRVariableType {
     func loadNib(named name: String, bundle: Bundle?) throws -> NSNib? {
         var nib : NSNib? = nil
         try NSObject.catchException {
-            nib = NSNib(nibNamed: name, bundle: bundle)
+             nib = NSNib(nibNamed: name, bundle: bundle)
         }
         return nib
     }

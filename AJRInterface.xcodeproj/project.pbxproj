@@ -45,6 +45,7 @@
 		FA07C8F22212C9370077A0B5 /* AJRSegmentedCell.h in Headers */ = {isa = PBXBuildFile; fileRef = FA07C8F02212C9370077A0B5 /* AJRSegmentedCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA07C8F32212C9370077A0B5 /* AJRSegmentedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA07C8F12212C9370077A0B5 /* AJRSegmentedCell.m */; };
 		FA08611D22C827FC0021CCC5 /* AJRObjectInspectorViewController.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA53D64F2241DAE8003E02B1 /* AJRObjectInspectorViewController.strings */; };
+		FA09819929CE79D30076BAA5 /* AJRPathEnumeratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09819829CE79D30076BAA5 /* AJRPathEnumeratorTests.swift */; };
 		FA09F1CE0FDA37200035F833 /* Collaboration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA09F1CD0FDA37200035F833 /* Collaboration.framework */; };
 		FA09F33C0FDB107F0035F833 /* EKRecurrenceRule+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = FA09F33A0FDB107F0035F833 /* EKRecurrenceRule+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA09F3C50FDB1A2C0035F833 /* EKAlarm+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = FA09F3C30FDB1A2C0035F833 /* EKAlarm+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -724,6 +725,7 @@
 		FA07C8F12212C9370077A0B5 /* AJRSegmentedCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AJRSegmentedCell.m; sourceTree = "<group>"; };
 		FA092A9B13F6385800689484 /* AJRRibbonViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRRibbonViewItem.h; sourceTree = "<group>"; usesTabs = 1; };
 		FA092A9C13F6385800689484 /* AJRRibbonViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRRibbonViewItem.m; sourceTree = "<group>"; };
+		FA09819829CE79D30076BAA5 /* AJRPathEnumeratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRPathEnumeratorTests.swift; sourceTree = "<group>"; };
 		FA09F1CD0FDA37200035F833 /* Collaboration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collaboration.framework; path = /System/Library/Frameworks/Collaboration.framework; sourceTree = "<absolute>"; };
 		FA09F33A0FDB107F0035F833 /* EKRecurrenceRule+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EKRecurrenceRule+Extensions.h"; sourceTree = "<group>"; };
 		FA09F3C30FDB1A2C0035F833 /* EKAlarm+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EKAlarm+Extensions.h"; sourceTree = "<group>"; };
@@ -1567,6 +1569,7 @@
 				FA57AF5E231DFEF50020C1E5 /* AJRAlternateHighlightButtonCellTests.swift */,
 				FA8B900D29020E8900650F23 /* AJRExpressionTests.swift */,
 				FA53D60F223F1766003E02B1 /* AJRInspectorTests.swift */,
+				FA09819829CE79D30076BAA5 /* AJRPathEnumeratorTests.swift */,
 				FA53D611223F17D5003E02B1 /* AJRTestInspector.inspector */,
 				FABFEF7A145286FE008CE3FE /* AJRTrigonometryTests.m */,
 				FA1D8EFB19391C57008690DD /* AJRXMLCodingTests.m */,
@@ -3643,6 +3646,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA09819929CE79D30076BAA5 /* AJRPathEnumeratorTests.swift in Sources */,
 				FA57AF5F231DFEF50020C1E5 /* AJRAlternateHighlightButtonCellTests.swift in Sources */,
 				FA1D8EFC19391C57008690DD /* AJRXMLCodingTests.m in Sources */,
 				FAA133E2237CDE0A00F0DF60 /* NSColor+ExtensionsTests.m in Sources */,

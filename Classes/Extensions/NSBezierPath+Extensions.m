@@ -9,13 +9,13 @@
  are permitted provided that the following conditions are met:
 
  * Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
+ list of conditions and the following disclaimer.
  * Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
  * Neither the name of AJRInterface nor the names of its contributors may be
-   used to endorse or promote products derived from this software without
-   specific prior written permission.
+ used to endorse or promote products derived from this software without
+ specific prior written permission.
 
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -92,40 +92,40 @@ static NSTextView *_textView = nil;
 }
 
 - (void)appendBezierPathWithAttributedString:(NSAttributedString *)string {
-	NSLayoutManager *lm;
-	
-	if (_textView == nil) {
-		_textView = [[NSTextView alloc] init];
-		[_textView setRichText:NO];
-		[[_textView layoutManager] setBackgroundLayoutEnabled:NO];
-	}
-	
-	[[_textView textStorage] replaceCharactersInRange:(NSRange){0, 0} withAttributedString:string];
-	
-	lm = [_textView layoutManager];
-	
-	[[_textView textStorage] enumerateAttribute:NSFontAttributeName inRange:(NSRange){0, [string length]} options:0 usingBlock:^(NSFont *font, NSRange subrange, BOOL *stop) {
-		NSRange range = [lm glyphRangeForCharacterRange:subrange actualCharacterRange:NULL];
-		NSPoint where = [self currentPoint];
-		NSSize advancement;
-		
-		CGGlyph *glyphs = (CGGlyph *)NSZoneMalloc(nil, sizeof(CGGlyph) * (range.length * 2));
-		[lm getGlyphsInRange:range glyphs:glyphs properties:NULL characterIndexes:NULL bidiLevels:NULL];
-		
-		for (NSInteger x = 0; x < range.length; x++) {
-			[self appendBezierPathWithCGGlyph:glyphs[x] inFont:font];
-			advancement = [font advancementForGlyph:glyphs[x]];
-			where.x += advancement.width;
-			where.y += advancement.height;
-			[self moveToPoint:where];
-		}
-		
-		NSZoneFree(nil, glyphs);
-	}];
+    NSLayoutManager *lm;
+
+    if (_textView == nil) {
+        _textView = [[NSTextView alloc] init];
+        [_textView setRichText:NO];
+        [[_textView layoutManager] setBackgroundLayoutEnabled:NO];
+    }
+
+    [[_textView textStorage] replaceCharactersInRange:(NSRange){0, 0} withAttributedString:string];
+
+    lm = [_textView layoutManager];
+
+    [[_textView textStorage] enumerateAttribute:NSFontAttributeName inRange:(NSRange){0, [string length]} options:0 usingBlock:^(NSFont *font, NSRange subrange, BOOL *stop) {
+        NSRange range = [lm glyphRangeForCharacterRange:subrange actualCharacterRange:NULL];
+        NSPoint where = [self currentPoint];
+        NSSize advancement;
+
+        CGGlyph *glyphs = (CGGlyph *)NSZoneMalloc(nil, sizeof(CGGlyph) * (range.length * 2));
+        [lm getGlyphsInRange:range glyphs:glyphs properties:NULL characterIndexes:NULL bidiLevels:NULL];
+
+        for (NSInteger x = 0; x < range.length; x++) {
+            [self appendBezierPathWithCGGlyph:glyphs[x] inFont:font];
+            advancement = [font advancementForGlyph:glyphs[x]];
+            where.x += advancement.width;
+            where.y += advancement.height;
+            [self moveToPoint:where];
+        }
+
+        NSZoneFree(nil, glyphs);
+    }];
 }
 
 + (void)drawString:(NSString *)string font:(NSFont *)font at:(NSPoint)point {
-    NSBezierPath    *path = [[NSBezierPath alloc] init];
+    NSBezierPath *path = [[NSBezierPath alloc] init];
     
     [path moveToPoint:point];
     [path appendBezierPathWithString:string font:font];
@@ -133,7 +133,7 @@ static NSTextView *_textView = nil;
 }
 
 + (NSBezierPath *)bezierPathWithCrossedRect:(NSRect)rect {
-    NSBezierPath    *path = [[NSBezierPath alloc] init];
+    NSBezierPath *path = [[NSBezierPath alloc] init];
     [path appendBezierPathWithCrossedRect:rect];
     return path;
 }
@@ -151,19 +151,19 @@ static NSTextView *_textView = nil;
 }
 
 - (void)appendBezierPathWithCrossCenteredAt:(NSPoint)center legSize:(NSSize)legSize andLegThickness:(NSSize)legThickness {
-	[self moveToPoint:(NSPoint){center.x - legThickness.width, center.y - legThickness.height}];
-	[self lineToPoint:(NSPoint){center.x - legSize.width, center.y - legThickness.height}];
-	[self lineToPoint:(NSPoint){center.x - legSize.width, center.y + legThickness.height}];
-	[self lineToPoint:(NSPoint){center.x - legThickness.width, center.y + legThickness.height}];
-	[self lineToPoint:(NSPoint){center.x - legThickness.width, center.y + legSize.height}];
-	[self lineToPoint:(NSPoint){center.x + legThickness.width, center.y + legSize.height}];
-	[self lineToPoint:(NSPoint){center.x + legThickness.width, center.y + legThickness.height}];
-	[self lineToPoint:(NSPoint){center.x + legSize.width, center.y + legThickness.height}];
-	[self lineToPoint:(NSPoint){center.x + legSize.width, center.y - legThickness.height}];
-	[self lineToPoint:(NSPoint){center.x + legThickness.width, center.y - legThickness.height}];
-	[self lineToPoint:(NSPoint){center.x + legThickness.width, center.y - legSize.height}];
-	[self lineToPoint:(NSPoint){center.x - legThickness.width, center.y - legSize.height}];
-	[self closePath];
+    [self moveToPoint:(NSPoint){center.x - legThickness.width, center.y - legThickness.height}];
+    [self lineToPoint:(NSPoint){center.x - legSize.width, center.y - legThickness.height}];
+    [self lineToPoint:(NSPoint){center.x - legSize.width, center.y + legThickness.height}];
+    [self lineToPoint:(NSPoint){center.x - legThickness.width, center.y + legThickness.height}];
+    [self lineToPoint:(NSPoint){center.x - legThickness.width, center.y + legSize.height}];
+    [self lineToPoint:(NSPoint){center.x + legThickness.width, center.y + legSize.height}];
+    [self lineToPoint:(NSPoint){center.x + legThickness.width, center.y + legThickness.height}];
+    [self lineToPoint:(NSPoint){center.x + legSize.width, center.y + legThickness.height}];
+    [self lineToPoint:(NSPoint){center.x + legSize.width, center.y - legThickness.height}];
+    [self lineToPoint:(NSPoint){center.x + legThickness.width, center.y - legThickness.height}];
+    [self lineToPoint:(NSPoint){center.x + legThickness.width, center.y - legSize.height}];
+    [self lineToPoint:(NSPoint){center.x - legThickness.width, center.y - legSize.height}];
+    [self closePath];
 }
 
 - (void)addPathToContext:(CGContextRef)context {
@@ -214,10 +214,75 @@ static NSTextView *_textView = nil;
     return newPath;
 }
 
+- (CGPathRef)CGPath {
+    CGMutablePathRef path = CGPathCreateMutable();
+    AJRPathEnumerator *enumeator = self.pathEnumerator;
+    AJRBezierPathElementType *type;
+    CGPoint points[5] = {CGPointZero, CGPointZero, CGPointZero, CGPointZero, CGPointZero};
+
+    while ((type = [enumeator nextElementWithPoints:points]) != nil) {
+        switch (*type) {
+            case AJRBezierPathElementSetBoundingBox:
+                // Do noting.
+                break;
+            case AJRBezierPathElementMoveTo:
+                CGPathMoveToPoint(path, NULL, points[0].x, points[0].y);
+                break;
+            case AJRBezierPathElementLineTo:
+                CGPathAddLineToPoint(path, NULL, points[0].x, points[0].y);
+                break;
+            case AJRBezierPathElementCurveTo:
+                CGPathAddCurveToPoint(path, NULL, points[0].x, points[0].y, points[1].x, points[1].y, points[2].x, points[2].y);
+                break;
+            case AJRBezierPathElementClose:
+                CGPathCloseSubpath(path);
+                break;
+        }
+    }
+
+    return path;
+}
+
++ (NSBezierPath *)bezierPathWithCGPath:(CGPathRef)path {
+    NSBezierPath *newPath = [NSBezierPath bezierPath];
+    [newPath appendBezierPathWithCGPath:path];
+    return newPath;
+}
+
+- (void)appendBezierPathWithCGPath:(CGPathRef)path {
+    CGPathApply(path, (__bridge void *)self, AJRPathToBezierIterator);
+}
+
+// MARK: - Boolean Operations
+
+- (NSBezierPath *)pathByUnioningWithPath:(id <AJRBezierPathProtocol>)path {
+    return (NSBezierPath *)AJRBezierPathByUnioningPaths(@[self, path]);
+}
+
+- (NSBezierPath *)pathByIntersectingWithPath:(id <AJRBezierPathProtocol>)path {
+    return (NSBezierPath *)AJRBezierPathByIntersectingPaths(@[self, path]);
+}
+
+- (NSBezierPath *)pathBySubtractingPath:(id <AJRBezierPathProtocol>)path {
+    return (NSBezierPath *)AJRBezierPathBySubtractingPaths(@[self, path]);
+}
+
+- (NSBezierPath *)pathByExclusivelyIntersectingPath:(id <AJRBezierPathProtocol>)path {
+    return (NSBezierPath *)AJRBezierPathBySubtractingPaths(@[self, path]);
+}
+
+- (NSBezierPath *)pathByNormalizingPath {
+    return (NSBezierPath *)AJRBezierPathByNormalizingPath(self);
+}
+
+- (NSArray<NSBezierPath *> *)separateComponents {
+    return (NSArray<NSBezierPath *> *)AJRBezierPathGetSubcomponents(self);
+}
+
 #pragma mark - Enumeration
 
 - (AJRPathEnumerator *)pathEnumerator {
-	// Yes, a little bit hinky, but the enumerator is designed to only use API's that're public on NSBezierPath, so this is a safe cast.
+    // Yes, a little bit hinky, but the enumerator is designed to only use API's that're public on NSBezierPath, so this is a safe cast.
     return [[AJRPathEnumerator allocWithZone:nil] initWithBezierPath:(AJRBezierPath *)self];
 }
 

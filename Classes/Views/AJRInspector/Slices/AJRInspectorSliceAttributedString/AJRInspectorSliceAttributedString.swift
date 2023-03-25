@@ -327,6 +327,10 @@ class AJRInspectorSliceAttributedString: AJRInspectorSliceField, AJRInspectorTex
         updateDisplay(forEditor: fieldEditor)
         valueKey?.value = field.attributedStringValue
     }
+
+    @IBAction open func selectColorFromPanel(_ sender: Any?) -> Void {
+        print("sender: \(sender!)")
+    }
     
     // MARK: - AJRInspectorTextFieldDelegate
     
