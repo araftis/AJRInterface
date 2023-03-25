@@ -35,10 +35,35 @@ import Cocoa
 open class AJRInspectorGroup: AJRInspectorSection {
 
     open var titleKey : AJRInspectorKey<String>?
+    /// Defines the key for controlling whether or not we're collapsed. If set, `expandedKey` may not be set.
+    open var collapsedKey : AJRInspectorKey<Bool>?
+    /// Defines the key for controlling whether or not we're expanded. If set, `collapsedKey` may not be set.
+    open var expandedKey : AJRInspectorKey<Bool>?
     open var visualEffectView : NSVisualEffectView!
     open var titleLabel : NSTextField!
+    open var collapseStateButton : NSButton? = nil
     open var separatorView : NSView? = nil
-    
+
+    open var isCollapsed : Bool {
+        get {
+            if let collapsedKey {
+                return collapsedKey.value ?? false
+            }
+            if let expandedKey {
+                return !(expandedKey.value ?? false)
+            }
+            return false
+        }
+        set {
+            if let collapsedKey {
+                collapsedKey.value = newValue
+            }
+            if let expandedKey {
+                expandedKey.value = !newValue
+            }
+        }
+    }
+
     // MARK: - View
 
     open override var borderRenderer : AJRDrawingBlock? {
@@ -62,7 +87,13 @@ open class AJRInspectorGroup: AJRInspectorSection {
     
     open override func buildView(from element: XMLElement) throws -> Void {
         titleKey = try AJRInspectorKey(key: "title", xmlElement: element, inspectorElement: self)
-        
+        collapsedKey = try AJRInspectorKey(key: "collapsed", xmlElement: element, inspectorElement: self)
+        expandedKey = try AJRInspectorKey(key: "expanded", xmlElement: element, inspectorElement: self)
+
+        if collapsedKey != nil && expandedKey != nil {
+            throw NSError(domain: AJRInspectorErrorDomain, message: "You may only define the 'expanded' or 'collapsed' key, but not both.")
+        }
+
         try super.buildView(from: element)
 
         weak var weakSelf = self
@@ -82,6 +113,13 @@ open class AJRInspectorGroup: AJRInspectorSection {
             updateTitleLabel()
             visualEffectView.addSubview(titleLabel)
 
+            if expandedKey != nil || collapsedKey != nil {
+                collapseStateButton = NSButton(checkboxWithTitle: "", target: self, action: #selector(toggleCollapseState(_:)))
+                collapseStateButton?.translatesAutoresizingMaskIntoConstraints = false
+                collapseStateButton!.controlSize = .small
+                visualEffectView.addSubview(collapseStateButton!)
+            }
+
             visualEffectView.addConstraints([
                 titleLabel.leftAnchor.constraint(equalTo: visualEffectView.leftAnchor, constant: 5.0),
                 titleLabel.rightAnchor.constraint(greaterThanOrEqualTo: visualEffectView.rightAnchor, constant: 5.0),
@@ -89,6 +127,19 @@ open class AJRInspectorGroup: AJRInspectorSection {
                 titleLabel.bottomAnchor.constraint(equalTo: visualEffectView.bottomAnchor, constant: -3.0),
                 titleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant:50.0),
             ])
+            if let collapseStateButton {
+                visualEffectView.addConstraints([
+                    visualEffectView.rightAnchor.constraint(equalTo: collapseStateButton.rightAnchor, constant: 5.0),
+                    titleLabel.firstBaselineAnchor.constraint(equalTo: collapseStateButton.firstBaselineAnchor),
+                    //titleLabel.rightAnchor.constraint(greaterThanOrEqualTo: collapseStateButton.leftAnchor, constant: 10.0),
+                    //titleLabel.rightAnchor.constraint(greaterThanOrEqualTo: visualEffectView.rightAnchor, constant: 5.0),
+                ])
+            } else {
+                // We don't have a collapse button, so set our contraint to the container view.
+                visualEffectView.addConstraints([
+                    titleLabel.rightAnchor.constraint(greaterThanOrEqualTo: visualEffectView.rightAnchor, constant: 5.0),
+                ])
+            }
 
             titleKey.addObserver {
                 weakSelf?.titleLabel?.stringValue = weakSelf?.titleKey?.value ?? ""
@@ -97,6 +148,12 @@ open class AJRInspectorGroup: AJRInspectorSection {
                 // We just need to make sure this updates.
                 weakSelf?.separatorView?.needsDisplay = true
             }
+        }
+        collapsedKey?.addObserver {
+            weakSelf?.updateCollapsedState()
+        }
+        expandedKey?.addObserver {
+            weakSelf?.updateCollapsedState()
         }
     }
 
@@ -152,6 +209,12 @@ open class AJRInspectorGroup: AJRInspectorSection {
         }
     }
 
+    open func updateCollapsedState() -> Void {
+        let state = isCollapsed
+        collapseStateButton?.state = state ? .off : .on
+        contentStackView?.isHidden = state
+    }
+
     // MARK: - Children
 
     open override func verticalSpacing(fromView view: NSView) -> CGFloat {
@@ -201,7 +264,7 @@ open class AJRInspectorGroup: AJRInspectorSection {
     open override func didAddAllChildren() {
         updateTitleLabel()
 
-        if let view = view as? NSStackView {
+        if contentStackView != nil {
             let depth = groupDepth
             var addBorder = false
 
@@ -219,12 +282,20 @@ open class AJRInspectorGroup: AJRInspectorSection {
             if addBorder && separatorView == nil {
                 separatorView = createSeparatorView()
                 if let separatorView {
-                    view.addView(separatorView, in: .top)
+                    stackView?.addView(separatorView, in: .top)
                 }
             } else if !addBorder, let separatorView = separatorView {
                 separatorView.removeFromSuperview()
                 self.separatorView = nil
             }
+        }
+    }
+
+    // MARK: - Actions
+
+    @IBAction open func toggleCollapseState(_ sender: NSButton?) -> Void {
+        if let sender {
+            isCollapsed = sender.state == .off
         }
     }
 

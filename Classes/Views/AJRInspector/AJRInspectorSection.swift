@@ -106,6 +106,7 @@ open class AJRInspectorSection: AJRInspectorElement {
     open var stackView : NSStackView? {
         return view as? NSStackView
     }
+    open var contentStackView : NSStackView?  = nil
 
     open func buildView(from element: XMLElement) throws -> Void {
         if element.attribute(forName: "hidden") != nil && element.attribute(forName: "visible") != nil {
@@ -120,12 +121,18 @@ open class AJRInspectorSection: AJRInspectorElement {
         visibleKey = try AJRInspectorKey(key: "visible", xmlElement: element, inspectorElement: self, defaultValue: true)
         forEachKey = try AJRInspectorKeyPath(key: "forEach", xmlElement: element, inspectorElement: self)
         
-        let view = NSStackView(frame: NSRect.zero)
+        let view = NSStackView(frame: .zero)
         view.orientation = .vertical
         view.translatesAutoresizingMaskIntoConstraints = false
         view.spacing = 2.0
-        //view.contentRenderer = borderRenderer
+        // We're going to create out content view. This seems, perhaps, a little gratuitous, but we may have subclasses that want to add ornimitation that can be controlled as a peer of the content. For example, a group adds a title, that's always visible, but may wish to collapsed the content.
+        contentStackView = NSStackView(frame: .zero)
+        contentStackView!.orientation = .vertical
+        contentStackView!.translatesAutoresizingMaskIntoConstraints = false
+        contentStackView!.spacing = 2.0
         self.view = view
+        view.addView(contentStackView!, in: .top)
+        view.addConstraints([view.widthAnchor.constraint(equalTo: contentStackView!.widthAnchor)])
 
         if forEachKey != nil {
             self.element = element
@@ -195,12 +202,12 @@ open class AJRInspectorSection: AJRInspectorElement {
                 try? buildChildren(from: element, inspector: phantomParent)
                 if index < objects.count - 1 {
                     if let separatorView = createSeparatorView() {
-                        stackView?.addView(separatorView, in: .top)
+                        contentStackView?.addView(separatorView, in: .top)
                     }
                 }
             }
         } else if element != nil {
-            stackView?.addView(AJRInspectorViewController.createView(withLabel: "No Objects", use: .info), in: .top)
+            contentStackView?.addView(AJRInspectorViewController.createView(withLabel: "No Objects", use: .info), in: .top)
         }
     }
 
@@ -243,7 +250,7 @@ open class AJRInspectorSection: AJRInspectorElement {
                 self.childToAdd = child
             }
             
-            if let view = self.view as? NSStackView, let childView = childView {
+            if let view = contentStackView /*self.view as? NSStackView*/, let childView = childView {
                 view.addView(childView, in: .top)
                 // NOTE: Order is important. This must be a constraint added to the stack view, not the subview.
                 let constraint = view.widthAnchor.constraint(equalTo: childView.widthAnchor)

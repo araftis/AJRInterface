@@ -107,6 +107,8 @@ Also, while the groups will manage their spacing, there may be special instances
 | title | String | Determines the title of the section. All sections, no matter level, may have a title. |
 | visible | Bool | If `true`, then the section is visible, otherwise the section is collapsed. |
 | hidden | Bool | This is the opposite of `visible`. |
+| collapsed | Bool | If `true`, then the section's content is hidden. Note that this is different from `visible` or `hidden`, because the title remains visible. As such, this is only usable on a group with a title. This also causes a checkbox to be added to the right of the group's title to allow user interaction. This is exclusive of `expanded`. |
+| expanded | Bool | The is the opposite and exclusive in use to `collapsed`. |
 | forEach | [Object] | Points to an array of objects, and causes the section to be repeated once for each object. This only really works with the `KeyPath` variant.
 | borderMarginTop | Float | Defines the spacing above the group. You usually shouldn't need to set this, as the default will work just fine. |
 | borderMarginBottom | Float | Defines the spacing below the group. You usually shouldn't need to set this, as the default will work just fine. |
