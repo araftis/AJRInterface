@@ -362,6 +362,8 @@
 		FA8B9022290A359900650F23 /* AJRVariableTypeBoolean.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA8B9021290A359900650F23 /* AJRVariableTypeBoolean.xib */; };
 		FA8B9024290A36CA00650F23 /* AJRVariableBooleanCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B9023290A36CA00650F23 /* AJRVariableBooleanCellView.swift */; };
 		FA8F832C0F45E7F40033815D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8F832B0F45E7F40033815D /* QuartzCore.framework */; };
+		FA938E3429D0DC800076D9CD /* NSGradient+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA938E3329D0DC800076D9CD /* NSGradient+Extensions.swift */; };
+		FA938E3D29D259D40076D9CD /* NSGradientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA938E3C29D259D40076D9CD /* NSGradientTests.swift */; };
 		FA95DE4C22B46529005EC953 /* AJRInspectorSliceGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA95DE4B22B46529005EC953 /* AJRInspectorSliceGeometry.swift */; };
 		FA95DE4E22B466CD005EC953 /* AJRInspectorSliceGeometryTwoFields.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA95DE4D22B466CD005EC953 /* AJRInspectorSliceGeometryTwoFields.xib */; };
 		FA95DE5022B4700B005EC953 /* AJRGeometryInspectorConformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA95DE4F22B4700B005EC953 /* AJRGeometryInspectorConformance.swift */; };
@@ -1046,6 +1048,8 @@
 		FA8B9023290A36CA00650F23 /* AJRVariableBooleanCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRVariableBooleanCellView.swift; sourceTree = "<group>"; };
 		FA8E36C425C0C48400EB554F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FA8F832B0F45E7F40033815D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
+		FA938E3329D0DC800076D9CD /* NSGradient+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSGradient+Extensions.swift"; sourceTree = "<group>"; };
+		FA938E3C29D259D40076D9CD /* NSGradientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSGradientTests.swift; sourceTree = "<group>"; };
 		FA95DE4B22B46529005EC953 /* AJRInspectorSliceGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRInspectorSliceGeometry.swift; sourceTree = "<group>"; };
 		FA95DE4D22B466CD005EC953 /* AJRInspectorSliceGeometryTwoFields.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRInspectorSliceGeometryTwoFields.xib; sourceTree = "<group>"; };
 		FA95DE4F22B4700B005EC953 /* AJRGeometryInspectorConformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRGeometryInspectorConformance.swift; sourceTree = "<group>"; };
@@ -1576,6 +1580,7 @@
 				FAA133E1237CDE0A00F0DF60 /* NSColor+ExtensionsTests.m */,
 				FA0587BF192FE152002913B6 /* Supporting Files */,
 				FA53D60E223F1766003E02B1 /* AJRInterfaceTests-Bridging-Header.h */,
+				FA938E3C29D259D40076D9CD /* NSGradientTests.swift */,
 			);
 			path = AJRInterfaceTests;
 			sourceTree = "<group>";
@@ -2061,6 +2066,7 @@
 				FAC71B2024C7E3A900566369 /* NSFontManager+Extensions.swift */,
 				FACDA26821FC0B6B0008753B /* NSGradient+Extensions.h */,
 				FACDA26921FC0B6B0008753B /* NSGradient+Extensions.m */,
+				FA938E3329D0DC800076D9CD /* NSGradient+Extensions.swift */,
 				FA5909AA218277450007D278 /* NSGraphicsContext+Extensions.h */,
 				FA5909AB218277450007D278 /* NSGraphicsContext+Extensions.m */,
 				FA6C24E30E9AAC4B003F2540 /* NSImage+Extensions.h */,
@@ -3475,6 +3481,7 @@
 				D204354F0EC4D351000A6475 /* AJRWhiteBox.m in Sources */,
 				FA07C857220C26D60077A0B5 /* NSTableView+Extensions.m in Sources */,
 				FAC212080EC8FB2C00470124 /* AJRProView.m in Sources */,
+				FA938E3429D0DC800076D9CD /* NSGradient+Extensions.swift in Sources */,
 				FA81BB8F0ECCAB80005A2DBC /* AJRURLFieldCell.m in Sources */,
 				FA3ECCAF0ECD4C8B00866EBE /* NSTableView+Dragging.m in Sources */,
 				FAC4DF4E0ED49E4800897E9B /* AJRActivityView.m in Sources */,
@@ -3652,6 +3659,7 @@
 				FAA133E2237CDE0A00F0DF60 /* NSColor+ExtensionsTests.m in Sources */,
 				FA53D610223F1766003E02B1 /* AJRInspectorTests.swift in Sources */,
 				FA8B900E29020E8900650F23 /* AJRExpressionTests.swift in Sources */,
+				FA938E3D29D259D40076D9CD /* NSGradientTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSColorSpace (AJRInterfaceExtensions)
 
 + (nullable NSColorSpace *)ajr_colorSpaceWithName:(NSString *)name;
-- (NSString *)ajr_name;
+@property (nonatomic,readonly) NSString *ajr_name;
 
 @end
 

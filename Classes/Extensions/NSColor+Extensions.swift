@@ -29,7 +29,7 @@
  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
+import AppKit
 
 extension NSColor : AJRUserDefaultProvider {
     
