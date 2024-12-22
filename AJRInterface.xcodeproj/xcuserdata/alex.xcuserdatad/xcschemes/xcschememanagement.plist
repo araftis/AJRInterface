@@ -9,7 +9,7 @@
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>20</integer>
 		</dict>
 		<key>AJRInterfaceTests.xcscheme</key>
 		<dict>
@@ -23,7 +23,7 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>3</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

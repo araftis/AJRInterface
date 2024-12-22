@@ -43,25 +43,22 @@
 
 @interface AJRCenteringView : NSView
 {
-    NSClipView            *clipView;
-    NSView                *subview;
+    NSClipView          *clipView;
+    NSView              *subview;
     
-    NSRect                contentRect;
+    NSRect              contentRect;
     
-    NSInteger            firstPage, lastPage;
-    AJRPagePosition        pagePosition;
-    NSInteger            activePage;
-    NSRect                *_frameCache;
+    NSInteger           firstPage, lastPage;
+    AJRPagePosition     pagePosition;
+    NSInteger           activePage;
+    NSRect              *_frameCache;
     
-    NSSize                _savedSubviewSize;
+    NSSize              _savedSubviewSize;
     
-    NSInteger            printingPageNumber;        // Only used during printing
+    NSInteger           printingPageNumber;        // Only used during printing
     
-    struct _ncvFlags {
-        BOOL            _documentRespondsToViewForPage:1;
-        BOOL            _isPrinting:1;
-        NSUInteger        _reserved:30;
-    } ncvFlags;
+    BOOL                _documentRespondsToViewForPage;
+    BOOL                _isPrinting;
 }
 
 // Used to create a new centering view based off an old one. This copies some of the more important shared inforamtion.

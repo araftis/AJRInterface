@@ -114,17 +114,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSBezierPath *)bezierPathFromStrokedPath;
 
 /*!
- Returns a new bezier path created from the supplied CGPath.
-
- This basically just creates an empty path and then calls `-[NSBezierPath appendBezierPathWithCGPath:]`.
-
- @param path The CoreGraphic's CGPath.
-
- @return The newly created NSBezierPath.
- */
-+ (NSBezierPath *)bezierPathWithCGPath:(CGPathRef)path;
-
-/*!
  Appends `path` to the receiver.
 
  @param path The path to append.

@@ -33,34 +33,28 @@
 
 @implementation AJRDropShadowBorder
 
-+ (void)load
-{
++ (void)load {
     [AJRBorder registerBorder:self];
 }
 
-+ (NSString *)name
-{
++ (NSString *)name {
     return @"Drop Shadow";
 }
 
-- (id)init
-{
-    self = [super init];
-    
-    shallow = NO;
-    clip = YES;
-    [self setRadius:0.0];
-    
+- (id)init {
+    if ((self = [super init])) {
+        _shallow = NO;
+        _clip = YES;
+        [self setRadius:0.0];
+    }
     return self;
 }
 
-- (BOOL)isOpaque
-{
+- (BOOL)isOpaque {
     return NO;
 }
 
-- (NSRect)titleRectForRect:(NSRect)rect
-{
+- (NSRect)titleRectForRect:(NSRect)rect {
     rect = [super titleRectForRect:rect];
     
     switch ([self titleAlignment]) {
@@ -79,11 +73,10 @@
     return rect;
 }
 
-- (NSRect)contentRectForRect:(NSRect)rect
-{
+- (NSRect)contentRectForRect:(NSRect)rect {
     rect = [super contentRectForRect:rect];
     
-    if (shallow) {
+    if (_shallow) {
         rect.origin.x += 5.0;
         rect.origin.y += 10.0;
         rect.size.width -= 10.0;
@@ -98,16 +91,14 @@
     return rect;
 }
 
-- (NSBezierPath *)pathForRect:(NSRect)rect
-{
+- (NSBezierPath *)pathForRect:(NSRect)rect {
     NSBezierPath *path;
     path = [[NSBezierPath allocWithZone:nil] init];
-    [path appendBezierPathWithRoundedRect:[self contentRectForRect:rect] xRadius:radius yRadius:radius];
+    [path appendBezierPathWithRoundedRect:[self contentRectForRect:rect] xRadius:_radius yRadius:_radius];
     return path;
 }
 
-- (void)drawBorderBackgroundInRect:(NSRect)rect clippedToRect:(NSRect)clippingRect controlView:(NSView *)controlView
-{
+- (void)drawBorderBackgroundInRect:(NSRect)rect clippedToRect:(NSRect)clippingRect controlView:(NSView *)controlView {
     NSShadow        *shadow;
     NSColor            *color = [NSColor whiteColor];
     NSBezierPath    *clippingPath;
@@ -116,7 +107,7 @@
     [NSGraphicsContext saveGraphicsState];
 
     shadow = [[NSShadow alloc] init];
-    if (shallow) {
+    if (_shallow) {
         [shadow setShadowOffset:NSMakeSize(0.0f, -3.0f)];
         [shadow setShadowBlurRadius:5.0f];
     } else {
@@ -140,13 +131,11 @@
 }
 
 
-- (NSBezierPath *)clippingPathForRect:(NSRect)rect
-{
+- (NSBezierPath *)clippingPathForRect:(NSRect)rect {
     return [self pathForRect:rect];
 }
 
-- (void)drawBorderForegroundInRect:(NSRect)rect clippedToRect:(NSRect)clippingRect controlView:(NSView *)controlView
-{
+- (void)drawBorderForegroundInRect:(NSRect)rect clippedToRect:(NSRect)clippingRect controlView:(NSView *)controlView {
     if ([self titlePosition] != NSNoTitle) {
         //[[NSColor redColor] set];
         //NSFrameRect([self titleRectForRect:rect]);
@@ -154,78 +143,40 @@
     }
 }
 
-- (void)setShallow:(BOOL)flag
-{
-    shallow = flag;
-    [self didUpdate];
-}
-
-- (BOOL)isShallow
-{
-    return shallow;
-}
-
-- (void)setClip:(BOOL)flag
-{
-    clip = flag;
-    [self didUpdate];
-}
-
-- (BOOL)doesClip
-{
-    return clip;
-}
-
-- (void)setRadius:(CGFloat)aRadius
-{
-    if (radius != aRadius) {
+- (void)setRadius:(CGFloat)aRadius {
+    if (_radius != aRadius) {
         [self willUpdate];
-        radius = aRadius;
+        _radius = aRadius;
         [self didUpdate];
     }
 }
 
-- (CGFloat)radius
-{
-    return radius;
-}
-
-- (id)initWithCoder:(NSCoder *)coder
-{
-    BOOL        temp;
-    
-    self = [super initWithCoder:coder];
-    
-    if ([coder allowsKeyedCoding] && [coder containsValueForKey:@"shallow"]) {
-        shallow = [coder decodeBoolForKey:@"shallow"];
-        clip = [coder decodeBoolForKey:@"clip"];
-        radius = [coder decodeFloatForKey:@"radius"];
-    } else {
-        [coder decodeValueOfObjCType:@encode(BOOL) at:&temp]; shallow = temp;
-        [coder decodeValueOfObjCType:@encode(BOOL) at:&temp]; clip = temp;
-        [coder decodeValueOfObjCType:@encode(float) at:&temp]; radius = temp;
+- (id)initWithCoder:(NSCoder *)coder {
+    if ((self = [super initWithCoder:coder])) {
+        if ([coder allowsKeyedCoding] && [coder containsValueForKey:@"shallow"]) {
+            _shallow = [coder decodeBoolForKey:@"shallow"];
+            _clip = [coder decodeBoolForKey:@"clip"];
+            _radius = [coder decodeFloatForKey:@"radius"];
+        } else {
+            [coder decodeValueOfObjCType:@encode(BOOL) at:&_shallow];
+            [coder decodeValueOfObjCType:@encode(BOOL) at:&_clip];
+            [coder decodeValueOfObjCType:@encode(CGFloat) at:&_radius];
+        }
     }
-    
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder
-{
-    BOOL        temp;
-    
+- (void)encodeWithCoder:(NSCoder *)coder {
     [super encodeWithCoder:coder];
     
     if ([coder allowsKeyedCoding]) {
-        [coder encodeBool:shallow forKey:@"shallow"];
-        [coder encodeBool:clip forKey:@"clip"];
-        [coder encodeFloat:radius forKey:@"radius"];
+        [coder encodeBool:_shallow forKey:@"shallow"];
+        [coder encodeBool:_clip forKey:@"clip"];
+        [coder encodeFloat:_radius forKey:@"radius"];
     } else {
-        temp = shallow;
-        [coder encodeValueOfObjCType:@encode(BOOL) at:&temp];
-        temp = clip;
-        [coder encodeValueOfObjCType:@encode(BOOL) at:&temp];
-        temp = radius;
-        [coder encodeValueOfObjCType:@encode(float) at:&temp];
+        [coder encodeValueOfObjCType:@encode(BOOL) at:&_shallow];
+        [coder encodeValueOfObjCType:@encode(BOOL) at:&_clip];
+        [coder encodeValueOfObjCType:@encode(CGFloat) at:&_radius];
     }
 }
 

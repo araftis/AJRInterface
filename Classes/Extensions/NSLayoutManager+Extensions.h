@@ -35,4 +35,6 @@
 
 + (CGFloat)defaultLineHeightForFont:(NSFont *)font;
 
+- (void)removeTemporaryAttribute:(NSAttributedStringKey)attrName;
+
 @end

@@ -42,13 +42,14 @@ extern NSFont *AJRFontFromString(NSString *font);
 
 - (void)setColor:(NSColor *)aColor forKey:(NSString *)key;
 - (NSColor *)colorForKey:(NSString *)key;
+- (NSColor *)colorForKey:(NSString *)key defaultValue:(NSColor *)defaultValue;
 
 - (void)setPrintInfo:(NSPrintInfo *)anInfo forKey:(NSString *)aKey;
 - (NSPrintInfo *)printInfoForKey:(NSString *)aKey;
 
 - (void)setFont:(NSFont *)aFont forKey:(NSString *)aKey;
 - (NSFont *)fontForKey:(NSString *)key;
-- (NSFont *)fontForKey:(NSString *)key defaultFont:(NSFont *)defaultFont;
+- (NSFont *)fontForKey:(NSString *)key defaultValue:(NSFont *)defaultFont;
 
 - (NSSize)sizeForKey:(NSString *)key;
 - (NSSize)sizeForKey:(NSString *)key defaultValue:(CGSize)defaultValue;

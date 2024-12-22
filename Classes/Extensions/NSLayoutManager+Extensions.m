@@ -42,4 +42,8 @@ static NSLayoutManager *_shared = nil;
     return [_shared defaultLineHeightForFont:font];
 }
 
+- (void)removeTemporaryAttribute:(NSAttributedStringKey)attrName {
+    [self removeTemporaryAttribute:attrName forCharacterRange:(NSRange){0, [self.textStorage length]}];
+}
+
 @end

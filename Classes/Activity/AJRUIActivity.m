@@ -31,8 +31,9 @@
 
 #import "AJRUIActivity.h"
 
-#import "AJRActivityViewer.h"
 #import "NSBundle+Extensions.h"
+
+#import <AJRInterface/AJRInterface-Swift.h>
 
 @implementation AJRUIActivity
 

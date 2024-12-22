@@ -84,12 +84,11 @@ typedef enum {
     IBOutlet NSView            *pageAccessory;
     NSPopUpButton            *zoomButton;
     
-    BOOL                    showsZoom:1;
-    BOOL                    _hasSetup:1;
-    BOOL                    _pages:1;
-    unsigned                _pagePosition:3;
-    BOOL                    _hasAwakened:1;
-    unsigned                _reserved:25;
+    BOOL                    showsZoom;
+    BOOL                    _hasSetup;
+    BOOL                    _pages;
+    uint8_t                 _pagePosition;
+    BOOL                    _hasAwakened;
 }
 
 - (void)updateRulers:(const NSRect *)rect;

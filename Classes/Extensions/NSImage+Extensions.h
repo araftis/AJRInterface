@@ -81,6 +81,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSImage *)imageForAppearance:(NSAppearance *)appearance;
 
+- (void)lockFocusAndDrawUsing:(void (^)(void))block;
+
 @end
 
 NS_ASSUME_NONNULL_END

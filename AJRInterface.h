@@ -33,11 +33,6 @@
 
 #import <AJRInterfaceFoundation/AJRInterfaceFoundation.h>
 
-#import <AJRInterface/AJRActivityToolbarProgressLayer.h>
-#import <AJRInterface/AJRActivityToolbarView.h>
-#import <AJRInterface/AJRActivityToolbarViewLayer.h>
-#import <AJRInterface/AJRActivityView.h>
-#import <AJRInterface/AJRActivityViewer.h>
 #import <AJRInterface/AJRBMPImageFormat.h>
 #import <AJRInterface/AJRBezelInBorder.h>
 #import <AJRInterface/AJRBezelOutBorder.h>

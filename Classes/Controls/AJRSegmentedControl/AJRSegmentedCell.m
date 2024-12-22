@@ -144,7 +144,7 @@ typedef NSRect (*AJRTitleRectForBoundsIMP)(id, SEL, NSRect);
                     [NSColor.quaternaryLabelColor set];
                 }
                 NSRect backgroundFrame = NSInsetRect(borderFrame, 1.0 + 1.0 / backingScale, 1.0 + 1.0 / backingScale);
-                [[NSBezierPath bezierPathWithRoundedRect:backgroundFrame xRadius:_cornerRadius - 2.0 yRadius:_cornerRadius - 2.0] fill];
+                [[NSBezierPath bezierPathWithRoundedRect:backgroundFrame xRadius:radius - 2.0 yRadius:radius - 2.0] fill];
             }
         }
         

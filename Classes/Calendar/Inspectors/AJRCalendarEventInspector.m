@@ -257,9 +257,7 @@ static const CGFloat AJRValueWidth = 176.0;
             [view addSubview:control];
             y += 16.0;
         }
-#warning Fix me!
-        EKRecurrenceRule *rule = [event hasRecurrenceRules] ? [[event recurrenceRules] firstObject] : nil;
-        if (rule) {
+        for (EKRecurrenceRule *rule in event.recurrenceRules) {
             NSString *string = [rule ajr_frequencyString];
             NSString *substring = [rule ajr_frequencyIntervalString];
             

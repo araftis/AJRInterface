@@ -31,7 +31,7 @@
 
 #import "NSShadow+Extensions.h"
 
-#import <AJRInterfaceFoundation/AJRXMLCoder+Extensions.h>
+#import <AJRInterfaceFoundation/AJRInterfaceFoundation-Swift.h>
 
 @implementation NSShadow (AJRInterfaceExtensions)
 

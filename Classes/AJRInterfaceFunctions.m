@@ -31,8 +31,7 @@
 
 #import <AJRInterface/AJRInterfaceFunctions.h>
 
-NSRect AJRComputeScaledRect(NSRect rect, NSSize naturalSize, NSUInteger mask)
-{
+NSRect AJRComputeScaledRect(NSRect rect, NSSize naturalSize, NSUInteger mask) {
     NSRect work;
     
     if (naturalSize.width == 0 || naturalSize.height == 0) {

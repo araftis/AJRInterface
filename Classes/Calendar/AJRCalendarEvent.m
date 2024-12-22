@@ -247,9 +247,7 @@ static NSDateFormatter *_dateTimeFormatter = nil;
     return [_event location];
 }
 
-- (EKRecurrenceRule *)recurrenceRule
-{
-#warning Fix me!
+- (EKRecurrenceRule *)recurrenceRule {
     return [_event hasRecurrenceRules] ? [[_event recurrenceRules] firstObject] : nil;
 }
 

@@ -64,7 +64,7 @@ extern NSString * const MMWebDocumentKey;
 
 #pragma mark - JavaScript
 
-- (id)evaluateJavaScript:(NSString *)javaScriptString error:(NSError * __nullable * __nullable)error;
+- (nullable id)evaluateJavaScript:(NSString *)javaScriptString error:(NSError * __nullable * __nullable)error;
 
 /*! Returns the contents of the web view as an NSXMLDocument, so that you can traverse the DOM. */
 @property (nonatomic,readonly) NSXMLDocument *document;

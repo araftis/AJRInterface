@@ -134,6 +134,10 @@ NSFont *AJRFontFromString(NSString *value) {
     return AJRColorFromString([self stringForKey:key]);
 }
 
+- (NSColor *)colorForKey:(NSString *)key defaultValue:(NSColor *)defaultValue {
+    return [self colorForKey:key] ?: defaultValue;
+}
+
 - (void)setPrintInfo:(NSPrintInfo *)anInfo forKey:(NSString *)aKey {
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:anInfo requiringSecureCoding:NO error:NULL];
     if (data) {
@@ -164,7 +168,7 @@ NSFont *AJRFontFromString(NSString *value) {
     return AJRFontFromString([self objectForKey:key]);
 }
 
-- (NSFont *)fontForKey:(NSString *)key defaultFont:(NSFont *)defaultFont {
+- (NSFont *)fontForKey:(NSString *)key defaultValue:(NSFont *)defaultFont {
     NSString *value = [self objectForKey:key];
     
     if (value == nil) return defaultFont;

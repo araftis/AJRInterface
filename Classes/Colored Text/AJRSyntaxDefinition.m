@@ -236,7 +236,7 @@ static NSMutableDictionary *_syntaxDefinitions = nil;
 }
 
 - (NSColor *)textBackgroundColor {
-    return [[_componentIndex objectForKey:@"Text"] backgroundColor] ?: [NSColor textBackgroundColor];
+    return (NSColor *)[[_componentIndex objectForKey:@"Text"] backgroundColor] ?: [NSColor textBackgroundColor];
 }
 
 - (void)setTextBackgroundColor:(NSColor *)color {

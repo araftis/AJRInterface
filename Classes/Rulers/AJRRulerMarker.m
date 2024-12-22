@@ -256,7 +256,7 @@
         if ([[rulerView clientView] respondsToSelector:@selector(rulerView:didRemoveMarker:)]) {
             [[rulerView clientView] rulerView:rulerView didRemoveMarker:self];
         }
-        NSShowAnimationEffect(NSAnimationEffectDisappearingItemDefault, [[rulerView window] ajr_convertPointToScreen:[event locationInWindow]], NSZeroSize, nil, NULL, NULL);
+        //NSShowAnimationEffect(NSAnimationEffectDisappearingItemDefault, [[rulerView window] ajr_convertPointToScreen:[event locationInWindow]], NSZeroSize, nil, NULL, NULL);
     } else {
         if (adding) {
             if ([[rulerView clientView] respondsToSelector:@selector(rulerView:didAddMarker:)]) {

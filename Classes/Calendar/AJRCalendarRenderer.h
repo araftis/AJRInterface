@@ -45,7 +45,7 @@
     NSUInteger            _maxDailyEvents;
 }
 
-+ (void)registerCalendarRenderer:(Class)class;
++ (void)registerCalendarRenderer:(Class)aClass;
 + (NSArray *)rendererNames;
 + (Class)rendererForName:(NSString *)name;
 

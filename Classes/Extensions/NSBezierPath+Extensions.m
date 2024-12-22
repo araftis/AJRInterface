@@ -33,7 +33,7 @@
 
 #import <AJRInterfaceFoundation/AJRBezierPathP.h>
 #import <AJRInterfaceFoundation/AJRPathEnumerator.h>
-#import <AJRInterfaceFoundation/AJRXMLCoder+Extensions.h>
+#import <AJRInterfaceFoundation/AJRInterfaceFoundation-Swift.h>
 
 #import <AJRInterface/AJRInterface.h>
 
@@ -181,8 +181,11 @@ static NSTextView *_textView = nil;
             case NSBezierPathElementLineTo:
                 CGContextAddLineToPoint(context, points[0].x, points[0].y);
                 break;
-            case NSBezierPathElementCurveTo:
+            case NSBezierPathElementCubicCurveTo:
                 CGContextAddCurveToPoint(context, points[0].x, points[0].y, points[1].x, points[1].y, points[2].x, points[2].y);
+                break;
+            case NSBezierPathElementQuadraticCurveTo:
+                CGContextAddQuadCurveToPoint(context, points[0].x, points[0].y, points[1].x, points[1].y);
                 break;
             case NSBezierPathElementClosePath:
                 CGContextClosePath(context);
@@ -217,7 +220,7 @@ static NSTextView *_textView = nil;
 - (CGPathRef)CGPath {
     CGMutablePathRef path = CGPathCreateMutable();
     AJRPathEnumerator *enumeator = self.pathEnumerator;
-    AJRBezierPathElementType *type;
+    AJRBezierPathElement *type;
     CGPoint points[5] = {CGPointZero, CGPointZero, CGPointZero, CGPointZero, CGPointZero};
 
     while ((type = [enumeator nextElementWithPoints:points]) != nil) {
@@ -231,8 +234,11 @@ static NSTextView *_textView = nil;
             case AJRBezierPathElementLineTo:
                 CGPathAddLineToPoint(path, NULL, points[0].x, points[0].y);
                 break;
-            case AJRBezierPathElementCurveTo:
+            case AJRBezierPathElementCubicCurveTo:
                 CGPathAddCurveToPoint(path, NULL, points[0].x, points[0].y, points[1].x, points[1].y, points[2].x, points[2].y);
+                break;
+            case AJRBezierPathElementQuadraticCurveTo:
+                CGPathAddQuadCurveToPoint(path, NULL, points[0].x, points[0].y, points[1].x, points[1].y);
                 break;
             case AJRBezierPathElementClose:
                 CGPathCloseSubpath(path);
@@ -241,12 +247,6 @@ static NSTextView *_textView = nil;
     }
 
     return path;
-}
-
-+ (NSBezierPath *)bezierPathWithCGPath:(CGPathRef)path {
-    NSBezierPath *newPath = [NSBezierPath bezierPath];
-    [newPath appendBezierPathWithCGPath:path];
-    return newPath;
 }
 
 - (void)appendBezierPathWithCGPath:(CGPathRef)path {
@@ -327,7 +327,7 @@ static NSTextView *_textView = nil;
                     [coder encodeGroupForKey:@"closePath" usingBlock:^{
                     }];
                     break;
-                case NSBezierPathElementCurveTo: {
+                case NSBezierPathElementCubicCurveTo: {
                     NSPoint point = points[0];
                     NSPoint pointC0 = points[1];
                     NSPoint pointC1 = points[2];
@@ -338,6 +338,17 @@ static NSTextView *_textView = nil;
                         [coder encodeKey:@"c0y" withCStringFormat:"%f", pointC0.y];
                         [coder encodeKey:@"c1x" withCStringFormat:"%f", pointC1.x];
                         [coder encodeKey:@"c1y" withCStringFormat:"%f", pointC1.y];
+                    }];
+                    break;
+                }
+                case NSBezierPathElementQuadraticCurveTo: {
+                    NSPoint point = points[0];
+                    NSPoint controlPoint = points[1];
+                    [coder encodeGroupForKey:@"curveTo" usingBlock:^{
+                        [coder encodeKey:@"x" withCStringFormat:"%f", point.x];
+                        [coder encodeKey:@"y" withCStringFormat:"%f", point.y];
+                        [coder encodeKey:@"cx" withCStringFormat:"%f", controlPoint.x];
+                        [coder encodeKey:@"cy" withCStringFormat:"%f", controlPoint.y];
                     }];
                     break;
                 }
@@ -371,6 +382,7 @@ static NSTextView *_textView = nil;
             [self closePath];
         }];
         __block NSPoint end, c0, c1;
+        __block BOOL isQuadratic = NO;
         [coder decodeGroupForKey:@"curveTo" usingBlock:^{
             [coder decodeFloatForKey:@"x" setter:^(float value) {
                 end.x = value;
@@ -390,8 +402,20 @@ static NSTextView *_textView = nil;
             [coder decodeFloatForKey:@"c1y" setter:^(float value) {
                 c1.y = value;
             }];
+            [coder decodeFloatForKey:@"cx" setter:^(float value) {
+                c0.x = value;
+                isQuadratic = YES;
+            }];
+            [coder decodeFloatForKey:@"cy" setter:^(float value) {
+                c0.y = value;
+                isQuadratic = YES;
+            }];
         } setter:^{
-            [self curveToPoint:end controlPoint1:c0 controlPoint2:c1];
+            if (isQuadratic) {
+                [self curveToPoint:end controlPoint:c0];
+            } else {
+                [self curveToPoint:end controlPoint1:c0 controlPoint2:c1];
+            }
         }];
     } setter:^{
         // Do nothing?

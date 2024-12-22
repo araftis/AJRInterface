@@ -100,7 +100,7 @@
 - (void)setScale:(CGFloat)scale {
     if (_scale != scale) {
         _scale = scale;
-        if (ncvFlags._documentRespondsToViewForPage) {
+        if (_documentRespondsToViewForPage) {
             [self tile];
         } else {
             BOOL        saveFrameChange = [subview postsFrameChangedNotifications];
@@ -214,7 +214,7 @@
     // Make our actual subview "offscreen". This is because we fake it being on screen, and only move it on screen when an action occurs that requires it to be there.
     [subview setPostsFrameChangedNotifications:NO];
     [subview setPostsBoundsChangedNotifications:NO];
-    if (ncvFlags._documentRespondsToViewForPage) {
+    if (_documentRespondsToViewForPage) {
         NSInteger pageNumber;
         NSRect pageRect;
         NSView *page;
@@ -263,7 +263,7 @@
     contentRect.origin.y = rint((newFrame.size.height - contentRect.size.height) / 2.0);
     if (contentRect.origin.y < _gutter) contentRect.origin.y = _gutter;
     
-    if (ncvFlags._documentRespondsToViewForPage) {
+    if (_documentRespondsToViewForPage) {
         [subview setFrameOrigin:contentRect.origin];
     } else {
         [subview setFrame:[self pageRectangleForPage:activePage]];
@@ -288,14 +288,14 @@
 }
 
 - (NSView *)documentView {
-    if (ncvFlags._documentRespondsToViewForPage) {
+    if (_documentRespondsToViewForPage) {
         return [subview viewForPage];
     }
     return subview;
 }
 
 - (NSView *)viewForPage:(NSInteger)pageNumber {
-    if (ncvFlags._documentRespondsToViewForPage) {
+    if (_documentRespondsToViewForPage) {
         return [subview viewForPage:pageNumber];
     }
     return subview;
@@ -396,12 +396,12 @@
     NSRect rect, pageRect;
     NSInteger pageNumber;
     
-    if (ncvFlags._isPrinting) {
+    if (_isPrinting) {
         AJRPrintf(@"How odd\n");
         return;
     }
     
-    if (!ncvFlags._documentRespondsToViewForPage) {
+    if (!_documentRespondsToViewForPage) {
         [subview setPostsFrameChangedNotifications:NO];
         [subview setPostsBoundsChangedNotifications:NO];
     }
@@ -419,7 +419,7 @@
         }
     }
     
-    if (!ncvFlags._documentRespondsToViewForPage) {
+    if (!_documentRespondsToViewForPage) {
         [subview setFrame:[self pageRectangleForPage:activePage]];
         [subview setPostsFrameChangedNotifications:YES];
         [subview setPostsBoundsChangedNotifications:YES];
@@ -439,7 +439,7 @@
     if (subview) {
         [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
         
-        ncvFlags._documentRespondsToViewForPage = [subview respondsToSelector:@selector(viewForPage:)];
+        _documentRespondsToViewForPage = [subview respondsToSelector:@selector(viewForPage:)];
         
         [super addSubview:subview];
         [self tile];
@@ -586,7 +586,7 @@
 }
 
 - (void)printOperationDidRun:(id)context {
-    ncvFlags._isPrinting = NO;
+    _isPrinting = NO;
 }
 
 - (void)print:(id)sender {
@@ -596,7 +596,7 @@
     printInfo = [[NSPrintInfo sharedPrintInfo] copy];
     [printInfo setPaperSize:[[self subview] rectForPage:printingPageNumber].size];
     
-    ncvFlags._isPrinting = YES;
+    _isPrinting = YES;
     [operation runOperationModalForWindow:[self window] delegate:self didRunSelector:@selector(printOperationDidRun:) contextInfo:nil];
 }
 
@@ -636,7 +636,7 @@
 }
 
 - (void)displayRectIgnoringOpacity:(NSRect)rect {
-    if (ncvFlags._isPrinting) {
+    if (_isPrinting) {
         //[self lockFocus];
         [self printRect:rect];
         //[self unlockFocus];

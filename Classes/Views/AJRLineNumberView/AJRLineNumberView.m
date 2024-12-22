@@ -69,13 +69,13 @@
     return [self initWithScrollView:scrollView];
 }
 
-- (instancetype)initWithScrollView:(NSScrollView *)aScrollView {
-    if ((self = [super initWithScrollView:aScrollView orientation:NSVerticalRuler]) != nil) {
+- (instancetype)initWithScrollView:(NSScrollView *)scrollView {
+    if ((self = [super initWithScrollView:scrollView orientation:NSVerticalRuler]) != nil) {
         _linesToMarkers = [[NSMutableDictionary alloc] init];
         _leftMargin = DEFAULT_MARGIN;
         _rightMargin = DEFAULT_MARGIN;
         _showsLineNumbers = YES;
-        [self setClientView:[aScrollView documentView]];
+        [self setClientView:[scrollView documentView]];
         self.font = [NSFont systemFontOfSize:[NSFont systemFontSize]];
         self.textColor = [NSColor blackColor];
         self.alternateTextColor = [NSColor darkGrayColor];
@@ -138,37 +138,28 @@
 }
 
 - (NSUInteger)lineNumberForLocation:(CGFloat)location {
-    NSUInteger line, count, index, rectCount, i;
-    NSRectArray rects;
-    NSRect visibleRect;
-    NSLayoutManager    *layoutManager;
-    NSTextContainer    *container;
-    NSRange nullRange;
-    NSMutableArray *lines;
-    id view;
-        
-    view = [self clientView];
-    visibleRect = [[[self scrollView] contentView] bounds];
-    
-    lines = [self lineIndices];
+    NSTextView *view = AJRObjectIfKindOfClass(self.clientView, NSTextView);
+    NSRect visibleRect = self.scrollView.contentView.bounds;
+    NSMutableArray *lines = [self lineIndices];
 
     location += NSMinY(visibleRect);
     
     if ([view isKindOfClass:[NSTextView class]]) {
-        nullRange = NSMakeRange(NSNotFound, 0);
-        layoutManager = [view layoutManager];
-        container = [view textContainer];
-        count = [lines count];
+        NSRange nullRange = NSMakeRange(NSNotFound, 0);
+        NSLayoutManager *layoutManager = [view layoutManager];
+        NSTextContainer *container = [view textContainer];
+        NSUInteger count = [lines count];
         
-        for (line = 0; line < count; line++) {
-            index = [[lines objectAtIndex:line] unsignedIntValue];
+        for (NSUInteger line = 0; line < count; line++) {
+            NSUInteger rectCount;
+            NSInteger index = [[lines objectAtIndex:line] unsignedIntValue];
             
-            rects = [layoutManager rectArrayForCharacterRange:NSMakeRange(index, 0)
-                                 withinSelectedCharacterRange:nullRange
-                                              inTextContainer:container
-                                                    rectCount:&rectCount];
+            NSRectArray rects = [layoutManager rectArrayForCharacterRange:NSMakeRange(index, 0)
+                                             withinSelectedCharacterRange:nullRange
+                                                          inTextContainer:container
+                                                                rectCount:&rectCount];
             
-            for (i = 0; i < rectCount; i++) {
+            for (NSInteger i = 0; i < rectCount; i++) {
                 if ((location >= NSMinY(rects[i])) && (location < NSMaxY(rects[i]))) {
                     return line + 1;
                 }
@@ -325,7 +316,6 @@
 }
 
 - (void)drawHashMarksAndLabelsInRect:(NSRect)aRect {
-    id view;
     NSRect bounds;
 
     if (aRect.size.height != [self bounds].size.height) {
@@ -342,7 +332,8 @@
         [NSBezierPath strokeLineFromPoint:NSMakePoint(NSMaxX(bounds) - 0/5, NSMinY(bounds)) toPoint:NSMakePoint(NSMaxX(bounds) - 0.5, NSMaxY(bounds))];
     }
     
-    view = [self clientView];
+    NSTextView *view = AJRObjectIfKindOfClass(self.clientView, NSTextView);
+    NSAssert(view != nil, @"We expected our client view to be an NSTextView, but we got a %@ instead", NSStringFromClass(self.clientView.class));
     
     if ([view isKindOfClass:[NSTextView class]]) {
         NSLayoutManager *layoutManager;

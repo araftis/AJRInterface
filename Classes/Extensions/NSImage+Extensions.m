@@ -385,5 +385,10 @@ static char * const DrawNaturalSizeKey = "naturalSize";
     return newImage;
 }
 
+- (void)lockFocusAndDrawUsing:(void (^)(void))block {
+    [self lockFocus];
+    block();
+    [self unlockFocus];
+}
 
 @end

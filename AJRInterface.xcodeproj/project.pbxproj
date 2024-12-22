@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -39,6 +39,7 @@
 		FA07190A22AC960500C2C409 /* NSFont+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = FA07190822AC960500C2C409 /* NSFont+Extensions.h */; };
 		FA07190B22AC960500C2C409 /* NSFont+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA07190922AC960500C2C409 /* NSFont+Extensions.m */; };
 		FA07190E22ACA23C00C2C409 /* AJRSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07190D22ACA23C00C2C409 /* AJRSegmentedControl.swift */; };
+		FA07C69C2B1590CA00C3A6F9 /* AJRActivity.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA07C69A2B1590CA00C3A6F9 /* AJRActivity.xib */; };
 		FA07C856220C26D60077A0B5 /* NSTableView+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = FA07C854220C26D60077A0B5 /* NSTableView+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA07C857220C26D60077A0B5 /* NSTableView+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA07C855220C26D60077A0B5 /* NSTableView+Extensions.m */; };
 		FA07C892220EAD120077A0B5 /* AJRSnapshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07C891220EAD120077A0B5 /* AJRSnapshotView.swift */; };
@@ -46,6 +47,7 @@
 		FA07C8F32212C9370077A0B5 /* AJRSegmentedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA07C8F12212C9370077A0B5 /* AJRSegmentedCell.m */; };
 		FA08611D22C827FC0021CCC5 /* AJRObjectInspectorViewController.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA53D64F2241DAE8003E02B1 /* AJRObjectInspectorViewController.strings */; };
 		FA09819929CE79D30076BAA5 /* AJRPathEnumeratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09819829CE79D30076BAA5 /* AJRPathEnumeratorTests.swift */; };
+		FA098D2629EF714700E06B90 /* NSBezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA098D2529EF714700E06B90 /* NSBezierPath.swift */; };
 		FA09F1CE0FDA37200035F833 /* Collaboration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA09F1CD0FDA37200035F833 /* Collaboration.framework */; };
 		FA09F33C0FDB107F0035F833 /* EKRecurrenceRule+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = FA09F33A0FDB107F0035F833 /* EKRecurrenceRule+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA09F3C50FDB1A2C0035F833 /* EKAlarm+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = FA09F3C30FDB1A2C0035F833 /* EKAlarm+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -285,12 +287,9 @@
 		FA6FFE6421FFD6620083357D /* NSOutlineView+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6FFE6221FFD6620083357D /* NSOutlineView+Extensions.m */; };
 		FA6FFE6721FFDDF30083357D /* NSWorkspace+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = FA6FFE6521FFDDF30083357D /* NSWorkspace+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA6FFE6821FFDDF30083357D /* NSWorkspace+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6FFE6621FFDDF30083357D /* NSWorkspace+Extensions.m */; };
-		FA6FFEA82202E7450083357D /* AJRActivityToolbarViewLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = FA6FFEA22202E7450083357D /* AJRActivityToolbarViewLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FA6FFEA92202E7450083357D /* AJRActivityToolbarProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6FFEA32202E7450083357D /* AJRActivityToolbarProgressLayer.m */; };
-		FA6FFEAA2202E7450083357D /* AJRActivityToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6FFEA42202E7450083357D /* AJRActivityToolbarView.m */; };
-		FA6FFEAB2202E7450083357D /* AJRActivityToolbarViewLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6FFEA52202E7450083357D /* AJRActivityToolbarViewLayer.m */; };
-		FA6FFEAC2202E7450083357D /* AJRActivityToolbarProgressLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = FA6FFEA62202E7450083357D /* AJRActivityToolbarProgressLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FA6FFEAD2202E7450083357D /* AJRActivityToolbarView.h in Headers */ = {isa = PBXBuildFile; fileRef = FA6FFEA72202E7450083357D /* AJRActivityToolbarView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA6FFEA92202E7450083357D /* AJRActivityToolbarProgressLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6FFEA32202E7450083357D /* AJRActivityToolbarProgressLayer.swift */; };
+		FA6FFEAA2202E7450083357D /* AJRActivityToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6FFEA42202E7450083357D /* AJRActivityToolbarView.swift */; };
+		FA6FFEAB2202E7450083357D /* AJRActivityToolbarViewLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6FFEA52202E7450083357D /* AJRActivityToolbarViewLayer.swift */; };
 		FA76AB9D221CC1FE008FA786 /* AJRWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA76AB9B221CC1FE008FA786 /* AJRWebView.m */; };
 		FA76AB9E221CC1FE008FA786 /* AJRWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = FA76AB9C221CC1FE008FA786 /* AJRWebView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA76ABA0221D3CF9008FA786 /* AJRWebFindBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA76AB9F221D3CF9008FA786 /* AJRWebFindBar.xib */; };
@@ -361,6 +360,7 @@
 		FA8B9017290A2E3700650F23 /* AJRVariableType.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA8B9016290A2E3700650F23 /* AJRVariableType.xib */; };
 		FA8B9022290A359900650F23 /* AJRVariableTypeBoolean.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA8B9021290A359900650F23 /* AJRVariableTypeBoolean.xib */; };
 		FA8B9024290A36CA00650F23 /* AJRVariableBooleanCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B9023290A36CA00650F23 /* AJRVariableBooleanCellView.swift */; };
+		FA8C32D129EE0E7B0090E82F /* Character+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8C32D029EE0E7B0090E82F /* Character+Extensions.swift */; };
 		FA8F832C0F45E7F40033815D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8F832B0F45E7F40033815D /* QuartzCore.framework */; };
 		FA938E3429D0DC800076D9CD /* NSGradient+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA938E3329D0DC800076D9CD /* NSGradient+Extensions.swift */; };
 		FA938E3D29D259D40076D9CD /* NSGradientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA938E3C29D259D40076D9CD /* NSGradientTests.swift */; };
@@ -385,6 +385,9 @@
 		FAA37EE30E9D26B1004AEECF /* AJRURLField.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA37ECD0E9D26B1004AEECF /* AJRURLField.m */; };
 		FAA37F710E9D2EC5004AEECF /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA37F700E9D2EC5004AEECF /* WebKit.framework */; };
 		FAA82A47272B8CFB009CAB51 /* NSView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA82A46272B8CFB009CAB51 /* NSView+Extensions.swift */; };
+		FAA884522A329CE80018049B /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = FAA884512A329CE80018049B /* Collections */; };
+		FAA884542A329CE80018049B /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = FAA884532A329CE80018049B /* DequeModule */; };
+		FAA884562A329CE80018049B /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = FAA884552A329CE80018049B /* OrderedCollections */; };
 		FAAAD9522231E1C9002CA09C /* AJRBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAAD9512231E1C9002CA09C /* AJRBookmark.swift */; };
 		FAAAD9552231EBD9002CA09C /* AJRBookmarksBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAAD9532231EBD9002CA09C /* AJRBookmarksBarViewController.swift */; };
 		FAAAD9562231EBD9002CA09C /* AJRBookmarksBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAAAD9542231EBD9002CA09C /* AJRBookmarksBarViewController.xib */; };
@@ -403,6 +406,7 @@
 		FABB66C50F2E907D00FBFEEB /* AJRExceptionPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = FABB66C30F2E907D00FBFEEB /* AJRExceptionPanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FABB66C60F2E907D00FBFEEB /* AJRExceptionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = FABB66C40F2E907D00FBFEEB /* AJRExceptionPanel.m */; };
 		FABB66CA0F2E92B800FBFEEB /* AJRExceptionPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = FABB66C90F2E92B800FBFEEB /* AJRExceptionPanel.xib */; };
+		FABC2E1529F490EA0013ED6A /* NSScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABC2E1429F490EA0013ED6A /* NSScreen+Extensions.swift */; };
 		FABF843113B2D7E40032D0F4 /* AJRPagedScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = FABF842F13B2D7E40032D0F4 /* AJRPagedScrollView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FABF843213B2D7E40032D0F4 /* AJRPagedScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = FABF843013B2D7E40032D0F4 /* AJRPagedScrollView.m */; };
 		FAC20F6D0EC8A57100470124 /* AJRSolidFillInspectorModule.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC20F6B0EC8A57100470124 /* AJRSolidFillInspectorModule.xib */; };
@@ -421,18 +425,11 @@
 		FAC212080EC8FB2C00470124 /* AJRProView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC212060EC8FB2C00470124 /* AJRProView.m */; };
 		FAC4D8B91083D9E800444A2C /* EKEvent+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = FAC4D8B71083D9E800444A2C /* EKEvent+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAC4D8BA1083D9E800444A2C /* EKEvent+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC4D8B81083D9E800444A2C /* EKEvent+Extensions.m */; };
-		FAC4DF330ED49E1200897E9B /* AJRActivity.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC4DF310ED49E1200897E9B /* AJRActivity.xib */; };
-		FAC4DF4D0ED49E4800897E9B /* AJRActivityView.h in Headers */ = {isa = PBXBuildFile; fileRef = FAC4DF370ED49E4800897E9B /* AJRActivityView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FAC4DF4E0ED49E4800897E9B /* AJRActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC4DF380ED49E4800897E9B /* AJRActivityView.m */; };
-		FAC4DF4F0ED49E4800897E9B /* AJRActivityViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = FAC4DF390ED49E4800897E9B /* AJRActivityViewer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FAC4DF500ED49E4800897E9B /* AJRActivityViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC4DF3A0ED49E4800897E9B /* AJRActivityViewer.m */; };
+		FAC4DF4E0ED49E4800897E9B /* AJRActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC4DF380ED49E4800897E9B /* AJRActivityView.swift */; };
+		FAC4DF500ED49E4800897E9B /* AJRActivityViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC4DF3A0ED49E4800897E9B /* AJRActivityViewer.swift */; };
 		FAC4DF510ED49E4800897E9B /* AJRUIActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = FAC4DF3B0ED49E4800897E9B /* AJRUIActivity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAC4DF520ED49E4800897E9B /* AJRUIActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC4DF3C0ED49E4800897E9B /* AJRUIActivity.m */; };
 		FAC4DF560ED49E4800897E9B /* AJRActivityViewer.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC4DF430ED49E4800897E9B /* AJRActivityViewer.xib */; };
-		FAC4DF570ED49E4800897E9B /* Stop.tiff in Resources */ = {isa = PBXBuildFile; fileRef = FAC4DF450ED49E4800897E9B /* Stop.tiff */; };
-		FAC4DF580ED49E4800897E9B /* StopGraphite.tiff in Resources */ = {isa = PBXBuildFile; fileRef = FAC4DF470ED49E4800897E9B /* StopGraphite.tiff */; };
-		FAC4DF590ED49E4800897E9B /* StopSmall.tiff in Resources */ = {isa = PBXBuildFile; fileRef = FAC4DF490ED49E4800897E9B /* StopSmall.tiff */; };
-		FAC4DF5A0ED49E4800897E9B /* StopSmallGraphite.tiff in Resources */ = {isa = PBXBuildFile; fileRef = FAC4DF4B0ED49E4800897E9B /* StopSmallGraphite.tiff */; };
 		FAC4E14E0ED4C82200897E9B /* AJRPreferencesPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC4E14C0ED4C82200897E9B /* AJRPreferencesPanel.xib */; };
 		FAC4EEEB1090B11300444A2C /* AJRLineNumberView.h in Headers */ = {isa = PBXBuildFile; fileRef = FAC4EEE91090B11300444A2C /* AJRLineNumberView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAC4EEEC1090B11300444A2C /* AJRLineNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC4EEEA1090B11300444A2C /* AJRLineNumberView.m */; };
@@ -720,6 +717,7 @@
 		FA07190822AC960500C2C409 /* NSFont+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSFont+Extensions.h"; sourceTree = "<group>"; };
 		FA07190922AC960500C2C409 /* NSFont+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSFont+Extensions.m"; sourceTree = "<group>"; };
 		FA07190D22ACA23C00C2C409 /* AJRSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRSegmentedControl.swift; sourceTree = "<group>"; };
+		FA07C69B2B1590CA00C3A6F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AJRActivity.xib; sourceTree = "<group>"; };
 		FA07C854220C26D60077A0B5 /* NSTableView+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTableView+Extensions.h"; sourceTree = "<group>"; };
 		FA07C855220C26D60077A0B5 /* NSTableView+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTableView+Extensions.m"; sourceTree = "<group>"; };
 		FA07C891220EAD120077A0B5 /* AJRSnapshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRSnapshotView.swift; sourceTree = "<group>"; usesTabs = 0; };
@@ -728,6 +726,7 @@
 		FA092A9B13F6385800689484 /* AJRRibbonViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRRibbonViewItem.h; sourceTree = "<group>"; usesTabs = 1; };
 		FA092A9C13F6385800689484 /* AJRRibbonViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRRibbonViewItem.m; sourceTree = "<group>"; };
 		FA09819829CE79D30076BAA5 /* AJRPathEnumeratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRPathEnumeratorTests.swift; sourceTree = "<group>"; };
+		FA098D2529EF714700E06B90 /* NSBezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSBezierPath.swift; sourceTree = "<group>"; };
 		FA09F1CD0FDA37200035F833 /* Collaboration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collaboration.framework; path = /System/Library/Frameworks/Collaboration.framework; sourceTree = "<absolute>"; };
 		FA09F33A0FDB107F0035F833 /* EKRecurrenceRule+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EKRecurrenceRule+Extensions.h"; sourceTree = "<group>"; };
 		FA09F3C30FDB1A2C0035F833 /* EKAlarm+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EKAlarm+Extensions.h"; sourceTree = "<group>"; };
@@ -970,12 +969,9 @@
 		FA6FFE6221FFD6620083357D /* NSOutlineView+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSOutlineView+Extensions.m"; sourceTree = "<group>"; };
 		FA6FFE6521FFDDF30083357D /* NSWorkspace+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSWorkspace+Extensions.h"; sourceTree = "<group>"; };
 		FA6FFE6621FFDDF30083357D /* NSWorkspace+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSWorkspace+Extensions.m"; sourceTree = "<group>"; };
-		FA6FFEA22202E7450083357D /* AJRActivityToolbarViewLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRActivityToolbarViewLayer.h; sourceTree = "<group>"; };
-		FA6FFEA32202E7450083357D /* AJRActivityToolbarProgressLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRActivityToolbarProgressLayer.m; sourceTree = "<group>"; };
-		FA6FFEA42202E7450083357D /* AJRActivityToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRActivityToolbarView.m; sourceTree = "<group>"; };
-		FA6FFEA52202E7450083357D /* AJRActivityToolbarViewLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRActivityToolbarViewLayer.m; sourceTree = "<group>"; usesTabs = 0; };
-		FA6FFEA62202E7450083357D /* AJRActivityToolbarProgressLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRActivityToolbarProgressLayer.h; sourceTree = "<group>"; };
-		FA6FFEA72202E7450083357D /* AJRActivityToolbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRActivityToolbarView.h; sourceTree = "<group>"; };
+		FA6FFEA32202E7450083357D /* AJRActivityToolbarProgressLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJRActivityToolbarProgressLayer.swift; sourceTree = "<group>"; };
+		FA6FFEA42202E7450083357D /* AJRActivityToolbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJRActivityToolbarView.swift; sourceTree = "<group>"; };
+		FA6FFEA52202E7450083357D /* AJRActivityToolbarViewLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJRActivityToolbarViewLayer.swift; sourceTree = "<group>"; usesTabs = 0; };
 		FA76AB9B221CC1FE008FA786 /* AJRWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRWebView.m; sourceTree = "<group>"; };
 		FA76AB9C221CC1FE008FA786 /* AJRWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRWebView.h; sourceTree = "<group>"; };
 		FA76AB9F221D3CF9008FA786 /* AJRWebFindBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRWebFindBar.xib; sourceTree = "<group>"; };
@@ -1046,6 +1042,7 @@
 		FA8B9016290A2E3700650F23 /* AJRVariableType.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRVariableType.xib; sourceTree = "<group>"; };
 		FA8B9021290A359900650F23 /* AJRVariableTypeBoolean.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRVariableTypeBoolean.xib; sourceTree = "<group>"; };
 		FA8B9023290A36CA00650F23 /* AJRVariableBooleanCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRVariableBooleanCellView.swift; sourceTree = "<group>"; };
+		FA8C32D029EE0E7B0090E82F /* Character+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+Extensions.swift"; sourceTree = "<group>"; };
 		FA8E36C425C0C48400EB554F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FA8F832B0F45E7F40033815D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		FA938E3329D0DC800076D9CD /* NSGradient+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSGradient+Extensions.swift"; sourceTree = "<group>"; };
@@ -1084,7 +1081,6 @@
 		FAAB406C1385BD9E006DFB1F /* AJRPagedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRPagedView.m; sourceTree = "<group>"; usesTabs = 0; };
 		FAAF3B4E0F8AA40C00BA6419 /* NSTextView+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTextView+Extensions.h"; sourceTree = "<group>"; };
 		FAAF3B4F0F8AA40C00BA6419 /* NSTextView+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTextView+Extensions.m"; sourceTree = "<group>"; };
-		FAB0F2EB219649E700BF2804 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/Activity/Base.lproj/AJRActivity.xib; sourceTree = "<group>"; };
 		FAB0F2EC219649E700BF2804 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AJRActivityViewer.xib; sourceTree = "<group>"; };
 		FAB0F2ED219649E700BF2804 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/Fills/Base.lproj/AJRSolidFillInspectorModule.xib; sourceTree = "<group>"; };
 		FAB0F2EE219649E700BF2804 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/Fills/Base.lproj/AJRGradientFillInspectorModule.xib; sourceTree = "<group>"; };
@@ -1111,6 +1107,7 @@
 		FABB66C30F2E907D00FBFEEB /* AJRExceptionPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRExceptionPanel.h; sourceTree = "<group>"; };
 		FABB66C40F2E907D00FBFEEB /* AJRExceptionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRExceptionPanel.m; sourceTree = "<group>"; };
 		FABB66C90F2E92B800FBFEEB /* AJRExceptionPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AJRExceptionPanel.xib; sourceTree = "<group>"; };
+		FABC2E1429F490EA0013ED6A /* NSScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSScreen+Extensions.swift"; sourceTree = "<group>"; };
 		FABF842F13B2D7E40032D0F4 /* AJRPagedScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRPagedScrollView.h; sourceTree = "<group>"; usesTabs = 1; };
 		FABF843013B2D7E40032D0F4 /* AJRPagedScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRPagedScrollView.m; sourceTree = "<group>"; usesTabs = 0; };
 		FABFEF6B145286FE008CE3FE /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -1128,17 +1125,10 @@
 		FAC212060EC8FB2C00470124 /* AJRProView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRProView.m; sourceTree = "<group>"; };
 		FAC4D8B71083D9E800444A2C /* EKEvent+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EKEvent+Extensions.h"; sourceTree = "<group>"; };
 		FAC4D8B81083D9E800444A2C /* EKEvent+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EKEvent+Extensions.m"; sourceTree = "<group>"; };
-		FAC4DF370ED49E4800897E9B /* AJRActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRActivityView.h; sourceTree = "<group>"; };
-		FAC4DF380ED49E4800897E9B /* AJRActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRActivityView.m; sourceTree = "<group>"; };
-		FAC4DF390ED49E4800897E9B /* AJRActivityViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRActivityViewer.h; sourceTree = "<group>"; };
-		FAC4DF3A0ED49E4800897E9B /* AJRActivityViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRActivityViewer.m; sourceTree = "<group>"; };
+		FAC4DF380ED49E4800897E9B /* AJRActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJRActivityView.swift; sourceTree = "<group>"; };
+		FAC4DF3A0ED49E4800897E9B /* AJRActivityViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJRActivityViewer.swift; sourceTree = "<group>"; };
 		FAC4DF3B0ED49E4800897E9B /* AJRUIActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRUIActivity.h; sourceTree = "<group>"; };
 		FAC4DF3C0ED49E4800897E9B /* AJRUIActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRUIActivity.m; sourceTree = "<group>"; };
-		FAC4DF400ED49E4800897E9B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AJRActivity.xib; sourceTree = "<group>"; };
-		FAC4DF460ED49E4800897E9B /* en */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = en; path = en.lproj/Stop.tiff; sourceTree = "<group>"; };
-		FAC4DF480ED49E4800897E9B /* en */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = en; path = en.lproj/StopGraphite.tiff; sourceTree = "<group>"; };
-		FAC4DF4A0ED49E4800897E9B /* en */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = en; path = en.lproj/StopSmall.tiff; sourceTree = "<group>"; };
-		FAC4DF4C0ED49E4800897E9B /* en */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = en; path = en.lproj/StopSmallGraphite.tiff; sourceTree = "<group>"; };
 		FAC4EEE91090B11300444A2C /* AJRLineNumberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRLineNumberView.h; sourceTree = "<group>"; };
 		FAC4EEEA1090B11300444A2C /* AJRLineNumberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRLineNumberView.m; sourceTree = "<group>"; };
 		FAC4EEEF1090B15C00444A2C /* AJRLineNumberMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRLineNumberMarker.h; sourceTree = "<group>"; };
@@ -1347,12 +1337,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAA884562A329CE80018049B /* OrderedCollections in Frameworks */,
 				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
 				FA4F22FE2207B13200AB64C2 /* AJRFoundation.framework in Frameworks */,
 				FA4FE53820AD46D30008257B /* AJRInterfaceFoundation.framework in Frameworks */,
 				FAA37F710E9D2EC5004AEECF /* WebKit.framework in Frameworks */,
 				FA8F832C0F45E7F40033815D /* QuartzCore.framework in Frameworks */,
 				FA6857C90F55A9CD00123839 /* Carbon.framework in Frameworks */,
+				FAA884522A329CE80018049B /* Collections in Frameworks */,
+				FAA884542A329CE80018049B /* DequeModule in Frameworks */,
 				FAFBC87A191ECA5D0095D221 /* EventKit.framework in Frameworks */,
 				FA09F1CE0FDA37200035F833 /* Collaboration.framework in Frameworks */,
 			);
@@ -2030,6 +2023,7 @@
 		FA631A9A0EC89C54002F3DD5 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				FA8C32D029EE0E7B0090E82F /* Character+Extensions.swift */,
 				FA3CF88E0EFBF26F000F4669 /* DOMNode+Extensions.h */,
 				FA3CF88F0EFBF26F000F4669 /* DOMNode+Extensions.m */,
 				FAFE4A400EC4FE3A00AE17D0 /* NSAffineTransform+Extensions.h */,
@@ -2046,6 +2040,7 @@
 				FA61ADEC0FD84A78003B09B8 /* NSAttributedString+Extensions.m */,
 				FAFE4B070EC5026B00AE17D0 /* NSBezierPath+Extensions.h */,
 				FAFE4B080EC5026B00AE17D0 /* NSBezierPath+Extensions.m */,
+				FA098D2529EF714700E06B90 /* NSBezierPath.swift */,
 				FA3CFBBA0EFC1920000F4669 /* NSBitmapImageRep+Extensions.h */,
 				FA3CFBBB0EFC1920000F4669 /* NSBitmapImageRep+Extensions.m */,
 				FA6B25B4191DC3CD00CEAE72 /* NSBundle+Extensions.h */,
@@ -2087,6 +2082,7 @@
 				FAD38A2F25B133D600383EA3 /* NSPrinter+Extensions.m */,
 				FA460B4D1383284C0051A3B1 /* NSPrintInfo+Extensions.h */,
 				FA460B4E1383284C0051A3B1 /* NSPrintInfo+Extensions.m */,
+				FABC2E1429F490EA0013ED6A /* NSScreen+Extensions.swift */,
 				FA89259C21FAAA8800246D46 /* NSSegmentedControl+Extensions.h */,
 				FA89259D21FAAA8900246D46 /* NSSegmentedControl+Extensions.m */,
 				FA1D8F2219395BB6008690DD /* NSShadow+Extensions.h */,
@@ -2506,35 +2502,17 @@
 		FAC4DF360ED49E4800897E9B /* Activity */ = {
 			isa = PBXGroup;
 			children = (
-				FA6FFEA22202E7450083357D /* AJRActivityToolbarViewLayer.h */,
-				FA6FFEA52202E7450083357D /* AJRActivityToolbarViewLayer.m */,
-				FA6FFEA62202E7450083357D /* AJRActivityToolbarProgressLayer.h */,
-				FA6FFEA32202E7450083357D /* AJRActivityToolbarProgressLayer.m */,
-				FA6FFEA72202E7450083357D /* AJRActivityToolbarView.h */,
-				FA6FFEA42202E7450083357D /* AJRActivityToolbarView.m */,
-				FAC4DF3F0ED49E4800897E9B /* AJRActivity.xib */,
-				FAC4DF370ED49E4800897E9B /* AJRActivityView.h */,
-				FAC4DF380ED49E4800897E9B /* AJRActivityView.m */,
-				FAC4DF390ED49E4800897E9B /* AJRActivityViewer.h */,
-				FAC4DF3A0ED49E4800897E9B /* AJRActivityViewer.m */,
+				FA6FFEA52202E7450083357D /* AJRActivityToolbarViewLayer.swift */,
+				FA6FFEA32202E7450083357D /* AJRActivityToolbarProgressLayer.swift */,
+				FA6FFEA42202E7450083357D /* AJRActivityToolbarView.swift */,
+				FA07C69A2B1590CA00C3A6F9 /* AJRActivity.xib */,
+				FAC4DF380ED49E4800897E9B /* AJRActivityView.swift */,
+				FAC4DF3A0ED49E4800897E9B /* AJRActivityViewer.swift */,
 				FAC4DF430ED49E4800897E9B /* AJRActivityViewer.xib */,
 				FAC4DF3B0ED49E4800897E9B /* AJRUIActivity.h */,
 				FAC4DF3C0ED49E4800897E9B /* AJRUIActivity.m */,
-				FAC4DF310ED49E1200897E9B /* AJRActivity.xib */,
-				FAC4DF5B0ED49E6700897E9B /* Images */,
 			);
 			path = Activity;
-			sourceTree = "<group>";
-		};
-		FAC4DF5B0ED49E6700897E9B /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				FAC4DF450ED49E4800897E9B /* Stop.tiff */,
-				FAC4DF470ED49E4800897E9B /* StopGraphite.tiff */,
-				FAC4DF490ED49E4800897E9B /* StopSmall.tiff */,
-				FAC4DF4B0ED49E4800897E9B /* StopSmallGraphite.tiff */,
-			);
-			name = Images;
 			sourceTree = "<group>";
 		};
 		FAC4E1D00ED4D0D300897E9B /* Panels */ = {
@@ -2905,8 +2883,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA0EEC5D152634EB00A7BF86 /* AJRWindow.h in Headers */,
-				FAC4DF4D0ED49E4800897E9B /* AJRActivityView.h in Headers */,
-				FAC4DF4F0ED49E4800897E9B /* AJRActivityViewer.h in Headers */,
 				FAFE49690EC4F24000AE17D0 /* AJRBezelInBorder.h in Headers */,
 				FAFE496B0EC4F24000AE17D0 /* AJRBezelOutBorder.h in Headers */,
 				FACEF6400F38D59A00401F2D /* AJRBMPImageFormat.h in Headers */,
@@ -2976,7 +2952,6 @@
 				FAFE4A1D0EC4FC4300AE17D0 /* AJRInterfaceFunctions.h in Headers */,
 				FACEF6480F38D59A00401F2D /* AJRJPEGImageFormat.h in Headers */,
 				FAFE49D70EC4FB0F00AE17D0 /* AJRLabel.h in Headers */,
-				FA6FFEA82202E7450083357D /* AJRActivityToolbarViewLayer.h in Headers */,
 				FA5909AC218277450007D278 /* NSGraphicsContext+Extensions.h in Headers */,
 				FAFE49D90EC4FB0F00AE17D0 /* AJRLabelCell.h in Headers */,
 				FAFE497A0EC4F24000AE17D0 /* AJRLineBorder.h in Headers */,
@@ -2988,7 +2963,6 @@
 				FAFE4BB70EC50B2C00AE17D0 /* AJROptionalAlertPanel.h in Headers */,
 				FAFE4AE30EC5012F00AE17D0 /* AJRPathRenderer.h in Headers */,
 				FAFE4AE50EC5012F00AE17D0 /* AJRPathRendererInspector.h in Headers */,
-				FA6FFEAD2202E7450083357D /* AJRActivityToolbarView.h in Headers */,
 				FAFE4AE70EC5012F00AE17D0 /* AJRPathRendererInspectorModule.h in Headers */,
 				FA1580DA0EB620080094664B /* AJRPieChart.h in Headers */,
 				FAFE497F0EC4F24000AE17D0 /* AJRPipeBorder.h in Headers */,
@@ -2998,7 +2972,6 @@
 				FACEF64A0F38D59A00401F2D /* AJRPNGImageFormat.h in Headers */,
 				FA67B0DA0EBA256800D87B76 /* AJRPreferences.h in Headers */,
 				FA67B0DC0EBA256800D87B76 /* AJRPreferencesModule.h in Headers */,
-				FA6FFEAC2202E7450083357D /* AJRActivityToolbarProgressLayer.h in Headers */,
 				FA8925B621FAB98400246D46 /* AJRPopUpTextFieldCell.h in Headers */,
 				FAD78184104D8E340040EAD5 /* AJRProgressView.h in Headers */,
 				FAC212070EC8FB2C00470124 /* AJRProView.h in Headers */,
@@ -3127,6 +3100,11 @@
 			dependencies = (
 			);
 			name = AJRInterface;
+			packageProductDependencies = (
+				FAA884512A329CE80018049B /* Collections */,
+				FAA884532A329CE80018049B /* DequeModule */,
+				FAA884552A329CE80018049B /* OrderedCollections */,
+			);
 			productInstallPath = "$(HOME)/Library/Frameworks";
 			productName = AJRInterface;
 			productReference = 8DC2EF5B0486A6940098B216 /* AJRInterface.framework */;
@@ -3177,9 +3155,10 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1010;
 				LastTestingUpgradeCheck = 0600;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					FA0587BC192FE152002913B6 = {
 						CreatedOnToolsVersion = 6.0;
@@ -3210,6 +3189,9 @@
 				ja,
 			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* AJRInterface */;
+			packageReferences = (
+				FAA884502A329CE80018049B /* XCRemoteSwiftPackageReference "swift-collections" */,
+			);
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -3271,16 +3253,11 @@
 				FA95DE5922B5CF65005EC953 /* AJRInspectorSliceChoiceSegments.xib in Resources */,
 				FA95DE7222B74D75005EC953 /* AJRInspectorSliceSize.strings in Resources */,
 				FAE8AD830EC926420016505C /* RingTop.tiff in Resources */,
-				FAC4DF330ED49E1200897E9B /* AJRActivity.xib in Resources */,
 				FA8B9022290A359900650F23 /* AJRVariableTypeBoolean.xib in Resources */,
 				FAC4DF560ED49E4800897E9B /* AJRActivityViewer.xib in Resources */,
 				217160D92908C1F2001F2D4C /* AJRVariableTypePoint.strings in Resources */,
 				FA08611D22C827FC0021CCC5 /* AJRObjectInspectorViewController.strings in Resources */,
-				FAC4DF570ED49E4800897E9B /* Stop.tiff in Resources */,
-				FAC4DF580ED49E4800897E9B /* StopGraphite.tiff in Resources */,
-				FAC4DF590ED49E4800897E9B /* StopSmall.tiff in Resources */,
 				FAAAD9562231EBD9002CA09C /* AJRBookmarksBarViewController.xib in Resources */,
-				FAC4DF5A0ED49E4800897E9B /* StopSmallGraphite.tiff in Resources */,
 				FAD61D2B225D3B66004CDD37 /* AJRInspectorSliceTable.xib in Resources */,
 				FA95DE6922B74D5D005EC953 /* AJRInspectorSliceInsets.strings in Resources */,
 				FA54F220290C89FF003DAEEF /* AJRVariableTypeString.xib in Resources */,
@@ -3309,6 +3286,7 @@
 				FA16036810C498F100A1E97D /* AJRScrollViewPageAccessory.nib in Resources */,
 				FA16036910C498F100A1E97D /* AJRPagesHorizontal.tiff in Resources */,
 				FA95DE5722B47FC8005EC953 /* AJRInspectorSliceGeometryFourFields.xib in Resources */,
+				FA07C69C2B1590CA00C3A6F9 /* AJRActivity.xib in Resources */,
 				FA16036A10C498F100A1E97D /* AJRPagesSingle.tiff in Resources */,
 				21FCD9DB27162C330049E558 /* AJRInspectorSliceFile.strings in Resources */,
 				217160E52908C262001F2D4C /* AJRVariableTypeSize.strings in Resources */,
@@ -3379,7 +3357,7 @@
 				FAD61D162256AD7B004CDD37 /* AJRInspectable.m in Sources */,
 				FA2F99770E93EF5D004F1A14 /* AJRSourceSplitView.m in Sources */,
 				217160712900C6AD001F2D4C /* AJRInspectorSliceStore.swift in Sources */,
-				FA6FFEA92202E7450083357D /* AJRActivityToolbarProgressLayer.m in Sources */,
+				FA6FFEA92202E7450083357D /* AJRActivityToolbarProgressLayer.swift in Sources */,
 				FA8B9013290A2BA300650F23 /* AJRVariableType+Extensions.swift in Sources */,
 				FAC861D724BD20F7001C3850 /* NSImage+Extensions.swift in Sources */,
 				FA2F9DC40E953D35004F1A14 /* AJRImages.m in Sources */,
@@ -3431,7 +3409,7 @@
 				FAFE497D0EC4F24000AE17D0 /* AJRLineBorderInspectorModule.m in Sources */,
 				FAFE49800EC4F24000AE17D0 /* AJRPipeBorder.m in Sources */,
 				FAFE49820EC4F24000AE17D0 /* AJRPipeBorderInspectorModule.m in Sources */,
-				FA6FFEAA2202E7450083357D /* AJRActivityToolbarView.m in Sources */,
+				FA6FFEAA2202E7450083357D /* AJRActivityToolbarView.swift in Sources */,
 				FAFE49850EC4F24000AE17D0 /* AJRRolodexBorder.m in Sources */,
 				FAFE49870EC4F24000AE17D0 /* AJRSpiralBoundBorder.m in Sources */,
 				FAFE49890EC4F24000AE17D0 /* AJRSpiralBoundBorderInspectorModule.m in Sources */,
@@ -3484,8 +3462,8 @@
 				FA938E3429D0DC800076D9CD /* NSGradient+Extensions.swift in Sources */,
 				FA81BB8F0ECCAB80005A2DBC /* AJRURLFieldCell.m in Sources */,
 				FA3ECCAF0ECD4C8B00866EBE /* NSTableView+Dragging.m in Sources */,
-				FAC4DF4E0ED49E4800897E9B /* AJRActivityView.m in Sources */,
-				FAC4DF500ED49E4800897E9B /* AJRActivityViewer.m in Sources */,
+				FAC4DF4E0ED49E4800897E9B /* AJRActivityView.swift in Sources */,
+				FAC4DF500ED49E4800897E9B /* AJRActivityViewer.swift in Sources */,
 				FAC4DF520ED49E4800897E9B /* AJRUIActivity.m in Sources */,
 				FA0D229A227FB90E001169F5 /* NSButton+Extensions.swift in Sources */,
 				FA6FFE6821FFDDF30083357D /* NSWorkspace+Extensions.m in Sources */,
@@ -3592,7 +3570,7 @@
 				FA61C09E0FEAEE96003B09B8 /* NSTextFieldCell+Extensions.m in Sources */,
 				FA2F06570FFA800D001197AD /* _AJRCalendarPrintView.m in Sources */,
 				FA103990225DA3E4005B0D3B /* AJRInspectorKeyPath.swift in Sources */,
-				FA6FFEAB2202E7450083357D /* AJRActivityToolbarViewLayer.m in Sources */,
+				FA6FFEAB2202E7450083357D /* AJRActivityToolbarViewLayer.swift in Sources */,
 				C34C0BA710112E80004D2653 /* AJRSpeechBorder.m in Sources */,
 				FAD38A3125B133D600383EA3 /* NSPrinter+Extensions.m in Sources */,
 				C9DB3531103394A90039E752 /* AJRFadingWindowController.m in Sources */,
@@ -3612,6 +3590,7 @@
 				FA53D5F8223F084A003E02B1 /* AJRInspectorGroup.swift in Sources */,
 				FAC4EEF21090B15C00444A2C /* AJRLineNumberMarker.m in Sources */,
 				FA16035E10C498F100A1E97D /* AJRCenteringView.m in Sources */,
+				FA8C32D129EE0E7B0090E82F /* Character+Extensions.swift in Sources */,
 				FA8B8FFB290101B100650F23 /* AJRVariableTypeColor.swift in Sources */,
 				FA16036010C498F100A1E97D /* AJRFlippedCenteringView.m in Sources */,
 				FA53D63A224191FD003E02B1 /* AJRInspectorSliceBoolean.swift in Sources */,
@@ -3640,11 +3619,13 @@
 				FAC7CFF413AAA57C0047C0C6 /* AJRFacingPageLayout.m in Sources */,
 				FABF843213B2D7E40032D0F4 /* AJRPagedScrollView.m in Sources */,
 				FAF6323A13EE377E00EAE4E5 /* AJRSeparatorBorder.m in Sources */,
+				FABC2E1529F490EA0013ED6A /* NSScreen+Extensions.swift in Sources */,
 				FAF6323F13EE38FC00EAE4E5 /* AJRGradientColor.m in Sources */,
 				FA8925A921FAB14600246D46 /* AJRColorTransformer.m in Sources */,
 				FAD0C74C1433BF4B0027168E /* AJRSplitView.m in Sources */,
 				FAD0C7501433DFC80027168E /* AJRSplitViewBehavior.m in Sources */,
 				FA9A474B1520E23500D53751 /* AJRCIEColor.m in Sources */,
+				FA098D2629EF714700E06B90 /* NSBezierPath.swift in Sources */,
 				FA0EEC5E152634EB00A7BF86 /* AJRWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3775,6 +3756,14 @@
 				21FCD9DE27162C370049E558 /* es */,
 			);
 			name = AJRInspectorSliceFile.strings;
+			sourceTree = "<group>";
+		};
+		FA07C69A2B1590CA00C3A6F9 /* AJRActivity.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA07C69B2B1590CA00C3A6F9 /* Base */,
+			);
+			name = AJRActivity.xib;
 			sourceTree = "<group>";
 		};
 		FA16034810C498F000A1E97D /* AJRScrollViewAccessories.nib */ = {
@@ -3926,60 +3915,12 @@
 			path = ../..;
 			sourceTree = "<group>";
 		};
-		FAC4DF310ED49E1200897E9B /* AJRActivity.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FAB0F2EB219649E700BF2804 /* Base */,
-			);
-			name = AJRActivity.xib;
-			sourceTree = "<group>";
-		};
-		FAC4DF3F0ED49E4800897E9B /* AJRActivity.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FAC4DF400ED49E4800897E9B /* en */,
-			);
-			name = AJRActivity.xib;
-			sourceTree = "<group>";
-		};
 		FAC4DF430ED49E4800897E9B /* AJRActivityViewer.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				FAB0F2EC219649E700BF2804 /* Base */,
 			);
 			name = AJRActivityViewer.xib;
-			sourceTree = "<group>";
-		};
-		FAC4DF450ED49E4800897E9B /* Stop.tiff */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FAC4DF460ED49E4800897E9B /* en */,
-			);
-			name = Stop.tiff;
-			sourceTree = "<group>";
-		};
-		FAC4DF470ED49E4800897E9B /* StopGraphite.tiff */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FAC4DF480ED49E4800897E9B /* en */,
-			);
-			name = StopGraphite.tiff;
-			sourceTree = "<group>";
-		};
-		FAC4DF490ED49E4800897E9B /* StopSmall.tiff */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FAC4DF4A0ED49E4800897E9B /* en */,
-			);
-			name = StopSmall.tiff;
-			sourceTree = "<group>";
-		};
-		FAC4DF4B0ED49E4800897E9B /* StopSmallGraphite.tiff */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FAC4DF4C0ED49E4800897E9B /* en */,
-			);
-			name = StopSmallGraphite.tiff;
 			sourceTree = "<group>";
 		};
 		FAC4E14C0ED4C82200897E9B /* AJRPreferencesPanel.xib */ = {
@@ -4084,6 +4025,7 @@
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_MODULE_VERIFIER = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -4097,6 +4039,8 @@
 				IBC_PLUGIN_SEARCH_PATHS = "";
 				IBC_STRIP_NIBS = NO;
 				INFOPLIST_FILE = Info.plist;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "c99 gnu++14";
 				OTHER_CFLAGS = "-DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ajr.framework.AJRInterface;
 				PRODUCT_NAME = AJRInterface;
@@ -4116,6 +4060,7 @@
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_MODULE_VERIFIER = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
@@ -4127,6 +4072,8 @@
 				IBC_PLUGIN_SEARCH_PATHS = "";
 				IBC_STRIP_NIBS = NO;
 				INFOPLIST_FILE = Info.plist;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "c99 gnu++14";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ajr.framework.AJRInterface;
 				PRODUCT_NAME = AJRInterface;
 				WARNING_CFLAGS = "-Wno-objc-missing-super-calls";
@@ -4162,6 +4109,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -4173,7 +4121,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "@rpath";
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -4207,6 +4155,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -4217,7 +4166,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "@rpath";
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;
@@ -4262,7 +4211,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = AJRInterfaceTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				METAL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apple.dt.test.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4306,7 +4259,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = AJRInterfaceTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				METAL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apple.dt.test.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4346,7 +4303,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = AJRMiniBrowser/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ajr.application.AJRMiniBrowser;
@@ -4383,12 +4343,16 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = AJRMiniBrowser/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ajr.application.AJRMiniBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -4432,6 +4396,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FAA884502A329CE80018049B /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FAA884512A329CE80018049B /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FAA884502A329CE80018049B /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+		FAA884532A329CE80018049B /* DequeModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FAA884502A329CE80018049B /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = DequeModule;
+		};
+		FAA884552A329CE80018049B /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FAA884502A329CE80018049B /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
 }

@@ -51,17 +51,17 @@ typedef NS_ENUM(NSInteger, AJRDotColor) {
 
 + (nullable NSImage *)imageNamed:(NSString *)name;
 + (nullable NSImage *)imageNamed:(NSString *)name forObject:(id)object;
-+ (nullable NSImage *)imageNamed:(NSString *)name forClass:(id)class;
++ (nullable NSImage *)imageNamed:(NSString *)name forClass:(id)aClass;
 + (nullable NSImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle NS_SWIFT_NAME(image(named:in:));
 + (nullable NSImage *)imageNamed:(NSString *)name inBundles:(NSArray<NSBundle *> *)bundles NS_SWIFT_NAME(image(named:in:));
 + (nullable NSImage *)imageForObject:(id)object;
-+ (nullable NSImage *)imageForClass:(id)class;
++ (nullable NSImage *)imageForClass:(id)aClass;
 
 + (nullable NSImage *)compositeCheckbox:(NSArray *)pieces;
 + (nullable NSArray<NSImage *> *)checkBoxImagesForColor:(NSColor *)color;
 
-+ (NSImage *)viewBorderImageFocused;
-+ (NSImage *)viewBorderImageUnfocused;
+@property (nonatomic,class,readonly) NSImage *viewBorderImageFocused;
+@property (nonatomic,class,readonly) NSImage *viewBorderImageUnfocused;
 
 + (NSImage *)dotWithColor:(AJRDotColor)color controlSize:(NSControlSize)controlSize;
 

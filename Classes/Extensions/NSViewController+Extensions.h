@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSViewController (Extensions)
 
 - (nullable NSViewController *)ajr_descendantViewControllerOfClass:(Class)viewControllerClass;
-@property (nonatomic,nullable,readonly) NSViewController *rootViewController;
+@property (nonatomic,nullable,readonly) NSViewController *rootViewController NS_SWIFT_NAME(rootViewController);
 
 @end
 

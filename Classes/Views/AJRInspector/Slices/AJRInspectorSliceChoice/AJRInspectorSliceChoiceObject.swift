@@ -30,6 +30,7 @@
  */
 
 import Cocoa
+import AJRFoundation
 
 public enum AJRInspectorChoiceObjectType {
     case noSelectionPlaceholder

@@ -33,7 +33,7 @@
 
 @interface AJRPreferences : NSObject <NSToolbarDelegate, NSWindowDelegate>
 
-+ (id)sharedInstance;
+@property (nonatomic,class,readonly) AJRPreferences *sharedInstance NS_SWIFT_NAME(shared);
 
 @property (nonatomic,strong) IBOutlet NSPanel *panel;
 @property (nonatomic,strong) IBOutlet NSView *allView;

@@ -789,7 +789,7 @@ static NSCache *_favoriteIconCache;
 - (WKNavigation *)restoreFromStateData:(NSData *)data andNavigate:(BOOL)flag {
     WKNavigation *navigation = nil;
     NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:NULL];
-    
+    [unarchiver setRequiresSecureCoding:NO];
     if (unarchiver) {
         navigation = [self restoreStateWithCoder:unarchiver andNavigate:flag];
         [unarchiver finishDecoding];

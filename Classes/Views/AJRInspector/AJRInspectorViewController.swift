@@ -30,6 +30,8 @@
  */
 
 import Cocoa
+import AJRFoundation
+import OrderedCollections
 
 internal class _AJRFlippedStackView : NSStackView {
 

@@ -35,7 +35,7 @@
 
 #pragma mark - Factory
 
-+ (void)registerPageLayout:(Class)class;
++ (void)registerPageLayout:(Class)aClass;
 + (NSArray *)pageLayoutIdentifiers;
 + (NSArray *)pageLayouts;
 + (Class)pageLayoutForIdentifier:(NSString *)identifier;

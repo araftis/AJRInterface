@@ -203,7 +203,7 @@ NSString *AJRCalendarViewEventsKey = @"events";
         _firstMinuteOfWorkHours = [defaults integerForKey:@"first minute of work hours" defaultValue:0];
         _lastMinuteOfWorkHours = [defaults integerForKey:@"last minute of work hours" defaultValue:0];
         
-        [_eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+        [_eventStore requestFullAccessToEventsWithCompletion:^(BOOL granted, NSError *error) {
             if (granted) {
                 NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
                 // Register for various notifications to which we wish to observe
