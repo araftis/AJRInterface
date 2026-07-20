@@ -201,7 +201,9 @@ static const NSInteger AJRStatusChangeKey = 0;
     NSSize minSize = [window minSize];
     BOOL cx, cy;
 
-    [window makeKeyWindow];
+    if ([window canBecomeKeyWindow]) {
+        [window makeKeyWindow];
+    }
     [window orderFront:self];
     start = [event locationInWindow];
     frame = startFrame;

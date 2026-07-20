@@ -31,7 +31,9 @@
 
 import Cocoa
 
-extension NSPrintInfo.PaperOrientation : AJRInspectorValue, AJRXMLEncodableEnum, AJRInspectorValueAsValue {
+extension NSPrintInfo.PaperOrientation: @retroactive CustomStringConvertible {}
+extension NSPrintInfo.PaperOrientation: @retroactive CaseIterable {}
+extension NSPrintInfo.PaperOrientation : AJRInspectorValue, @retroactive AJRXMLEncodableEnum, AJRInspectorValueAsValue {
 
     public static var allCases: [NSPrintInfo.PaperOrientation] = [.portrait, .landscape]
 
@@ -122,7 +124,7 @@ open class AJRInspectorSlicePaperOrientation: AJRInspectorSlice {
 
         try super.buildView(from: element)
 
-        weak var weakSelf = self
+        weak let weakSelf = self
         valueKey?.addObserver {
             if let strongSelf = weakSelf {
                 switch strongSelf.valueKey?.selectionType ?? .none {

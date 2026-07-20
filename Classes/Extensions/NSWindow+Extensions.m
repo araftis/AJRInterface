@@ -99,17 +99,18 @@ CGRect AJRCocoaWindowFrameToCarbon(NSRect frame, NSScreen *screen) {
 - (void)orderOutWithTransition:(AJRWindowTransitionEffect)effect
                         toRect:(NSRect)destinationRect
                       duration:(NSTimeInterval)duration {
-    HIRect start;
-    TransitionWindowOptions options;
-    
-    duration *= (self.currentEvent.modifierFlags & NSEventModifierFlagShift ? 10.0 : 1.0);
-    
-    start = AJRCocoaWindowFrameToCarbon(destinationRect, [self screen]);
-    options.version = 0;
-    options.duration = duration;
-    options.window = [self windowRef];
-    options.userData = NULL;
-
+// Fancy window transitions have mostly been axed, so we just do a normal orderOut: now.
+//    HIRect start;
+//    TransitionWindowOptions options;
+//    
+//    duration *= (self.currentEvent.modifierFlags & NSEventModifierFlagShift ? 10.0 : 1.0);
+//    
+//    start = AJRCocoaWindowFrameToCarbon(destinationRect, [self screen]);
+//    options.version = 0;
+//    options.duration = duration;
+//    options.window = [self windowRef];
+//    options.userData = NULL;
+//
     [self orderOut:self];
 }
 
@@ -117,17 +118,17 @@ CGRect AJRCocoaWindowFrameToCarbon(NSRect frame, NSScreen *screen) {
                          fromRect:(NSRect)originRect
                          duration:(NSTimeInterval)duration
                          onScreen:(NSScreen *)screen {
-    HIRect start;
-    TransitionWindowOptions options;
-    
-    duration *= (self.currentEvent.modifierFlags & NSEventModifierFlagShift ? 10.0 : 1.0);
-    
-    start = AJRCocoaWindowFrameToCarbon(originRect, screen);
-    options.version = 0;
-    options.duration = duration;
-    options.window = [self windowRef];
-    options.userData = NULL;
-    
+// Fancy window transitions have mostly been axed, so we just do a normal orderOut: now.
+//    HIRect start;
+//    TransitionWindowOptions options;
+//    
+//    duration *= (self.currentEvent.modifierFlags & NSEventModifierFlagShift ? 10.0 : 1.0);
+//    
+//    start = AJRCocoaWindowFrameToCarbon(originRect, screen);
+//    options.version = 0;
+//    options.duration = duration;
+//    options.window = [self windowRef];
+//    options.userData = NULL;
     [self orderFront:self];
 }
 

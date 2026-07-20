@@ -43,6 +43,10 @@ open class AJRActivityToolbarProgressLayer : CALayer {
         print("init")
     }
 
+    public override init(layer: Any) {
+        super.init(layer: layer)
+    }
+
     deinit {
         if let animationTimer {
             animationTimer.invalidate()
@@ -111,7 +115,7 @@ open class AJRActivityToolbarProgressLayer : CALayer {
         didSet {
             if isIndeterminate {
                 animationOffset = 0.0
-                weak var weakSelf = self
+                weak let weakSelf = self
                 animationTimer = Timer(timeInterval: 0.1, repeats: true) { timer in
                     if let strongSelf = weakSelf {
                         strongSelf.animationOffset += 2.0

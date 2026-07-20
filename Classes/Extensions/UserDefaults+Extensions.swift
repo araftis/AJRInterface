@@ -32,7 +32,7 @@
 import AJRFoundation
 import AppKit
 
-extension NSFont : AJRUserDefaultProvider {
+extension NSFont : @retroactive AJRUserDefaultProvider {
     
     public static func userDefault(forKey key: String, from userDefaults: UserDefaults) -> NSFont? {
         let string = userDefaults.string(forKey:key)
@@ -45,7 +45,7 @@ extension NSFont : AJRUserDefaultProvider {
     
 }
 
-extension NSUserInterfaceItemIdentifier : AJRUserDefaultProvider {
+extension NSUserInterfaceItemIdentifier : @retroactive AJRUserDefaultProvider {
     
     public static func userDefault(forKey key: String, from userDefaults: UserDefaults) -> NSUserInterfaceItemIdentifier? {
         let string = userDefaults.string(forKey:key)

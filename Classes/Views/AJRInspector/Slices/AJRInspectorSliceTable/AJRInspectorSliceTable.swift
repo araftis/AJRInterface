@@ -222,7 +222,7 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
         
         self.resizeColumnsToFit()
         
-        weak var weakSelf = self
+        weak let weakSelf = self
         dataSourceKeyPath?.addObserver {
             if let strongSelf = weakSelf {
                 if let dataSource = strongSelf.dataSourceKeyPath?.value {
@@ -493,7 +493,7 @@ open class AJRInspectorSliceTable: AJRInspectorSlice, NSTableViewDataSource, NST
         
         if let scrollView = tableView.enclosingScrollView {
             scrollView.postsFrameChangedNotifications = true
-            weak var weakSelf = self
+            weak let weakSelf = self
             NotificationCenter.default.addObserver(forName: NSView.frameDidChangeNotification, object: scrollView, queue: nil) { (notification) in
                 weakSelf?.resizeColumnsToFit()
             }

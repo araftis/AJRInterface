@@ -98,7 +98,7 @@ open class AJRInspectorSliceField: AJRInspectorSlice, NSTextFieldDelegate {
 
         try super.buildView(from: element)
         
-        weak var weakSelf = self
+        weak let weakSelf = self
         editableKey?.addObserver {
             if let strongSelf = weakSelf {
                 if strongSelf.editableKey?.value ?? true {

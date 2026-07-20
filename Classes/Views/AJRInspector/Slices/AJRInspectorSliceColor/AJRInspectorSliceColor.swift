@@ -75,7 +75,7 @@ class AJRInspectorSliceColor: AJRInspectorSlice {
         
         try super.buildView(from: element)
         
-        weak var weakSelf = self
+        weak let weakSelf = self
         valueKey?.addObserver {
             if let strongSelf = weakSelf {
                 switch strongSelf.valueKey?.selectionType ?? .none {

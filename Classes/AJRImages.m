@@ -201,10 +201,11 @@ static NSMutableDictionary *checkboxImagesCache = nil;
     
     NSString *sizeString = @"";
     switch (controlSize) {
-        case NSControlSizeRegular: sizeString = @"";      break;
-        case NSControlSizeSmall:   sizeString = @"Small"; break;
-        case NSControlSizeMini:    sizeString = @"Mini";  break;
-        case NSControlSizeLarge:   sizeString = @"Large"; break;
+        case NSControlSizeRegular:    sizeString = @"";           break;
+        case NSControlSizeSmall:      sizeString = @"Small";      break;
+        case NSControlSizeMini:       sizeString = @"Mini";       break;
+        case NSControlSizeLarge:      sizeString = @"Large";      break;
+        case NSControlSizeExtraLarge: sizeString = @"ExtraLarge"; break;
     }
     
     NSString *name = AJRFormat(@"AJRDot%@%@", sizeString, colorString);

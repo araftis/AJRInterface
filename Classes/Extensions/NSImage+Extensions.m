@@ -9,13 +9,13 @@
  are permitted provided that the following conditions are met:
 
  * Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
+ list of conditions and the following disclaimer.
  * Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
  * Neither the name of AJRInterface nor the names of its contributors may be
-   used to endorse or promote products derived from this software without
-   specific prior written permission.
+ used to endorse or promote products derived from this software without
+ specific prior written permission.
 
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -68,12 +68,12 @@ static char * const DrawNaturalSizeKey = "naturalSize";
 - (id)finalizeXMLDecodingWithError:(NSError * _Nullable * _Nullable)error {
     NSError *localError;
     NSImage *image;
-    
+
     if (_name != nil) {
         // Try and get the image via name, first.
         image = [NSImage imageNamed:_name];
     }
-    
+
     if (image == nil) {
         // We failed to get the image by name, so let's assume we have to build it via that stored data.
         if (_data == nil) {
@@ -92,7 +92,7 @@ static char * const DrawNaturalSizeKey = "naturalSize";
             }
         }
     }
-    
+
     return AJRAssertOrPropagateError(image, error, localError);
 }
 
@@ -130,46 +130,46 @@ static char * const DrawNaturalSizeKey = "naturalSize";
 }
 
 + (void)ajr_imageWithContentsOfURL:(NSURL *)url completionHandler:(void (^)(NSImage *image))handler {
-	NSThread *currentThread = [NSThread currentThread];
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		NSImage *image = [[NSImage alloc] initWithContentsOfURL:url];
-		[currentThread performAsyncBlock:^{
-			handler(image);
-		}];
-	});
+    NSThread *currentThread = [NSThread currentThread];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSImage *image = [[NSImage alloc] initWithContentsOfURL:url];
+        [currentThread performAsyncBlock:^{
+            handler(image);
+        }];
+    });
 }
 
 + (NSImage *)ajr_imageWithSize:(NSSize)size scales:(NSArray<NSNumber *> *)scales flipped:(BOOL)flipped colorSpace:(NSColorSpace *)colorSpace commands:(void (^)(CGFloat scale))commands {
-	NSMutableArray<NSBitmapImageRep *> *images = [NSMutableArray array];
-	
-	for (NSNumber *scale in scales) {
-		CGImageRef subimage = NULL;
-		
-		@try {
-			subimage = AJRCreateImage(size, [scale doubleValue], flipped, [colorSpace CGColorSpace], ^(CGContextRef context) {
-				NSGraphicsContext *savedContext = [NSGraphicsContext currentContext];
-				NSGraphicsContext *nsContext = [NSGraphicsContext graphicsContextWithCGContext:context flipped:flipped];
-				[NSGraphicsContext setCurrentContext:nsContext];
-				commands([scale doubleValue]);
-				[NSGraphicsContext setCurrentContext:savedContext];
-			});
-		} @catch (NSException *localException) {
-			AJRLogWarning(@"Exception while rendering image: %@\n%@", localException, [localException callStackSymbols]);
-		}
-		if (subimage) {
-			// Might be NULL on an exception
-			NSBitmapImageRep *bitmapImage = [[NSBitmapImageRep alloc] initWithCGImage:subimage];
-			[images addObject:bitmapImage];
-		}
-	}
-	
-	NSImage *finalImage = nil;
-	if ([images count]) {
-		finalImage = [[NSImage alloc] initWithSize:size];
-		[finalImage addRepresentations:images];
-	}
-	
-	return finalImage;
+    NSMutableArray<NSBitmapImageRep *> *images = [NSMutableArray array];
+
+    for (NSNumber *scale in scales) {
+        CGImageRef subimage = NULL;
+
+        @try {
+            subimage = AJRCreateImage(size, [scale doubleValue], flipped, [colorSpace CGColorSpace], ^(CGContextRef context) {
+                NSGraphicsContext *savedContext = [NSGraphicsContext currentContext];
+                NSGraphicsContext *nsContext = [NSGraphicsContext graphicsContextWithCGContext:context flipped:flipped];
+                [NSGraphicsContext setCurrentContext:nsContext];
+                commands([scale doubleValue]);
+                [NSGraphicsContext setCurrentContext:savedContext];
+            });
+        } @catch (NSException *localException) {
+            AJRLogWarning(@"Exception while rendering image: %@\n%@", localException, [localException callStackSymbols]);
+        }
+        if (subimage) {
+            // Might be NULL on an exception
+            NSBitmapImageRep *bitmapImage = [[NSBitmapImageRep alloc] initWithCGImage:subimage];
+            [images addObject:bitmapImage];
+        }
+    }
+
+    NSImage *finalImage = nil;
+    if ([images count]) {
+        finalImage = [[NSImage alloc] initWithSize:size];
+        [finalImage addRepresentations:images];
+    }
+
+    return finalImage;
 }
 
 - (CGImageRef)ajr_CGImage {
@@ -177,9 +177,9 @@ static char * const DrawNaturalSizeKey = "naturalSize";
     CGImageRef result = NULL;
     // Note currentContext can be NULL, but that OK, because NSImage has appropriate fall backs.
     NSImageRep *possible = [self bestRepresentationForRect:(NSRect){NSZeroPoint, [self size]} context:[NSGraphicsContext currentContext] hints:nil];
-    
+
     result = [possible respondsToSelector:@selector(CGImage)] ? [(NSBitmapImageRep *)possible CGImage] : nil;
-    
+
     if (result == NULL) {
         // Didn't find a match, so let's just take the first image that has a CGImageRep
         for (possible in [self representations]) {
@@ -207,7 +207,7 @@ static char * const DrawNaturalSizeKey = "naturalSize";
             result = [possible CGImageForProposedRect:NULL context:[NSGraphicsContext currentContext] hints:nil];
         }
     }
-    
+
     return result;
 }
 
@@ -245,7 +245,7 @@ static char * const DrawNaturalSizeKey = "naturalSize";
 
 - (NSImage *)ajr_imageMattedWithColor:(NSColor *)color {
     NSImage        *newImage;
-    
+
     newImage = [[NSImage alloc] initWithSize:[self size]];
     [newImage lockFocus];
     [color set];
@@ -259,63 +259,63 @@ static char * const DrawNaturalSizeKey = "naturalSize";
 
 - (NSImage *)ajr_templateImageWithColor:(NSColor *)color {
     NSImage    *newImage = [[NSImage alloc] initWithSize:[self size]];
-    
+
     [newImage lockFocus];
     [color set];
     NSRectFill((NSRect){NSZeroPoint, [self size]});
     [self drawAtPoint:NSZeroPoint fromRect:(NSRect){{0.0, 0.0}, [self size]} operation:NSCompositingOperationDestinationIn fraction:1.0];
     [newImage unlockFocus];
-    
+
     return newImage;
 }
 
 - (NSImage *)ajr_imageTintedWithColor:(NSColor *)color {
-	NSImage *image = [self copy];
-	[image setTemplate:NO];
-	[image lockFocus];
-	[color set];
-	NSRectFillUsingOperation((NSRect){NSZeroPoint, [image size]}, NSCompositingOperationSourceAtop);
-	[image unlockFocus];
-	return image;
+    NSImage *image = [self copy];
+    [image setTemplate:NO];
+    [image lockFocus];
+    [color set];
+    NSRectFillUsingOperation((NSRect){NSZeroPoint, [image size]}, NSCompositingOperationSourceAtop);
+    [image unlockFocus];
+    return image;
 }
 
 + (NSImage *)ajr_colorSwatch:(NSColor *)color ofSize:(NSSize)size {
     NSImage *image = [[NSImage alloc] initWithSize:size];
-    
+
     [image lockFocus];
     [color set];
     NSRectFill((NSRect){NSZeroPoint, size});
     [[NSColor blackColor] set];
     NSFrameRect((NSRect){NSZeroPoint, size});
     [image unlockFocus];
-    
+
     return image;
 }
 
 + (NSArray *)ajr_threePartImagesWithHeight:(CGFloat)height
-								 leftWidth:(CGFloat)leftWidth
-							   centerWidth:(CGFloat)centerWidth
-								rightWidth:(CGFloat)rightWitdh
-						   andDrawnByBlock:(void (^)(NSSize size))drawingBlock {
-	__block NSImage *baseImage;
-	CGFloat fullWidth = leftWidth + centerWidth + rightWitdh;
-	
-	NSImage	* (^CreateImage)(CGFloat) = ^(CGFloat offset) {
-		NSImage	*newImage = [[NSImage alloc] initWithSize:(NSSize){12.0, 12.0}];
-		
-		[newImage lockFocus];
-		[baseImage drawAtPoint:(NSPoint){0.0, 0.0} fromRect:(NSRect){{offset, 0.0}, {12.0, 12.0}} operation:NSCompositingOperationCopy fraction:1.0];
-		[newImage unlockFocus];
-		
-		return newImage;
-	};
-	
-	baseImage = [[NSImage alloc] initWithSize:(NSSize){fullWidth, height}];
-	[baseImage lockFocus];
-	drawingBlock([baseImage size]);
-	[baseImage unlockFocus];
-	
-	return [NSArray arrayWithObjects:CreateImage(0.0), CreateImage(12.0), CreateImage(24.0), nil];
+                                 leftWidth:(CGFloat)leftWidth
+                               centerWidth:(CGFloat)centerWidth
+                                rightWidth:(CGFloat)rightWitdh
+                           andDrawnByBlock:(void (^)(NSSize size))drawingBlock {
+    __block NSImage *baseImage;
+    CGFloat fullWidth = leftWidth + centerWidth + rightWitdh;
+
+    NSImage	* (^CreateImage)(CGFloat) = ^(CGFloat offset) {
+        NSImage	*newImage = [[NSImage alloc] initWithSize:(NSSize){12.0, 12.0}];
+
+        [newImage lockFocus];
+        [baseImage drawAtPoint:(NSPoint){0.0, 0.0} fromRect:(NSRect){{offset, 0.0}, {12.0, 12.0}} operation:NSCompositingOperationCopy fraction:1.0];
+        [newImage unlockFocus];
+
+        return newImage;
+    };
+
+    baseImage = [[NSImage alloc] initWithSize:(NSSize){fullWidth, height}];
+    [baseImage lockFocus];
+    drawingBlock([baseImage size]);
+    [baseImage unlockFocus];
+
+    return [NSArray arrayWithObjects:CreateImage(0.0), CreateImage(12.0), CreateImage(24.0), nil];
 }
 
 - (void)setNaturalSize:(NSSize)aSize {
@@ -324,9 +324,9 @@ static char * const DrawNaturalSizeKey = "naturalSize";
 
 - (NSSize)naturalSize {
     NSValue *value = objc_getAssociatedObject(self, DrawNaturalSizeKey);
-    
+
     if (!value) return [self size];
-    
+
     return [value sizeValue];
 }
 
@@ -341,9 +341,9 @@ static char * const DrawNaturalSizeKey = "naturalSize";
 
 + (BOOL)ajr_supportsFileExtension:(NSString *)extension {
     NSString *utiType;
-    
+
     utiType = [[UTType typeWithFilenameExtension:extension.lowercaseString] preferredMIMEType];
-    
+
     return [[NSImage imageTypes] containsObject:utiType];
 }
 
@@ -377,11 +377,11 @@ static char * const DrawNaturalSizeKey = "naturalSize";
 
 - (NSImage *)imageForAppearance:(NSAppearance *)appearance {
     NSImage *newImage = self;
-    
+
     if (newImage.isTemplate && appearance.isDarkMode) {
         newImage = [newImage ajr_imageMattedWithColor:NSColor.whiteColor];
     }
-    
+
     return newImage;
 }
 

@@ -300,7 +300,7 @@ extension Date : AJRInspectorValue {
     
 }
 
-extension NSTextAlignment : CustomStringConvertible {
+extension NSTextAlignment : @retroactive CustomStringConvertible {
     
     public var description: String {
         switch self {

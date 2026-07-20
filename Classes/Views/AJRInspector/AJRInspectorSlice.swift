@@ -232,7 +232,7 @@ open class AJRInspectorSlice: AJRInspectorElement {
                     ])
 
                 addLabel(to: self.view)
-                weak var weakSelf = self
+                weak let weakSelf = self
                 labelKey?.addObserver {
                     if let strongSelf = weakSelf {
                         strongSelf.labelField?.attributedStringValue = strongSelf.labelString

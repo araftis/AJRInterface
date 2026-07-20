@@ -388,6 +388,13 @@ open class AJRPairedNumberEditor: NSControl {
             } else {
                 // Fallback on earlier versions
             }
+        case .extraLarge:
+            if #available(OSX 26.0, *) {
+                leftLabelField.controlSize = .extraLarge
+                rightLabelField.controlSize = .extraLarge
+            } else {
+                // Fallback on earlier versions
+            }
         @unknown default:
             leftLabelField.controlSize = controlSize
             rightLabelField.controlSize = controlSize

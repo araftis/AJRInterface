@@ -118,7 +118,7 @@ open class AJRActivityToolbarView : NSView, CALayerDelegate {
     internal func ajr_commonInit() {
         wantsLayer = true
 
-        weak var weakSelf = self
+        weak let weakSelf = self
         AJRActivity.addObserver { action, activity, activities in
             let isDisplayed = activity.identifier == nil || AJRAnyEquals(activity.identifier, weakSelf?.activityIdentifier)
 
@@ -224,7 +224,9 @@ open class AJRActivityToolbarView : NSView, CALayerDelegate {
 
     open override func viewDidMoveToWindow() {
         super.viewDidMoveToWindow()
-        configureDisplayScale()
+        if window != nil {
+            configureDisplayScale()
+        }
     }
 
     open override func viewDidChangeEffectiveAppearance() {

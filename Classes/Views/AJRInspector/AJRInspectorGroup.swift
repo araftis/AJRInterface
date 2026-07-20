@@ -67,7 +67,7 @@ open class AJRInspectorGroup: AJRInspectorSection {
     // MARK: - View
 
     open override var borderRenderer : AJRDrawingBlock? {
-        weak var weakSelf = self
+        weak let weakSelf = self
         return { (context, bounds) in
             if let strongSelf = weakSelf {
                 if let color = strongSelf.borderColorTopKey?.value, !strongSelf.isFirstChild {
@@ -96,7 +96,7 @@ open class AJRInspectorGroup: AJRInspectorSection {
 
         try super.buildView(from: element)
 
-        weak var weakSelf = self
+        weak let weakSelf = self
         if let titleKey = titleKey {
             visualEffectView = NSVisualEffectView(frame: NSRect.zero)
             visualEffectView.translatesAutoresizingMaskIntoConstraints = false
@@ -242,7 +242,7 @@ open class AJRInspectorGroup: AJRInspectorSection {
     open override func createSeparatorView() -> NSView? {
         let separatorView = AJRBlockDrawingView(frame: NSRect.zero)
         separatorView.addConstraint(separatorView.heightAnchor.constraint(equalToConstant: 5.0))
-        weak var weakSelf = self
+        weak let weakSelf = self
         separatorView.contentRenderer = { (context, bounds) in
             if let self = weakSelf {
                 // Useful for debugging: var color : NSColor? = depth == 1 ? NSColor.red : NSColor.blue

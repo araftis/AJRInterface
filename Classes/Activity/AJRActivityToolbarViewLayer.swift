@@ -86,7 +86,7 @@ open class AJRActivityToolbarViewLayer : CALayer {
         // Don't show the progress layer, initially.
         hideProgress()
 
-        weak var weakSelf = self
+        weak let weakSelf = self
         NotificationCenter.default.addObserver(forName: NSApplication.didBecomeActiveNotification, object: nil, queue: nil) { notification in
             weakSelf?.setNeedsDisplay()
         }
@@ -235,8 +235,11 @@ open class AJRActivityToolbarViewLayer : CALayer {
         didSet {
             messageLayer.contentsScale = contentsScale
             bylineLayer.contentsScale = contentsScale
+            weak let weakSelf = self
             DispatchQueue.main.async {
-                self.progressLayer.contentsScale = self.contentsScale
+                if let weakSelf {
+                    weakSelf.progressLayer.contentsScale = weakSelf.contentsScale
+                }
             }
         }
     }

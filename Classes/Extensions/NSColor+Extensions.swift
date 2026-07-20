@@ -31,7 +31,7 @@
 
 import AppKit
 
-extension NSColor : AJRUserDefaultProvider {
+extension NSColor : @retroactive AJRUserDefaultProvider {
     
     public static func userDefault(forKey key: String, from userDefaults: UserDefaults) -> NSColor? {
         if let string = userDefaults.string(forKey: key) {

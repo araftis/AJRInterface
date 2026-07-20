@@ -126,7 +126,7 @@ open class AJRInspectorSliceStore: AJRInspectorSlice, NSTableViewDelegate, NSTab
         
         self.resizeColumnsToFit()
         
-        weak var weakSelf = self
+        weak let weakSelf = self
         usesAlternatingRowBackgroundColorsKey.addObserver {
             if let strongSelf = weakSelf {
                 strongSelf.tableView.usesAlternatingRowBackgroundColors = strongSelf.usesAlternatingRowBackgroundColorsKey.value!
@@ -241,7 +241,7 @@ open class AJRInspectorSliceStore: AJRInspectorSlice, NSTableViewDelegate, NSTab
         
         if let scrollView = tableView.enclosingScrollView {
             scrollView.postsFrameChangedNotifications = true
-            weak var weakSelf = self
+            weak let weakSelf = self
             NotificationCenter.default.addObserver(forName: NSView.frameDidChangeNotification, object: scrollView, queue: nil) { (notification) in
                 weakSelf?.resizeColumnsToFit()
             }

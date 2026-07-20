@@ -135,7 +135,7 @@ open class  AJRInspectorSliceGeometry: AJRInspectorSlice {
 
         try super.buildView(from: element)
         
-        weak var weakSelf = self
+        weak let weakSelf = self
         enabledKey?.addObserver {
             weakSelf?.configureFields()
         }
@@ -235,7 +235,7 @@ open class AJRInspectorSliceGeometryTyped<T:AJRInspectorValue> : AJRInspectorSli
         
         try super.buildView(from: element)
         
-        weak var weakSelf = self
+        weak let weakSelf = self
         valueKey?.addObserver {
             weakSelf?.updateFields()
         }
@@ -322,7 +322,7 @@ open class AJRInspectorSliceTwoValues<T:AJRInspectorValue> : AJRInspectorSliceGe
         
         try super.buildView(from: element)
         
-        weak var weakSelf = self
+        weak let weakSelf = self
         subtitle1Key?.addObserver {
             if let strongSelf = weakSelf {
                 strongSelf.label1.stringValue = strongSelf.subtitle1Key!.value!
@@ -431,7 +431,7 @@ open class AJRInspectorSliceThreeValues<T:AJRInspectorValue> : AJRInspectorSlice
 
         try super.buildView(from: element)
 
-        weak var weakSelf = self
+        weak let weakSelf = self
         subtitle1Key?.addObserver {
             if let strongSelf = weakSelf {
                 strongSelf.label1.stringValue = strongSelf.subtitle1Key!.value!
@@ -634,7 +634,7 @@ open class AJRInspectorSliceFourValues<T:AJRInspectorValue> : AJRInspectorSliceT
 
         try super.buildView(from: element)
         
-        weak var weakSelf = self
+        weak let weakSelf = self
         subtitle3Key?.addObserver {
             if let strongSelf = weakSelf {
                 strongSelf.label3.stringValue = strongSelf.subtitle3Key!.value!

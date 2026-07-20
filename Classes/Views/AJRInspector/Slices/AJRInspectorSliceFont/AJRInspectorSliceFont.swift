@@ -66,7 +66,7 @@ class AJRInspectorSliceFont: AJRInspectorSlice {
         fontField.buttonPosition = .trailing
         fontField.setImages(withTemplate: AJRImages.image(named: "AJRFontButton", in: Bundle(for: AJRInspectorSliceFont.self)))
         
-        weak var weakSelf = self
+        weak let weakSelf = self
         valueKey?.addObserver {
             if let strongSelf = weakSelf {
                 switch strongSelf.valueKey?.selectionType ?? .none {

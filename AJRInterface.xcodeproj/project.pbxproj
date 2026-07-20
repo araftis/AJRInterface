@@ -327,6 +327,9 @@
 		FA81BB8E0ECCAB80005A2DBC /* AJRURLFieldCell.h in Headers */ = {isa = PBXBuildFile; fileRef = FA81BB8C0ECCAB80005A2DBC /* AJRURLFieldCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA81BB8F0ECCAB80005A2DBC /* AJRURLFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA81BB8D0ECCAB80005A2DBC /* AJRURLFieldCell.m */; };
 		FA826D7723243A9800C4B53D /* AJRInspectorSliceChoiceComboBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA826D7623243A9800C4B53D /* AJRInspectorSliceChoiceComboBox.xib */; };
+		FA844AD82FE9FAF500E6071E /* AJRInterfacePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = FA844AD72FE9FAF500E6071E /* AJRInterfacePrivate.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		FA844B0E2FF7597700E6071E /* AJRNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA844B0D2FF7597700E6071E /* AJRNavigationController.swift */; };
+		FA844B1F2FF8CB2C00E6071E /* NSTableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA844B1E2FF8CB2C00E6071E /* NSTableView+Extensions.swift */; };
 		FA87BA4D0F4B627A00383FD5 /* AJRButtonTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87BA4B0F4B627A00383FD5 /* AJRButtonTextField.swift */; };
 		FA87BB3A0F4C7C1F00383FD5 /* AJRHUDTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = FA87BB380F4C7C1F00383FD5 /* AJRHUDTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA87BB3B0F4C7C1F00383FD5 /* AJRHUDTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA87BB390F4C7C1F00383FD5 /* AJRHUDTableView.m */; };
@@ -1009,6 +1012,10 @@
 		FA81BB8C0ECCAB80005A2DBC /* AJRURLFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRURLFieldCell.h; sourceTree = "<group>"; };
 		FA81BB8D0ECCAB80005A2DBC /* AJRURLFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRURLFieldCell.m; sourceTree = "<group>"; };
 		FA826D7623243A9800C4B53D /* AJRInspectorSliceChoiceComboBox.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AJRInspectorSliceChoiceComboBox.xib; sourceTree = "<group>"; };
+		FA844AD72FE9FAF500E6071E /* AJRInterfacePrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AJRInterfacePrivate.h; sourceTree = "<group>"; };
+		FA844AD92FE9FB2200E6071E /* AJRInterface.private.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = AJRInterface.private.modulemap; sourceTree = "<group>"; };
+		FA844B0D2FF7597700E6071E /* AJRNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRNavigationController.swift; sourceTree = "<group>"; };
+		FA844B1E2FF8CB2C00E6071E /* NSTableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTableView+Extensions.swift"; sourceTree = "<group>"; };
 		FA87BA4B0F4B627A00383FD5 /* AJRButtonTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJRButtonTextField.swift; sourceTree = "<group>"; };
 		FA87BB380F4C7C1F00383FD5 /* AJRHUDTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRHUDTableView.h; sourceTree = "<group>"; };
 		FA87BB390F4C7C1F00383FD5 /* AJRHUDTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRHUDTableView.m; sourceTree = "<group>"; };
@@ -1389,6 +1396,8 @@
 				FA2876FD2610281F00F5BBE8 /* LICENSE.md */,
 				FA8E36C425C0C48400EB554F /* README.md */,
 				FA2F99880E93F0AA004F1A14 /* AJRInterface.h */,
+				FA844AD72FE9FAF500E6071E /* AJRInterfacePrivate.h */,
+				FA844AD92FE9FB2200E6071E /* AJRInterface.private.modulemap */,
 				08FB77AEFE84172EC02AAC07 /* Classes */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
@@ -1454,6 +1463,7 @@
 				FA631A9A0EC89C54002F3DD5 /* Extensions */,
 				FAFE49950EC4F30900AE17D0 /* Fills */,
 				FACEF6270F38D59A00401F2D /* Image Formats */,
+				FA844B0C2FF7594000E6071E /* Navigation Controller */,
 				FAC4E1D00ED4D0D300897E9B /* Panels */,
 				FAFE4AAE0EC5012F00AE17D0 /* Path Renderers */,
 				FA3CF6F10EFB059D000F4669 /* Reports */,
@@ -2092,6 +2102,7 @@
 				FA3ECCAC0ECD4C8B00866EBE /* NSTableView+Dragging.h */,
 				FA3ECCAD0ECD4C8B00866EBE /* NSTableView+Dragging.m */,
 				FA07C854220C26D60077A0B5 /* NSTableView+Extensions.h */,
+				FA844B1E2FF8CB2C00E6071E /* NSTableView+Extensions.swift */,
 				FA07C855220C26D60077A0B5 /* NSTableView+Extensions.m */,
 				FAFFD2560F86E85300EC7DDC /* NSTabView+Extensions.h */,
 				FAFFD2570F86E85300EC7DDC /* NSTabView+Extensions.m */,
@@ -2242,6 +2253,14 @@
 				FA7E461C0EF1C8D900899D4D /* AJRTabViewController.m */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		FA844B0C2FF7594000E6071E /* Navigation Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FA844B0D2FF7597700E6071E /* AJRNavigationController.swift */,
+			);
+			path = "Navigation Controller";
 			sourceTree = "<group>";
 		};
 		FA87BB350F4C7C1000383FD5 /* AJRHUDTableView */ = {
@@ -2939,6 +2958,7 @@
 				FA87BB3A0F4C7C1F00383FD5 /* AJRHUDTableView.h in Headers */,
 				FA6C23290E9A8570003F2540 /* AJRImageCell.h in Headers */,
 				FACEF6440F38D59A00401F2D /* AJRImageFormat.h in Headers */,
+				FA844AD82FE9FAF500E6071E /* AJRInterfacePrivate.h in Headers */,
 				FA2F9DC30E953D35004F1A14 /* AJRImages.h in Headers */,
 				FACEF6460F38D59A00401F2D /* AJRImageSaveAccessory.h in Headers */,
 				FACDA26A21FC0B6B0008753B /* NSGradient+Extensions.h in Headers */,
@@ -3158,7 +3178,7 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1010;
 				LastTestingUpgradeCheck = 0600;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 2630;
 				TargetAttributes = {
 					FA0587BC192FE152002913B6 = {
 						CreatedOnToolsVersion = 6.0;
@@ -3416,6 +3436,7 @@
 				FAFE498C0EC4F24000AE17D0 /* AJRTexturedBezelBorder.m in Sources */,
 				FAFE498E0EC4F24000AE17D0 /* AJRTexturedBezelBorderInspectorModule.m in Sources */,
 				FAFE49910EC4F24000AE17D0 /* AJRWellBorder.m in Sources */,
+				FA844B0E2FF7597700E6071E /* AJRNavigationController.swift in Sources */,
 				FAFE49A90EC4F30900AE17D0 /* AJRFill.m in Sources */,
 				FA89259621FAA12C00246D46 /* NSEvent+Extensions.m in Sources */,
 				FAFE49AB0EC4F30900AE17D0 /* AJRFillInspector.m in Sources */,
@@ -3504,6 +3525,7 @@
 				FAD61D0222556132004CDD37 /* AJRInspectorTextField.swift in Sources */,
 				FACEF6430F38D59A00401F2D /* AJRGIFImageFormat.m in Sources */,
 				FA07C8F32212C9370077A0B5 /* AJRSegmentedCell.m in Sources */,
+				FA844B1F2FF8CB2C00E6071E /* NSTableView+Extensions.swift in Sources */,
 				218F4F402728768A00BD92BD /* UserDefaults+Extensions.swift in Sources */,
 				FA76AB9D221CC1FE008FA786 /* AJRWebView.m in Sources */,
 				FA8B900C29020D4300650F23 /* AJRColorExpressions.swift in Sources */,
@@ -4039,6 +4061,7 @@
 				IBC_PLUGIN_SEARCH_PATHS = "";
 				IBC_STRIP_NIBS = NO;
 				INFOPLIST_FILE = Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "c99 gnu++14";
 				OTHER_CFLAGS = "-DDEBUG";
@@ -4072,6 +4095,7 @@
 				IBC_PLUGIN_SEARCH_PATHS = "";
 				IBC_STRIP_NIBS = NO;
 				INFOPLIST_FILE = Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "c99 gnu++14";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ajr.framework.AJRInterface;
@@ -4122,8 +4146,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MODULEMAP_PRIVATE_FILE = AJRInterface.private.modulemap;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -4167,7 +4193,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MODULEMAP_PRIVATE_FILE = AJRInterface.private.modulemap;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;
 			};
@@ -4294,6 +4322,9 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readwrite;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -4338,7 +4369,10 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readwrite;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;

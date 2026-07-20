@@ -67,7 +67,7 @@ class AJRInspectorSliceButton: AJRInspectorSlice {
 
         try super.buildView(from: element)
         
-        weak var weakSelf = self
+        weak let weakSelf = self
         titleKey?.addObserver {
             weakSelf?.button.title = weakSelf?.titleKey?.value ?? ""
         }

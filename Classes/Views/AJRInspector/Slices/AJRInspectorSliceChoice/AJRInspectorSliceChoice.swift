@@ -336,7 +336,7 @@ private class AJRInspectorSliceChoiceTyped<T: AJRInspectorValue> : AJRInspectorS
             segments.action = #selector(selectSegment(_:))
         }
 
-        weak var weakSelf = self
+        weak let weakSelf = self
         valueKey?.addObserver {
             weakSelf?.updateValue()
         }

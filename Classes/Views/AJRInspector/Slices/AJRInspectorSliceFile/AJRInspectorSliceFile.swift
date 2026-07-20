@@ -76,7 +76,7 @@ open class AJRInspectorSliceFile: AJRInspectorSliceField {
         urlField.buttonPosition = .trailing
         urlField.setImages(withTemplate: AJRImages.image(named: "AJRFileButton", in: Bundle(for: AJRInspectorSliceFont.self)))
         
-        weak var weakSelf = self
+        weak let weakSelf = self
         urlKey?.addObserver {
             if let strongSelf = weakSelf {
                 switch strongSelf.urlKey?.selectionType ?? .none {

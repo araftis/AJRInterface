@@ -101,7 +101,7 @@ open class AJRObjectInspectorViewController: NSViewController {
         if let url = bundle.url(forResource: xmlName, withExtension: "inspector") {
             do {
                 self.translator.addAlternateBundle(bundle)
-                weak var weakSelf = self
+                weak let weakSelf = self
                 inspectorContent = try AJRInspectorContent(url: url, inspectorViewController: self, bundle: bundle) { (url) in
                     weakSelf?.translator.addStringTableName(url.deletingPathExtension().lastPathComponent)
                 }

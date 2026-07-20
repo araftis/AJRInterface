@@ -31,7 +31,7 @@
 
 import Cocoa
 
-extension NSLevelIndicator.Style : CustomStringConvertible, AJRInspectorValue {
+extension NSLevelIndicator.Style : @retroactive CustomStringConvertible, AJRInspectorValue {
     
     public var description: String {
         switch self {
@@ -72,7 +72,7 @@ extension NSLevelIndicator.Style : CustomStringConvertible, AJRInspectorValue {
     
 }
 
-extension NSLevelIndicator.PlaceholderVisibility : CustomStringConvertible, AJRInspectorValue {
+extension NSLevelIndicator.PlaceholderVisibility : @retroactive CustomStringConvertible, AJRInspectorValue {
     
     public var description: String {
         switch self {
@@ -192,7 +192,7 @@ open class AJRInspectorSliceLevel: AJRInspectorSlice {
 
         try super.buildView(from: element)
         
-        weak var weakSelf = self
+        weak let weakSelf = self
         valueKey?.addObserver {
             if let strongSelf = weakSelf {
                 switch strongSelf.valueKey!.selectionType {

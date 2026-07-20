@@ -31,12 +31,19 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class AJRLineNumberMarker;
+@class AJRLineNumberMarker, AJRLineNumberView;
+
+@protocol AJRLineNumberViewDelegate <NSObject>
+
+@optional - (void)lineNumberViewNeedsWidthUpdate:(AJRLineNumberView *)view;
+
+@end
 
 @interface AJRLineNumberView : NSRulerView
 
 - (instancetype)initWithScrollView:(NSScrollView *)aScrollView;
 
+@property (nonatomic,weak) id delegate;
 @property (nonatomic,strong) NSFont *font;
 @property (nonatomic,strong) NSColor *textColor;
 @property (nonatomic,strong) NSColor *alternateTextColor;

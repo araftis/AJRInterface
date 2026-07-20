@@ -1,0 +1,13 @@
+//
+//  AJRInterface.private.modulemap
+//  AJRInterface
+//
+//  Created by AJ Raftis on 6/22/26.
+//
+
+framework module AJRInterface {
+    explicit module Private {
+        header "AJRInterfacePrivate.h"
+        export *
+    }
+}

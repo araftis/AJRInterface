@@ -69,7 +69,7 @@ open class AJRActivityViewer : NSObject {
         stopButton.isEnabled = false
         scrollView.backgroundColor = .white
 
-        weak var weakSelf = self
+        weak let weakSelf = self
         timer = Timer(timeInterval: 1.0, repeats: true) { timer in
             if let strongSelf = weakSelf {
                 if strongSelf.window.isVisible {

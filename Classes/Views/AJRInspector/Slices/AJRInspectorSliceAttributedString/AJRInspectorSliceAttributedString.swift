@@ -116,7 +116,7 @@ class AJRInspectorSliceAttributedString: AJRInspectorSliceField, AJRInspectorTex
         
         attributeSegments.setMenu(AJRColorSwatchMenu(self, #selector(takeColor(from:)), self, #selector(showColors(_:))), forSegment: .foregroundColor)
         
-        weak var weakSelf = self
+        weak let weakSelf = self
         valueKey?.addObserver {
             if let strongSelf = weakSelf {
                 var changedValue = false

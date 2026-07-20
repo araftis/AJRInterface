@@ -87,7 +87,7 @@ class AJRInspectorTextFieldCell: NSTextFieldCell, NSTextDelegate {
                 (text as? NSTextView)?.textStorage?.setAttributedString(string)
             }
             
-            weak var weakSelf = self
+            weak let weakSelf = self
             selectionDidChangeObserverToken = NotificationCenter.default.addObserver(forName: NSTextView.didChangeSelectionNotification, object: text, queue: nil, using: { (notification) in
                 if let text = notification.object as? NSTextView,
                    let strongSelf = weakSelf,

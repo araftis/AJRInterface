@@ -569,7 +569,7 @@ open class AJRBookmarksBar: NSView, NSMenuDelegate {
     
     public override func viewDidMoveToWindow() {
         NotificationCenter.default.removeObserver(self)
-        weak var weakSelf = self
+        weak let weakSelf = self
         NotificationCenter.default.addObserver(forName: NSWindow.didBecomeKeyNotification, object: window, queue: nil, using: { (notification) in
             if let strongSelf = weakSelf {
                 strongSelf.updateDisplay()

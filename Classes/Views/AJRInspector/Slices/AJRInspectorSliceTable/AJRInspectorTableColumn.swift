@@ -127,7 +127,7 @@ open class AJRInspectorTableColumnTyped<T: AJRInspectorValue> : AJRInspectorTabl
             editOnAddKey = try AJRInspectorKey(key: "editOnAdd", xmlElement: element, inspectorElement: parent, defaultValue: false)
             fontKey = try AJRInspectorKey(key: "font", xmlElement: element, inspectorElement: parent)
             
-            weak var weakSelf = self
+            weak let weakSelf = self
             titleKey?.addObserver {
                 if let strongSelf = weakSelf {
                     strongSelf.tableColumn.title = strongSelf.titleKey?.value ?? ""

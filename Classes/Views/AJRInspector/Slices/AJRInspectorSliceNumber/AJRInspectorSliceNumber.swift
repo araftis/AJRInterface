@@ -167,7 +167,7 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
         numberField.font = NSFont.monospacedDigitSystemFont(ofSize: viewController!.fontSize, weight: .regular)
         numberField.formatter = defaultFormatter
         
-        weak var weakSelf = self
+        weak let weakSelf = self
         valueKey?.addObserver {
             if let strongSelf = weakSelf {
                 switch strongSelf.valueKey?.selectionType ?? .none {

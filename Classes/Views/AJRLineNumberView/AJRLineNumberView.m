@@ -210,16 +210,19 @@
         oldThickness = [self ruleThickness];
         newThickness = [self requiredThickness];
         if (fabs(oldThickness - newThickness) > 1) {
-            NSInvocation *invocation;
-            
-            // Not a good idea to resize the view during calculations (which can happen during
-            // display). Do a delayed perform (using NSInvocation since arg is a float).
-            invocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:@selector(setRuleThickness:)]];
-            [invocation setSelector:@selector(setRuleThickness:)];
-            [invocation setTarget:self];
-            [invocation setArgument:&newThickness atIndex:2];
-            
-            [invocation performSelector:@selector(invoke) withObject:nil afterDelay:0.0];
+            __weak AJRLineNumberView *weakSelf = self;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                AJRLineNumberView *strongSelf = weakSelf;
+                id delegate = nil;
+                if (strongSelf != nil) {
+                    delegate = strongSelf->_delegate;
+                }
+                if (delegate != nil && [delegate respondsToSelector:@selector(lineNumberViewNeedsWidthUpdate:)]) {
+                    [delegate lineNumberViewNeedsWidthUpdate:strongSelf];
+                } else {
+                    [weakSelf setRuleThickness:newThickness];
+                }
+            });
         }
     }
 }

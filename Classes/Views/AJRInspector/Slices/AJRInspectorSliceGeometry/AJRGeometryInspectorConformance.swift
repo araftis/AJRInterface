@@ -31,6 +31,7 @@
 
 import Foundation
 
+extension CGSize: @retroactive CustomStringConvertible {}
 extension CGSize : AJRInspectorValue {
     
     public static func inspectorValue(from string: String) -> Any? {
@@ -47,6 +48,7 @@ extension CGSize : AJRInspectorValue {
     
 }
 
+extension CGPoint: @retroactive CustomStringConvertible {}
 extension CGPoint : AJRInspectorValue {
     
     public static func inspectorValue(from string: String) -> Any? {
@@ -63,6 +65,7 @@ extension CGPoint : AJRInspectorValue {
     
 }
 
+extension CGRect: @retroactive CustomStringConvertible {}
 extension CGRect : AJRInspectorValue {
     
     public static func inspectorValue(from string: String) -> Any? {
@@ -79,6 +82,7 @@ extension CGRect : AJRInspectorValue {
     
 }
 
+extension AJRInset: @retroactive CustomStringConvertible {}
 extension AJRInset : AJRInspectorValue {
     
     public static func inspectorValue(from string: String) -> Any? {
@@ -96,6 +100,7 @@ extension AJRInset : AJRInspectorValue {
     
 }
 
+extension NSEdgeInsets: @retroactive CustomStringConvertible {}
 extension NSEdgeInsets : AJRInspectorValue, AJRInspectorValueAsValue {
     
     public static func inspectorValue(from string: String) -> Any? {

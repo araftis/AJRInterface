@@ -81,7 +81,7 @@ open class AJRInspectorSection: AJRInspectorElement {
     
     open var borderRenderer : AJRDrawingBlock? {
         if let parent = parent as? AJRInspectorSection, parent.childToAdd != nil {
-            weak var weakSelf = self
+            weak let weakSelf = self
             return { (context, bounds) in
                 if let strongSelf = weakSelf {
                     if let color = strongSelf.borderColorTopKey?.value, !strongSelf.isFirstChild {
@@ -138,7 +138,7 @@ open class AJRInspectorSection: AJRInspectorElement {
             self.element = element
         }
 
-        weak var weakSelf = self
+        weak let weakSelf = self
         hiddenKey?.addObserver {
             if let strongSelf = weakSelf {
                 if strongSelf.hiddenKey?.value ?? false {

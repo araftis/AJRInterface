@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension NSGradient : AJRUserDefaultProvider {
+extension NSGradient : @retroactive AJRUserDefaultProvider {
 
     public static func userDefault(forKey key: String, from userDefaults: UserDefaults) -> NSGradient? {
         if let data = userDefaults.data(forKey: key),
@@ -29,7 +29,10 @@ extension NSGradient : AJRUserDefaultProvider {
 
 }
 
-extension NSGradient : AJRXMLCoding {
+extension NSGradient: @retroactive AJRXMLEncoding {}
+extension NSGradient: @retroactive AJRXMLDecoding {}
+extension NSGradient: @retroactive AJRXMLSubstituteDecoding {}
+extension NSGradient : @retroactive AJRXMLCoding {
 
     internal class Placeholder : NSObject, AJRXMLDecoding {
 
