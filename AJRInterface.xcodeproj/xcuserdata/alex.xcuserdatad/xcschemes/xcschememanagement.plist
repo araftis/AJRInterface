@@ -9,7 +9,7 @@
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
-			<integer>20</integer>
+			<integer>22</integer>
 		</dict>
 		<key>AJRInterfaceTests.xcscheme</key>
 		<dict>
@@ -21,7 +21,7 @@
 		<key>AJRMiniBrowser.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
-			<false/>
+			<true/>
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>

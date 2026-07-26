@@ -87,7 +87,7 @@ open class DocumentController: NSDocumentController {
         openPanel.allowsMultipleSelection = false
         openPanel.allowedFileTypes = ["plist"]
         
-        let url = AJRHomeDirectoryURL().appendingPathComponent("Library").appendingPathComponent("Safari").appendingPathComponent("Bookmarks.html")
+        let url = AJRHomeDirectoryURL()!.appendingPathComponent("Library").appendingPathComponent("Safari").appendingPathComponent("Bookmarks.html")
         print("\(url)")
         
         openPanel.directoryURL = url.deletingLastPathComponent()

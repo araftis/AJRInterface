@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -1339,6 +1339,10 @@
 		FAFFD2570F86E85300EC7DDC /* NSTabView+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTabView+Extensions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		FAE23E683016CEBD00F21DBC /* AJREditableImageView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AJREditableImageView; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		8DC2EF560486A6940098B216 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -1726,6 +1730,7 @@
 				FAFE48E70EC4F10300AE17D0 /* AJRBox */,
 				FA44265E0E98467800545311 /* AJRButtonBar */,
 				FA5862391925C25A001F041A /* AJRColorWell */,
+				FAE23E683016CEBD00F21DBC /* AJREditableImageView */,
 				FA2F995F0E93EDDD004F1A14 /* AJRExpansionView */,
 				FAFE4A100EC4FBCB00AE17D0 /* AJRFlippedView */,
 				FAC65BF20EAD1DE000CAAD3C /* AJRHistogram */,
@@ -3119,6 +3124,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				FAE23E683016CEBD00F21DBC /* AJREditableImageView */,
+			);
 			name = AJRInterface;
 			packageProductDependencies = (
 				FAA884512A329CE80018049B /* Collections */,
@@ -4145,7 +4153,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "@rpath";
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
 				MODULEMAP_PRIVATE_FILE = AJRInterface.private.modulemap;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -4192,7 +4200,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "@rpath";
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
 				MODULEMAP_PRIVATE_FILE = AJRInterface.private.modulemap;
 				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
