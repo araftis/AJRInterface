@@ -223,4 +223,97 @@ public extension NSImage {
         return destRep
     }
 
+    @objc func transform(using transform: NSAffineTransform) -> NSImage {
+        let sourceBounds = NSRect(origin: .zero, size: self.size)
+        let transformedBounds = transform.transform(NSBezierPath(rect: sourceBounds)).bounds
+        let transformedImage = NSImage(size: transformedBounds.size, flipped: false) { _ in
+            NSGraphicsContext.saveGraphicsState()
+            defer {
+                NSGraphicsContext.restoreGraphicsState()
+            }
+
+            transform.concat()
+            self.draw(in: NSRect(origin: .zero, size: self.size), from: .zero, operation: .copy, fraction: 1.0)
+
+            return true
+        }
+
+        transformedImage.isTemplate = self.isTemplate
+        return transformedImage
+    }
+
+    @objc func cropped(to rect: NSRect) -> NSImage {
+        let imageBounds = NSRect(origin: .zero, size: size)
+        let cropRect = rect.standardized.intersection(imageBounds)
+
+        guard !cropRect.isEmpty else {
+            return self
+        }
+
+        let croppedImage = NSImage(size: cropRect.size, flipped: false) { destinationRect in
+            self.draw(
+                in: destinationRect,
+                from: cropRect,
+                operation: .copy,
+                fraction: 1.0
+            )
+            return true
+        }
+
+        croppedImage.isTemplate = isTemplate
+        return croppedImage
+    }
+
+    @objc var flipVerticalTransform : NSAffineTransform {
+        let transform = NSAffineTransform()
+        transform.transformStruct = NSAffineTransformStruct(
+            m11: 1.0,
+            m12: 0.0,
+            m21: 0.0,
+            m22: -1.0,
+            tX: 0.0,
+            tY: self.size.height
+        )
+        return transform
+    }
+
+    @objc var flipHorizontalTransform : NSAffineTransform {
+        let transform = NSAffineTransform()
+        transform.transformStruct = NSAffineTransformStruct(
+            m11: -1.0,
+            m12: 0.0,
+            m21: 0.0,
+            m22: 1.0,
+            tX: size.width,
+            tY: 0.0
+        )
+        return transform
+    }
+
+    @objc var rotateLeftTransform : NSAffineTransform {
+        let transform = NSAffineTransform()
+        transform.transformStruct = NSAffineTransformStruct(
+            m11: 0.0,
+            m12: 1.0,
+            m21: -1.0,
+            m22: 0.0,
+            tX: size.height,
+            tY: 0.0
+        )
+        return transform
+    }
+
+    @objc var rotateRightTransform : NSAffineTransform {
+        let transform = NSAffineTransform()
+        transform.transformStruct = NSAffineTransformStruct(
+            m11: 0.0,
+            m12: -1.0,
+            m21: 1.0,
+            m22: 0.0,
+            tX: 0.0,
+            tY: size.width
+        )
+        return transform
+    }
+
 }
