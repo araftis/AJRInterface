@@ -42,6 +42,11 @@ public extension String {
     static let sfChevronCompactRight = "chevron.compact.right"  // Shorter chevron
     static let sfArrowRight = "arrow.right"                     // Full arrow
     static let sfArrowForward = "arrow.forward"                 // Semantic forward arrow}
+    static let sfRotateLeft = "rotate.left"
+    static let sfRotateRight = "rotate.right"
+    static let sfFlipHorizontal = "flip.horizontal"
+    static let sfFlipVertical = "arrow.up.and.down.righttriangle.up.righttriangle.down"
+    static let sfCrop = "crop"
 }
 
 public extension NSImage {
@@ -250,15 +255,15 @@ public extension NSImage {
             return self
         }
 
-        let croppedImage = NSImage(size: cropRect.size, flipped: false) { destinationRect in
-            self.draw(
-                in: destinationRect,
-                from: cropRect,
-                operation: .copy,
-                fraction: 1.0
-            )
-            return true
-        }
+        let croppedImage = NSImage(size: cropRect.size)
+        croppedImage.lockFocus()
+        self.draw(
+            in: NSRect(origin: .zero, size: cropRect.size),
+            from: cropRect,
+            operation: .copy,
+            fraction: 1.0
+        )
+        croppedImage.unlockFocus()
 
         croppedImage.isTemplate = isTemplate
         return croppedImage

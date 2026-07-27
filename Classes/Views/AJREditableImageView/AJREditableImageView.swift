@@ -26,6 +26,7 @@ open class AJREditableImageView: NSImageView {
     public private(set) var selectionRect: NSRect = .zero {
         didSet {
             needsDisplay = true
+            window?.invalidateCursorRects(for: self)
         }
     }
 
@@ -33,10 +34,44 @@ open class AJREditableImageView: NSImageView {
         return !selectionRect.isEmpty
     }
 
+    private enum SelectionHandle: CaseIterable {
+        case bottomLeft
+        case bottom
+        case bottomRight
+        case right
+        case topRight
+        case top
+        case topLeft
+        case left
+
+        var movesMinimumX: Bool {
+            return self == .bottomLeft || self == .left || self == .topLeft
+        }
+
+        var movesMaximumX: Bool {
+            return self == .bottomRight || self == .right || self == .topRight
+        }
+
+        var movesMinimumY: Bool {
+            return self == .bottomLeft || self == .bottom || self == .bottomRight
+        }
+
+        var movesMaximumY: Bool {
+            return self == .topLeft || self == .top || self == .topRight
+        }
+    }
+
+    private static let selectionHandleDiameter: CGFloat = 8.0
+    private static let selectionHandleHitDiameter: CGFloat = 14.0
+
     private var selectionAnchor: NSPoint?
+    private var draggedSelectionHandle: SelectionHandle?
+    private var selectionRectAtStartOfDrag: NSRect?
 
     open func clearSelection() {
         selectionAnchor = nil
+        draggedSelectionHandle = nil
+        selectionRectAtStartOfDrag = nil
         selectionRect = .zero
     }
 
@@ -78,26 +113,44 @@ open class AJREditableImageView: NSImageView {
 
     @IBAction
     open func crop(_ sender: Any?) {
-        guard let image, hasSelection else {
-            return
-        }
-
+        guard let image, hasSelection else { return }
         self.image = image.cropped(to: selectionRect)
     }
 
     // MARK: - Mouse Tracking
 
     open override func mouseDown(with event: NSEvent) {
+        let viewLocation = convert(event.locationInWindow, from: nil)
+        if let handle = selectionHandle(at: viewLocation) {
+            draggedSelectionHandle = handle
+            selectionRectAtStartOfDrag = selectionRect
+            selectionAnchor = nil
+            return
+        }
+
         guard let location = imageLocation(for: event) else {
             clearSelection()
             return
         }
 
+        draggedSelectionHandle = nil
+        selectionRectAtStartOfDrag = nil
         selectionAnchor = location
         selectionRect = NSRect(origin: location, size: .zero)
     }
 
     open override func mouseDragged(with event: NSEvent) {
+        if let draggedSelectionHandle,
+           let selectionRectAtStartOfDrag,
+           let location = imageLocation(for: event, clamped: true) {
+            resizeSelection(
+                from: selectionRectAtStartOfDrag,
+                using: draggedSelectionHandle,
+                to: location
+            )
+            return
+        }
+
         guard let selectionAnchor,
               let location = imageLocation(for: event, clamped: true) else {
             return
@@ -112,12 +165,14 @@ open class AJREditableImageView: NSImageView {
     }
 
     open override func mouseUp(with event: NSEvent) {
-        guard selectionAnchor != nil else {
+        guard selectionAnchor != nil || draggedSelectionHandle != nil else {
             return
         }
 
         mouseDragged(with: event)
         selectionAnchor = nil
+        draggedSelectionHandle = nil
+        selectionRectAtStartOfDrag = nil
 
         if selectionRect.width <= 0.0 || selectionRect.height <= 0.0 {
             clearSelection()
@@ -129,6 +184,12 @@ open class AJREditableImageView: NSImageView {
 
         if let displayedImageRect {
             addCursorRect(displayedImageRect, cursor: .crosshair)
+        }
+
+        for handle in SelectionHandle.allCases {
+            if let rect = selectionHandleRect(for: handle, diameter: Self.selectionHandleHitDiameter) {
+                addCursorRect(rect, cursor: .openHand)
+            }
         }
     }
 
@@ -158,18 +219,181 @@ open class AJREditableImageView: NSImageView {
         darkBand.setLineDash([4.0, 4.0], count: 2, phase: 0.0)
         NSColor.black.setStroke()
         darkBand.stroke()
+
+        for handle in SelectionHandle.allCases {
+            guard let handleRect = selectionHandleRect(
+                for: handle,
+                diameter: Self.selectionHandleDiameter
+            ) else {
+                continue
+            }
+
+            let handlePath = NSBezierPath(ovalIn: handleRect)
+            NSColor.controlAccentColor.setFill()
+            NSColor.white.setStroke()
+            handlePath.lineWidth = 1.0
+            handlePath.fill()
+            handlePath.stroke()
+        }
+    }
+
+    // MARK: - Selection Handles
+
+    private func resizeSelection(
+        from originalRect: NSRect,
+        using handle: SelectionHandle,
+        to location: NSPoint
+    ) {
+        var minimumX = originalRect.minX
+        var maximumX = originalRect.maxX
+        var minimumY = originalRect.minY
+        var maximumY = originalRect.maxY
+
+        if handle.movesMinimumX {
+            minimumX = location.x
+        } else if handle.movesMaximumX {
+            maximumX = location.x
+        }
+
+        let movesMinimumY = isFlipped ? handle.movesMaximumY : handle.movesMinimumY
+        let movesMaximumY = isFlipped ? handle.movesMinimumY : handle.movesMaximumY
+
+        if movesMinimumY {
+            minimumY = location.y
+        } else if movesMaximumY {
+            maximumY = location.y
+        }
+
+        selectionRect = NSRect(
+            x: min(minimumX, maximumX),
+            y: min(minimumY, maximumY),
+            width: abs(maximumX - minimumX),
+            height: abs(maximumY - minimumY)
+        )
+    }
+
+    private func selectionHandle(at location: NSPoint) -> SelectionHandle? {
+        guard hasSelection else {
+            return nil
+        }
+
+        for handle in SelectionHandle.allCases {
+            if selectionHandleRect(
+                for: handle,
+                diameter: Self.selectionHandleHitDiameter
+            )?.contains(location) == true {
+                return handle
+            }
+        }
+
+        return nil
+    }
+
+    private func selectionHandleRect(
+        for handle: SelectionHandle,
+        diameter: CGFloat
+    ) -> NSRect? {
+        guard hasSelection,
+              let selectionRect = viewRect(forImageRect: selectionRect) else {
+            return nil
+        }
+
+        let center: NSPoint
+        switch handle {
+        case .bottomLeft:
+            center = NSPoint(x: selectionRect.minX, y: selectionRect.minY)
+        case .bottom:
+            center = NSPoint(x: selectionRect.midX, y: selectionRect.minY)
+        case .bottomRight:
+            center = NSPoint(x: selectionRect.maxX, y: selectionRect.minY)
+        case .right:
+            center = NSPoint(x: selectionRect.maxX, y: selectionRect.midY)
+        case .topRight:
+            center = NSPoint(x: selectionRect.maxX, y: selectionRect.maxY)
+        case .top:
+            center = NSPoint(x: selectionRect.midX, y: selectionRect.maxY)
+        case .topLeft:
+            center = NSPoint(x: selectionRect.minX, y: selectionRect.maxY)
+        case .left:
+            center = NSPoint(x: selectionRect.minX, y: selectionRect.midY)
+        }
+
+        return NSRect(
+            x: center.x - diameter / 2.0,
+            y: center.y - diameter / 2.0,
+            width: diameter,
+            height: diameter
+        )
     }
 
     // MARK: - Coordinate Conversion
 
     private var displayedImageRect: NSRect? {
-        guard image != nil,
-              let imageCell = cell as? NSImageCell else {
+        guard let image,
+              image.size.width > 0.0,
+              image.size.height > 0.0,
+              bounds.width > 0.0,
+              bounds.height > 0.0 else {
             return nil
         }
 
-        let rect = imageCell.imageRect(forBounds: bounds)
-        return rect.isEmpty ? nil : rect
+        let widthScale = bounds.width / image.size.width
+        let heightScale = bounds.height / image.size.height
+        let displayedSize: NSSize
+
+        switch imageScaling {
+        case .scaleAxesIndependently:
+            displayedSize = bounds.size
+        case .scaleProportionallyDown:
+            let scale = min(1.0, min(widthScale, heightScale))
+            displayedSize = NSSize(
+                width: image.size.width * scale,
+                height: image.size.height * scale
+            )
+        case .scaleProportionallyUpOrDown:
+            let scale = min(widthScale, heightScale)
+            displayedSize = NSSize(
+                width: image.size.width * scale,
+                height: image.size.height * scale
+            )
+        case .scaleNone:
+            displayedSize = image.size
+        @unknown default:
+            displayedSize = image.size
+        }
+
+        let minimumX = bounds.minX
+        let centeredX = bounds.midX - displayedSize.width / 2.0
+        let maximumX = bounds.maxX - displayedSize.width
+        let minimumY = bounds.minY
+        let centeredY = bounds.midY - displayedSize.height / 2.0
+        let maximumY = bounds.maxY - displayedSize.height
+        let origin: NSPoint
+
+        switch imageAlignment {
+        case .alignCenter:
+            origin = NSPoint(x: centeredX, y: centeredY)
+        case .alignTop:
+            origin = NSPoint(x: centeredX, y: isFlipped ? minimumY : maximumY)
+        case .alignTopLeft:
+            origin = NSPoint(x: minimumX, y: isFlipped ? minimumY : maximumY)
+        case .alignTopRight:
+            origin = NSPoint(x: maximumX, y: isFlipped ? minimumY : maximumY)
+        case .alignLeft:
+            origin = NSPoint(x: minimumX, y: centeredY)
+        case .alignBottom:
+            origin = NSPoint(x: centeredX, y: isFlipped ? maximumY : minimumY)
+        case .alignBottomLeft:
+            origin = NSPoint(x: minimumX, y: isFlipped ? maximumY : minimumY)
+        case .alignBottomRight:
+            origin = NSPoint(x: maximumX, y: isFlipped ? maximumY : minimumY)
+        case .alignRight:
+            origin = NSPoint(x: maximumX, y: centeredY)
+        @unknown default:
+            origin = NSPoint(x: centeredX, y: centeredY)
+        }
+
+        return NSRect(origin: origin, size: displayedSize)
     }
 
     private func imageLocation(
