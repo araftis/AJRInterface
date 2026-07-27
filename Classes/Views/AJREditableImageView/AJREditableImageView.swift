@@ -27,6 +27,7 @@ open class AJREditableImageView: NSImageView {
         didSet {
             needsDisplay = true
             window?.invalidateCursorRects(for: self)
+            updateSelectionAnimation()
         }
     }
 
@@ -67,6 +68,12 @@ open class AJREditableImageView: NSImageView {
     private var selectionAnchor: NSPoint?
     private var draggedSelectionHandle: SelectionHandle?
     private var selectionRectAtStartOfDrag: NSRect?
+    private var selectionAnimationTimer: Timer?
+    private var selectionDashPhase: CGFloat = 0.0
+
+    deinit {
+        selectionAnimationTimer?.invalidate()
+    }
 
     open func clearSelection() {
         selectionAnchor = nil
@@ -193,6 +200,11 @@ open class AJREditableImageView: NSImageView {
         }
     }
 
+    open override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+        updateSelectionAnimation()
+    }
+
     // MARK: - Drawing
 
     open override func draw(_ dirtyRect: NSRect) {
@@ -216,7 +228,7 @@ open class AJREditableImageView: NSImageView {
 
         let darkBand = NSBezierPath(rect: bandRect)
         darkBand.lineWidth = 1.0
-        darkBand.setLineDash([4.0, 4.0], count: 2, phase: 0.0)
+        darkBand.setLineDash([4.0, 4.0], count: 2, phase: selectionDashPhase)
         NSColor.black.setStroke()
         darkBand.stroke()
 
@@ -234,6 +246,30 @@ open class AJREditableImageView: NSImageView {
             handlePath.lineWidth = 1.0
             handlePath.fill()
             handlePath.stroke()
+        }
+    }
+
+    // MARK: - Selection Animation
+
+    private func updateSelectionAnimation() {
+        let shouldAnimate = hasSelection && window != nil
+
+        if shouldAnimate && selectionAnimationTimer == nil {
+            let timer = Timer(timeInterval: 1.0 / 30.0, repeats: true) { [weak self] _ in
+                guard let self else {
+                    return
+                }
+
+                self.selectionDashPhase = (self.selectionDashPhase + 0.5)
+                    .truncatingRemainder(dividingBy: 8.0)
+                self.needsDisplay = true
+            }
+            RunLoop.main.add(timer, forMode: .common)
+            selectionAnimationTimer = timer
+        } else if !shouldAnimate {
+            selectionAnimationTimer?.invalidate()
+            selectionAnimationTimer = nil
+            selectionDashPhase = 0.0
         }
     }
 
