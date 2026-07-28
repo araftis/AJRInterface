@@ -93,6 +93,11 @@ internal struct AJRContentNode: Equatable {
     
 }
 
+public extension AJRInspectorContentIdentifier {
+
+    static var any = AJRInspectorContentIdentifier("any")
+}
+
 @objcMembers
 open class AJRInspectorViewController: NSViewController {
     
@@ -122,7 +127,7 @@ open class AJRInspectorViewController: NSViewController {
     
     internal var contentStack = [AJRContentNode]()
 
-    open func push(content: [AnyObject], for identifier: AJRInspectorContentIdentifier = AJRInspectorContentIdentifier("any")) -> Void {
+    open func push(content: [AnyObject], for identifier: AJRInspectorContentIdentifier = .any) -> Void {
         if contentStack.last?.contains(content: content, using: identifier) ?? false {
             // The same content is being pushed, so we don't want to actually do any updating.
             return
@@ -147,14 +152,14 @@ open class AJRInspectorViewController: NSViewController {
         }
     }
     
-    open func pop(content: [AnyObject], for identifier: AJRInspectorContentIdentifier) -> Void {
+    open func pop(content: [AnyObject], for identifier: AJRInspectorContentIdentifier = .any) -> Void {
         let contentNode = AJRContentNode(content: content, identifier: identifier)
         if let index = contentStack.lastIndex(of: contentNode) {
             pop(contentAt: index)
         }
     }
     
-    open func pop(contentFor identifier: AJRInspectorContentIdentifier) -> Void {
+    open func pop(contentFor identifier: AJRInspectorContentIdentifier = .any) -> Void {
         if let index = contentStack.lastIndex(where: { (contentNode) -> Bool in
             return contentNode.identifier == identifier
         }) {
