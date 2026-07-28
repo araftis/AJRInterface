@@ -7,6 +7,8 @@
 
 import Cocoa
 
+import AJRFoundation
+
 @objcMembers
 open class AJREditableImageView: NSImageView {
 
@@ -97,31 +99,60 @@ open class AJREditableImageView: NSImageView {
     @IBAction
     open func flipVertical(_ sender: Any?) {
         guard let image else { return }
+        undoManager?.registerUndo(withTarget: self) { targettedSelf in
+            targettedSelf.flipVertical(nil)
+        }
+        undoManager?.setActionName(translator["Flip Vertical"])
         self.image = image.transform(using: image.flipVerticalTransform)
     }
 
     @IBAction
     open func flipHorizontal(_ sender: Any?) {
         guard let image else { return }
+        undoManager?.registerUndo(withTarget: self) { targettedSelf in
+            targettedSelf.flipHorizontal(nil)
+        }
+        undoManager?.setActionName(translator["Flip Horizontal"])
         self.image = image.transform(using: image.flipHorizontalTransform)
     }
 
     @IBAction
     open func rotateLeft(_ sender: Any?) {
         guard let image else { return }
+        undoManager?.registerUndo(withTarget: self) { targettedSelf in
+            targettedSelf.rotateRight(nil)
+        }
+        undoManager?.setActionName(translator["Rotate Left"])
         self.image = image.transform(using: image.rotateLeftTransform)
     }
 
     @IBAction
     open func rotateRight(_ sender: Any?) {
         guard let image else { return }
+        undoManager?.registerUndo(withTarget: self) { targettedSelf in
+            targettedSelf.rotateLeft(nil)
+        }
+        undoManager?.setActionName(translator["Rotate Right"])
         self.image = image.transform(using: image.rotateRightTransform)
+    }
+
+    private func restore(image: NSImage?, selectionRect: NSRect, actionName: String) {
+        let currentImage = self.image
+        let currentSelectionRect = self.selectionRect
+
+        undoManager?.registerUndo(withTarget: self) { imageView in
+            imageView.restore(image: currentImage, selectionRect: currentSelectionRect, actionName: actionName)
+        }
+
+        self.image = image
+        select(selectionRect)
+        undoManager?.setActionName(translator[actionName])
     }
 
     @IBAction
     open func crop(_ sender: Any?) {
         guard let image, hasSelection else { return }
-        self.image = image.cropped(to: selectionRect)
+        restore(image: image.cropped(to: selectionRect), selectionRect: .zero, actionName: translator["Crop"])
     }
 
     // MARK: - Mouse Tracking
@@ -275,11 +306,7 @@ open class AJREditableImageView: NSImageView {
 
     // MARK: - Selection Handles
 
-    private func resizeSelection(
-        from originalRect: NSRect,
-        using handle: SelectionHandle,
-        to location: NSPoint
-    ) {
+    private func resizeSelection(from originalRect: NSRect, using handle: SelectionHandle, to location: NSPoint) {
         var minimumX = originalRect.minX
         var maximumX = originalRect.maxX
         var minimumY = originalRect.minY
@@ -325,14 +352,8 @@ open class AJREditableImageView: NSImageView {
         return nil
     }
 
-    private func selectionHandleRect(
-        for handle: SelectionHandle,
-        diameter: CGFloat
-    ) -> NSRect? {
-        guard hasSelection,
-              let selectionRect = viewRect(forImageRect: selectionRect) else {
-            return nil
-        }
+    private func selectionHandleRect(for handle: SelectionHandle, diameter: CGFloat) -> NSRect? {
+        guard hasSelection, let selectionRect = viewRect(forImageRect: selectionRect) else { return nil }
 
         let center: NSPoint
         switch handle {
@@ -432,14 +453,8 @@ open class AJREditableImageView: NSImageView {
         return NSRect(origin: origin, size: displayedSize)
     }
 
-    private func imageLocation(
-        for event: NSEvent,
-        clamped: Bool = false
-    ) -> NSPoint? {
-        guard let image,
-              let displayedImageRect else {
-            return nil
-        }
+    private func imageLocation(for event: NSEvent, clamped: Bool = false) -> NSPoint? {
+        guard let image, let displayedImageRect else { return nil }
 
         var location = convert(event.locationInWindow, from: nil)
         if clamped {
@@ -460,10 +475,7 @@ open class AJREditableImageView: NSImageView {
     }
 
     private func viewRect(forImageRect imageRect: NSRect) -> NSRect? {
-        guard let image,
-              let displayedImageRect else {
-            return nil
-        }
+        guard let image, let displayedImageRect else { return nil }
 
         let xScale = displayedImageRect.width / image.size.width
         let yScale = displayedImageRect.height / image.size.height

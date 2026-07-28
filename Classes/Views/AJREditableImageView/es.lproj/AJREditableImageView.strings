@@ -1,0 +1,12 @@
+/* 
+  AJREditableImageView.strings
+  AJRInterface
+
+  Created by AJ Raftis on 7/27/26.
+ */
+
+"Flip Horizontal" = "Voltear horizontalmente";
+"Flip Vertical" = "Voltear verticalmente";
+"Rotate Left" = "Girar a la izquierda";
+"Rotate Right" = "Girar a la derecha";
+"Crop" = "Recortar";
