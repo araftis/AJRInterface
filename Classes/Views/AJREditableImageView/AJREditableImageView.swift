@@ -73,6 +73,25 @@ open class AJREditableImageView: NSImageView {
     private var selectionAnimationTimer: Timer?
     private var selectionDashPhase: CGFloat = 0.0
 
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        imageAdjustments = AJRImageAdjustments()
+        observerToken = imageAdjustments?.addChangeObserver { [weak self] sender, key  in
+            self?.imageAdjustmentsDidChange(sender, change: key)
+        }
+    }
+    
+    required public init?(coder: NSCoder) {
+        super.init(coder: coder)
+        imageAdjustments = coder.decodeObject(forKey: "imageAdjustments") as? AJRImageAdjustments
+        if imageAdjustments == nil {
+            imageAdjustments = AJRImageAdjustments()
+        }
+        observerToken = imageAdjustments?.addChangeObserver { [weak self] sender, key  in
+            self?.imageAdjustmentsDidChange(sender, change: key)
+        }
+    }
+
     deinit {
         selectionAnimationTimer?.invalidate()
     }
@@ -493,6 +512,37 @@ open class AJREditableImageView: NSImageView {
             width: imageRect.width * xScale,
             height: imageRect.height * yScale
         )
+    }
+
+    // MARK: - Image Adjustments
+
+    private var observerToken: AJRImageAdjustments.ObserverToken?
+
+    @objc dynamic public var imageAdjustments : AJRImageAdjustments? {
+        willSet {
+            if let observerToken, let imageAdjustments {
+                imageAdjustments.removeChangeObserver(observerToken)
+                self.observerToken = nil
+            }
+        }
+        didSet {
+            if let imageAdjustments {
+                observerToken = imageAdjustments.addChangeObserver { [weak self] sender, key  in
+                    self?.imageAdjustmentsDidChange(sender, change: key)
+                }
+            }
+        }
+    }
+
+    open func imageAdjustmentsDidChange(_ imageAdjustments: AJRImageAdjustments, change: AJRImageAdjustment) {
+        print("change: \(change): \(imageAdjustments.value(forKey: change))")
+    }
+
+    // MARK: - Encoding
+
+    open override func encode(with coder: NSCoder) {
+        super.encode(with: coder)
+        coder.encode(imageAdjustments, forKey: "imageAdjustments")
     }
 
 }

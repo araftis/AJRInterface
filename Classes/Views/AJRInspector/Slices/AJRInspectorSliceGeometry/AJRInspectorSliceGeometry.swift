@@ -135,21 +135,20 @@ open class  AJRInspectorSliceGeometry: AJRInspectorSlice {
 
         try super.buildView(from: element)
         
-        weak let weakSelf = self
-        enabledKey?.addObserver {
-            weakSelf?.configureFields()
+        enabledKey?.addObserver { [weak self] in
+            self?.configureFields()
         }
-        unitsKey?.addObserver {
-            weakSelf?.configureFields()
+        unitsKey?.addObserver { [weak self] in
+            self?.configureFields()
         }
-        displayUnitsKey?.addObserver {
-            weakSelf?.configureFields()
+        displayUnitsKey?.addObserver { [weak self] in
+            self?.configureFields()
         }
-        displayInchesAsFractionsKey?.addObserver {
-            weakSelf?.configureFields()
+        displayInchesAsFractionsKey?.addObserver { [weak self] in
+            self?.configureFields()
         }
-        incrementKey?.addObserver {
-            weakSelf?.configureFields()
+        incrementKey?.addObserver { [weak self] in
+            self?.configureFields()
         }
     }
     
@@ -235,9 +234,8 @@ open class AJRInspectorSliceGeometryTyped<T:AJRInspectorValue> : AJRInspectorSli
         
         try super.buildView(from: element)
         
-        weak let weakSelf = self
-        valueKey?.addObserver {
-            weakSelf?.updateFields()
+        valueKey?.addObserver { [weak self] in
+            self?.updateFields()
         }
     }
     
@@ -322,26 +320,22 @@ open class AJRInspectorSliceTwoValues<T:AJRInspectorValue> : AJRInspectorSliceGe
         
         try super.buildView(from: element)
         
-        weak let weakSelf = self
-        subtitle1Key?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.label1.stringValue = strongSelf.subtitle1Key!.value!
-            }
+        subtitle1Key?.addObserver { [weak self] in
+            guard let self else { return }
+            self.label1.stringValue = self.subtitle1Key!.value!
         }
-        subtitle2Key?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.label2.stringValue = strongSelf.subtitle2Key!.value!
-            }
+        subtitle2Key?.addObserver { [weak self] in
+            guard let self else { return }
+            self.label2.stringValue = self.subtitle2Key!.value!
         }
-        valuesCanLinkKey?.addObserver {
-            if let strongSelf = weakSelf {
-                let canLink = strongSelf.valuesCanLinkKey!.value!
-                strongSelf.linkedButton1.isHidden = !canLink
-                if !canLink && strongSelf.valuesAreLinked {
-                    strongSelf.linkedButton1.state = .off
-                    strongSelf.toggleLinked1(strongSelf.linkedButton1)
+        valuesCanLinkKey?.addObserver { [weak self] in
+            guard let self else { return }
+                let canLink = self.valuesCanLinkKey!.value!
+                self.linkedButton1.isHidden = !canLink
+                if !canLink && self.valuesAreLinked {
+                    self.linkedButton1.state = .off
+                    self.toggleLinked1(self.linkedButton1)
                 }
-            }
         }
     }
     
@@ -431,30 +425,25 @@ open class AJRInspectorSliceThreeValues<T:AJRInspectorValue> : AJRInspectorSlice
 
         try super.buildView(from: element)
 
-        weak let weakSelf = self
-        subtitle1Key?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.label1.stringValue = strongSelf.subtitle1Key!.value!
-            }
+        subtitle1Key?.addObserver { [weak self] in
+            guard let self else { return }
+            self.label1.stringValue = self.subtitle1Key!.value!
         }
-        subtitle2Key?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.label2.stringValue = strongSelf.subtitle2Key!.value!
-            }
+        subtitle2Key?.addObserver { [weak self] in
+            guard let self else { return }
+            self.label2.stringValue = self.subtitle2Key!.value!
         }
-        subtitle3Key?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.label3.stringValue = strongSelf.subtitle3Key!.value!
-            }
+        subtitle3Key?.addObserver { [weak self] in
+            guard let self else { return }
+            self.label3.stringValue = self.subtitle3Key!.value!
         }
-        valuesCanLinkKey?.addObserver {
-            if let strongSelf = weakSelf {
-                let canLink = strongSelf.valuesCanLinkKey!.value!
-                strongSelf.linkedButton1.isHidden = !canLink
-                if !canLink && strongSelf.valuesAreLinked {
-                    strongSelf.linkedButton1.state = .off
-                    strongSelf.toggleLinked1(strongSelf.linkedButton1)
-                }
+        valuesCanLinkKey?.addObserver { [weak self] in
+            guard let self else { return }
+            let canLink = self.valuesCanLinkKey!.value!
+            self.linkedButton1.isHidden = !canLink
+            if !canLink && self.valuesAreLinked {
+                self.linkedButton1.state = .off
+                self.toggleLinked1(self.linkedButton1)
             }
         }
     }
@@ -634,25 +623,21 @@ open class AJRInspectorSliceFourValues<T:AJRInspectorValue> : AJRInspectorSliceT
 
         try super.buildView(from: element)
         
-        weak let weakSelf = self
-        subtitle3Key?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.label3.stringValue = strongSelf.subtitle3Key!.value!
-            }
+        subtitle3Key?.addObserver { [weak self] in
+            guard let self else { return }
+            self.label3.stringValue = self.subtitle3Key!.value!
         }
-        subtitle4Key?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.label4.stringValue = strongSelf.subtitle4Key!.value!
-            }
+        subtitle4Key?.addObserver { [weak self] in
+            guard let self else { return }
+            self.label4.stringValue = self.subtitle4Key!.value!
         }
-        secondValuesCanLinkKey?.addObserver {
-            if let strongSelf = weakSelf {
-                let canLink = strongSelf.secondValuesCanLinkKey!.value!
-                strongSelf.linkedButton2.isHidden = !canLink
-                if !canLink && strongSelf.secondValuesAreLinked {
-                    strongSelf.linkedButton2.state = .off
-                    strongSelf.toggleLinked2(strongSelf.linkedButton2)
-                }
+        secondValuesCanLinkKey?.addObserver { [weak self] in
+            guard let self else { return }
+            let canLink = self.secondValuesCanLinkKey!.value!
+            self.linkedButton2.isHidden = !canLink
+            if !canLink && self.secondValuesAreLinked {
+                self.linkedButton2.state = .off
+                self.toggleLinked2(self.linkedButton2)
             }
         }
     }

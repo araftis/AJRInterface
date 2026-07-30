@@ -192,87 +192,74 @@ open class AJRInspectorSliceLevel: AJRInspectorSlice {
 
         try super.buildView(from: element)
         
-        weak let weakSelf = self
-        valueKey?.addObserver {
-            if let strongSelf = weakSelf {
-                switch strongSelf.valueKey!.selectionType {
-                case .none:
-                    strongSelf.levelIndicator.doubleValue = 0.0
-                    strongSelf.levelIndicator.isEnabled = false
-                    strongSelf.levelIndicator.isEditable = false
-                case .multiple:
-                    strongSelf.levelIndicator.doubleValue = 0.0
-                    strongSelf.levelIndicator.isEnabled = strongSelf.enabledKey.value!
-                    strongSelf.levelIndicator.isEditable = strongSelf.editableKey.value!
-                case .single:
-                    strongSelf.levelIndicator.doubleValue = (strongSelf.valueKey?.value ?? 0.0) / strongSelf.valueScaleKey.value!
-                    strongSelf.levelIndicator.isEnabled = strongSelf.enabledKey.value!
-                    strongSelf.levelIndicator.isEditable = strongSelf.editableKey.value!
-                }
+        valueKey?.addObserver { [weak self] in
+            guard let self else { return }
+            switch self.valueKey!.selectionType {
+            case .none:
+                self.levelIndicator.doubleValue = 0.0
+                self.levelIndicator.isEnabled = false
+                self.levelIndicator.isEditable = false
+            case .multiple:
+                self.levelIndicator.doubleValue = 0.0
+                self.levelIndicator.isEnabled = self.enabledKey.value!
+                self.levelIndicator.isEditable = self.editableKey.value!
+            case .single:
+                self.levelIndicator.doubleValue = (self.valueKey?.value ?? 0.0) / self.valueScaleKey.value!
+                self.levelIndicator.isEnabled = self.enabledKey.value!
+                self.levelIndicator.isEditable = self.editableKey.value!
             }
         }
-        minValueKey?.addObserver {
-            if let strongSelf = weakSelf {
-                if let minValue = strongSelf.minValueKey?.value {
-                    strongSelf.levelIndicator.minValue = minValue
-                }
+        minValueKey?.addObserver { [weak self] in
+            guard let self else { return }
+            if let minValue = self.minValueKey?.value {
+                self.levelIndicator.minValue = minValue
             }
         }
-        maxValueKey?.addObserver {
-            if let strongSelf = weakSelf {
-                if let maxValue = strongSelf.maxValueKey?.value {
-                    strongSelf.levelIndicator.maxValue = maxValue
-                }
+        maxValueKey?.addObserver { [weak self] in
+            guard let self else { return }
+            if let maxValue = self.maxValueKey?.value {
+                self.levelIndicator.maxValue = maxValue
             }
         }
-        warningValueKey?.addObserver {
-            if let strongSelf = weakSelf {
-                if let warningValue = strongSelf.warningValueKey?.value {
-                    strongSelf.levelIndicator.warningValue = warningValue
-                }
+        warningValueKey?.addObserver { [weak self] in
+            guard let self else { return }
+            if let warningValue = self.warningValueKey?.value {
+                self.levelIndicator.warningValue = warningValue
             }
         }
-        criticalValueKey?.addObserver {
-            if let strongSelf = weakSelf {
-                if let criticalValue = strongSelf.criticalValueKey?.value {
-                    strongSelf.levelIndicator.criticalValue = criticalValue
-                }
+        criticalValueKey?.addObserver { [weak self] in
+            guard let self else { return }
+            if let criticalValue = self.criticalValueKey?.value {
+                self.levelIndicator.criticalValue = criticalValue
             }
         }
-        styleKey?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.levelIndicator.levelIndicatorStyle = strongSelf.styleKey.value!
-            }
+        styleKey?.addObserver { [weak self] in
+            guard let self else { return }
+            self.levelIndicator.levelIndicatorStyle = self.styleKey.value!
         }
-        placeholderVisibilityKey?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.levelIndicator.placeholderVisibility = strongSelf.placeholderVisibilityKey.value!
-            }
+        placeholderVisibilityKey?.addObserver { [weak self] in
+            guard let self else { return }
+            self.levelIndicator.placeholderVisibility = self.placeholderVisibilityKey.value!
         }
-        editableKey?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.levelIndicator.isEditable = strongSelf.editableKey.value!
-            }
+        editableKey?.addObserver { [weak self] in
+            guard let self else { return }
+            self.levelIndicator.isEditable = self.editableKey.value!
         }
-        enabledKey?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.levelIndicator.isEnabled = strongSelf.enabledKey.value!
-            }
+        enabledKey?.addObserver { [weak self] in
+            guard let self else { return }
+            self.levelIndicator.isEnabled = self.enabledKey.value!
         }
-        fillColorKey?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.levelIndicator.fillColor = strongSelf.fillColorKey?.value
-            }
+        fillColorKey?.addObserver { [weak self] in
+            guard let self else { return }
+            self.levelIndicator.fillColor = self.fillColorKey?.value
         }
-        warningColorKey?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.levelIndicator.warningFillColor = strongSelf.warningColorKey?.value
-            }
+        warningColorKey?.addObserver { [weak self] in
+            guard let self else { return }
+            self.levelIndicator.warningFillColor = self.warningColorKey?.value
         }
-        criticalColorKey?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.levelIndicator.criticalFillColor = strongSelf.criticalColorKey?.value
-            }
+        criticalColorKey?.addObserver { [weak self] in
+            guard let self else { return }
+            self.levelIndicator.criticalFillColor = self.criticalColorKey?.value
         }
     }
     

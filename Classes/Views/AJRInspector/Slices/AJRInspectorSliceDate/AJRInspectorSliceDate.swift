@@ -61,40 +61,37 @@ class AJRInspectorSliceDate: AJRInspectorSliceField {
         
         try super.buildView(from: element)
         
-        weak let weakSelf = self
-        valueKey?.addObserver {
-            if let strongSelf = weakSelf {
-                switch strongSelf.valueKey?.selectionType ?? .none {
-                case .none:
-                    strongSelf.field.stringValue = ""
-                    strongSelf.field.placeholderString = AJRObjectInspectorViewController.translator["No Selection"]
-                    strongSelf.field.isEditable = false
-                case .multiple:
-                    strongSelf.field.stringValue = ""
-                    strongSelf.field.placeholderString = AJRObjectInspectorViewController.translator["Multiple Selection"]
-                    strongSelf.field.isEditable = true
-                case .single:
-                    strongSelf.field.placeholderString = ""
-                    if let value = strongSelf.valueKey?.value {
-                        strongSelf.field.objectValue = value
+        valueKey?.addObserver { [weak self] in
+            guard let self else { return }
+            switch self.valueKey?.selectionType ?? .none {
+            case .none:
+                self.field.stringValue = ""
+                self.field.placeholderString = AJRObjectInspectorViewController.translator["No Selection"]
+                self.field.isEditable = false
+            case .multiple:
+                self.field.stringValue = ""
+                self.field.placeholderString = AJRObjectInspectorViewController.translator["Multiple Selection"]
+                self.field.isEditable = true
+            case .single:
+                self.field.placeholderString = ""
+                if let value = self.valueKey?.value {
+                    self.field.objectValue = value
+                } else {
+                    self.field.stringValue = ""
+                    if let nullPlaceholder = self.nullPlaceholder?.value {
+                        self.field.placeholderString = nullPlaceholder
                     } else {
-                        strongSelf.field.stringValue = ""
-                        if let nullPlaceholder = strongSelf.nullPlaceholder?.value {
-                            strongSelf.field.placeholderString = nullPlaceholder
-                        } else {
-                            strongSelf.field.placeholderString = ""
-                        }
+                        self.field.placeholderString = ""
                     }
-                    strongSelf.field.isEditable = true
                 }
+                self.field.isEditable = true
             }
         }
-        formatKey?.addObserver {
-            if let strongSelf = weakSelf {
-                let newFormatter = DateFormatter()
-                newFormatter.dateFormat = strongSelf.formatKey?.value ?? "yyyy-MM-dd"
-                strongSelf.dateFormatter = newFormatter
-            }
+        formatKey?.addObserver { [weak self] in
+            guard let self else { return }
+            let newFormatter = DateFormatter()
+            newFormatter.dateFormat = self.formatKey?.value ?? "yyyy-MM-dd"
+            self.dateFormatter = newFormatter
         }
     }
     

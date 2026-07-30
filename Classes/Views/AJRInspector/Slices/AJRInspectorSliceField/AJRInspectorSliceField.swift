@@ -98,62 +98,58 @@ open class AJRInspectorSliceField: AJRInspectorSlice, NSTextFieldDelegate {
 
         try super.buildView(from: element)
         
-        weak let weakSelf = self
-        editableKey?.addObserver {
-            if let strongSelf = weakSelf {
-                if strongSelf.editableKey?.value ?? true {
-                    strongSelf.field.isEditable = true
-                    strongSelf.field.isBordered = true
-                    strongSelf.field.isBezeled = true
-                    strongSelf.field.bezelStyle = .squareBezel
-                    strongSelf.field.drawsBackground = true
+        editableKey?.addObserver { [weak self] in
+            guard let self else { return }
+                if self.editableKey?.value ?? true {
+                    self.field.isEditable = true
+                    self.field.isBordered = true
+                    self.field.isBezeled = true
+                    self.field.bezelStyle = .squareBezel
+                    self.field.drawsBackground = true
                 } else {
-                    strongSelf.field.isEditable = false
-                    strongSelf.field.lineBreakMode = NSLineBreakMode.byWordWrapping
-                    strongSelf.field.maximumNumberOfLines = 0
-                    strongSelf.field.isBordered = false
-                    strongSelf.field.isBezeled = false
-                    strongSelf.field.drawsBackground = false
-                    strongSelf.field.abortEditing()
+                    self.field.isEditable = false
+                    self.field.lineBreakMode = NSLineBreakMode.byWordWrapping
+                    self.field.maximumNumberOfLines = 0
+                    self.field.isBordered = false
+                    self.field.isBezeled = false
+                    self.field.drawsBackground = false
+                    self.field.abortEditing()
                 }
-                strongSelf.updateHeightContraint()
-            }
+            self.updateHeightContraint()
         }
-        selectableKey?.addObserver {
-            if weakSelf?.selectableKey?.value ?? true {
-                weakSelf?.field.isSelectable = true
+        selectableKey?.addObserver { [weak self] in
+            guard let self else { return }
+            if self.selectableKey?.value ?? true {
+                self.field.isSelectable = true
             } else {
-                weakSelf?.field.isSelectable = false
-                weakSelf?.field.abortEditing()
+                self.field.isSelectable = false
+                self.field.abortEditing()
             }
         }
-        enabledKey?.addObserver {
-            if weakSelf?.enabledKey?.value ?? true {
-                weakSelf?.field.isEnabled = true
+        enabledKey?.addObserver { [weak self] in
+            guard let self else { return }
+            if self.enabledKey?.value ?? true {
+                self.field.isEnabled = true
             } else {
-                weakSelf?.field.isEnabled = false
-                weakSelf?.field.abortEditing()
+                self.field.isEnabled = false
+                self.field.abortEditing()
             }
         }
-        alignmentKey?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.field.alignment = strongSelf.alignmentKey?.value ?? .natural
-            }
+        alignmentKey?.addObserver { [weak self] in
+            guard let self else { return }
+            self.field.alignment = self.alignmentKey?.value ?? .natural
         }
-        colorKey?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.field.textColor = strongSelf.colorKey?.value ?? NSColor.textColor
-            }
+        colorKey?.addObserver { [weak self] in
+            guard let self else { return }
+            self.field.textColor = self.colorKey?.value ?? NSColor.textColor
         }
-        backgroundColorKey?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.field.backgroundColor = strongSelf.backgroundColorKey?.value ?? NSColor.textBackgroundColor
-            }
+        backgroundColorKey?.addObserver { [weak self] in
+            guard let self else { return }
+            self.field.backgroundColor = self.backgroundColorKey?.value ?? NSColor.textBackgroundColor
         }
-        isContinuous?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.field.isContinuous = strongSelf.isContinuous?.value ?? false
-            }
+        isContinuous?.addObserver { [weak self] in
+            guard let self else { return }
+            self.field.isContinuous = self.isContinuous?.value ?? false
         }
     }
     
