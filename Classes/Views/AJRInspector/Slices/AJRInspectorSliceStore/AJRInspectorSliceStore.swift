@@ -126,41 +126,37 @@ open class AJRInspectorSliceStore: AJRInspectorSlice, NSTableViewDelegate, NSTab
         
         self.resizeColumnsToFit()
         
-        weak let weakSelf = self
-        usesAlternatingRowBackgroundColorsKey.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.tableView.usesAlternatingRowBackgroundColors = strongSelf.usesAlternatingRowBackgroundColorsKey.value!
+        usesAlternatingRowBackgroundColorsKey.addObserver { [weak self] in
+            guard let self else { return }
+            self.tableView.usesAlternatingRowBackgroundColors = self.usesAlternatingRowBackgroundColorsKey.value!
+        }
+        hasVerticalGridKey.addObserver { [weak self] in
+            guard let self else { return }
+            if self.hasVerticalGridKey.value! {
+                self.tableView.gridStyleMask = [.solidVerticalGridLineMask]
+            } else {
+                self.tableView.gridStyleMask = []
             }
         }
-        hasVerticalGridKey.addObserver {
-            if let strongSelf = weakSelf {
-                if strongSelf.hasVerticalGridKey.value! {
-                    strongSelf.tableView.gridStyleMask = [.solidVerticalGridLineMask]
-                } else {
-                    strongSelf.tableView.gridStyleMask = []
-                }
+        valueKeyPath?.addObserver { [weak self] in
+            guard let self else { return }
+            if let token = self.storeObserverToken {
+                token.invalidate()
+                self.storeObserverToken = nil
             }
-        }
-        valueKeyPath?.addObserver {
-            if let strongSelf = weakSelf {
-                if let token = strongSelf.storeObserverToken {
-                    token.invalidate()
-                    strongSelf.storeObserverToken = nil
-                }
-                if let newStore = self.valueKeyPath?.value {
-                    strongSelf.storeObserverToken = newStore.addObserver(newStore, forKeyPath: "symbols", block: { object, key, changes in
-                        if let kind = changes?[.kindKey] as? Int {
-                            if kind > 1 {
-                                strongSelf.tableView?.reloadData()
-                            }
+            if let newStore = self.valueKeyPath?.value {
+                self.storeObserverToken = newStore.addObserver(newStore, forKeyPath: "symbols", block: { object, key, changes in
+                    if let kind = changes?[.kindKey] as? Int {
+                        if kind > 1 {
+                            self.tableView?.reloadData()
                         }
-                    })
-                }
-                strongSelf.tableView.reloadData()
-                strongSelf.updateButtons()
+                    }
+                })
             }
+            self.tableView.reloadData()
+            self.updateButtons()
         }
-        
+
         tableView.headerView = AJRInspectorTableHeader()
         if let headerView = tableView.headerView {
             var frame = headerView.frame

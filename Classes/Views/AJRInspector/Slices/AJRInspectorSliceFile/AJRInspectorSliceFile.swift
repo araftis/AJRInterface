@@ -76,32 +76,30 @@ open class AJRInspectorSliceFile: AJRInspectorSliceField {
         urlField.buttonPosition = .trailing
         urlField.setImages(withTemplate: AJRImages.image(named: "AJRFileButton", in: Bundle(for: AJRInspectorSliceFont.self)))
         
-        weak let weakSelf = self
-        urlKey?.addObserver {
-            if let strongSelf = weakSelf {
-                switch strongSelf.urlKey?.selectionType ?? .none {
-                case .none:
-                    strongSelf.urlField.stringValue = ""
-                    strongSelf.urlField.placeholderString = strongSelf.translator["No Selection"]
-                    strongSelf.urlField.isEnabled = false
-                case .multiple:
-                    strongSelf.urlField.stringValue = ""
-                    strongSelf.urlField.placeholderString = strongSelf.translator["Multiple Selection"]
-                    strongSelf.urlField.isEnabled = true
-                case .single:
-                    if let url = strongSelf.urlKey?.value {
-                        if url.isFileURL {
-                            strongSelf.urlField.stringValue = url.path
-                        } else {
-                            strongSelf.urlField.stringValue = url.absoluteString
-                        }
-                        strongSelf.urlField.placeholderString = ""
+        urlKey?.addObserver { [weak self] in
+            guard let self else { return }
+            switch self.urlKey?.selectionType ?? .none {
+            case .none:
+                self.urlField.stringValue = ""
+                self.urlField.placeholderString = self.translator["No Selection"]
+                self.urlField.isEnabled = false
+            case .multiple:
+                self.urlField.stringValue = ""
+                self.urlField.placeholderString = self.translator["Multiple Selection"]
+                self.urlField.isEnabled = true
+            case .single:
+                if let url = self.urlKey?.value {
+                    if url.isFileURL {
+                        self.urlField.stringValue = url.path
                     } else {
-                        strongSelf.urlField.stringValue = ""
-                        strongSelf.urlField.placeholderString = strongSelf.translator["No File"]
+                        self.urlField.stringValue = url.absoluteString
                     }
-                    strongSelf.urlField.isEnabled = true
+                    self.urlField.placeholderString = ""
+                } else {
+                    self.urlField.stringValue = ""
+                    self.urlField.placeholderString = self.translator["No File"]
                 }
+                self.urlField.isEnabled = true
             }
         }
     }

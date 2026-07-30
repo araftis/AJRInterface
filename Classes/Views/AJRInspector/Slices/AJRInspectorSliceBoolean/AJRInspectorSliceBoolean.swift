@@ -68,34 +68,33 @@ open class AJRInspectorSliceBoolean: AJRInspectorSlice {
 
         try super.buildView(from: element)
         
-        weak let weakSelf = self
-        valueKey?.addObserver {
-            if let strongSelf = weakSelf {
-                switch strongSelf.valueKey?.selectionType ?? .none {
-                case .none:
-                    strongSelf.check.allowsMixedState = false
-                    strongSelf.check.state = .off
-                    strongSelf.check.isEnabled = false
-                case .multiple:
-                    strongSelf.check.allowsMixedState = true
-                    strongSelf.check.state = .mixed
-                    strongSelf.check.isEnabled = strongSelf.enabledKey?.value ?? true
-                case .single:
-                    let negate = strongSelf.shouldNegate
-                    strongSelf.check.allowsMixedState = false
-                    let value = strongSelf.valueKey?.value ?? false // Should always resolve...
-                    if negate {
-                        strongSelf.check.state = value ? .off : .on
-                    } else {
-                        strongSelf.check.state = value ? .on : .off
-                    }
-                    strongSelf.check.isEnabled = strongSelf.enabledKey?.value ?? true
+        valueKey?.addObserver { [weak self] in
+            guard let self else { return }
+
+            switch self.valueKey?.selectionType ?? .none {
+            case .none:
+                self.check.allowsMixedState = false
+                self.check.state = .off
+                self.check.isEnabled = false
+            case .multiple:
+                self.check.allowsMixedState = true
+                self.check.state = .mixed
+                self.check.isEnabled = self.enabledKey?.value ?? true
+            case .single:
+                let negate = self.shouldNegate
+                self.check.allowsMixedState = false
+                let value = self.valueKey?.value ?? false // Should always resolve...
+                if negate {
+                    self.check.state = value ? .off : .on
+                } else {
+                    self.check.state = value ? .on : .off
                 }
+                self.check.isEnabled = self.enabledKey?.value ?? true
             }
         }
         if let titleKey = titleKey {
-            titleKey.addObserver {
-                weakSelf?.check.title = weakSelf?.titleKey?.value ?? ""
+            titleKey.addObserver { [weak self] in
+                self?.check.title = self?.titleKey?.value ?? ""
             }
         } else {
             check.title = ""

@@ -53,34 +53,32 @@ open class AJRInspectorSliceString: AJRInspectorSliceField {
 
         try super.buildView(from: element)
         
-        weak let weakSelf = self
-        valueKey?.addObserver {
-            if let strongSelf = weakSelf {
-                switch strongSelf.valueKey?.selectionType ?? .none {
-                case .none:
-                    strongSelf.field.stringValue = ""
-                    strongSelf.field.placeholderString = AJRObjectInspectorViewController.translator["No Selection"]
-                    strongSelf.field.isEditable = false
-                case .multiple:
-                    strongSelf.field.stringValue = ""
-                    strongSelf.field.placeholderString = AJRObjectInspectorViewController.translator["Multiple Selection"]
-                    strongSelf.field.isEditable = strongSelf.editableKey?.value ?? true
-                case .single:
-                    strongSelf.field.placeholderString = ""
-                    if let value = strongSelf.valueKey?.value {
-                        strongSelf.field.stringValue = String(describing: value)
+        valueKey?.addObserver { [weak self] in
+            guard let self else { return }
+            switch self.valueKey?.selectionType ?? .none {
+            case .none:
+                self.field.stringValue = ""
+                self.field.placeholderString = AJRObjectInspectorViewController.translator["No Selection"]
+                self.field.isEditable = false
+            case .multiple:
+                self.field.stringValue = ""
+                self.field.placeholderString = AJRObjectInspectorViewController.translator["Multiple Selection"]
+                self.field.isEditable = self.editableKey?.value ?? true
+            case .single:
+                self.field.placeholderString = ""
+                if let value = self.valueKey?.value {
+                    self.field.stringValue = String(describing: value)
+                } else {
+                    self.field.stringValue = ""
+                    if let nullPlaceholder = self.nullPlaceholder?.value {
+                        self.field.placeholderString = nullPlaceholder
                     } else {
-                        strongSelf.field.stringValue = ""
-                        if let nullPlaceholder = strongSelf.nullPlaceholder?.value {
-                            strongSelf.field.placeholderString = nullPlaceholder
-                        } else {
-                            strongSelf.field.placeholderString = ""
-                        }
+                        self.field.placeholderString = ""
                     }
-                    strongSelf.field.isEditable = strongSelf.editableKey?.value ?? true
                 }
-                strongSelf.updateHeightContraint()
+                self.field.isEditable = self.editableKey?.value ?? true
             }
+            self.updateHeightContraint()
         }
     }
     

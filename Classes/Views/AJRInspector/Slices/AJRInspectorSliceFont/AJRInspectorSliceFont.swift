@@ -66,28 +66,26 @@ class AJRInspectorSliceFont: AJRInspectorSlice {
         fontField.buttonPosition = .trailing
         fontField.setImages(withTemplate: AJRImages.image(named: "AJRFontButton", in: Bundle(for: AJRInspectorSliceFont.self)))
         
-        weak let weakSelf = self
-        valueKey?.addObserver {
-            if let strongSelf = weakSelf {
-                switch strongSelf.valueKey?.selectionType ?? .none {
-                case .none:
-                    strongSelf.fontField.stringValue = ""
-                    strongSelf.fontField.placeholderString = strongSelf.translator["No Selection"]
-                    strongSelf.fontField.isEnabled = false
-                case .multiple:
-                    strongSelf.fontField.stringValue = ""
-                    strongSelf.fontField.placeholderString = strongSelf.translator["Multiple Selection"]
-                    strongSelf.fontField.isEnabled = true
-                case .single:
-                    if let font = strongSelf.valueKey?.value {
-                        strongSelf.fontField.stringValue = font.displayName ?? ""
-                        strongSelf.fontField.placeholderString = ""
-                    } else {
-                        strongSelf.fontField.stringValue = ""
-                        strongSelf.fontField.placeholderString = strongSelf.translator["No Font"]
-                    }
-                    strongSelf.fontField.isEnabled = true
+        valueKey?.addObserver { [weak self] in
+            guard let self else { return }
+            switch self.valueKey?.selectionType ?? .none {
+            case .none:
+                self.fontField.stringValue = ""
+                self.fontField.placeholderString = self.translator["No Selection"]
+                self.fontField.isEnabled = false
+            case .multiple:
+                self.fontField.stringValue = ""
+                self.fontField.placeholderString = self.translator["Multiple Selection"]
+                self.fontField.isEnabled = true
+            case .single:
+                if let font = self.valueKey?.value {
+                    self.fontField.stringValue = font.displayName ?? ""
+                    self.fontField.placeholderString = ""
+                } else {
+                    self.fontField.stringValue = ""
+                    self.fontField.placeholderString = self.translator["No Font"]
                 }
+                self.fontField.isEnabled = true
             }
         }
     }

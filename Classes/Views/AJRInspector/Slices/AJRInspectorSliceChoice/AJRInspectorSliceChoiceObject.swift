@@ -223,17 +223,15 @@ open class AJRInspectorSliceChoiceObject : AJRInspectorSliceChoice {
             throw NSError(domain: AJRInspectorErrorDomain, message: "choice slices of type \"object\" must define the \"titleWhenNil\" when \"allowsNil\" is true.")
         }
 
-        weak let weakSelf = self
-        objectsKeyPath?.addObserver {
-            if let strongSelf = weakSelf {
-                if let objects = strongSelf.objectsKeyPath.value {
-                    strongSelf.objects = objects
-                }
-                strongSelf.updateDisplayedValue()
+        objectsKeyPath?.addObserver { [weak self] in
+            guard let self else { return }
+            if let objects = self.objectsKeyPath.value {
+                self.objects = objects
             }
+            self.updateDisplayedValue()
         }
-        valueKeyPath?.addObserver {
-            weakSelf?.updateDisplayedValue()
+        valueKeyPath?.addObserver { [weak self] in
+            self?.updateDisplayedValue()
         }
     }
     

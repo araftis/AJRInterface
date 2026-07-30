@@ -75,30 +75,27 @@ class AJRInspectorSliceColor: AJRInspectorSlice {
         
         try super.buildView(from: element)
         
-        weak let weakSelf = self
-        valueKey?.addObserver {
-            if let strongSelf = weakSelf {
-                switch strongSelf.valueKey?.selectionType ?? .none {
-                case .none:
-                    strongSelf.colorWell.color = NSColor.gray
-                    strongSelf.colorWell.isEnabled = false
-                    strongSelf.colorWell.displayMode = .none
-                case .multiple:
-                    strongSelf.colorWell.isEnabled = true
-                    strongSelf.colorWell.displayMode = .multiple
-                case .single:
-                    if let value = strongSelf.valueKey?.value {
-                        strongSelf.colorWell.color = value
-                    }
-                    strongSelf.colorWell.isEnabled = strongSelf.enabledKey?.value ?? true
-                    strongSelf.colorWell.displayMode = .color
+        valueKey?.addObserver { [weak self] in
+            guard let self else { return }
+            switch self.valueKey?.selectionType ?? .none {
+            case .none:
+                self.colorWell.color = NSColor.gray
+                self.colorWell.isEnabled = false
+                self.colorWell.displayMode = .none
+            case .multiple:
+                self.colorWell.isEnabled = true
+                self.colorWell.displayMode = .multiple
+            case .single:
+                if let value = self.valueKey?.value {
+                    self.colorWell.color = value
                 }
+                self.colorWell.isEnabled = self.enabledKey?.value ?? true
+                self.colorWell.displayMode = .color
             }
         }
-        enabledKey?.addObserver { 
-            if let strongSelf = weakSelf {
-                strongSelf.colorWell.isEnabled = strongSelf.enabledKey?.value ?? true
-            }
+        enabledKey?.addObserver { [weak self] in
+            guard let self else { return }
+            self.colorWell.isEnabled = self.enabledKey?.value ?? true
         }
     }
     

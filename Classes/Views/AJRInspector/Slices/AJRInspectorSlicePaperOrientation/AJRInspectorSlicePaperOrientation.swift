@@ -124,57 +124,51 @@ open class AJRInspectorSlicePaperOrientation: AJRInspectorSlice {
 
         try super.buildView(from: element)
 
-        weak let weakSelf = self
-        valueKey?.addObserver {
-            if let strongSelf = weakSelf {
-                switch strongSelf.valueKey?.selectionType ?? .none {
-                case .none:
-                    strongSelf.orientationChooser.isEnabled = false
-                case .multiple:
-                    strongSelf.orientationChooser.isEnabled = strongSelf.enabledKey?.value ?? true
-                case .single:
-                    strongSelf.orientationChooser.isEnabled = strongSelf.enabledKey?.value ?? true
-                    strongSelf.orientationChooser.orientation = strongSelf.valueKey?.value ?? .portrait
+        valueKey?.addObserver { [weak self] in
+            guard let self else { return }
+            switch self.valueKey?.selectionType ?? .none {
+            case .none:
+                self.orientationChooser.isEnabled = false
+            case .multiple:
+                self.orientationChooser.isEnabled = self.enabledKey?.value ?? true
+            case .single:
+                self.orientationChooser.isEnabled = self.enabledKey?.value ?? true
+                self.orientationChooser.orientation = self.valueKey?.value ?? .portrait
+            }
+        }
+        paperValueKey?.addObserver { [weak self] in
+            guard let self else { return }
+            switch self.paperValueKey?.selectionType ?? .none {
+            case .none:
+                break
+            case .multiple:
+                break
+            case .single:
+                if let paper = self.paperValueKey?.value {
+                    self.orientationChooser.paper = paper
                 }
             }
         }
-        paperValueKey?.addObserver {
-            if let strongSelf = weakSelf {
-                switch strongSelf.paperValueKey?.selectionType ?? .none {
-                case .none:
-                    break
-                case .multiple:
-                    break
-                case .single:
-                    if let paper = strongSelf.paperValueKey?.value {
-                        strongSelf.orientationChooser.paper = paper
-                    }
+        unitsKey?.addObserver { [weak self] in
+            guard let self else { return }
+            switch self.unitsKey?.selectionType ?? .none {
+            case .none:
+                break
+            case .multiple:
+                break
+            case .single:
+                if let units = self.unitsKey?.value as? UnitLength {
+                    self.orientationChooser.units = units
                 }
             }
         }
-        unitsKey?.addObserver {
-            if let strongSelf = weakSelf {
-                switch strongSelf.unitsKey?.selectionType ?? .none {
-                case .none:
-                    break
-                case .multiple:
-                    break
-                case .single:
-                    if let units = strongSelf.unitsKey?.value as? UnitLength {
-                        strongSelf.orientationChooser.units = units
-                    }
-                }
-            }
+        enabledKey?.addObserver { [weak self] in
+            guard let self else { return }
+            self.orientationChooser.isEnabled = self.enabledKey?.value ?? true
         }
-        enabledKey?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.orientationChooser.isEnabled = strongSelf.enabledKey?.value ?? true
-            }
-        }
-        displayInchesAsFractionsKey?.addObserver {
-            if let strongSelf = weakSelf {
-                strongSelf.orientationChooser.displayInchesAsFractions = strongSelf.displayInchesAsFractionsKey?.value ?? false
-            }
+        displayInchesAsFractionsKey?.addObserver { [weak self] in
+            guard let self else { return }
+            self.orientationChooser.displayInchesAsFractions = self.displayInchesAsFractionsKey?.value ?? false
         }
     }
 

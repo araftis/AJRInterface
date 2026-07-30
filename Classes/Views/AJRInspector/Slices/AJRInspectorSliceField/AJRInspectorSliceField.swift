@@ -100,21 +100,21 @@ open class AJRInspectorSliceField: AJRInspectorSlice, NSTextFieldDelegate {
         
         editableKey?.addObserver { [weak self] in
             guard let self else { return }
-                if self.editableKey?.value ?? true {
-                    self.field.isEditable = true
-                    self.field.isBordered = true
-                    self.field.isBezeled = true
-                    self.field.bezelStyle = .squareBezel
-                    self.field.drawsBackground = true
-                } else {
-                    self.field.isEditable = false
-                    self.field.lineBreakMode = NSLineBreakMode.byWordWrapping
-                    self.field.maximumNumberOfLines = 0
-                    self.field.isBordered = false
-                    self.field.isBezeled = false
-                    self.field.drawsBackground = false
-                    self.field.abortEditing()
-                }
+            if self.editableKey?.value ?? true {
+                self.field.isEditable = true
+                self.field.isBordered = true
+                self.field.isBezeled = true
+                self.field.bezelStyle = .squareBezel
+                self.field.drawsBackground = true
+            } else {
+                self.field.isEditable = false
+                self.field.lineBreakMode = NSLineBreakMode.byWordWrapping
+                self.field.maximumNumberOfLines = 0
+                self.field.isBordered = false
+                self.field.isBezeled = false
+                self.field.drawsBackground = false
+                self.field.abortEditing()
+            }
             self.updateHeightContraint()
         }
         selectableKey?.addObserver { [weak self] in

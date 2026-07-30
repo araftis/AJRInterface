@@ -111,67 +111,66 @@ class AJRInspectorSliceAttributedString: AJRInspectorSliceField, AJRInspectorTex
     
     open override func buildView(from element: XMLElement) throws {
         valueKey = try AJRInspectorKey(key: "value", xmlElement: element, inspectorElement: self)
-        
-        try super.buildView(from: element)
-        
-        attributeSegments.setMenu(AJRColorSwatchMenu(self, #selector(takeColor(from:)), self, #selector(showColors(_:))), forSegment: .foregroundColor)
-        
-        weak let weakSelf = self
-        valueKey?.addObserver {
-            if let strongSelf = weakSelf {
-                var changedValue = false
 
-                switch strongSelf.valueKey?.selectionType ?? .none {
-                case .none:
-                    if !AJRAnyEquals(strongSelf.field.placeholderString, AJRObjectInspectorViewController.translator["No Selection"]) {
-                        strongSelf.field.stringValue = ""
-                        strongSelf.field.placeholderString = AJRObjectInspectorViewController.translator["No Selection"]
-                        strongSelf.field.isEditable = false
-                        changedValue = true
-                    }
-                case .multiple:
-                    if !AJRAnyEquals(strongSelf.field.placeholderString, AJRObjectInspectorViewController.translator["Multiple Selection"]) {
-                        strongSelf.field.stringValue = ""
-                        strongSelf.field.placeholderString = AJRObjectInspectorViewController.translator["Multiple Selection"]
-                        strongSelf.field.isEditable = strongSelf.editableKey?.value ?? true
-                        changedValue = true
-                    }
-                case .single:
-                    strongSelf.field.placeholderString = ""
-                    if let value = strongSelf.valueKey?.value {
-                        if !AJRAnyEquals(strongSelf.field.attributedStringValue, value) {
-                            strongSelf.field.attributedStringValue = value
-                            strongSelf.field.isEditable = strongSelf.editableKey?.value ?? true
-                            changedValue = true
-                        }
-                    } else {
-                        strongSelf.field.attributedStringValue = NSAttributedString()
-                        if let nullPlaceholder = strongSelf.nullPlaceholder?.value {
-                            strongSelf.field.placeholderString = nullPlaceholder
-                        } else {
-                            strongSelf.field.placeholderString = ""
-                        }
-                        strongSelf.field.isEditable = strongSelf.editableKey?.value ?? true
-                        changedValue = true
-                    }
+        try super.buildView(from: element)
+
+        attributeSegments.setMenu(AJRColorSwatchMenu(self, #selector(takeColor(from:)), self, #selector(showColors(_:))), forSegment: .foregroundColor)
+
+        valueKey?.addObserver { [weak self] in
+            guard let self else { return }
+
+            var changedValue = false
+
+            switch self.valueKey?.selectionType ?? .none {
+            case .none:
+                if !AJRAnyEquals(self.field.placeholderString, AJRObjectInspectorViewController.translator["No Selection"]) {
+                    self.field.stringValue = ""
+                    self.field.placeholderString = AJRObjectInspectorViewController.translator["No Selection"]
+                    self.field.isEditable = false
+                    changedValue = true
                 }
-                
-                if changedValue {
-                    strongSelf.updateHeightContraint()
-                    if strongSelf.field.attributedStringValue.length == 0 {
-                        strongSelf.updateDisplay(for: [:])
-                    } else {
-                        strongSelf.updateDisplay(for: strongSelf.field.attributedStringValue.attributes(at: 0, effectiveRange: nil))
-                    }
+            case .multiple:
+                if !AJRAnyEquals(self.field.placeholderString, AJRObjectInspectorViewController.translator["Multiple Selection"]) {
+                    self.field.stringValue = ""
+                    self.field.placeholderString = AJRObjectInspectorViewController.translator["Multiple Selection"]
+                    self.field.isEditable = self.editableKey?.value ?? true
+                    changedValue = true
                 }
-                
-                if strongSelf.field.isEditable {
-                    strongSelf.attributeSegments.isHidden = false
-                    strongSelf.alignmentSegments.isHidden = false
+            case .single:
+                self.field.placeholderString = ""
+                if let value = self.valueKey?.value {
+                    if !AJRAnyEquals(self.field.attributedStringValue, value) {
+                        self.field.attributedStringValue = value
+                        self.field.isEditable = self.editableKey?.value ?? true
+                        changedValue = true
+                    }
                 } else {
-                    strongSelf.attributeSegments.isHidden = true
-                    strongSelf.alignmentSegments.isHidden = true
+                    self.field.attributedStringValue = NSAttributedString()
+                    if let nullPlaceholder = self.nullPlaceholder?.value {
+                        self.field.placeholderString = nullPlaceholder
+                    } else {
+                        self.field.placeholderString = ""
+                    }
+                    self.field.isEditable = self.editableKey?.value ?? true
+                    changedValue = true
                 }
+            }
+
+            if changedValue {
+                self.updateHeightContraint()
+                if self.field.attributedStringValue.length == 0 {
+                    self.updateDisplay(for: [:])
+                } else {
+                    self.updateDisplay(for: self.field.attributedStringValue.attributes(at: 0, effectiveRange: nil))
+                }
+            }
+
+            if self.field.isEditable {
+                self.attributeSegments.isHidden = false
+                self.alignmentSegments.isHidden = false
+            } else {
+                self.attributeSegments.isHidden = true
+                self.alignmentSegments.isHidden = true
             }
         }
     }

@@ -87,34 +87,32 @@ class AJRInspectorTextFieldCell: NSTextFieldCell, NSTextDelegate {
                 (text as? NSTextView)?.textStorage?.setAttributedString(string)
             }
             
-            weak let weakSelf = self
-            selectionDidChangeObserverToken = NotificationCenter.default.addObserver(forName: NSTextView.didChangeSelectionNotification, object: text, queue: nil, using: { (notification) in
+            selectionDidChangeObserverToken = NotificationCenter.default.addObserver(forName: NSTextView.didChangeSelectionNotification, object: text, queue: nil, using: { [weak self] (notification) in
+                guard let self else { return }
                 if let text = notification.object as? NSTextView,
-                   let strongSelf = weakSelf,
-                   let textField = strongSelf.controlView as? AJRInspectorTextField,
+                   let textField = self.controlView as? AJRInspectorTextField,
                    let delegate = textField.delegate as? AJRInspectorTextFieldDelegate {
                     delegate.textField?(textField, selectionDidChangeInFieldEditor: text)
                 }
             })
-            didEndEditingObserverToken = NotificationCenter.default.addObserver(forName: NSControl.textDidEndEditingNotification, object: controlView, queue: nil, using: { (notification) in
+            didEndEditingObserverToken = NotificationCenter.default.addObserver(forName: NSControl.textDidEndEditingNotification, object: controlView, queue: nil, using: { [weak self] (notification) in
                 //print("end editing")
-                if let strongSelf = weakSelf {
-                    strongSelf.stopObserving(token: &strongSelf.selectionDidChangeObserverToken)
-                    strongSelf.stopObserving(token: &strongSelf.didEndEditingObserverToken)
-                    strongSelf.stopObserving(token: &strongSelf.typingAttributesDidChangeObserverToken)
-                    strongSelf.stopObserving(token: &strongSelf.textDidChangeObserverToken)
+                guard let self else { return }
+                self.stopObserving(token: &self.selectionDidChangeObserverToken)
+                self.stopObserving(token: &self.didEndEditingObserverToken)
+                self.stopObserving(token: &self.typingAttributesDidChangeObserverToken)
+                self.stopObserving(token: &self.textDidChangeObserverToken)
                     if let text = text as? NSTextView {
                         text.insertionPointColor = NSColor.white
-                        if let textField = strongSelf.controlView as? AJRInspectorTextField,
+                        if let textField = self.controlView as? AJRInspectorTextField,
                             let delegate = textField.delegate as? AJRInspectorTextFieldDelegate {
                             delegate.textField?(textField, didEndEditingInFieldEditor: text)
                         }
                     }
-                }
             })
-            typingAttributesDidChangeObserverToken = NotificationCenter.default.addObserver(forName: NSTextView.didChangeTypingAttributesNotification, object: text, queue: nil, using: { (notification) in
-                if let strongSelf = weakSelf,
-                    let textField = strongSelf.controlView as? AJRInspectorTextField {
+            typingAttributesDidChangeObserverToken = NotificationCenter.default.addObserver(forName: NSTextView.didChangeTypingAttributesNotification, object: text, queue: nil, using: { [weak self] (notification) in
+                guard let self else { return }
+                if let textField = self.controlView as? AJRInspectorTextField {
                     if let text = text as? NSTextView,
                         let delegate = textField.delegate as? AJRInspectorTextFieldDelegate {
                         delegate.textField?(textField, typingAttributesDidChangeInFieldEditor: text)
@@ -124,9 +122,9 @@ class AJRInspectorTextFieldCell: NSTextFieldCell, NSTextDelegate {
                     }
                 }
             })
-            textDidChangeObserverToken = NotificationCenter.default.addObserver(forName: NSTextView.didChangeNotification, object: text, queue: nil, using: { (notification) in
-                if let strongSelf = weakSelf,
-                    let textField = strongSelf.controlView as? AJRInspectorTextField,
+            textDidChangeObserverToken = NotificationCenter.default.addObserver(forName: NSTextView.didChangeNotification, object: text, queue: nil, using: { [weak self] (notification) in
+                guard let self else { return }
+                if let textField = self.controlView as? AJRInspectorTextField,
                     textField.isContinuous, let action = textField.action {
                     NSApp.sendAction(action, to: textField.target, from: textField)
                 }

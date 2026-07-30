@@ -336,21 +336,19 @@ private class AJRInspectorSliceChoiceTyped<T: AJRInspectorValue> : AJRInspectorS
             segments.action = #selector(selectSegment(_:))
         }
 
-        weak let weakSelf = self
-        valueKey?.addObserver {
-            weakSelf?.updateValue()
+        valueKey?.addObserver { [weak self] in
+            self?.updateValue()
         }
-        valuesKeyPath?.addObserver {
-            if let strongSelf = weakSelf {
-                if let values = strongSelf.valuesKeyPath?.value {
-                    strongSelf.choices.removeAll()
-                    for value in values {
-                        // Throws because some code paths can fail, but we won't hit any of those code paths.
-                        strongSelf.choices.append(try! AJRInspectorChoiceFixed(slice: strongSelf, title: nil, image: nil, value: value))
-                    }
+        valuesKeyPath?.addObserver { [weak self] in
+            guard let self else { return }
+            if let values = self.valuesKeyPath?.value {
+                self.choices.removeAll()
+                for value in values {
+                    // Throws because some code paths can fail, but we won't hit any of those code paths.
+                    self.choices.append(try! AJRInspectorChoiceFixed(slice: self, title: nil, image: nil, value: value))
                 }
-                strongSelf.updateValue()
             }
+            self.updateValue()
         }
     }
     

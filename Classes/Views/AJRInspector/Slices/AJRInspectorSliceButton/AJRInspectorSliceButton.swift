@@ -67,15 +67,14 @@ class AJRInspectorSliceButton: AJRInspectorSlice {
 
         try super.buildView(from: element)
         
-        weak let weakSelf = self
-        titleKey?.addObserver {
-            weakSelf?.button.title = weakSelf?.titleKey?.value ?? ""
+        titleKey?.addObserver { [weak self] in
+            self?.button.title = self?.titleKey?.value ?? ""
         }
-        enabledKey?.addObserver {
-            weakSelf?.button.isEnabled = weakSelf?.enabledKey?.value ?? true
+        enabledKey?.addObserver { [weak self] in
+            self?.button.isEnabled = self?.enabledKey?.value ?? true
         }
-        actionKey?.addObserver {
-            weakSelf?.button.action = weakSelf?.actionKey?.value
+        actionKey?.addObserver { [weak self] in
+            self?.button.action = self?.actionKey?.value
         }
         if let targetKeyPath = targetKeyPath {
             viewController?.addObserver(self, forKeyPath: targetKeyPath, options: [.initial], context: nil)
