@@ -88,12 +88,16 @@ open class AJREditableImageView: NSImageView {
     private var selectionAnimationTimer: Timer?
     private var selectionDashPhase: CGFloat = 0.0
 
+    private func startObservingImageAdjustments() {
+        observerToken = imageAdjustments?.addChangeObserver { [weak self] sender, action, key  in
+            self?.imageAdjustmentsDidChange(sender, action: action, key: key)
+        }
+    }
+
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         imageAdjustments = AJRImageAdjustments()
-        observerToken = imageAdjustments?.addChangeObserver { [weak self] sender, key  in
-            self?.imageAdjustmentsDidChange(sender, change: key)
-        }
+        startObservingImageAdjustments()
     }
     
     required public init?(coder: NSCoder) {
@@ -102,9 +106,7 @@ open class AJREditableImageView: NSImageView {
         if imageAdjustments == nil {
             imageAdjustments = AJRImageAdjustments()
         }
-        observerToken = imageAdjustments?.addChangeObserver { [weak self] sender, key  in
-            self?.imageAdjustmentsDidChange(sender, change: key)
-        }
+        startObservingImageAdjustments()
     }
 
     deinit {
@@ -542,24 +544,49 @@ open class AJREditableImageView: NSImageView {
 
     @objc dynamic public var imageAdjustments : AJRImageAdjustments? {
         willSet {
+            assert(undoableKey == nil, "Attempting to change the imageAdjustments while a undoable tracking event is taking place. This is not allowed.")
             if let observerToken, let imageAdjustments {
                 imageAdjustments.removeChangeObserver(observerToken)
                 self.observerToken = nil
             }
         }
         didSet {
-            if let imageAdjustments {
-                observerToken = imageAdjustments.addChangeObserver { [weak self] sender, key  in
-                    self?.imageAdjustmentsDidChange(sender, change: key)
-                }
-            }
+            startObservingImageAdjustments()
             updateDisplayImage()
         }
     }
 
-    open func imageAdjustmentsDidChange(_ imageAdjustments: AJRImageAdjustments, change: AJRImageAdjustment) {
-        //print("change: \(change): \(imageAdjustments.value(forKey: change))")
-        updateDisplayImage()
+    private func registerUndo(key: AJRImageAdjustment, value: CGFloat, actionName: String) {
+        undoManager?.registerUndo(withTarget: self) { myself in
+            guard let currentValue = myself.imageAdjustments?[key] else { return }
+
+            myself.imageAdjustments?[key] = value
+            myself.registerUndo(key: key, value: currentValue, actionName: actionName)
+        }
+        undoManager?.setActionName(actionName)
+    }
+
+    private var undoableKey: AJRImageAdjustment?
+    private var undoableValue: CGFloat?
+
+    open func imageAdjustmentsDidChange(_ imageAdjustments: AJRImageAdjustments, action: AJRImageAdjustments.ChangeAction, key: AJRImageAdjustment) {
+        switch action {
+            case .beginUndoTracking:
+            //print("action: \(action), key: \(key), value: \(imageAdjustments.value(forKey: key))")
+            undoableKey = key
+            undoableValue = imageAdjustments.value(forKey: key)
+        case .changeValue:
+            updateDisplayImage()
+        case .commitUndoTracking:
+            if let undoableKey, let undoableValue {
+                //print("action: \(action), key: \(undoableKey), value: \(undoableValue)")
+                if undoableValue != imageAdjustments[key] {
+                    registerUndo(key: undoableKey, value: undoableValue, actionName: "Adjust \(key.description.capitalized)")
+                }
+            }
+            undoableKey = nil
+            undoableValue = nil
+        }
     }
 
     // MARK: - Encoding

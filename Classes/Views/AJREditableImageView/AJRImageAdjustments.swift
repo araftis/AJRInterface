@@ -92,12 +92,16 @@ private extension AJRXMLCoder {
 }
 
 @objcMembers
-public class AJRImageAdjustments: NSObject, NSCopying, AJRXMLCoding, NSCoding {
+public class AJRImageAdjustments: NSObject, NSCopying, AJRXMLCoding, NSCoding, AJRInspectableUndoObservation {
 
     public static let identity = AJRImageAdjustments(editable: false)
     public private(set) var editable : Bool = true
 
     private var _values = [AJRImageAdjustment: CGFloat]()
+    public subscript(_ key: AJRImageAdjustment) -> CGFloat {
+        get { return _value(for: key) }
+        set { _setValue(newValue, for: key, notify: true) }
+    }
     private subscript(_ key: AJRImageAdjustment, notify: Bool = true) -> CGFloat {
         get { return _value(for: key) }
         set { _setValue(newValue, for: key, notify: notify) }
@@ -110,7 +114,7 @@ public class AJRImageAdjustments: NSObject, NSCopying, AJRXMLCoding, NSCoding {
         if _values[key] != value {
             _values[key] = value
             if notify {
-                notifyChangeObservers(ofChange: key)
+                notifyChangeObserversOfChange(forAction: .changeValue, key: key)
             }
         }
     }
@@ -187,7 +191,7 @@ public class AJRImageAdjustments: NSObject, NSCopying, AJRXMLCoding, NSCoding {
         for key in AJRImageAdjustment.allKeys {
             _setValue(key.default, for: key, notify: false)
         }
-        notifyChangeObservers(ofChange: .all)
+        notifyChangeObserversOfChange(forAction: .changeValue, key: .all)
     }
 
     private static let imageContext = CIContext()
@@ -212,7 +216,12 @@ public class AJRImageAdjustments: NSObject, NSCopying, AJRXMLCoding, NSCoding {
 
     // MARK: - Observation
 
-    public typealias ChangeBlock = (AJRImageAdjustments, AJRImageAdjustment) -> Void
+    public enum ChangeAction {
+        case beginUndoTracking
+        case changeValue
+        case commitUndoTracking
+    }
+    public typealias ChangeBlock = (AJRImageAdjustments, ChangeAction, AJRImageAdjustment) -> Void
     public typealias ObserverToken = AnyHashable
 
     internal var observers = [ObserverToken:ChangeBlock]()
@@ -227,9 +236,23 @@ public class AJRImageAdjustments: NSObject, NSCopying, AJRXMLCoding, NSCoding {
         observers.removeValue(forKey: token)
     }
 
-    open func notifyChangeObservers(ofChange key: AJRImageAdjustment) {
+    open func notifyChangeObserversOfChange(forAction action: ChangeAction, key: AJRImageAdjustment) {
         for block in Array(observers.values) {
-            block(self, key)
+            block(self, action, key)
+        }
+    }
+
+    // MARK: - AJRInspectableUndoObservation
+
+    public func inspectorWillBeginUndoableChange(forKey key: String) {
+        if let key = AJRImageAdjustmentFromString((key as NSString).pathExtension) {
+            notifyChangeObserversOfChange(forAction: .beginUndoTracking, key: key)
+        }
+    }
+
+    public func inspectorDidCommitUndoableChange(forKey key: String) {
+        if let key = AJRImageAdjustmentFromString((key as NSString).pathExtension) {
+            notifyChangeObserversOfChange(forAction: .commitUndoTracking, key: key)
         }
     }
 

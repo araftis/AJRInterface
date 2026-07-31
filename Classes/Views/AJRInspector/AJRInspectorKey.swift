@@ -159,7 +159,30 @@ open class AJRInspectorKey<T: AJRInspectorValue> : NSObject {
         }
         return .single // Because we're resolving against a "constant", or 1 object.
     }
-    
+
+    // MARK: - Undo Groupings
+
+    internal func objectContainingValue() -> Any? {
+        if let path = self.keyPath,
+           let object = inspectorElement?.viewController {
+            let newPath = NSString(string: path).deletingPathExtension.description
+            return object.value(forKeyPath: newPath)
+        }
+        return nil
+    }
+
+    open func sendBeginUndoableChange() {
+        if let keyPath, let object = objectContainingValue() as? AJRInspectableUndoObservation {
+            object.inspectorWillBeginUndoableChange(forKey: keyPath)
+        }
+    }
+
+    open func sendCommitUndoableChange() {
+        if let keyPath, let object = objectContainingValue() as? AJRInspectableUndoObservation {
+            object.inspectorDidCommitUndoableChange(forKey: keyPath)
+        }
+    }
+
     // MARK: - Observers
     
     private var observing = false

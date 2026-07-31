@@ -1347,6 +1347,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		FAE23E683016CEBD00F21DBC /* AJREditableImageView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AJREditableImageView; sourceTree = "<group>"; };
+		FAE23E7F301C395800F21DBC /* AJRTrackingSlider */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AJRTrackingSlider; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1755,12 +1756,13 @@
 				FAF6324013EE443B00EAE4E5 /* AJRRibbonView */,
 				FA16033D10C498F000A1E97D /* AJRScrollView */,
 				FA6D23EF105AA53200345E82 /* AJRSectionView */,
+				FA07C890220EACFB0077A0B5 /* AJRSnapshotView */,
 				FA2F995E0E93EDD9004F1A14 /* AJRSourceView */,
 				FAD0C7461433BF170027168E /* AJRSplitView */,
 				FA7D49D80EA3F7E400F0C220 /* AJRTerritoryViewer */,
 				FA6D2AB4105EFAA800345E82 /* AJRToggleButton */,
 				FA6A6BA80EE8AA6E0094F769 /* AJRToolbarPopUpButton */,
-				FA07C890220EACFB0077A0B5 /* AJRSnapshotView */,
+				FAE23E7F301C395800F21DBC /* AJRTrackingSlider */,
 				D204354B0EC4D32C000A6475 /* AJRWhiteBox */,
 				FA76AB96221CC1B7008FA786 /* AJRWebView */,
 			);
@@ -3137,6 +3139,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				FAE23E683016CEBD00F21DBC /* AJREditableImageView */,
+				FAE23E7F301C395800F21DBC /* AJRTrackingSlider */,
 			);
 			name = AJRInterface;
 			packageProductDependencies = (

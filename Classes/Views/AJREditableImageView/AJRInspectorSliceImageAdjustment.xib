@@ -27,7 +27,7 @@
                     </constraints>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" id="UwU-Pa-jYN"/>
                 </imageView>
-                <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nsi-8Y-86p">
+                <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nsi-8Y-86p" customClass="AJRTrackingSlider" customModule="AJRInterface" customModuleProvider="target">
                     <rect key="frame" x="23" y="1" width="151" height="17"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="ZyB-sE-LAl"/>

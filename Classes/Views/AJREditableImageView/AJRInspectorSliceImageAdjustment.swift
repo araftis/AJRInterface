@@ -13,7 +13,7 @@ open class AJRInspectorSliceImageAdjustment: AJRInspectorSlice {
     // Outlets
     @IBOutlet var minImageView: NSImageView!
     @IBOutlet var maxImageView: NSImageView!
-    @IBOutlet var valueSlider: NSSlider!
+    @IBOutlet var valueSlider: AJRTrackingSlider!
 
     // Observables
     open var enabledKey : AJRInspectorKey<Bool>?
@@ -49,6 +49,16 @@ open class AJRInspectorSliceImageAdjustment: AJRInspectorSlice {
         enabledKey = try AJRInspectorKey(key: "enabled", xmlElement: element, inspectorElement: self)
 
         try super.buildView(from: element)
+
+        // We only need to do this if something is tracking our value.
+        valueSlider.willBeginTracking = { [weak self] in
+            guard let self else { return }
+            valueKey?.sendBeginUndoableChange()
+        }
+        valueSlider.didEndTracking = { [weak self] in
+            guard let self else { return }
+            valueKey?.sendCommitUndoableChange()
+        }
 
         if roleKey == nil {
             // The user didn't explicitly define the role, so we'll try to infer from the value's keyPath

@@ -56,6 +56,13 @@ extern AJRInspectorIdentifier const AJRInspectorContentIdentifierAny;
 
 @end
 
+@protocol AJRInspectableUndoObservation <NSObject>
+
+- (void)inspectorWillBeginUndoableChangeForKey:(NSString *)key;
+- (void)inspectorDidCommitUndoableChangeForKey:(NSString *)key;
+
+@end
+
 @interface NSObject (AJRInspectable) <AJRInspectable>
 
 @end
