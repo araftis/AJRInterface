@@ -323,6 +323,10 @@ open class AJREditableImageView: NSImageView {
         }
     }
 
+    open override var intrinsicContentSize: NSSize {
+        return NSSize(width: NSView.noIntrinsicMetric, height: NSView.noIntrinsicMetric)
+    }
+
     // MARK: - Selection Animation
 
     private func updateSelectionAnimation() {

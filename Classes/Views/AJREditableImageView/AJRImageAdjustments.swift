@@ -195,6 +195,16 @@ public class AJRImageAdjustments: NSObject, NSCopying, AJRXMLCoding, NSCoding, A
     }
 
     private static let imageContext = CIContext()
+    private static let defaultOutputColorSpace = CGColorSpace(name: CGColorSpace.sRGB)!
+
+    private func outputColorSpace(for image: CGImage) -> CGColorSpace {
+        if let colorSpace = image.colorSpace,
+           colorSpace.model == .rgb {
+            return colorSpace
+        }
+
+        return Self.defaultOutputColorSpace
+    }
 
     open func imageByApplying(to image: CGImage?) -> CGImage? {
         guard let image else { return nil }
@@ -210,7 +220,7 @@ public class AJRImageAdjustments: NSObject, NSCopying, AJRXMLCoding, NSCoding, A
             outputImage,
             from: sourceImage.extent,
             format: .RGBA8,
-            colorSpace: image.colorSpace
+            colorSpace: outputColorSpace(for: image)
         )
     }
 
