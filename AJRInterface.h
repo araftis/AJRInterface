@@ -205,6 +205,7 @@
 #import <AJRInterface/NSGradient+Extensions.h>
 #import <AJRInterface/NSGraphicsContext+Extensions.h>
 #import <AJRInterface/NSImage+Extensions.h>
+#import <AJRInterface/NSImageRep+Extensions.h>
 #import <AJRInterface/NSLayoutManager+Extensions.h>
 #import <AJRInterface/NSMenu+Extensions.h>
 #import <AJRInterface/NSMutableDictionary+Extensions.h>

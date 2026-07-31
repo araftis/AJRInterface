@@ -505,6 +505,9 @@
 		FAD78185104D8E340040EAD5 /* AJRProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEAD0AB104C6B8500D63C12 /* AJRProgressView.m */; };
 		FADDA17B22A2F60D00257007 /* AJRPairedNumberEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADDA17922A2F60D00257007 /* AJRPairedNumberEditor.swift */; };
 		FADDA17F22A3094F00257007 /* AJRPairedNumberEditor.strings in Resources */ = {isa = PBXBuildFile; fileRef = FADDA18122A3094F00257007 /* AJRPairedNumberEditor.strings */; };
+		FAE23E7A301C1A7B00F21DBC /* NSImageRep+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = FAE23E79301C1A7B00F21DBC /* NSImageRep+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FAE23E7C301C1AC000F21DBC /* NSImageRep+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE23E7B301C1AC000F21DBC /* NSImageRep+Extensions.m */; };
+		FAE23E7E301C30B200F21DBC /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE23E7D301C30B200F21DBC /* CoreImage.framework */; };
 		FAE8AD800EC926420016505C /* RingBottom.tiff in Resources */ = {isa = PBXBuildFile; fileRef = FAE8AD7C0EC926420016505C /* RingBottom.tiff */; };
 		FAE8AD810EC926420016505C /* RingLeft.tiff in Resources */ = {isa = PBXBuildFile; fileRef = FAE8AD7D0EC926420016505C /* RingLeft.tiff */; };
 		FAE8AD820EC926420016505C /* RingRight.tiff in Resources */ = {isa = PBXBuildFile; fileRef = FAE8AD7E0EC926420016505C /* RingRight.tiff */; };
@@ -1203,6 +1206,9 @@
 		FADDA17922A2F60D00257007 /* AJRPairedNumberEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJRPairedNumberEditor.swift; sourceTree = "<group>"; };
 		FADDA18022A3094F00257007 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AJRPairedNumberEditor.strings; sourceTree = "<group>"; };
 		FADDA18222A3095100257007 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/AJRPairedNumberEditor.strings; sourceTree = "<group>"; };
+		FAE23E79301C1A7B00F21DBC /* NSImageRep+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImageRep+Extensions.h"; sourceTree = "<group>"; };
+		FAE23E7B301C1AC000F21DBC /* NSImageRep+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImageRep+Extensions.m"; sourceTree = "<group>"; };
+		FAE23E7D301C30B200F21DBC /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		FAE568E40F605ECA0031E4F5 /* Log4Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Log4Cocoa.framework; path = ../../Library/Frameworks/Log4Cocoa.framework; sourceTree = SOURCE_ROOT; };
 		FAE8AD7C0EC926420016505C /* RingBottom.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = RingBottom.tiff; sourceTree = "<group>"; };
 		FAE8AD7D0EC926420016505C /* RingLeft.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = RingLeft.tiff; sourceTree = "<group>"; };
@@ -1348,6 +1354,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAE23E7E301C30B200F21DBC /* CoreImage.framework in Frameworks */,
 				FAA884562A329CE80018049B /* OrderedCollections in Frameworks */,
 				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
 				FA4F22FE2207B13200AB64C2 /* AJRFoundation.framework in Frameworks */,
@@ -2082,6 +2089,8 @@
 				FA6C24E30E9AAC4B003F2540 /* NSImage+Extensions.h */,
 				FA6C24E40E9AAC4B003F2540 /* NSImage+Extensions.m */,
 				FAC861D624BD20F7001C3850 /* NSImage+Extensions.swift */,
+				FAE23E79301C1A7B00F21DBC /* NSImageRep+Extensions.h */,
+				FAE23E7B301C1AC000F21DBC /* NSImageRep+Extensions.m */,
 				FA1603F610C5C8A300A1E97D /* NSLayoutManager+Extensions.h */,
 				FA1603F710C5C8A300A1E97D /* NSLayoutManager+Extensions.m */,
 				FAEF49681135D2CE00E49BA3 /* NSMenu+Extensions.h */,
@@ -2478,6 +2487,7 @@
 		FABFEF6A145286FE008CE3FE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAE23E7D301C30B200F21DBC /* CoreImage.framework */,
 				FA0014D82267E7B0001DFB69 /* MMFoundation.framework */,
 				FA53D63F22419EC7003E02B1 /* MP4.framework */,
 				FA53D63D22419EC0003E02B1 /* libmp4v2.dylib */,
@@ -2933,6 +2943,7 @@
 				FA76AB9E221CC1FE008FA786 /* AJRWebView.h in Headers */,
 				FACC05C60FBCD086004A40FA /* AJRCalendarView.h in Headers */,
 				FACC05DD0FBDCA23004A40FA /* AJRCalendarWeekRenderer.h in Headers */,
+				FAE23E7A301C1A7B00F21DBC /* NSImageRep+Extensions.h in Headers */,
 				FACC05E50FBDCA3C004A40FA /* AJRCalendarYearRenderer.h in Headers */,
 				FA54DC4F0F435DB0008DF3F7 /* AJRCollectionView.h in Headers */,
 				FAFE49730EC4F24000AE17D0 /* AJRDropShadowBorder.h in Headers */,
@@ -3377,6 +3388,7 @@
 			files = (
 				FA2F99680E93EE6D004F1A14 /* AJRExpansionView.m in Sources */,
 				FA2F996A0E93EE6D004F1A14 /* AJRExpansionViewItem.m in Sources */,
+				FAE23E7C301C1AC000F21DBC /* NSImageRep+Extensions.m in Sources */,
 				FAA82A47272B8CFB009CAB51 /* NSView+Extensions.swift in Sources */,
 				FA2F99730E93EF5D004F1A14 /* AJRSourceIconCell.m in Sources */,
 				FA8B9007290101F200650F23 /* AJRVariableTypeBezierPath.swift in Sources */,

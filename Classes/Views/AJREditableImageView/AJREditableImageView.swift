@@ -14,10 +14,25 @@ open class AJREditableImageView: NSImageView {
 
     // MARK: - Image
 
+    open var baseImage: NSImage?
+
+    internal func updateDisplayImage() {
+        if let imageAdjustments, let baseImage {
+            super.image = imageAdjustments.imageByApplying(toAllRepresentationsIn: baseImage)
+        } else {
+            super.image = baseImage
+        }
+    }
+
     open override var image: NSImage? {
-        didSet {
-            if image !== oldValue {
+        get {
+            return super.image
+        }
+        set {
+            if image !== newValue {
+                baseImage = newValue
                 clearSelection()
+                updateDisplayImage()
             }
         }
     }
@@ -172,6 +187,13 @@ open class AJREditableImageView: NSImageView {
     open func crop(_ sender: Any?) {
         guard let image, hasSelection else { return }
         restore(image: image.cropped(to: selectionRect), selectionRect: .zero, actionName: translator["Crop"])
+    }
+
+    @IBAction
+    open func resetAllImageAdjustments(_ sender: Any?) -> Void {
+        guard let imageAdjustments else { return }
+        imageAdjustments.reset()
+        updateDisplayImage()
     }
 
     // MARK: - Mouse Tracking
@@ -531,11 +553,13 @@ open class AJREditableImageView: NSImageView {
                     self?.imageAdjustmentsDidChange(sender, change: key)
                 }
             }
+            updateDisplayImage()
         }
     }
 
     open func imageAdjustmentsDidChange(_ imageAdjustments: AJRImageAdjustments, change: AJRImageAdjustment) {
-        print("change: \(change): \(imageAdjustments.value(forKey: change))")
+        //print("change: \(change): \(imageAdjustments.value(forKey: change))")
+        updateDisplayImage()
     }
 
     // MARK: - Encoding

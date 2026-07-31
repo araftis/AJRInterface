@@ -8,8 +8,10 @@
 import Cocoa
 
 import AJRFoundation
+import CoreImage
+import CoreImage.CIFilterBuiltins
 
-public struct AJRImageAdjustment: AJRInspectorValue {
+public struct AJRImageAdjustment: AJRInspectorValue, Hashable {
 
     public let rawValue: String
     public let min: CGFloat
@@ -48,6 +50,8 @@ public struct AJRImageAdjustment: AJRInspectorValue {
 }
 
 public extension AJRImageAdjustment {
+    /// This key is special, and never used to displays, or an associated set value. It's mostly just used by notify to indicate that all keys may have changed.
+    static let all = AJRImageAdjustment("all", min: 0.0, default: 0.0, max: 0.0)
     static let exposure = AJRImageAdjustment("exposure", min: -10.0, default: 0.0, max: 10.0)
     static let contrast = AJRImageAdjustment("contrast", min: 0.25, default: 1.0, max: 4.0)
     static let highlights = AJRImageAdjustment("highlights", min: 0.0, default: 0.0, max: 1.0)
@@ -57,27 +61,33 @@ public extension AJRImageAdjustment {
     static var tint = AJRImageAdjustment("tint", min: -150.0, default: 0.0, max: 150.0)
     static var sepia = AJRImageAdjustment("sepia", min:0.0, default: 0.0, max: 1.0)
     static var sharpness = AJRImageAdjustment("sharpness", min: -1.0, default: 0.0, max: 1.0)
+    static var allKeys = [exposure, contrast, highlights, shadows, saturation, temperature, tint, sepia, sharpness]
 }
 
 public func AJRImageAdjustmentFromString(_ string: String) -> AJRImageAdjustment? {
-    switch string.lowercased() {
-    case AJRImageAdjustment.exposure.rawValue: return .exposure
-    case AJRImageAdjustment.contrast.rawValue: return .contrast
-    case AJRImageAdjustment.highlights.rawValue: return .highlights
-    case AJRImageAdjustment.shadows.rawValue: return .shadows
-    case AJRImageAdjustment.saturation.rawValue: return .saturation
-    case AJRImageAdjustment.temperature.rawValue: return .temperature
-    case AJRImageAdjustment.tint.rawValue: return .tint
-    case AJRImageAdjustment.sepia.rawValue: return .sepia
-    case AJRImageAdjustment.sharpness.rawValue: return .sharpness
-    default: return nil
+    let lower = string.lowercased()
+    for key in AJRImageAdjustment.allKeys {
+        if lower == key.rawValue { return key }
     }
+    return nil
 }
 
 
 private extension NSCoder {
+    func encode(_ value: CGFloat, forKey key: AJRImageAdjustment) -> Void {
+        encode(value, forKey: key.rawValue)
+    }
     func decodeCGFloat(forKey key: AJRImageAdjustment) -> CGFloat {
         return self.decodeCGFloat(forKey: key.rawValue, defaultValue: key.default)
+    }
+}
+
+private extension AJRXMLCoder {
+    func encode(_ value: CGFloat, forKey key: AJRImageAdjustment) {
+        encode(value, forKey: key.rawValue)
+    }
+    func decodeCGFloat(forKey key: AJRImageAdjustment, block: @escaping (_:CGFloat) -> Void) -> Void {
+        decodeCGFloat(forKey: key.rawValue, setter: block)
     }
 }
 
@@ -87,129 +97,117 @@ public class AJRImageAdjustments: NSObject, NSCopying, AJRXMLCoding, NSCoding {
     public static let identity = AJRImageAdjustments(editable: false)
     public private(set) var editable : Bool = true
 
-    private var _exposure : CGFloat = AJRImageAdjustment.exposure.default
+    private var _values = [AJRImageAdjustment: CGFloat]()
+    private subscript(_ key: AJRImageAdjustment, notify: Bool = true) -> CGFloat {
+        get { return _value(for: key) }
+        set { _setValue(newValue, for: key, notify: notify) }
+    }
+    internal func _value(for key: AJRImageAdjustment) -> CGFloat {
+        return _values[key] ?? key.default
+    }
+    internal func _setValue(_ value: CGFloat, for key: AJRImageAdjustment, notify: Bool = true) -> Void {
+        assert(editable, "An attempt was made to mutate an immutable AJRImageAdjustments object. You probaby forgot to make a copy of the identity instance before mutating.")
+        if _values[key] != value {
+            _values[key] = value
+            if notify {
+                notifyChangeObservers(ofChange: key)
+            }
+        }
+    }
     dynamic open var exposure : CGFloat {
-        get {
-            return _exposure
-        }
-        set {
-            if editable {
-                _exposure = newValue
-                notifyChangeObservers(ofChange: .exposure)
-            }
-        }
+        get { return self[.exposure] }
+        set { self[.exposure] = newValue }
     }
-    private var _contrast: CGFloat = AJRImageAdjustment.contrast.default
     dynamic open var contrast: CGFloat {
-        get {
-            return _contrast
-        }
-        set {
-            if editable {
-                _contrast = newValue
-                notifyChangeObservers(ofChange: .contrast)
-            }
-        }
+        get { return self[.contrast] }
+        set { self[.contrast] = newValue }
     }
-    private var _highlights: CGFloat = AJRImageAdjustment.highlights.default
     dynamic open var highlights: CGFloat {
-        get {
-            return _highlights
-        }
-        set {
-            if editable {
-                _highlights = newValue
-                notifyChangeObservers(ofChange: .highlights)
-            }
-        }
+        get { return self[.highlights] }
+        set { self[.highlights] = newValue }
     }
-    private var _shadows: CGFloat = AJRImageAdjustment.shadows.default
     dynamic open var shadows: CGFloat {
-        get {
-            return _shadows
-        }
-        set {
-            if editable {
-                _shadows = newValue
-                notifyChangeObservers(ofChange: .shadows)
-            }
-        }
+        get { return self[.shadows] }
+        set { self[.shadows] = newValue }
     }
-    private var _saturation: CGFloat = AJRImageAdjustment.saturation.default
     dynamic open var saturation: CGFloat {
-        get {
-            return _saturation
-        }
-        set {
-            if editable {
-                _saturation = newValue
-                notifyChangeObservers(ofChange: .saturation)
-            }
-        }
+        get { return self[.saturation] }
+        set { self[.saturation] = newValue }
     }
-    private var _temperature: CGFloat = AJRImageAdjustment.temperature.default
     dynamic open var temperature: CGFloat {
-        get {
-            return _temperature
-        }
-        set {
-            if editable {
-                _temperature = newValue
-                notifyChangeObservers(ofChange: .temperature)
-            }
-        }
+        get { return self[.temperature] }
+        set { self[.temperature] = newValue }
     }
-    private var _tint: CGFloat = AJRImageAdjustment.tint.default
     dynamic open var tint: CGFloat {
-        get {
-            return _tint
-        }
-        set {
-            if editable {
-                _tint = newValue
-                notifyChangeObservers(ofChange: .tint)
-            }
-        }
+        get { return self[.tint] }
+        set { self[.tint] = newValue }
     }
-    private var _sepia: CGFloat = AJRImageAdjustment.sepia.default
     dynamic open var sepia: CGFloat {
-        get {
-            return _sepia
-        }
-        set {
-            if editable {
-                _sepia = newValue
-                notifyChangeObservers(ofChange: .sepia)
-            }
-        }
+        get { return self[.sepia] }
+        set { self[.sepia] = newValue }
     }
-    private var _sharpness: CGFloat = AJRImageAdjustment.sharpness.default
     dynamic open var sharpness: CGFloat {
-        get {
-            return _sharpness
-        }
-        set {
-            if editable {
-                _sharpness = newValue
-                notifyChangeObservers(ofChange: .sharpness)
-            }
-        }
+        get { return self[.sharpness] }
+        set { self[.sharpness] = newValue }
     }
 
     // MARK: - Creation
 
     required public override init() {
+        for key in AJRImageAdjustment.allKeys {
+            _values[key] = key.default
+        }
         super.init()
     }
 
-    public init(editable: Bool = true) {
-        super.init()
+    public convenience init(editable: Bool = true) {
+        self.init()
+        self.editable = editable
     }
 
     // MARK: - Utilities
 
     open var isIdentity: Bool {
         return self == .identity
+    }
+
+    open func imageByApplying(toAllRepresentationsIn image: NSImage) -> NSImage? {
+        let newImage = NSImage(size: image.size)
+
+        for representation in image.representations {
+            if let cgImage = imageByApplying(to: representation.ajr_CGImage()) {
+                newImage.addRepresentation(NSBitmapImageRep(cgImage: cgImage))
+            }
+        }
+
+        return newImage
+    }
+
+    open func reset() -> Void {
+        for key in AJRImageAdjustment.allKeys {
+            _setValue(key.default, for: key, notify: false)
+        }
+        notifyChangeObservers(ofChange: .all)
+    }
+
+    private static let imageContext = CIContext()
+
+    open func imageByApplying(to image: CGImage?) -> CGImage? {
+        guard let image else { return nil }
+
+        let sourceImage = CIImage(cgImage: image)
+        var outputImage = sourceImage
+
+        for stage in Self.filterStages {
+            outputImage = stage(outputImage, self)
+        }
+
+        return Self.imageContext.createCGImage(
+            outputImage,
+            from: sourceImage.extent,
+            format: .RGBA8,
+            colorSpace: image.colorSpace
+        )
     }
 
     // MARK: - Observation
@@ -238,16 +236,17 @@ public class AJRImageAdjustments: NSObject, NSCopying, AJRXMLCoding, NSCoding {
     // MARK: - NSCopying
 
     open func copy(with zone: NSZone? = nil) -> Any {
+        self.copy(mutable: true) as! AJRImageAdjustments
+    }
+
+    open func copy(mutable copyIsMutable: Bool = true) -> Any {
         let copy = AJRImageAdjustments()
-        copy.exposure = exposure
-        copy.contrast = contrast
-        copy.highlights = highlights
-        copy.shadows = shadows
-        copy.saturation = saturation
-        copy.temperature = temperature
-        copy.tint = tint
-        copy.sepia = sepia
-        copy.sharpness = sharpness
+        for key in AJRImageAdjustment.allKeys {
+            copy[key] = self[key]
+        }
+        if !copyIsMutable {
+            copy.editable = false
+        }
         return copy
     }
 
@@ -291,61 +290,155 @@ public class AJRImageAdjustments: NSObject, NSCopying, AJRXMLCoding, NSCoding {
     }
 
     public func encode(with coder: AJRXMLCoder) {
-        coder.encode(exposure, forKey: AJRImageAdjustment.exposure.rawValue)
-        coder.encode(contrast, forKey: AJRImageAdjustment.contrast.rawValue)
-        coder.encode(highlights, forKey: AJRImageAdjustment.highlights.rawValue)
-        coder.encode(shadows, forKey: AJRImageAdjustment.shadows.rawValue)
-        coder.encode(saturation, forKey: AJRImageAdjustment.saturation.rawValue)
-        coder.encode(temperature, forKey: AJRImageAdjustment.temperature.rawValue)
-        coder.encode(tint, forKey: AJRImageAdjustment.tint.rawValue)
-        coder.encode(sepia, forKey: AJRImageAdjustment.sepia.rawValue)
-        coder.encode(sharpness, forKey: AJRImageAdjustment.sharpness.rawValue)
+        for key in AJRImageAdjustment.allKeys {
+            if self[key] != key.default {
+                coder.encode(self[key], forKey: key)
+            }
+        }
+        if !editable {
+            coder.encode(editable, forKey: "editble")
+        }
     }
 
     public func decode(with coder: AJRXMLCoder) {
-        coder.decodeCGFloat(forKey: AJRImageAdjustment.exposure.rawValue) { self.exposure = $0 }
-        coder.decodeCGFloat(forKey: AJRImageAdjustment.contrast.rawValue) { self.contrast = $0 }
-        coder.decodeCGFloat(forKey: AJRImageAdjustment.highlights.rawValue) { self.highlights = $0 }
-        coder.decodeCGFloat(forKey: AJRImageAdjustment.shadows.rawValue) { self.shadows = $0 }
-        coder.decodeCGFloat(forKey: AJRImageAdjustment.saturation.rawValue) { self.saturation = $0 }
-        coder.decodeCGFloat(forKey: AJRImageAdjustment.temperature.rawValue) { self.temperature = $0 }
-        coder.decodeCGFloat(forKey: AJRImageAdjustment.tint.rawValue) { self.tint = $0 }
-        coder.decodeCGFloat(forKey: AJRImageAdjustment.sepia.rawValue) { self.sepia = $0 }
-        coder.decodeCGFloat(forKey: AJRImageAdjustment.sharpness.rawValue) { self.sharpness = $0 }
+        editable = true
+        for key in AJRImageAdjustment.allKeys {
+            // We do this, because the XML coder doesn't call the call back if there's no key present. As such, we set the value to it's default here, and then allow that to be overridden if the key is found. This is important, because we're not going encode values that are the default.
+            _setValue(key.default, for: key, notify: false)
+            coder.decodeCGFloat(forKey: key) { self._setValue($0, for: key, notify: false) }
+        }
+        coder.decodeBool(forKey: "editble") { self.editable = $0 }
     }
 
     // MARK: - NSCoding
 
     public func encode(with coder: NSCoder) {
-        coder.encode(exposure, forKey: AJRImageAdjustment.exposure.rawValue)
-        coder.encode(contrast, forKey: AJRImageAdjustment.contrast.rawValue)
-        coder.encode(highlights, forKey: AJRImageAdjustment.highlights.rawValue)
-        coder.encode(shadows, forKey: AJRImageAdjustment.shadows.rawValue)
-        coder.encode(saturation, forKey: AJRImageAdjustment.saturation.rawValue)
-        coder.encode(temperature, forKey: AJRImageAdjustment.temperature.rawValue)
-        coder.encode(tint, forKey: AJRImageAdjustment.tint.rawValue)
-        coder.encode(sepia, forKey: AJRImageAdjustment.sepia.rawValue)
-        coder.encode(sharpness, forKey: AJRImageAdjustment.sharpness.rawValue)
+        for (key, value) in _values {
+            coder.encode(value, forKey: key)
+        }
         coder.encode(editable, forKey: "editable")
     }
 
     public required init?(coder: NSCoder) {
         super.init()
+
+        editable = true
+        for key in AJRImageAdjustment.allKeys {
+            self._setValue(coder.decodeCGFloat(forKey: key), for: key, notify: false)
+        }
         editable = coder.decodeBool(forKey: "editable", defaultValue: true)
-        // These assign to the private variables, because we may not be editable, but this is the one place we are allowed to edit these values.
-        _exposure = coder.decodeCGFloat(forKey: .exposure)
-        _contrast = coder.decodeCGFloat(forKey: .contrast)
-        _highlights = coder.decodeCGFloat(forKey: .highlights)
-        _shadows = coder.decodeCGFloat(forKey: .shadows)
-        _saturation = coder.decodeCGFloat(forKey: .saturation)
-        _temperature = coder.decodeCGFloat(forKey: .temperature)
-        _tint = coder.decodeCGFloat(forKey: .tint)
-        _sepia = coder.decodeCGFloat(forKey: .sepia)
-        _sharpness = coder.decodeCGFloat(forKey: .sharpness)
     }
 
     public func value(forKey key: AJRImageAdjustment) -> CGFloat {
         return value(forKeyPath: key.rawValue) as? CGFloat ?? 0
     }
 
+}
+
+private extension AJRImageAdjustments {
+
+    typealias FilterStage = (
+        _ image: CIImage,
+        _ adjustments: AJRImageAdjustments
+    ) -> CIImage
+
+    static let filterStages: [FilterStage] = [
+        applyExposure,
+        applyColorControls,
+        applyHighlightAndShadow,
+        applyTemperatureAndTint,
+        applySepia,
+        applySharpness,
+    ]
+
+}
+
+private func applyExposure(to image: CIImage, adjustments: AJRImageAdjustments) -> CIImage {
+    guard adjustments.exposure != AJRImageAdjustment.exposure.default else {
+        return image
+    }
+
+    let filter = CIFilter.exposureAdjust()
+    filter.inputImage = image
+    filter.ev = Float(adjustments.exposure)
+
+    return filter.outputImage ?? image
+}
+
+private func applyColorControls(to image: CIImage, adjustments: AJRImageAdjustments) -> CIImage {
+    guard adjustments.contrast != AJRImageAdjustment.contrast.default
+            || adjustments.saturation != AJRImageAdjustment.saturation.default else {
+        return image
+    }
+
+    let filter = CIFilter.colorControls()
+    filter.inputImage = image
+    filter.contrast = Float(adjustments.contrast)
+    filter.saturation = Float(adjustments.saturation)
+    filter.brightness = 0.0
+
+    return filter.outputImage ?? image
+}
+
+private func applyHighlightAndShadow(to image: CIImage, adjustments: AJRImageAdjustments) -> CIImage {
+    guard adjustments.highlights != AJRImageAdjustment.highlights.default
+            || adjustments.shadows != AJRImageAdjustment.shadows.default else {
+        return image
+    }
+
+    let filter = CIFilter.highlightShadowAdjust()
+    filter.inputImage = image
+    filter.highlightAmount = Float(
+        1.0 - adjustments.highlights * 0.7
+    )
+    filter.shadowAmount = Float(adjustments.shadows)
+
+    return filter.outputImage ?? image
+}
+
+private func applyTemperatureAndTint(to image: CIImage, adjustments: AJRImageAdjustments) -> CIImage {
+    guard adjustments.temperature != AJRImageAdjustment.temperature.default
+            || adjustments.tint != AJRImageAdjustment.tint.default else {
+        return image
+    }
+
+    let filter = CIFilter.temperatureAndTint()
+    filter.inputImage = image
+    filter.neutral = CIVector(x: 6500.0, y: 0.0)
+    filter.targetNeutral = CIVector(
+        x: adjustments.temperature,
+        y: adjustments.tint
+    )
+
+    return filter.outputImage ?? image
+}
+
+private func applySepia(to image: CIImage, adjustments: AJRImageAdjustments) -> CIImage {
+    guard adjustments.sepia != AJRImageAdjustment.sepia.default else {
+        return image
+    }
+
+    let filter = CIFilter.sepiaTone()
+    filter.inputImage = image
+    filter.intensity = Float(adjustments.sepia)
+
+    return filter.outputImage ?? image
+}
+
+private  func applySharpness(to image: CIImage, adjustments: AJRImageAdjustments) -> CIImage {
+    if adjustments.sharpness < 0.0 {
+        let filter = CIFilter.gaussianBlur()
+        filter.inputImage = image
+        filter.radius = Float(-adjustments.sharpness * 5.0)
+        return filter.outputImage?.cropped(to: image.extent) ?? image
+    }
+
+    if adjustments.sharpness > 0.0 {
+        let filter = CIFilter.sharpenLuminance()
+        filter.inputImage = image
+        filter.sharpness = Float(adjustments.sharpness * 2.0)
+        return filter.outputImage ?? image
+    }
+
+    return image
 }
