@@ -35,6 +35,7 @@
 #import "NSAffineTransform+Extensions.h"
 #import "NSGradient+Extensions.h"
 #import "NSGraphicsContext+Extensions.h"
+#import "NSImage+Extensions.h"
 
 #import <AJRFoundation/AJRFoundation.h>
 #import <AJRInterfaceFoundation/AJRInterfaceFoundation.h>
@@ -44,6 +45,8 @@
 - (void)_adjustFocusRingLocation:(NSPoint)offset;
 
 @end
+
+static CGFloat cornerRadius = 10.0;
 
 @implementation AJRURLFieldCell {
 	NSImage *_icon;
@@ -78,7 +81,7 @@
 
 - (NSImage *)displayIcon {
 	if (_icon == nil) {
-		return [AJRImages imageNamed:@"AJRWebGenericLocation" forClass:[AJRURLFieldCell class]];
+        return [[NSImage imageWithSystemSymbolName:@"globe" accessibilityDescription:nil] ajr_imageTintedWithColor:[NSColor selectedControlColor]];
 	}
 	return _icon;
 }
@@ -97,8 +100,8 @@
 
 - (NSRect)textRectForBounds:(NSRect)cellFrame {
     NSRect frame = [self titleRectForBounds:cellFrame];
-    frame.origin.x += 20.0;
-    frame.size.width -= 40.0;
+    frame.origin.x += 30.0;
+    frame.size.width -= 50.0;
     return frame;
 }
 
@@ -106,7 +109,7 @@
 	NSImage	*locationImage = [self displayIcon];
 	NSRect imageFrame = cellFrame;
 	
-	imageFrame.origin.x += 3;
+	imageFrame.origin.x += 10;
 	imageFrame.origin.y += (cellFrame.size.height - 16.0) / 2.0;
 	imageFrame.size.height = 16.0;
 	imageFrame.size.width = 16.0;
@@ -120,14 +123,14 @@
 	[super selectWithFrame:aRect inView:controlView editor:textObj delegate:anObject start:selStart length:selLength];
 	
 	frame = [[textObj superview] frame];
-	frame.origin.x += 18.0;
-	frame.size.width -= 40.0;
+	frame.origin.x += 25.0;
+	frame.size.width -= 47.0;
 	[[textObj superview] setFrame:frame];
 	[(_NSKeyboardFocusClipView *)[textObj superview] _adjustFocusRingLocation:(NSPoint){-18, 0}];
 }
 
 - (NSBezierPath *)pathForBorderWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
-	NSBezierPath *path = [NSBezierPath bezierPathWithRoundedRect:cellFrame xRadius:4.0 yRadius:4.0];
+	NSBezierPath *path = [NSBezierPath bezierPathWithRoundedRect:cellFrame xRadius:cornerRadius yRadius:cornerRadius];
 	[path setLineWidth:1.0 / [[[controlView window] screen] backingScaleFactor]];
 	return path;
 }
@@ -192,7 +195,7 @@
 
 - (void)drawFocusRingMaskWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 	CGFloat inset = 1.0 / [[[controlView window] screen] backingScaleFactor];
-	NSBezierPath *path = [NSBezierPath bezierPathWithRoundedRect:NSInsetRect(cellFrame, inset, inset) xRadius:3.0 yRadius:3.0];
+	NSBezierPath *path = [NSBezierPath bezierPathWithRoundedRect:NSInsetRect(cellFrame, inset, inset) xRadius:cornerRadius yRadius:cornerRadius];
 	[path setLineWidth:1.0];
 	[[NSColor blackColor] set];
 	[path fill];

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24506"/>
         <plugIn identifier="com.apple.WebKit2IBPlugin" version="24506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -498,7 +497,7 @@
                                 <toolbarItem implicitItemIdentifier="87C2C38C-DAB1-40DE-8330-CC0AE5C5765F" explicitItemIdentifier="navigationSegments" label="Navigation" paletteLabel="Navigation" sizingBehavior="auto" id="dax-yW-u9p">
                                     <nil key="toolTip"/>
                                     <segmentedControl key="view" verticalHuggingPriority="750" id="JeJ-Dl-jGR">
-                                        <rect key="frame" x="3" y="14" width="57" height="23"/>
+                                        <rect key="frame" x="1" y="14" width="61" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="wbr-5f-dQl">
                                             <font key="font" metaFont="system"/>

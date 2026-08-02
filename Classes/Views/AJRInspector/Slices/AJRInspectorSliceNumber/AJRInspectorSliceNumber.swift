@@ -39,6 +39,7 @@ open class AJRInspectorSliceNumber: AJRInspectorSlice {
     @IBOutlet open var subtitleField : NSTextField? // Only set if we have a subtitle key.
     
     open var enabledKey : AJRInspectorKey<Bool>?
+    open var editableKey : AJRInspectorKey<Bool>?
     open var subtitleKey : AJRInspectorKey<String>?
     open var valueWhenNilKey : AJRInspectorKey<String>!
     open var mergeWithRightKey : AJRInspectorKey<Bool>?
@@ -62,6 +63,7 @@ open class AJRInspectorSliceNumber: AJRInspectorSlice {
     open override func populateKnownKeys(_ keys: inout Set<String>) -> Void {
         super.populateKnownKeys(&keys)
         keys.insert("enabled")
+        keys.insert("editable")
         keys.insert("subtitle")
         keys.insert("valueWhenNil")
         keys.insert("mergeWithRight")
@@ -145,10 +147,29 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
     open override var nibName: String? {
         return subtitleKey?.value == nil ? "AJRInspectorSliceNumber" : "AJRInspectorSliceNumberWithLabel"
     }
-    
+
+    internal func updateEnabledState(forced: Bool? = nil) {
+        let state = forced ?? self.enabledKey?.value ?? true
+        numberField.isEditable = state
+        stepper.isEnabled = state
+
+        if editableKey?.value ?? true {
+            numberField.isBordered = true
+            numberField.drawsBackground = true
+            numberField.alignment = numberField.userInterfaceLayoutDirection == .rightToLeft ? .left : .right // Should become .opposite in later SDK's.
+            stepper.isHidden = false
+        } else {
+            numberField.isBordered = false
+            numberField.drawsBackground = false
+            numberField.alignment = .natural
+            stepper.isHidden = true
+        }
+    }
+
     open override func buildView(from element: XMLElement) throws {
         valueKey = try AJRInspectorKey(key: "value", xmlElement: element, inspectorElement: self)
         enabledKey = try AJRInspectorKey(key: "enabled", xmlElement: element, inspectorElement: self)
+        editableKey = try AJRInspectorKey(key: "editable", xmlElement: element, inspectorElement: self)
         minValueKey = try AJRInspectorKey(key: "minValue", xmlElement: element, inspectorElement: self)
         maxValueKey = try AJRInspectorKey(key: "maxValue", xmlElement: element, inspectorElement: self)
         subtitleKey = try AJRInspectorKey(key: "subtitle", xmlElement: element, inspectorElement: self)
@@ -167,57 +188,56 @@ open class AJRInspectorSliceNumberTyped<T: AJRInspectorValue>: AJRInspectorSlice
         numberField.font = NSFont.monospacedDigitSystemFont(ofSize: viewController!.fontSize, weight: .regular)
         numberField.formatter = defaultFormatter
         
-        weak let weakSelf = self
-        valueKey?.addObserver {
-            if let strongSelf = weakSelf {
-                switch strongSelf.valueKey?.selectionType ?? .none {
-                case .none:
-                    strongSelf.numberField.stringValue = ""
-                    strongSelf.numberField.placeholderString = strongSelf.isMerged ? "—" : AJRObjectInspectorViewController.translator["No Selection"]
-                    strongSelf.numberField.isEditable = false
-                    strongSelf.stepper.isEnabled = false
-                case .multiple:
-                    strongSelf.numberField.stringValue = ""
-                    strongSelf.numberField.placeholderString = strongSelf.isMerged ? "—" : AJRObjectInspectorViewController.translator["Multiple Selection"]
-                    strongSelf.numberField.isEditable = strongSelf.enabledKey?.value ?? true
-                    strongSelf.stepper.isEnabled = false
-                case .single:
-                    strongSelf.numberField.placeholderString = strongSelf.placeholderStringKey?.value ?? ""
-                    strongSelf.numberField.isEditable = strongSelf.enabledKey?.value ?? true
-                    strongSelf.stepper.isEnabled = strongSelf.enabledKey?.value ?? true
-                    strongSelf.updateSingleDisplayedValue()
-                }
+        valueKey?.addObserver { [weak self] in
+            guard let self else { return }
+            switch self.valueKey?.selectionType ?? .none {
+            case .none:
+                self.numberField.stringValue = ""
+                self.numberField.placeholderString = self.isMerged ? "—" : AJRObjectInspectorViewController.translator["No Selection"]
+                self.numberField.isEditable = false
+                self.updateEnabledState(forced: false)
+            case .multiple:
+                self.numberField.stringValue = ""
+                self.numberField.placeholderString = self.isMerged ? "—" : AJRObjectInspectorViewController.translator["Multiple Selection"]
+                self.updateEnabledState()
+            case .single:
+                self.numberField.placeholderString = self.placeholderStringKey?.value ?? ""
+                self.updateEnabledState()
+                self.updateSingleDisplayedValue()
             }
         }
-        enabledKey?.addObserver {
-            weakSelf?.stepper.isEnabled = weakSelf?.enabledKey?.value ?? true
+        enabledKey?.addObserver { [weak self] in
+            self?.updateEnabledState()
         }
-        minValueKey?.addObserver {
-            weakSelf?.stepper.minValue = weakSelf?.minValueKey?.value?.doubleValue ?? 0.0
+        editableKey?.addObserver { [weak self] in
+            self?.updateEnabledState()
         }
-        maxValueKey?.addObserver {
-            weakSelf?.stepper.maxValue = weakSelf?.maxValueKey?.value?.doubleValue ?? 0.0
+        minValueKey?.addObserver { [weak self] in
+            self?.stepper.minValue = self?.minValueKey?.value?.doubleValue ?? Double(Int.min)
         }
-        subtitleKey?.addObserver  {
-            weakSelf?.subtitleField?.stringValue = weakSelf?.subtitleKey?.value ?? ""
+        maxValueKey?.addObserver { [weak self] in
+            self?.stepper.maxValue = self?.maxValueKey?.value?.doubleValue ?? Double(Int.max)
         }
-        incrementKey?.addObserver {
-            weakSelf?.stepper.increment = weakSelf?.incrementKey?.value?.doubleValue ?? 1.0
+        subtitleKey?.addObserver  { [weak self] in
+            self?.subtitleField?.stringValue = self?.subtitleKey?.value ?? ""
+        }
+        incrementKey?.addObserver { [weak self] in
+            self?.stepper.increment = self?.incrementKey?.value?.doubleValue ?? 1.0
         }
         mergeWithRightKey?.addObserver {
             // Do we do anything here? We don't actually expect this to change during run time.
         }
-        formatKey?.addObserver {
-            weakSelf?.updateFormatter()
+        formatKey?.addObserver { [weak self] in
+            self?.updateFormatter()
         }
-        unitsKey?.addObserver {
-            weakSelf?.updateFormatter()
+        unitsKey?.addObserver { [weak self] in
+            self?.updateFormatter()
         }
-        displayUnitsKey?.addObserver {
-            weakSelf?.updateFormatter()
+        displayUnitsKey?.addObserver { [weak self] in
+            self?.updateFormatter()
         }
-        displayInchesAsFractionsKey?.addObserver {
-            weakSelf?.updateFormatter()
+        displayInchesAsFractionsKey?.addObserver { [weak self] in
+            self?.updateFormatter()
         }
     }
     

@@ -47,6 +47,10 @@ public extension String {
     static let sfFlipHorizontal = "flip.horizontal"
     static let sfFlipVertical = "arrow.up.and.down.righttriangle.up.righttriangle.down"
     static let sfCrop = "crop"
+    static let sfHome = "house"
+    static let sfNavigateBack = "chevron.backward"
+    static let sfNavigateForward = "chevron.forward"
+    static let sfSafari = "safari"
 }
 
 public extension NSImage {

@@ -520,7 +520,7 @@ The `level` type displays a "level" control. Basically, it's kind of like a slid
 
 ![Level Slice](Slice_Level.png)
 
-### `integer` and `float` Types
+### `integer`, `float`, and `timeInterval` Types
 
 These are grouped, because they behave identically with the only difference being the underlyning numeric type.
 
@@ -537,6 +537,8 @@ These are grouped, because they behave identically with the only difference bein
 | displayUnits | Unit | The display units of `value`. This is different from the `units`, because it's used to control the actual display. For example, if `units` is "points", you might be displaying in "inches". Changing this will affect the display format. By default, this is the same as `units`. |
 | displayInchesAsFractions | Bool | This is a special case for inches, and when `true`, inches will display using standard inch fractions. For example, "1.5" would display as "1 ½". |
 | placeholderString | String | If the bounds value is `nil`, then this string will be displayed.&star; |
+| editable | Boolean | If `true` the control is fully editable, otherwise it appears without the stepper control and now text border. |
+| enabled | Boolean | If `true` the control is fully editable and the steppers are enabled. Otherwise, the value cannot change, but the value is still displayed in a text field with a stepper control. |
 
 &star; This is one place we have some interesting interactions with Swift and Obj-C. In Obj-C, base C types can never be `nil`. As such, if you want to make use of `placeholderString`, then you have to have a return type of `NSNumber`, which can be `nil`. However, in Swift, you can declare optional numeric types, like `Int?` or `Float?`, but since we make use of Obj-C bindings (to remain comppatible with Obj-C), properties declared with option base types won't work, as they won't be visible to Obj-C as properties. To get around this, you should create a synthetic property that maps your value to Number. For example:
 
