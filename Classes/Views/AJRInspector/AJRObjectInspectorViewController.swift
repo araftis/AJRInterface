@@ -69,14 +69,7 @@ open class AJRObjectInspectorViewController: NSViewController {
             _xmlName = name
         }
     }
-    @IBOutlet open var controller : NSObjectController? {
-        willSet {
-            willChangeValue(forKey: "controller")
-        }
-        didSet {
-            didChangeValue(forKey: "controller")
-        }
-    }
+    @IBOutlet dynamic open var controller : NSObjectController?
     open var inspectorContent : AJRInspectorContent?
     open var labelWidth : CGFloat = 80.0
     open var fontSize : CGFloat = 10.0

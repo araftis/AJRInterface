@@ -116,6 +116,10 @@ open class AJRNavigationController: NSViewController {
 
     // MARK: - Stack Management
 
+    open var activeViewController : NSViewController? {
+        return viewControllerStack.last
+    }
+
     open func setViewControllers(_ viewControllers: [NSViewController], animated: Bool = false) throws {
         guard transitionState == .none else {
             throw NavigationError.transitionInProgress

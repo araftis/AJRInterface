@@ -62,7 +62,7 @@ open class AJRButtonTextField : NSTextField {
             (cell as? AJRButtonTextFieldCell)?.buttonTarget = newValue
         }
     }
-    
+
     open var buttonAction : Selector? {
         get {
             return (cell as? AJRButtonTextFieldCell)?.buttonAction
@@ -71,7 +71,7 @@ open class AJRButtonTextField : NSTextField {
             (cell as? AJRButtonTextFieldCell)?.buttonAction = newValue
         }
     }
-    
+
     open var buttonPosition : AJRButtonTextFieldButtonPosition {
         get {
             return (cell as? AJRButtonTextFieldCell)?.buttonPosition ?? .default
@@ -81,7 +81,7 @@ open class AJRButtonTextField : NSTextField {
             needsDisplay = true
         }
     }
-    
+
     open func setImages(withTemplate templateImage: NSImage?) -> Void {
         if let cell = cell as? AJRButtonTextFieldCell {
             cell.image = templateImage?.ajr_templateImage(with: .secondaryLabelColor)
@@ -89,13 +89,39 @@ open class AJRButtonTextField : NSTextField {
             cell.highlightImage = templateImage?.ajr_templateImage(with: .controlBackgroundColor)
         }
     }
-    
+
     open override func mouseDown(with event: NSEvent) {
         if cell?.hitTest(for: event, in: bounds, of: self) == .trackableArea {
             cell?.trackMouse(with: event, in: bounds, of: self, untilMouseUp: true)
         } else {
             super.mouseDown(with: event)
         }
+    }
+
+    private var measuredWidth: CGFloat = 0.0
+
+    open override func layout() {
+        super.layout()
+
+        if measuredWidth != bounds.width {
+            measuredWidth = bounds.width
+            invalidateIntrinsicContentSize()
+        }
+    }
+
+    open override var intrinsicContentSize: NSSize {
+        guard bounds.width > 0.0, let cell else { return super.intrinsicContentSize }
+
+        let fittingSize = cell.cellSize(
+            forBounds: NSRect(
+                x: 0.0,
+                y: 0.0,
+                width: bounds.width,
+                height: CGFloat.greatestFiniteMagnitude
+            )
+        )
+
+        return NSSize(width: NSView.noIntrinsicMetric, height: ceil(fittingSize.height))
     }
 
 }

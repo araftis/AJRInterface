@@ -75,7 +75,12 @@ open class AJRInspectorSliceFile: AJRInspectorSliceField {
         urlField.buttonAction = #selector(selectFile(_:))
         urlField.buttonPosition = .trailing
         urlField.setImages(withTemplate: AJRImages.image(named: "AJRFileButton", in: Bundle(for: AJRInspectorSliceFont.self)))
-        
+        urlField.lineBreakMode = .byWordWrapping
+        urlField.usesSingleLineMode = false
+        urlField.cell?.isScrollable = false
+        urlField.cell?.wraps = true
+        urlField.maximumNumberOfLines = 0
+
         urlKey?.addObserver { [weak self] in
             guard let self else { return }
             switch self.urlKey?.selectionType ?? .none {
@@ -86,7 +91,7 @@ open class AJRInspectorSliceFile: AJRInspectorSliceField {
             case .multiple:
                 self.urlField.stringValue = ""
                 self.urlField.placeholderString = self.translator["Multiple Selection"]
-                self.urlField.isEnabled = true
+                self.urlField.isEnabled = self.enabledKey?.value ?? true
             case .single:
                 if let url = self.urlKey?.value {
                     if url.isFileURL {
@@ -99,7 +104,7 @@ open class AJRInspectorSliceFile: AJRInspectorSliceField {
                     self.urlField.stringValue = ""
                     self.urlField.placeholderString = self.translator["No File"]
                 }
-                self.urlField.isEnabled = true
+                self.urlField.isEnabled = self.enabledKey?.value ?? true
             }
         }
     }

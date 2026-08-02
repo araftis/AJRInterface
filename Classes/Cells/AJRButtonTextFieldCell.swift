@@ -81,59 +81,96 @@ open class AJRButtonTextFieldCell : NSTextFieldCell {
         return string
     }
 
-    open func textRect(forBounds cellFrame: NSRect, in controlView: NSView) -> NSRect {
-        var textRect = titleRect(forBounds: cellFrame)
-        let textSize = workingAttributedStringValue.size()
+    private static let buttonSpacing: CGFloat = 5.0
+    private static let horizontalInset: CGFloat = 3.0
 
-        textRect.size.width = textSize.width + 4.0
+    open func buttonSize(forBounds bounds: NSRect) -> NSSize {
+        guard let image else { return .zero }
+
+        var size = image.size
+        let availableHeight = max(bounds.height - 4.0, 0.0)
+
+        if size.height > availableHeight, size.height > 0.0 {
+            let scale = availableHeight / size.height
+            size.width *= scale
+            size.height *= scale
+        }
+
+        return size
+    }
+
+    open override func titleRect(forBounds bounds: NSRect) -> NSRect {
+        var textRect = super.titleRect(forBounds: bounds)
+        let buttonSize = buttonSize(forBounds: bounds)
+
+        if buttonSize.width > 0.0 {
+            textRect.size.width -= buttonSize.width + Self.buttonSpacing + Self.horizontalInset
+        }
+
+        textRect.size.width = max(textRect.width, 0.0)
 
         return textRect
     }
 
-    open func iconRect(forBounds cellFrame: NSRect, in controlView: NSView) -> NSRect {
-        let image = self.image!
-        let imageSize = image.size
-        let textRect = self.textRect(forBounds: cellFrame, in: controlView)
-        var imageRect = cellFrame
-        var scale : CGFloat = 1.0
+    open func textRect(forBounds bounds: NSRect, in controlView: NSView) -> NSRect {
+        return titleRect(forBounds: bounds)
+    }
 
-        if textRect.size.width == 0.0 {
-            return .zero
-        }
+//    open func iconRect(forBounds cellFrame: NSRect, in controlView: NSView) -> NSRect {
+//        let image = self.image!
+//        let imageSize = image.size
+//        let textRect = self.textRect(forBounds: cellFrame, in: controlView)
+//        var imageRect = cellFrame
+//        var scale : CGFloat = 1.0
+//
+//        if textRect.size.width == 0.0 {
+//            return .zero
+//        }
+//
+//        if imageSize.height > cellFrame.size.height {
+//            scale = cellFrame.size.height / imageSize.height
+//        }
+//        if imageSize.width * scale > cellFrame.size.width {
+//            scale = cellFrame.size.width / (imageSize.width * scale)
+//        }
+//
+//        if scale != 1.0 {
+//            imageRect.size.width = round(imageSize.width * scale)
+//            imageRect.size.height = round(imageSize.height * scale)
+//        } else {
+//            imageRect.size = imageSize
+//        }
+//
+//        switch buttonPosition {
+//        case .default:
+//            if controlView is NSTableView {
+//                imageRect.origin.x = cellFrame.origin.x + cellFrame.size.width - imageRect.size.width
+//            } else {
+//                imageRect.origin.x += textRect.origin.x + textRect.size.width + 5.0
+//            }
+//        case .followsText:
+//            imageRect.origin.x += textRect.origin.x + textRect.size.width + 5.0
+//        case .trailing:
+//            if controlView is NSTableView {
+//                imageRect.origin.x = cellFrame.origin.x + cellFrame.size.width - imageRect.size.width
+//            } else {
+//                imageRect.origin.x = cellFrame.origin.x + cellFrame.size.width - (imageRect.size.width + 3.0)
+//            }
+//        }
+//        imageRect.origin.y = cellFrame.origin.y + (cellFrame.size.height - imageRect.size.height) / 2.0
+//
+//        return imageRect
+//    }
 
-        if imageSize.height > cellFrame.size.height {
-            scale = cellFrame.size.height / imageSize.height
-        }
-        if imageSize.width * scale > cellFrame.size.width {
-            scale = cellFrame.size.width / (imageSize.width * scale)
-        }
+    open func iconRect(forBounds bounds: NSRect, in controlView: NSView) -> NSRect {
+        let buttonSize = buttonSize(forBounds: bounds)
 
-        if scale != 1.0 {
-            imageRect.size.width = round(imageSize.width * scale)
-            imageRect.size.height = round(imageSize.height * scale)
-        } else {
-            imageRect.size = imageSize
-        }
-
-        switch buttonPosition {
-        case .default:
-            if controlView is NSTableView {
-                imageRect.origin.x = cellFrame.origin.x + cellFrame.size.width - imageRect.size.width
-            } else {
-                imageRect.origin.x += textRect.origin.x + textRect.size.width + 5.0
-            }
-        case .followsText:
-            imageRect.origin.x += textRect.origin.x + textRect.size.width + 5.0
-        case .trailing:
-            if controlView is NSTableView {
-                imageRect.origin.x = cellFrame.origin.x + cellFrame.size.width - imageRect.size.width
-            } else {
-                imageRect.origin.x = cellFrame.origin.x + cellFrame.size.width - (imageRect.size.width + 3.0)
-            }
-        }
-        imageRect.origin.y = cellFrame.origin.y + (cellFrame.size.height - imageRect.size.height) / 2.0
-
-        return imageRect
+        return NSRect(
+            x: bounds.maxX - buttonSize.width - Self.horizontalInset,
+            y: bounds.midY - buttonSize.height / 2.0,
+            width: buttonSize.width,
+            height: buttonSize.height
+        )
     }
 
     open override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
@@ -158,12 +195,12 @@ open class AJRButtonTextFieldCell : NSTextFieldCell {
             buttonImage.draw(in: imageRect, from: NSRect(origin: .zero, size: buttonImage.size), operation: .sourceOver, fraction: 1.0, respectFlipped: true, hints: nil)
         }
 
-        //		NSColor.red.set()
-        //		textRect(forBounds: cellFrame, in: controlView).frame()
-        //		NSColor.blue.set()
-        //		iconRect(forBounds: cellFrame, in: controlView).frame()
-        //		NSColor.green.set()
-        //		titleRect(forBounds: cellFrame).frame()
+//		NSColor.red.set()
+//		textRect(forBounds: cellFrame, in: controlView).frame()
+//		NSColor.blue.set()
+//		iconRect(forBounds: cellFrame, in: controlView).frame()
+//		NSColor.green.set()
+//		titleRect(forBounds: cellFrame).frame()
     }
 
     private typealias TrackMouse = @convention(c) (_ receiver: Any, _ selector: Selector, _ event: NSEvent, _ cellFrame: NSRect, _ controlView: NSView, _ flag: Bool) -> Bool
