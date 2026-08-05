@@ -49,7 +49,7 @@
  */
 @interface NSToolbar (AJRInterfaceExtensions)
 
-- (NSToolbarItem *)toolbarItemForItemIdentifier:(NSString *)identifier;
+- (NSToolbarItem *)toolbarItemForItemIdentifier:(NSToolbarItemIdentifier)identifier;
 
 - (void)translateWithTranslator:(AJRTranslator *)translator;
 

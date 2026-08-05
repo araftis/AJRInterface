@@ -37,7 +37,7 @@
 
 @implementation NSToolbar (AJRInterfaceExtensions)
 
-- (NSToolbarItem *)toolbarItemForItemIdentifier:(NSString *)itemIdentifier {
+- (NSToolbarItem *)toolbarItemForItemIdentifier:(NSToolbarItemIdentifier)itemIdentifier {
     NSArray *items = [self items];
     
     for (NSToolbarItem *item in items) {
