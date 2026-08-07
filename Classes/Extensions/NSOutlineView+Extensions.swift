@@ -36,5 +36,17 @@ public extension NSOutlineView {
     func view<T:NSView>(for item: Any, column: Int) -> T? {
         return view(forItem: item, column: column) as? T
     }
-    
+
+    /**
+     Makes NSOutlineView more Swift friendly by making the return value from row(forItem:) nullable, rather than returning NSNotFound.
+
+     - parameter item: The item you wish to locate.
+
+     - returns: `nil` if the item does not have a row, or otherwise the row index.
+     */
+    func row(for item: Any) -> Int? {
+        let row = row(forItem: item)
+        return row == NSNotFound ? nil : row
+    }
+
 }

@@ -1348,6 +1348,7 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		FAE23E683016CEBD00F21DBC /* AJREditableImageView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AJREditableImageView; sourceTree = "<group>"; };
 		FAE23E7F301C395800F21DBC /* AJRTrackingSlider */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AJRTrackingSlider; sourceTree = "<group>"; };
+		FAE23E803022000000F21DBC /* AJRCountDownView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AJRCountDownView; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1738,6 +1739,7 @@
 				FAFE48E70EC4F10300AE17D0 /* AJRBox */,
 				FA44265E0E98467800545311 /* AJRButtonBar */,
 				FA5862391925C25A001F041A /* AJRColorWell */,
+				FAE23E803022000000F21DBC /* AJRCountDownView */,
 				FAE23E683016CEBD00F21DBC /* AJREditableImageView */,
 				FA2F995F0E93EDDD004F1A14 /* AJRExpansionView */,
 				FAFE4A100EC4FBCB00AE17D0 /* AJRFlippedView */,
@@ -3140,6 +3142,7 @@
 			fileSystemSynchronizedGroups = (
 				FAE23E683016CEBD00F21DBC /* AJREditableImageView */,
 				FAE23E7F301C395800F21DBC /* AJRTrackingSlider */,
+				FAE23E803022000000F21DBC /* AJRCountDownView */,
 			);
 			name = AJRInterface;
 			packageProductDependencies = (
